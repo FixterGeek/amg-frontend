@@ -1,6 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Oval from "./atoms/oval/Oval";
+import Line from "./atoms/line/Line";
+import NumberOval from "./atoms/numberOval/NumberOval";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         >
           Learn React
         </a>
+        <Oval />
+        <NumberOval />
+        <Line />
       </header>
     </div>
   );
