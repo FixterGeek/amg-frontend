@@ -5,7 +5,7 @@ import Label from '../atoms/data_entry/Label';
 import InputField from '../atoms/data_entry/InputField';
 
 function TextField({
-  width, error, success, errorMessage, successMessage, onChange, value, ...others
+  width, error, success, errorMessage, successMessage, onChange, value, label, ...others
 }) {
   return (
     <div
@@ -13,7 +13,7 @@ function TextField({
       style={{ width, color: 'red' }}
     >
       <Label width="100%">
-        Nombre
+        { label }
       </Label>
       <InputField
         width="100%"
@@ -40,6 +40,7 @@ TextField.propTypes = {
   successMessage: PropTypes.string,
   onChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   value: PropTypes.string,
+  label: PropTypes.string,
 };
 
 TextField.defaultProps = {
@@ -50,4 +51,5 @@ TextField.defaultProps = {
   successMessage: 'Perfect!',
   onChange: false,
   value: null,
+  label: 'Field Name',
 };
