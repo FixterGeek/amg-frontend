@@ -3,6 +3,14 @@
 // Unities
 @import "./Unities.scss";
 
+/* Form Entries */
+.input-field-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
 .input-field {
   color: $textPrimary;
   background-color: $clouds;
@@ -32,32 +40,33 @@
   border-bottom: 2px solid $red;
 }
 
+.input-message {
+  margin-top: $smallMargin;
+  min-height: 16px;
+}
+
+.input-after-element {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  background-color: $clouds;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid;
+  box-sizing: border-box;
+}
+
 .input-label {
   color: $textPrimary;
   font-weight: bold;
 }
 
-.Oval-3 {
-  width: 26px;
-  height: 26px;
-  background-color: $textSecondary;
-}
-
-.text {
-  width: 7px;
-  height: 16px;
-  font-family: Avenir;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: $primary;
-}
-
-.Rectangle-4 {
-  width: 325px;
-  height: 1110px;
-  background-color: $secondary;
+/* Layout */
+.full-screen {
+  min-height: 100vh;
+  display: flex;
+  box-sizing: border-box;
 }

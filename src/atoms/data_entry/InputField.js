@@ -1,22 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Input } from 'antd';
+import { Input, Icon } from 'antd';
+
+import colorPalette from '../../styles/palette';
 
 function InputField({
-  onChange, type, value, fontSize, width, error, ...others
+  onChange, type, value, fontSize, width, error, success,
+  successMessage, errorMessage, ...others
 }) {
   // Here start the magic
-  const primaryClasses = error ? 'input-field  input-field__error' : 'input-field';
+  const { red, green } = colorPalette;
+  // eslint-disable-next-line no-nested-ternary
+  const statusColor = error
+    ? { borderColor: red } : success
+      ? { borderColor: green } : { borderColor: 'transparent' };
+
   return (
-    <Input
-      className={primaryClasses}
-      style={{ fontSize, width }}
-      onChange={onChange ? event => onChange(event) : null}
-      type={type}
-      value={value}
-      {...others}
-    />
+    <div className="input-field-container">
+      <Input
+        className="input-field"
+        style={{ fontSize, width, ...statusColor }}
+        onChange={onChange ? event => onChange(event) : null}
+        type={type}
+        value={value}
+        {...others}
+      />
+      {
+        error || success
+          ? (
+            <div
+              className="input-after-element"
+              style={error
+                ? { borderColor: red, color: red } : { borderColor: green, color: green }}
+            >
+              { error ? <Icon type="close" /> : <Icon type="check" /> }
+            </div>
+          )
+          : null
+      }
+      {
+        error || success
+          ? (
+            <div
+              className="input-message"
+              style={error
+                ? { borderColor: red, color: red } : { borderColor: green, color: green }}
+            >
+              { error ? errorMessage : successMessage }
+            </div>
+          )
+          : null
+      }
+    </div>
   );
 }
 
@@ -29,6 +65,9 @@ InputField.propTypes = {
   fontSize: PropTypes.string,
   width: PropTypes.string,
   error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  success: PropTypes.bool,
+  successMessage: PropTypes.string,
 };
 
 InputField.defaultProps = {
@@ -37,4 +76,7 @@ InputField.defaultProps = {
   width: 'auto',
   error: false,
   value: null,
+  errorMessage: null,
+  success: false,
+  successMessage: null,
 };
