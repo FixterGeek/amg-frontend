@@ -1,0 +1,63 @@
+// Color palette
+@import "./Palette.scss";
+// Unities
+@import "./Unities.scss";
+
+.input-field {
+  color: $textPrimary;
+  background-color: $clouds;
+  border: none;
+  height: 50px;
+  padding: $padding;
+  box-sizing: border-box;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-bottom: 2px solid transparent;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid $primary;
+  }
+
+  &:disabled {
+    background-color: $silver;
+  }
+}
+
+.input-field__error {
+  &:focus {
+    border-bottom: 2px solid $red;
+  }
+  border-bottom: 2px solid $red;
+}
+
+.input-label {
+  color: $textPrimary;
+  font-weight: bold;
+}
+
+.Oval-3 {
+  width: 26px;
+  height: 26px;
+  background-color: $textSecondary;
+}
+
+.text {
+  width: 7px;
+  height: 16px;
+  font-family: Avenir;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $primary;
+}
+
+.Rectangle-4 {
+  width: 325px;
+  height: 1110px;
+  background-color: $secondary;
+}
