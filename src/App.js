@@ -13,7 +13,10 @@ function App() {
 
   return (
     <div>
-      <TextField onChange={handleChange} value={state} />
+      <TextField
+        onChange={handleChange}
+        value={state}
+      />
     </div>
   );
 }
