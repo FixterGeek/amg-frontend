@@ -1,8 +1,12 @@
 import React from 'react';
 
+import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
+
 function Login() {
   return (
-    <div>Login</div>
+    <FullScreenContainer>
+      ok
+    </FullScreenContainer>
   );
 }
 

@@ -66,3 +66,13 @@
   color: $textPrimary;
   font-weight: bold;
 }
+
+
+
+
+/* Layout */
+.full-screen {
+  min-height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+}
