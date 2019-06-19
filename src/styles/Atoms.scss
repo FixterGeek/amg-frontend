@@ -70,3 +70,23 @@
   display: flex;
   box-sizing: border-box;
 }
+
+/* Logo */
+
+.gastro {
+  width: 174px;
+  height: 48px;
+  font-family: Avenir;
+  font-size: 35px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  text-align: center;
+  color: $secondary;
+}
+
+.gastro .text-style-1 {
+  color: $primary;
+}

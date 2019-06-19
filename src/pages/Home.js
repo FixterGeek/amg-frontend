@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
+import Gastro from "../atoms/gastro/Gastro";
 
 function Home() {
-  return (
-    <div>Home</div>
-  );
+  return <Gastro />;
 }
 
 export default Home;
