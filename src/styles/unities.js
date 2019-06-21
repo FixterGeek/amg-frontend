@@ -4,6 +4,14 @@ const unities = {
     lateralSpace: '64px',
     paddingBottom: '40px',
   },
+  size: {
+    smallPadding: '8px',
+    paddind: '16px',
+    largePadding: '32px',
+    smallMargin: '8px',
+    margin: '16px',
+    largeMargin: '32px',
+  },
 };
 
 export default unities;

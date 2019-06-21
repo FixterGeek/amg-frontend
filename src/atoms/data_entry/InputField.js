@@ -13,13 +13,13 @@ function InputField({
   const { red, green } = colorPalette;
   // eslint-disable-next-line no-nested-ternary
   const statusColor = error
-    ? { borderColor: red } : success
-      ? { borderColor: green } : { borderColor: 'transparent' };
+    ? 'input-error' : success
+      ? 'input-success' : '';
 
   return (
     <div className="input-field-container">
       <Input
-        className="input-field"
+        className={`input-field ${statusColor}`}
         style={{ fontSize, width, ...statusColor }}
         onChange={onChange ? event => onChange(event) : null}
         type={type}

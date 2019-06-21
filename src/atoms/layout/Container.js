@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { layout } from '../../styles/theme';
 
 function Container({
   children, justifyContent, alignItems, lateralSpace, paddingTop,
-  paddingBottom, flexWrap, height, width, className,
+  paddingBottom, flexWrap, height, width, className, bgColor, style,
+  flexGrow, boxSizing,
 }) {
   return (
     <div
@@ -20,6 +20,10 @@ function Container({
         flexWrap,
         height,
         width,
+        flexGrow,
+        backgroundColor: bgColor,
+        boxSizing,
+        ...style,
       }}
     >
       { children }
@@ -30,7 +34,8 @@ function Container({
 export default Container;
 
 Container.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children:
+    PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
   justifyContent: PropTypes.string,
   alignItems: PropTypes.string,
   lateralSpace: PropTypes.string,
@@ -40,6 +45,11 @@ Container.propTypes = {
   height: PropTypes.string,
   width: PropTypes.string,
   className: PropTypes.string,
+  bgColor: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.object,
+  flexGrow: PropTypes.number,
+  boxSizing: PropTypes.string,
 };
 
 Container.defaultProps = {
@@ -52,4 +62,8 @@ Container.defaultProps = {
   height: '100%',
   width: '100%',
   className: '',
+  bgColor: 'transparent',
+  style: {},
+  flexGrow: 1,
+  boxSizing: 'border-box',
 };
