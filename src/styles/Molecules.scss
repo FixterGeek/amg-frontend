@@ -8,8 +8,14 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-top: $smallMargin;
-  margin-bottom: $smallMargin;
+
+  &:last-child {
+    margin-bottom: 0!important;
+  }
+
+  &:first-child {
+    margin-top: 0!important;
+  }
 
   label {
     margin-bottom: $smallMargin;

@@ -27,7 +27,8 @@ function FullScreenContainer({
 export default FullScreenContainer;
 
 FullScreenContainer.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children:
+    PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
   justifyContent: PropTypes.string,
   alignItems: PropTypes.string,
   lateralSpace: PropTypes.string,

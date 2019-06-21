@@ -15,32 +15,49 @@
 }
 
 .input-field {
-  color: $textPrimary;
-  background-color: $clouds;
-  border: none;
-  height: 50px;
-  padding: $padding;
-  box-sizing: border-box;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  border-bottom: 2px solid transparent;
+  border-radius: 0px!important;
+  color: $textPrimary!important;
+  background-color: $clouds!important;
+  border: none!important;
+  height: 50px!important;
+  padding: $padding!important;
+  box-sizing: border-box!important;
+  -moz-appearance: none!important;
+  -webkit-appearance: none!important;
+  appearance: none!important;
+  border-bottom: 2px solid transparent!important;
 
   &:focus {
-    outline: none;
-    border-bottom: 2px solid $primary;
+    outline: none!important;
+    border-bottom: 2px solid $primary!important;
   }
 
   &:disabled {
-    background-color: $silver;
+    background-color: $silver!important;
   }
 }
 
 .input-field__error {
   &:focus {
-    border-bottom: 2px solid $red;
+    border-bottom: 2px solid $red!important;
   }
-  border-bottom: 2px solid $red;
+  border-bottom: 2px solid $red!important;
+}
+
+.input-error {
+  border-bottom-color: $red!important;
+  &:focus {
+    outline: none!important;
+    border-bottom: 2px solid $red!important;
+  }
+}
+
+.input-success {
+  border-bottom-color: $green!important;
+  &:focus {
+    outline: none!important;
+    border-bottom: 2px solid $green!important;
+  }
 }
 
 .input-message {
@@ -67,6 +84,14 @@
   font-weight: bold;
 }
 
+/* Biutton */
+.amg-button {
+  border-radius: 0px!important;
+  color: $clouds!important;
+  font-weight: 900!important;
+  height: 50px!important;
+  max-width: 445px!important;
+}
 
 
 
