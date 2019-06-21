@@ -8,9 +8,8 @@ function Container({
 }) {
   return (
     <div
-      className={className}
+      className={`container ${className}`}
       style={{
-        display: 'flex',
         justifyContent,
         alignItems,
         paddingRight: lateralSpace,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Typography } from 'antd';
+import { Typography, Button } from 'antd';
 
 import LoginForm from '../../organisms/LoginForm';
 import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
@@ -16,6 +16,7 @@ function Login() {
       paddingBottom="0px"
       flexWrap="nowrap">
       <Container
+        className="login-left"
         height="100vh"
         width="50%">
         <Container
@@ -24,7 +25,6 @@ function Login() {
           paddingBottom={size.largePadding}
           style={{
             maxWidth: '445px',
-            minWidth: '400px',
             maxHeight: '100vh',
             flexDirection: 'column',
           }}>
@@ -44,10 +44,17 @@ function Login() {
             flexGrow={5}
             height="auto">
             <LoginForm />
+            <Text strong>
+              ¿No tienes cuenta?
+              <Button type="link" style={{ paddingRight: 0, fontWeight: 'bold' }}>
+                creala aquí
+              </Button>
+            </Text>
           </Container>
         </Container>
       </Container>
       <Container
+        className="login-right"
         bgColor={palette.secondary}
         height="100vh"
         width="50%">
