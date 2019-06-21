@@ -25,7 +25,6 @@ function LoginForm() {
         value={state.email}
         onChange={handleChange}
         name="email"
-        success
         label="Correo" />
       <TextField
         value={state.password}

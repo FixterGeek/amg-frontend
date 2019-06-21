@@ -35,7 +35,7 @@ function Login() {
             flexGrow={1}
             height="100px">
             <div style={{ textAlign: 'center' }}>
-              <Title style={{ margin: 0 }}>Bienvenido </Title>
+              <Title level={2} style={{ margin: 0 }}>Bienvenido </Title>
               <Text>Ingresa a tu cuenta</Text>
             </div>
           </Container>
