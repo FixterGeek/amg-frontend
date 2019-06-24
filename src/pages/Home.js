@@ -1,8 +1,8 @@
 import React from "react";
-import Gastro from "../atoms/gastro/Gastro";
+import Signup from "../components/signup/Signup";
 
 function Home() {
-  return <Gastro />;
+  return <Signup />;
 }
 
 export default Home;

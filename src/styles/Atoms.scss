@@ -12,48 +12,48 @@
 }
 
 .input-field {
-  border-radius: 0px!important;
-  color: $textPrimary!important;
-  background-color: $clouds!important;
-  border: none!important;
-  height: 50px!important;
-  padding: $padding!important;
-  box-sizing: border-box!important;
-  -moz-appearance: none!important;
-  -webkit-appearance: none!important;
-  appearance: none!important;
-  border-bottom: 2px solid transparent!important;
+  border-radius: 0px !important;
+  color: $textPrimary !important;
+  background-color: $clouds !important;
+  border: none !important;
+  height: 50px !important;
+  padding: $padding !important;
+  box-sizing: border-box !important;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border-bottom: 2px solid transparent !important;
 
   &:focus {
-    outline: none!important;
-    border-bottom: 2px solid $primary!important;
+    outline: none !important;
+    border-bottom: 2px solid $primary !important;
   }
 
   &:disabled {
-    background-color: $silver!important;
+    background-color: $silver !important;
   }
 }
 
 .input-field__error {
   &:focus {
-    border-bottom: 2px solid $red!important;
+    border-bottom: 2px solid $red !important;
   }
-  border-bottom: 2px solid $red!important;
+  border-bottom: 2px solid $red !important;
 }
 
 .input-error {
-  border-bottom-color: $red!important;
+  border-bottom-color: $red !important;
   &:focus {
-    outline: none!important;
-    border-bottom: 2px solid $red!important;
+    outline: none !important;
+    border-bottom: 2px solid $red !important;
   }
 }
 
 .input-success {
-  border-bottom-color: $green!important;
+  border-bottom-color: $green !important;
   &:focus {
-    outline: none!important;
-    border-bottom: 2px solid $green!important;
+    outline: none !important;
+    border-bottom: 2px solid $green !important;
   }
 }
 
@@ -83,14 +83,12 @@
 
 /* Button */
 .amg-button {
-  border-radius: 0px!important;
-  color: $clouds!important;
-  font-weight: 900!important;
-  height: 50px!important;
-  max-width: 445px!important;
+  border-radius: 0px !important;
+  color: $clouds !important;
+  font-weight: 900 !important;
+  height: 50px !important;
+  max-width: 445px !important;
 }
-
-
 
 /* Layout */
 .full-screen {
@@ -117,4 +115,10 @@
 
 .gastro .text-style-1 {
   color: $primary;
+}
+
+.Rectangle-4 {
+  width: 325px;
+  height: 1110px;
+  background-color: $secondary;
 }
