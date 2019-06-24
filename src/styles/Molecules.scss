@@ -1,8 +1,7 @@
 // Color palette
-@import './Palette.scss';
+@import "./Palette.scss";
 // Unities
-@import './Unities.scss';
-
+@import "./Unities.scss";
 
 .text-field {
   display: flex;
@@ -10,11 +9,11 @@
   flex-wrap: wrap;
 
   &:last-child {
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
   }
 
   &:first-child {
-    margin-top: 0!important;
+    margin-top: 0 !important;
   }
 
   label {

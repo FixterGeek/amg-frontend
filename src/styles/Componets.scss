@@ -1,16 +1,13 @@
 /* Color palette */
-@import './Palette.scss';
+@import "./Palette.scss";
 /* Unities */
-@import './Unities.scss';
+@import "./Unities.scss";
 /* Mixins */
-@import './Mixins.scss';
-
-
-
+@import "./Mixins.scss";
 
 /* Login */
 .login-left {
-  padding: $padding!important;
+  padding: $padding !important;
 }
 
 .login-right {

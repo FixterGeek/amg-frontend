@@ -10,5 +10,5 @@ import { palette, size } from "../../styles/theme";
 
 export default () => {
   const { Text, Title } = Typography;
-  return <SignupForm />;
+  return <h1>hola</h1>;
 };
