@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import { Button } from 'antd';
 
+import { writeUser } from '../store/actions';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 
-function LoginForm() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
+function LoginForm(props) {
+  // eslint-disable-next-line react/prop-types
+  const { user, dispatch } = props;
 
   const handleChange = (event) => {
     const { target: { value, name } } = event;
-    setState({
-      ...state,
-      [name]: value,
-    });
+    dispatch(writeUser({ [name]: value }));
   };
+
+  console.log(user);
 
   return (
     <div className="login-form">
       <TextField
         width="100%"
-        value={state.email}
+        value={user.email}
         onChange={handleChange}
         name="email"
         label="Correo" />
       <TextField
         width="100%"
-        value={state.password}
+        value={user.password}
         onChange={handleChange}
         name="password"
         type="password"
@@ -48,4 +47,8 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+export default connect(mapStateToProps)(LoginForm);
