@@ -1,14 +1,14 @@
-import React from 'react';
-import './styles/App.scss';
+import React, { Component } from "react";
+import Routes from "./Routes";
 
-import AppRouter from './routes/Router';
-
-function App() {
-  return (
-    <div>
-      <AppRouter />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Routes />
+      </div>
+    );
+  }
 }
 
 export default App;

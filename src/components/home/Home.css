@@ -1,0 +1,192 @@
+.app{
+    font-family: Avenir;
+
+}
+
+.welcome{
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/Mask.png");
+    background-size: cover;
+    background-position: center;
+}
+.cover{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2,32,71,.3);
+    display: flex;
+    justify-content: flex-end;
+}
+.cover h1{
+    color:white;
+    font-size: 160px;
+    margin-bottom: 45px;
+}
+.cover h1 span{
+    color:#28ABD8;
+}
+.cover p{
+    color:white;
+    font-size: 24px;
+}
+.descript{
+    width: 60%;
+    padding-top: 3%;
+}
+.btn-blue{
+    width: 180px;
+    height: 50px;
+    color:white;
+    border: none;
+    font-family: Avenir;
+    background-color: #28ABD8;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+}
+.about{
+    padding: 50px 0;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.about-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 0;
+}
+.people{
+    width: 380px;
+    height: 330px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../../assets/people.png");
+}
+.about .people{
+    width:300px;
+    flex-grow: 1;
+    padding: 0 2%;
+}
+.about .info{
+    width:500px;
+    flex-grow: 2;
+    padding: 0 2%;
+}
+.text {
+    color:#666666;
+
+}
+.titles{
+    color:#333333;
+    font-size: 32px;
+}
+.membership{
+    width: 100%;
+    background-color: #F3F5F8;
+    padding: 50px 0;
+}
+.membership h2{
+    text-align: center;
+}
+.member-box{
+     display: flex;
+
+ }
+.mm{
+    width: 70%;
+    margin: 0 auto;
+}
+.card{
+    width: 300px;
+    background-color: white;
+    padding: 1% 2%;
+    box-sizing: border-box;
+    margin: 20px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    border-top: 2px solid white;
+    transition: all 1s ease;
+    height: 500px;
+}
+.card hr{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #D8D8D8;
+    height: 1px;
+    border: none;
+}
+.card p{
+    text-align: left;
+}
+.tx1{
+    color:#696969;
+    font-size: 24px;
+    text-align: center !important;
+}
+.tx2{
+    color:#022047;
+    font-size: 32px;
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+.tx3{
+    color:#022047;
+    font-size: 18px;
+
+}
+.tx4{
+    color:#999999;
+    font-size: 12px;
+}
+.tx5{
+    color:#666666;
+    font-weight: lighter;
+    min-height: 200px;
+}
+
+.btn-dark-blue{
+    width: 180px;
+    height: 50px;
+    color:#022047;
+    border: 1px solid #022047;
+    font-family: Avenir;
+ /*   background-color: #022047;*/
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+    transition: all 1s ease;
+
+}
+.card:hover{
+    border-top: 2px solid #022047;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-top: -15px;
+}
+.card:hover .btn-dark-blue{
+    background-color: #022047;
+    color: white;
+}
+.download{
+    width: 70%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.app-down{
+    width: 300px;
+    flex-grow: 1;
+    margin-right: 50px;
+}
+.phone{
+    width: 300px;
+    height: 400px;
+    flex-grow: 1;
+    background-image: url("../../assets/PruebaCelular_SinFondo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -30px;
+}
