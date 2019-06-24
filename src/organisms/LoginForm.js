@@ -22,11 +22,13 @@ function LoginForm() {
   return (
     <div className="login-form">
       <TextField
+        width="100%"
         value={state.email}
         onChange={handleChange}
         name="email"
         label="Correo" />
       <TextField
+        width="100%"
         value={state.password}
         onChange={handleChange}
         name="password"

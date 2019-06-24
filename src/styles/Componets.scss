@@ -1,0 +1,22 @@
+/* Color palette */
+@import './Palette.scss';
+/* Unities */
+@import './Unities.scss';
+/* Mixins */
+@import './Mixins.scss';
+
+
+
+
+/* Login */
+.login-left {
+  padding: $padding!important;
+}
+
+.login-right {
+  display: none;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
+}

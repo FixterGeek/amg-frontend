@@ -53,7 +53,7 @@ TextField.propTypes = {
 };
 
 TextField.defaultProps = {
-  width: '445px',
+  width: 'auto',
   error: false,
   success: false,
   errorMessage: 'Opps! Somethings not right here.',
