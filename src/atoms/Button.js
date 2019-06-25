@@ -6,7 +6,7 @@ import { Button as Btn } from 'antd';
 import { palette, size } from '../styles/theme';
 
 function Button({
-  children, bgColor, width, marginTop, marginBottom,
+  children, bgColor, width, marginTop, marginBottom, ...others
 }) {
   const bgColorBtn = palette[bgColor];
 
@@ -19,7 +19,8 @@ function Button({
         width,
         marginTop,
         marginBottom,
-      }}>
+      }}
+      {...others}>
       { children }
     </Btn>
   );
