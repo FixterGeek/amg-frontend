@@ -101,3 +101,17 @@
   display: flex;
   box-sizing: border-box;
 }
+
+/* Spinner */
+.spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba($color: #fff, $alpha: 0.6);
+}

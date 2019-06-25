@@ -1,35 +1,58 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Button } from 'antd';
 
+import { writeUser } from '../store/actions';
+import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
+import Spinner from '../atoms/Spinner';
 
-function LoginForm() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
+function LoginForm(props) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    email: false,
+    password: false,
   });
+  // eslint-disable-next-line react/prop-types
+  const { user, dispatch } = props;
+  const { login } = useAmgService();
 
   const handleChange = (event) => {
     const { target: { value, name } } = event;
-    setState({
-      ...state,
-      [name]: value,
-    });
+    dispatch(writeUser({ [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    login(user.email, user.password)
+      .then(({ data }) => {
+        dispatch(writeUser({ ...data.user, userToken: data.token }));
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError({ email: true, password: true });
+      });
   };
 
   return (
-    <div className="login-form">
+    <form onSubmit={handleSubmit} className="login-form">
+      { loading && <Spinner tip="Iniciando sesión..." />}
       <TextField
         width="100%"
-        value={state.email}
+        error={error.email}
+        value={user.email}
         onChange={handleChange}
         name="email"
         label="Correo" />
       <TextField
         width="100%"
-        value={state.password}
+        error={error.password}
+        value={user.password}
         onChange={handleChange}
         name="password"
         type="password"
@@ -41,11 +64,16 @@ function LoginForm() {
         </Button>
       </div>
       <AmgButton
+        htmlType="submit"
         width="100%">
         Iniciar sesión
       </AmgButton>
-    </div>
+    </form>
   );
 }
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+export default connect(mapStateToProps)(LoginForm);
