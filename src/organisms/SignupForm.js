@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { Button } from "antd";
-
 import TextField from "../molecules/TextFields";
 import AmgButton from "../atoms/Button";
 
@@ -23,7 +21,40 @@ export default () => {
 
   return (
     <div className="login-form">
-      <TextField label="Nombre" />
+      <TextField
+        value={state.name}
+        onChange={handleChange}
+        name="name"
+        label="Nombre"
+      />
+
+      <TextField
+        value={state.dadSurnamee}
+        onChange={handleChange}
+        name="dadSurname"
+        label="Apellido Paterno"
+      />
+
+      <TextField
+        value={state.momSurname}
+        onChange={handleChange}
+        name="momSurname"
+        label="Apellido Materno"
+      />
+
+      <TextField
+        value={state.surName}
+        onChange={handleChange}
+        name="momSurname"
+        label="Fecha de Nacimiento"
+      />
+
+      <TextField
+        value={state.surName}
+        onChange={handleChange}
+        name="momSurname"
+        label="Lugar de Nacimiento"
+      />
 
       <TextField
         value={state.email}

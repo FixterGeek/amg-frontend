@@ -5,10 +5,11 @@ const { Step } = Steps;
 
 export default () => {
   return (
-    <Steps direction="vertical" current={1}>
-      <Step title="Finished" description="This is a description." />
-      <Step title="In Progress" description="This is a description." />
-      <Step title="Waiting" description="This is a description." />
+    <Steps direction="vertical">
+      <Step title="Datos generales" />
+      <Step title="Datos profesionales" />
+      <Step title="Educación" />
+      <Step title="Datos físcales" />
     </Steps>
   );
 };

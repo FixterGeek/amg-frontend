@@ -5,7 +5,9 @@ import { Typography } from "antd";
 import SignupForm from "../../organisms/SignupForm";
 import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
+import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
+import Steper from "../../organisms/steper/Steper";
 
 export default () => {
   const { Text, Title } = Typography;
@@ -16,9 +18,17 @@ export default () => {
       paddingBottom="0px"
       flexWrap="nowrap"
     >
+      {/* Separamos en 2 columnas */}
       <Container className="signup-left" height="100vh" width="30%">
-        <Container bgColor={palette.secondary} />
+        <Container bgColor={palette.secondary}>
+          <Container>
+            <Gastro />
+            <Steper />
+          </Container>
+          <Container />
+        </Container>
       </Container>
+
       <Container className="signup-right" height="100vh" width="70%">
         <Container
           alignItems="flex-start"
