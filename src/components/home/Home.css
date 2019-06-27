@@ -1,5 +1,6 @@
 .app {
   font-family: Avenir, Avenir-black;
+  position: relative;
 }
 
 .welcome {

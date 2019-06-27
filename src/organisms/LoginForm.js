@@ -45,6 +45,7 @@ function LoginForm(props) {
       <TextField
         width="100%"
         error={error.email}
+        errorMessage="Email o password incorrectos"
         value={user.email}
         onChange={handleChange}
         name="email"
@@ -52,6 +53,7 @@ function LoginForm(props) {
       <TextField
         width="100%"
         error={error.password}
+        errorMessage="Email o password incorrectos"
         value={user.password}
         onChange={handleChange}
         name="password"
