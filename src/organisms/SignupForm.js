@@ -5,8 +5,12 @@ import AmgButton from "../atoms/Button";
 
 export default () => {
   const [state, setState] = useState({
-    email: "",
-    password: ""
+    name: "",
+    dadSurname: "",
+    momSurname: "",
+    birthdate: "",
+    placeOfBirth: "",
+    specialty: ""
   });
 
   const handleChange = event => {
@@ -20,7 +24,7 @@ export default () => {
   };
 
   return (
-    <div className="login-form">
+    <form className="login-form" style={{ width: "400px" }}>
       <TextField
         value={state.name}
         onChange={handleChange}
@@ -29,48 +33,41 @@ export default () => {
       />
 
       <TextField
-        value={state.dadSurnamee}
+        value={state.dadSurname}
         onChange={handleChange}
         name="dadSurname"
-        label="Apellido Paterno"
+        label="Apellido paterno"
       />
 
       <TextField
         value={state.momSurname}
         onChange={handleChange}
         name="momSurname"
-        label="Apellido Materno"
+        label="Apellido materno"
       />
 
       <TextField
-        value={state.surName}
+        value={state.birthdate}
         onChange={handleChange}
-        name="momSurname"
-        label="Fecha de Nacimiento"
+        name="birthdate"
+        label="Fecha de nacimiento"
       />
 
       <TextField
-        value={state.surName}
+        value={state.placeOfBirth}
         onChange={handleChange}
-        name="momSurname"
-        label="Lugar de Nacimiento"
+        name="placeOfBirth"
+        label="Lugar de nacimiento"
       />
 
       <TextField
-        value={state.email}
+        value={state.specialty}
         onChange={handleChange}
-        name="email"
-        label="Correo"
+        name="specialty"
+        label="Especialidad"
       />
-      <TextField
-        value={state.password}
-        onChange={handleChange}
-        name="password"
-        type="password"
-        label="Contraseña"
-        marginBottom="0px"
-      />
+
       <AmgButton width="100%">Siguiente</AmgButton>
-    </div>
+    </form>
   );
 };

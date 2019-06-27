@@ -17,3 +17,15 @@
     display: flex;
   }
 }
+
+.signup-right {
+  padding: $padding !important;
+}
+
+.signup-left {
+  display: none;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
+}

@@ -10,7 +10,7 @@ import { palette, size } from "../../styles/theme";
 import Steper from "../../organisms/steper/Steper";
 
 export default () => {
-  const { Text, Title } = Typography;
+  const { Title } = Typography;
   return (
     <FullScreenContainer
       lateralSpace="0px"
@@ -18,39 +18,31 @@ export default () => {
       paddingBottom="0px"
       flexWrap="nowrap"
     >
-      {/* Separamos en 2 columnas */}
-      <Container className="signup-left" height="100vh" width="30%">
-        <Container bgColor={palette.secondary}>
-          <Container>
-            <Gastro />
-            <Steper />
-          </Container>
-          <Container />
-        </Container>
+      <Container
+        alignItems="flex-start"
+        className="signup-left"
+        height="100vh"
+        width="30%"
+        bgColor={palette.secondary}
+        paddingTop={size.largePadding}
+        paddingBottom={size.largePadding}
+      >
+        <Gastro />
+        <Steper />
       </Container>
 
-      <Container className="signup-right" height="100vh" width="70%">
+      <Container className="signup-rigth" height="100vh" width="65%">
         <Container
           alignItems="flex-start"
+          flexGrow={5}
+          height="auto"
+          width="100%"
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
-          style={{
-            maxWidth: "445px",
-            maxHeight: "100vh",
-            flexDirection: "column"
-          }}
-          width="30%"
-        />
-        <Container width="70%">
-          <Container flexGrow={1} height="100px">
-            <div style={{ textAlign: "center" }}>
-              <Title level={2} style={{ margin: 0 }}>
-                Datos generales{" "}
-              </Title>
-            </div>
-          </Container>
-          <SignupForm />
+        >
+          <Title level={2}>Datos generales</Title>
         </Container>
+        <SignupForm />
       </Container>
     </FullScreenContainer>
   );
