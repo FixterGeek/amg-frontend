@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Typography, Button } from "antd";
+import { Typography, Button } from 'antd';
 
-import LoginForm from "../../organisms/LoginForm";
-import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
-import Container from "../../atoms/layout/Container";
-import { palette, size } from "../../styles/theme";
+import LoginForm from '../../organisms/LoginForm';
+import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
+import Container from '../../atoms/layout/Container';
+import { palette, size } from '../../styles/theme';
 
 function Login() {
   const { Text, Title } = Typography;
@@ -22,18 +22,18 @@ function Login() {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
           style={{
-            maxWidth: "445px",
-            maxHeight: "100vh",
-            flexDirection: "column"
+            maxWidth: '445px',
+            maxHeight: '100vh',
+            flexDirection: 'column',
           }}
         >
-          <Text strong style={{ textAlign: "left" }}>
+          <Text strong style={{ textAlign: 'left' }}>
             Asociación Mexicana de Gastroenterología
           </Text>
           <Container flexGrow={1} height="100px">
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: 'center' }}>
               <Title level={2} style={{ margin: 0 }}>
-                Bienvenido{" "}
+                Bienvenido
               </Title>
               <Text>Ingresa a tu cuenta</Text>
             </div>
@@ -44,7 +44,7 @@ function Login() {
               ¿No tienes cuenta?
               <Button
                 type="link"
-                style={{ paddingRight: 0, fontWeight: "bold" }}
+                style={{ paddingRight: 0, fontWeight: 'bold' }}
               >
                 creala aquí
               </Button>
@@ -58,7 +58,9 @@ function Login() {
         height="100vh"
         width="50%"
       >
-        <div>Logo</div>
+        <div className="login-bg">
+          <div className="login-logo" />
+        </div>
       </Container>
     </FullScreenContainer>
   );

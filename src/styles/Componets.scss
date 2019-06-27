@@ -29,3 +29,19 @@
     display: flex;
   }
 }
+
+.login-bg {
+  background-image: url('../assets/login-bg.png');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.login-logo {
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/gastro@2x.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
