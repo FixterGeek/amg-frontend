@@ -4,6 +4,10 @@
 @import "./Unities.scss";
 
 /* Form Entries */
+
+$maxWidthFields: 445px;
+$inputHeight: 50px;
+
 .input-field-container {
   width: 100%;
   display: flex;
@@ -79,6 +83,79 @@
 .input-label {
   color: $textPrimary;
   font-weight: bold;
+}
+
+/** Select Field **/
+
+.select-field {
+  width: 100%;
+  height: $inputHeight!important;
+  border: solid 2px transparent;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: transparent!important;
+  }
+
+  div {
+    min-height: 100%!important;
+    border-radius: 0px!important;
+    background-color: $clouds!important;
+    border-color: $clouds;
+
+    &:hover {
+      border-color: $clouds;
+    }
+  }
+}
+
+.select-error {
+  border: solid 2px $red!important;
+}
+
+.select-success {
+  border: solid 2px $green!important;
+}
+
+.select-warning {
+  border: solid 2px $yellow!important;
+}
+
+/** Status Message **/
+
+.status {
+  width: 100%;
+  min-width: 21px;
+  margin-top: $smallMargin;
+
+  &-warning {
+    color: $yellow;
+  }
+
+  &-error {
+    color: $red;
+  }
+
+  &-success {
+    color: $green;
+  }
+}
+
+.select-field-option {
+  height: $inputHeight!important;
+  padding: 0px $smallPadding!important;
+  display: flex!important;
+  justify-content: flex-start!important;
+  align-items: center!important;
+  font-weight: 900!important;
+  font-size: 1em!important;
+  color: $darkSilver!important;
+  background-color: $clouds!important;
+
+  &:hover {
+    background-color: $primary!important;
+    color: white!important;
+  }
 }
 
 /* Button */

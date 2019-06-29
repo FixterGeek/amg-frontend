@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 
 import { writeUser } from '../store/actions';
 import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
+import SelectField from '../molecules/SelectField';
 
 function LoginForm(props) {
   const [loading, setLoading] = useState(false);
