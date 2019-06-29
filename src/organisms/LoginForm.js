@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Button, Select } from 'antd';
+import { Button } from 'antd';
 
 import { writeUser } from '../store/actions';
 import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
-import SelectField from '../molecules/SelectField';
 
 function LoginForm(props) {
   const [loading, setLoading] = useState(false);
@@ -34,7 +33,7 @@ function LoginForm(props) {
         dispatch(writeUser({ ...data.user, userToken: data.token }));
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setError({ email: true, password: true });
       });
