@@ -8,6 +8,8 @@ export default () => {
     name: "",
     dadSurname: "",
     momSurname: "",
+    email: "",
+    password: "",
     birthdate: "",
     placeOfBirth: "",
     specialty: ""
