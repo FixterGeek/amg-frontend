@@ -61,6 +61,14 @@ $inputHeight: 50px;
   }
 }
 
+.input-warning {
+  border-bottom-color: $yellow !important;
+  &:focus {
+    outline: none !important;
+    border-bottom: 2px solid $yellow !important;
+  }
+}
+
 .input-message {
   margin-top: $smallMargin;
   min-height: 16px;
@@ -125,7 +133,7 @@ $inputHeight: 50px;
 
 .status {
   width: 100%;
-  min-width: 21px;
+  min-height: 21px;
   margin-top: $smallMargin;
 
   &-warning {
