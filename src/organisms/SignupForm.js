@@ -49,6 +49,24 @@ export default () => {
       />
 
       <TextField
+        width="100%"
+        value={state.email}
+        onChange={handleChange}
+        name="email"
+        label="Correo"
+      />
+
+      <TextField
+        width="100%"
+        value={state.password}
+        onChange={handleChange}
+        name="password"
+        type="password"
+        label="Contraseña"
+        marginBottom="0px"
+      />
+
+      <TextField
         value={state.birthdate}
         onChange={handleChange}
         name="birthdate"
