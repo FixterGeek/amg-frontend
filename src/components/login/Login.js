@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Typography, Button } from 'antd';
+import { Typography } from 'antd';
 
 import LoginForm from '../../organisms/LoginForm';
 import FullScreenContainer from '../../atoms/layout/FullScreenContainer';

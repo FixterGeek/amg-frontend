@@ -26,5 +26,5 @@ function WithoutLoginRoute({ component: Component, ...rest }) {
 export default WithoutLoginRoute;
 
 WithoutLoginRoute.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.node, PropTypes.element]).isRequired,
+  component: PropTypes.func.isRequired,
 };
