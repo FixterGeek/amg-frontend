@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Button, Select } from 'antd';
+import { Button } from 'antd';
 
 import { writeUser } from '../store/actions';
 import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
-import SelectField from '../molecules/SelectField';
 
 function LoginForm(props) {
+  // eslint-disable-next-line react/prop-types
+  const { history } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     email: false,
@@ -30,11 +32,13 @@ function LoginForm(props) {
     setLoading(true);
 
     login(user.email, user.password)
-      .then(({ data }) => {
-        dispatch(writeUser({ ...data.user, userToken: data.token }));
-        setLoading(false);
+      .then(async ({ data }) => {
+        await dispatch(writeUser({ ...data.user, userToken: data.token }));
+        await setLoading(false);
+        await localStorage.setItem('authToken', data.token);
+        history.push('/dashboard');
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setError({ email: true, password: true });
       });
@@ -79,4 +83,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default connect(mapStateToProps)(LoginForm);
+export default withRouter(connect(mapStateToProps)(LoginForm));

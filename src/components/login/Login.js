@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Typography, Button } from 'antd';
+import { Typography } from 'antd';
 
 import LoginForm from '../../organisms/LoginForm';
 import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
@@ -42,12 +43,11 @@ function Login() {
             <LoginForm />
             <Text strong>
               ¿No tienes cuenta?
-              <Button
-                type="link"
-                style={{ paddingRight: 0, fontWeight: 'bold' }}
-              >
-                creala aquí
-              </Button>
+              <Link
+                style={{ paddingLeft: size.smallPadding, fontWeight: 'bold' }}
+                to="/signup">
+                  creala aquí
+              </Link>
             </Text>
           </Container>
         </Container>

@@ -61,6 +61,14 @@ $inputHeight: 50px;
   }
 }
 
+.input-warning {
+  border-bottom-color: $yellow !important;
+  &:focus {
+    outline: none !important;
+    border-bottom: 2px solid $yellow !important;
+  }
+}
+
 .input-message {
   margin-top: $smallMargin;
   min-height: 16px;
@@ -90,7 +98,7 @@ $inputHeight: 50px;
 .select-field {
   width: 100%;
   height: $inputHeight!important;
-  border: solid 2px transparent;
+  border-bottom: solid 2px transparent;
   box-sizing: border-box;
 
   &:focus {
@@ -110,22 +118,22 @@ $inputHeight: 50px;
 }
 
 .select-error {
-  border: solid 2px $red!important;
+  border-bottom: solid 2px $red!important;
 }
 
 .select-success {
-  border: solid 2px $green!important;
+  border-bottom: solid 2px $green!important;
 }
 
 .select-warning {
-  border: solid 2px $yellow!important;
+  border-bottom: solid 2px $yellow!important;
 }
 
 /** Status Message **/
 
 .status {
   width: 100%;
-  min-width: 21px;
+  min-height: 21px;
   margin-top: $smallMargin;
 
   &-warning {
