@@ -7,3 +7,43 @@
   width: 100%;
   position: relative;
 }
+
+
+
+/* Lateral Menu */
+$menuBarWidth: 59px;
+
+.lateral-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $menuBarWidth;
+  background-color: $secondary;
+  display: flex;
+  align-items: center;
+
+  ul {
+    background-color: $secondary;
+    color: white;
+    border: none;
+    width: $menuBarWidth;
+  }
+
+  .ant-menu-item {
+    padding: 0px!important;
+    padding-left: 0px!important;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+
+    i {
+      transform: translateX(-25%);
+      color: white;
+    }
+  }
+
+  .ant-menu-item-selected {
+    background-color: transparent!important;
+  }
+}
