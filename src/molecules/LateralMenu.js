@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPowerOff, faHome, faCalendar,
@@ -7,7 +8,14 @@ import {
 
 import { Menu, Icon } from 'antd';
 
-function LateralMenu() {
+import useAmgService from '../hooks/services/useAmgService';
+
+function LateralMenu(props) {
+  console.log(props);
+  // eslint-disable-next-line react/prop-types
+  const { history } = props;
+  const { logout } = useAmgService();
+
   return (
     <Menu
       inlineCollapsed
@@ -31,7 +39,7 @@ function LateralMenu() {
         </Icon>
         <span>Agenda</span>
       </Menu.Item>
-      <Menu.Item key={4}>
+      <Menu.Item key={4} onClick={() => logout(history)}>
         <Icon>
           <FontAwesomeIcon icon={faPowerOff} />
         </Icon>
@@ -41,4 +49,4 @@ function LateralMenu() {
   );
 }
 
-export default LateralMenu;
+export default withRouter(LateralMenu);
