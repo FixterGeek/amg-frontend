@@ -8,6 +8,10 @@ function useAmgService() {
   const login = async (email, password) => axios.post(`${baseAuthURL}/login`, {
     email,
     password,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   const logout = async (history) => {
