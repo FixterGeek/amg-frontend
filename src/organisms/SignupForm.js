@@ -90,7 +90,7 @@ function SignupForm(props) {
       <TextField
         width="100%"
         error={error.password}
-        errorMessage="Email o password incorrectos"
+        errorMessage="la contraseña no puede ir vacia"
         value={user.password}
         onChange={handleChange}
         name="password"
