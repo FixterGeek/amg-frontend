@@ -15,10 +15,15 @@ export default () => {
     specialty: ""
   });
 
-  const handleChange = event => {
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
+  const handleChange = e => {
     const {
       target: { value, name }
-    } = event;
+    } = e;
+    console.log(e);
     setState({
       ...state,
       [name]: value
@@ -26,7 +31,11 @@ export default () => {
   };
 
   return (
-    <form className="login-form" style={{ width: "400px" }}>
+    <form
+      className="login-form"
+      style={{ width: "400px" }}
+      onSubmit={handleSubmit}
+    >
       <TextField
         value={state.name}
         onChange={handleChange}
