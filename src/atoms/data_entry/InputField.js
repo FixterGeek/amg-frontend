@@ -22,7 +22,11 @@ function InputField({
         {...others}
       />
       { status && <StatusSuffix status={status} /> }
-      <StatusMessage status={status} />
+      <StatusMessage
+        status={status}
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+        warningMessage={warningMessage} />
     </div>
   );
 }

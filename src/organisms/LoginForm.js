@@ -32,15 +32,19 @@ function LoginForm(props) {
     setLoading(true);
 
     login(user.email, user.password)
-      .then(async ({ data }) => {
+      .then(async (response) => {
+        const { data } = response;
+        console.log(response);
         await dispatch(writeUser({ ...data.user, userToken: data.token }));
         await setLoading(false);
         await localStorage.setItem('authToken', data.token);
         history.push('/dashboard');
       })
-      .catch(() => {
+      .catch(({ response }) => {
+        const { data } = response;
+        if (data.name === 'IncorrectPasswordError') setError({ password: true, email: false });
+        if (data.name === 'IncorrectUsernameError') setError({ email: true, password: false });
         setLoading(false);
-        setError({ email: true, password: true });
       });
   };
 
@@ -50,7 +54,7 @@ function LoginForm(props) {
       <TextField
         width="100%"
         error={error.email}
-        errorMessage="Email o password incorrectos"
+        errorMessage="Correo incorrecto."
         value={user.email}
         onChange={handleChange}
         name="email"
@@ -58,7 +62,7 @@ function LoginForm(props) {
       <TextField
         width="100%"
         error={error.password}
-        errorMessage="Email o password incorrectos"
+        errorMessage="Contraseña incorrecta."
         value={user.password}
         onChange={handleChange}
         name="password"
