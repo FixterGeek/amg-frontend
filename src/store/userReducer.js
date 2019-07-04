@@ -15,7 +15,4 @@ function userReducer(state = userState, action) {
   }
 }
 
-export {
-  // eslint-disable-next-line import/prefer-default-export
-  userReducer,
-};
+export default userReducer;

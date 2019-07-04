@@ -16,6 +16,10 @@ function LateralMenu(props) {
   const { history } = props;
   const { logout } = useAmgService();
 
+  const link = (to) => {
+    history.push(to);
+  };
+
   return (
     <Menu
       inlineCollapsed
@@ -27,11 +31,11 @@ function LateralMenu(props) {
         </Icon>
         <span>Home</span>
       </Menu.Item>
-      <Menu.Item key={2}>
+      <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
         <Icon>
           <FontAwesomeIcon icon={faCalendar} />
         </Icon>
-        <span>Calendario</span>
+        <span>Eventos</span>
       </Menu.Item>
       <Menu.Item key={3}>
         <Icon>

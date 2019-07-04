@@ -20,3 +20,12 @@
     margin-bottom: $smallMargin;
   }
 }
+
+/* Events Month */
+.events-month {
+  margin-bottom: ($largeMargin + $margin);
+
+  &:first-child {
+    margin-top: ($largeMargin * 2);
+  }
+}

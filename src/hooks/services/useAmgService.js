@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function useAmgService() {
   const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
+  const APIURL = process.env.REACT_APP_BASE_API_URL;
 
   const login = async (email, password) => axios.post(`${baseAuthURL}/login`, {
     email,
@@ -24,10 +25,20 @@ function useAmgService() {
     password,
   });
 
+  const getEvents = async () => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}events/`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
   return {
     login,
     logout,
     signup,
+    getEvents,
   };
 }
 
