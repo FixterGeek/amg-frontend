@@ -34,11 +34,21 @@ function useAmgService() {
     });
   };
 
+  const getSingleEvent = async (id) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}events/${id}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
   return {
     login,
     logout,
     signup,
     getEvents,
+    getSingleEvent,
   };
 }
 

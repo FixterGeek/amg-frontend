@@ -15,7 +15,7 @@ function EventItem({ event, baseTo }) {
     <div className="event-item">
       <div className="event-item-day">{ `${day}`.length === 1 ? `0${day}` : day }</div>
       <div className="event-item-info">
-        <Link to={`${baseTo}${event._id}`}>
+        <Link to={{ pathname: `${baseTo}${event._id}`, event }}>
           <div>
             <Title level={4}>{ event.title }</Title>
           </div>

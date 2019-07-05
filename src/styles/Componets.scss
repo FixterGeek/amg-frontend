@@ -54,3 +54,17 @@
   padding-left: $lateralSpace;
   box-sizing: border-box;
 }
+
+/* Event Detail */
+$eventLeftWidth: 350px;
+.event-details {
+  display: flex;
+
+  .left {
+    width: $eventLeftWidth;
+  }
+
+  .right {
+    flex-grow: 1;
+  }
+}
