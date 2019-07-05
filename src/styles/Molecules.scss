@@ -20,3 +20,22 @@
     margin-bottom: $smallMargin;
   }
 }
+
+
+
+/* Lateral Menu */
+.menu-item-active {
+  color: $primary!important;
+}
+
+
+
+
+/* Events Month */
+.events-month {
+  margin-bottom: ($largeMargin);
+
+  &:first-child {
+    margin-top: ($largeMargin * 2);
+  }
+}

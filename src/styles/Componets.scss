@@ -45,3 +45,36 @@
   background-position: center;
   background-size: 70%;
 }
+
+
+
+/* Dashboard */
+.dashboard-container {
+  width: 100%;
+  padding-left: $lateralSpace;
+  box-sizing: border-box;
+}
+
+/* Event Detail */
+$eventLeftWidth: 350px;
+
+.event-detail {
+  .title {
+    margin-bottom: $padding;
+  }
+}
+
+.event-details {
+  display: flex;
+
+  .left {
+    width: $eventLeftWidth;
+    min-width: $eventLeftWidth;
+  }
+
+  .right {
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding-left: $largePadding;
+  }
+}

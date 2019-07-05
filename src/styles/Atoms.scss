@@ -200,3 +200,72 @@ $inputHeight: 50px;
   z-index: 2;
   background-color: rgba($color: #fff, $alpha: 0.6);
 }
+
+/* Events */
+/** EventImage **/
+$eventImageWith: 350px;
+$eventImageHeight: 315px;
+
+.event-image {
+  width: $eventImageWith;
+  height: $eventImageHeight;
+  background-size: cover;
+  padding: $padding;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+}
+
+.image-text {
+  display: flex;
+  flex-direction: column;
+  h2 {
+    color: white;
+    font-weight: normal;
+  }
+  span {
+    font-size: 1.1em;
+    color: white;
+  }
+}
+
+
+
+/* Event Item */
+$infoHeight: 90px;
+
+.event-item {
+  display: flex;
+  padding-left: ($lateralSpace + $largeMargin);
+  box-sizing: border-box;
+  align-items: center;
+  margin-bottom: $margin;
+
+  &-day {
+    font-size: 1.7em;
+    margin-right: $margin;
+  }
+
+  &-info {
+    flex-grow: 1;
+    background-color: $lightBlue;
+    box-sizing: border-box;
+    padding: $smallPadding;
+    min-height: $infoHeight;
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+
+/* Text Block */
+.text-block {
+  margin-bottom: $largeMargin;
+
+  span {
+    font-size: 1.8em;
+  }
+}

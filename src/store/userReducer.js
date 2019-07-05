@@ -1,9 +1,9 @@
-import { WRITE_USER, CREATE_USER } from "./actions";
+import { WRITE_USER, CREATE_USER } from './actions';
 
 const userState = {
-  email: "",
-  password: "",
-  userToken: ""
+  email: '',
+  password: '',
+  userToken: '',
 };
 
 function userReducer(state = userState, action) {
@@ -17,7 +17,4 @@ function userReducer(state = userState, action) {
   }
 }
 
-export {
-  // eslint-disable-next-line import/prefer-default-export
-  userReducer
-};
+export default userReducer;
