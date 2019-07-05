@@ -32,14 +32,17 @@ function EventsList(props) {
   }, [events]);
 
   useEffect(() => {
-    getEvents().then(({ data }) => {
-      dispatch(updateEvents({ events: [...data] }));
-    }).catch(({ response }) => {
-      console.log(response);
-    });
+    if (events.events.length === 0) {
+      console.log('update!!');
+      getEvents().then(({ data }) => {
+        dispatch(updateEvents({ events: [...data] }));
+      }).catch(({ response }) => {
+        console.log(response);
+      });
+    }
   }, []);
 
-  console.log(state);
+  console.log(events);
 
   return (
     <div className="dashboard-container">

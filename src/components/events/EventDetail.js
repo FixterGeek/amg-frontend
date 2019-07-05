@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Typography } from 'antd';
 
 import EventCover from '../../molecules/EventCover';
+import TextBlock from '../../atoms/TextBlock';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -20,7 +21,7 @@ function EventDetail(props) {
 
   useEffect(() => {
     if (location.event) {
-      setState(location.event);
+      setState({ ...location.event });
     } else {
       const locationSplit = location.pathname.split('/');
       const id = locationSplit[locationSplit.length - 1];
@@ -33,8 +34,8 @@ function EventDetail(props) {
 
   return (
     <div className="dashboard-container event-detail">
-      <div>
-        <Title>Trilogia</Title>
+      <div className="title">
+        <Title>{ state.title }</Title>
       </div>
       <div className="event-details">
         <div className="left">
@@ -49,7 +50,10 @@ function EventDetail(props) {
             )
           }
         </div>
-        <div className="right">ok</div>
+        <div className="right">
+          { state.directedTo && <TextBlock title="Dirigido a" text={state.directedTo} /> }
+          { state.curricularValue && <TextBlock title="Valor curricular" text={state.curricularValue} /> }
+        </div>
       </div>
     </div>
   );

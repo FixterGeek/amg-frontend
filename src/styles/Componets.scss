@@ -57,14 +57,24 @@
 
 /* Event Detail */
 $eventLeftWidth: 350px;
+
+.event-detail {
+  .title {
+    margin-bottom: $padding;
+  }
+}
+
 .event-details {
   display: flex;
 
   .left {
     width: $eventLeftWidth;
+    min-width: $eventLeftWidth;
   }
 
   .right {
     flex-grow: 1;
+    box-sizing: border-box;
+    padding-left: $largePadding;
   }
 }

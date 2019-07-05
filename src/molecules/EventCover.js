@@ -1,4 +1,7 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 
 import EventImage from '../atoms/EventImage';
 import ImageText from '../atoms/ImageText';
@@ -6,24 +9,15 @@ import ImageText from '../atoms/ImageText';
 function EventCover({
   title, location, startDate, endDate, image,
 }) {
-  const dayDate = number => Number(number);
+  const sDate = moment(startDate).locale('es');
+  const eDate = moment(endDate).locale('es');
 
-  const monthName = (number) => {
-    const months = [
-      'enero', 'febrero', 'marzo',
-      'abril', 'mayo', 'junio',
-      'julio', 'agosto', 'septiembre',
-      'octubre', 'noviembre', 'diciembre',
-    ];
+  console.log(location);
 
-    return months[Number(number)];
-  };
+  let date = `del ${sDate.date()} de ${sDate.format('MMMM')} al ${eDate.date()} de ${eDate.format('MMMM')}`;
 
-  let date = `del ${dayDate(startDate.slice(0, 2))} de ${monthName(startDate.slice(3, 5))} al ${dayDate(endDate.slice(1, 2))} de ${monthName(endDate.slice(3, 5))}`;
-  if (monthName(startDate.slice(3, 5)) === monthName(endDate.slice(3, 5))) {
-    date = `${dayDate(startDate.slice(0, 2))}-${dayDate(endDate.slice(0, 2))} de ${monthName(startDate.slice(3, 5))}`;
-  }
-  if (startDate === endDate) date = `${dayDate(startDate.slice(0, 2))} de ${monthName(startDate.slice(3, 5))}`;
+  if (sDate.month() === eDate.month()) date = `${sDate.date()}-${eDate.date()} de ${sDate.format('MMMM')}`;
+  if (startDate === endDate) date = `${sDate.date()} de ${sDate.format('MMMM')}`;
 
   return (
     <div style={{ cursor: 'pointer' }}>
@@ -35,3 +29,11 @@ function EventCover({
 }
 
 export default EventCover;
+
+EventCover.propTypes = {
+  title: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+};

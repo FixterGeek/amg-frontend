@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
@@ -19,13 +20,15 @@ function Covers({ events }) {
           style={events.length > 3 ? { display: 'flex' } : {}} />
         {
           events.map(event => (
-            <EventCover
-              key={event._id}
-              title={event.title}
-              location={event.location}
-              startDate={event.startDate}
-              endDate={event.endDate}
-              image={event.photoURL} />
+            <Link to={{ pathname: `/dashboard/events/${event._id}`, event }}>
+              <EventCover
+                key={event._id}
+                title={event.title}
+                location={event.location}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                image={event.photoURL} />
+            </Link>
           ))
         }
         <div

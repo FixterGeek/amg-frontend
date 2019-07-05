@@ -239,6 +239,7 @@ $infoHeight: 90px;
   padding-left: ($lateralSpace + $largeMargin);
   box-sizing: border-box;
   align-items: center;
+  margin-bottom: $margin;
 
   &-day {
     font-size: 1.7em;
@@ -251,10 +252,20 @@ $infoHeight: 90px;
     box-sizing: border-box;
     padding: $smallPadding;
     min-height: $infoHeight;
-    margin-bottom: $margin;
 
     h4 {
       margin-bottom: 0;
     }
+  }
+}
+
+
+
+/* Text Block */
+.text-block {
+  margin-bottom: $largeMargin;
+
+  span {
+    font-size: 1.8em;
   }
 }
