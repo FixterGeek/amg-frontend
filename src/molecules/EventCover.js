@@ -12,8 +12,6 @@ function EventCover({
   const sDate = moment(startDate).locale('es');
   const eDate = moment(endDate).locale('es');
 
-  console.log(location);
-
   let date = `del ${sDate.date()} de ${sDate.format('MMMM')} al ${eDate.date()} de ${eDate.format('MMMM')}`;
 
   if (sDate.month() === eDate.month()) date = `${sDate.date()}-${eDate.date()} de ${sDate.format('MMMM')}`;

@@ -29,9 +29,6 @@ function EventDetail(props) {
     }
   }, []);
 
-  console.log(props);
-  console.log(state);
-
   return (
     <div className="dashboard-container event-detail">
       <div className="title">

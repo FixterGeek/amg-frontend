@@ -33,7 +33,6 @@ function EventsList(props) {
 
   useEffect(() => {
     if (events.events.length === 0) {
-      console.log('update!!');
       getEvents().then(({ data }) => {
         dispatch(updateEvents({ events: [...data] }));
       }).catch(({ response }) => {
@@ -41,8 +40,6 @@ function EventsList(props) {
       });
     }
   }, []);
-
-  console.log(events);
 
   return (
     <div className="dashboard-container">

@@ -34,7 +34,6 @@ function LoginForm(props) {
     login(user.email, user.password)
       .then(async (response) => {
         const { data } = response;
-        console.log(response);
         await dispatch(writeUser({ ...data.user, userToken: data.token }));
         await setLoading(false);
         await localStorage.setItem('authToken', data.token);

@@ -11,9 +11,12 @@ import { Menu, Icon } from 'antd';
 import useAmgService from '../hooks/services/useAmgService';
 
 function LateralMenu(props) {
-  console.log(props);
   // eslint-disable-next-line react/prop-types
   const { history } = props;
+  const { location } = history;
+  const locationSplit = location.pathname.split('/');
+  const currentLocation = locationSplit[2];
+
   const { logout } = useAmgService();
 
   const link = (to) => {
@@ -26,13 +29,13 @@ function LateralMenu(props) {
       defaultSelectedKeys={['1']}
       mode="inline">
       <Menu.Item key={1}>
-        <Icon>
+        <Icon className={`${currentLocation === '' ? 'menu-item-active' : ''}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
         <span>Home</span>
       </Menu.Item>
       <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
-        <Icon>
+        <Icon className={`${currentLocation === 'events' ? 'menu-item-active' : ''}`}>
           <FontAwesomeIcon icon={faCalendar} />
         </Icon>
         <span>Eventos</span>

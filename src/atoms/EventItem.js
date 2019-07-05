@@ -10,7 +10,6 @@ function EventItem({ event, baseTo }) {
   const { program, startDate } = event;
   const day = moment(startDate).date();
 
-  console.log(program);
   return (
     <div className="event-item">
       <div className="event-item-day">{ `${day}`.length === 1 ? `0${day}` : day }</div>
