@@ -6,6 +6,7 @@ import { Typography } from 'antd';
 
 import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
+import AmgButton from '../../atoms/Button';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -50,6 +51,9 @@ function EventDetail(props) {
         <div className="right">
           { state.directedTo && <TextBlock title="Dirigido a" text={state.directedTo} /> }
           { state.curricularValue && <TextBlock title="Valor curricular" text={state.curricularValue} /> }
+          <div className="right-button">
+            <AmgButton width="100%">Inscribirme</AmgButton>
+          </div>
         </div>
       </div>
     </div>
