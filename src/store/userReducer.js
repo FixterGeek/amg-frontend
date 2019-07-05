@@ -1,4 +1,4 @@
-import { WRITE_USER } from './actions';
+import { WRITE_USER, CREATE_USER } from './actions';
 
 const userState = {
   email: '',
@@ -9,6 +9,8 @@ const userState = {
 function userReducer(state = userState, action) {
   switch (action.type) {
     case WRITE_USER:
+      return { ...state, ...action.value };
+    case CREATE_USER:
       return { ...state, ...action.value };
     default:
       return state;
