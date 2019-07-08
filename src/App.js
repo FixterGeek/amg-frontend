@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Routes from './Routes'
+import Footer from "./components/home/Footer";
 
 class App extends Component {
     render() {
@@ -7,7 +8,7 @@ class App extends Component {
             <div>
 
                     <Routes />
-
+                <Footer/>
             </div>
         )
     }

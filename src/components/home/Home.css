@@ -1,5 +1,5 @@
 .app{
-    font-family: Avenir;
+    font-family: Avenir !important;
 
 }
 
@@ -180,6 +180,15 @@
     flex-grow: 1;
     margin-right: 50px;
 }
+.tiendas{
+    display: flex;
+    margin-top: 50px;
+}
+.tiendas img{
+    width: 120px;
+    height: 40px;
+    margin-right: 12px;
+}
 .phone{
     width: 300px;
     height: 400px;
@@ -189,4 +198,26 @@
     background-position: center;
     background-repeat: no-repeat;
     margin-top: -30px;
+}
+
+/*
+Footer*/
+
+.footer {
+    width: 100%;
+    min-height: 260px;
+    background-color: #1F2536;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: Avenir;
+    padding: 0 10%;
+    box-sizing: border-box;
+}
+.footer p{
+    font-size: 18px;
+}
+.footer span{
+    font-size: 24px;
+    margin: 0 16px 0 0;
 }

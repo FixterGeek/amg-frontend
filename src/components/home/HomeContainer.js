@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import "./Home.css";
+import ios from "../../assets/40px.png"
+import google from "../../assets/40px (1).png"
+
 
 class HomeContainer extends Component {
     render() {
@@ -100,6 +103,10 @@ class HomeContainer extends Component {
                         <p>Disfruta de los beneficios que ofrece la membresía y lleva
                             toda la AMG donde quiera que estes. Disponible para iOs
                             y Android</p>
+                        <div className="tiendas">
+                            <img src={google} alt=""/>
+                            <img src={ios} alt=""/>
+                        </div>
                     </div>
                     <div className="phone">
 
