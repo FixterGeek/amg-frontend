@@ -1,0 +1,47 @@
+/* Color palette */
+@import "./Palette.scss";
+/* Unities */
+@import "./Unities.scss";
+/* Mixins */
+@import "./Mixins.scss";
+
+/* Login */
+.login-left {
+  padding: $padding !important;
+}
+
+.login-right {
+  display: none;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
+}
+
+.signup-right {
+  padding: $padding !important;
+}
+
+.signup-left {
+  display: none;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
+}
+
+.login-bg {
+  background-image: url('../assets/login-bg.png');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.login-logo {
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/gastro@2x.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}

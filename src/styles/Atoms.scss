@@ -1,0 +1,117 @@
+// Color palette
+@import "./Palette.scss";
+// Unities
+@import "./Unities.scss";
+
+/* Form Entries */
+.input-field-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.input-field {
+  border-radius: 0px !important;
+  color: $textPrimary !important;
+  background-color: $clouds !important;
+  border: none !important;
+  height: 50px !important;
+  padding: $padding !important;
+  box-sizing: border-box !important;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border-bottom: 2px solid transparent !important;
+
+  &:focus {
+    outline: none !important;
+    border-bottom: 2px solid $primary !important;
+  }
+
+  &:disabled {
+    background-color: $silver !important;
+  }
+}
+
+.input-field__error {
+  &:focus {
+    border-bottom: 2px solid $red !important;
+  }
+  border-bottom: 2px solid $red !important;
+}
+
+.input-error {
+  border-bottom-color: $red !important;
+  &:focus {
+    outline: none !important;
+    border-bottom: 2px solid $red !important;
+  }
+}
+
+.input-success {
+  border-bottom-color: $green !important;
+  &:focus {
+    outline: none !important;
+    border-bottom: 2px solid $green !important;
+  }
+}
+
+.input-message {
+  margin-top: $smallMargin;
+  min-height: 16px;
+}
+
+.input-after-element {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  background-color: $clouds;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid;
+  box-sizing: border-box;
+}
+
+.input-label {
+  color: $textPrimary;
+  font-weight: bold;
+}
+
+/* Button */
+.amg-button {
+  border-radius: 0px !important;
+  color: $clouds !important;
+  font-weight: 900 !important;
+  height: 50px !important;
+  max-width: 445px !important;
+}
+
+/* Layout */
+.full-screen {
+  min-height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  box-sizing: border-box;
+}
+
+/* Spinner */
+.spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba($color: #fff, $alpha: 0.6);
+}

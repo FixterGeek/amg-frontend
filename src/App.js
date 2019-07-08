@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import Routes from './Routes'
+import React  from 'react';
 import Footer from "./components/home/Footer";
+import { Provider } from "react-redux";
 
-class App extends Component {
-    render() {
-        return (
-            <div>
+import store from "./store/store";
+import AppRouter from "./routes/Router";
 
-                    <Routes />
-                <Footer/>
-            </div>
-        )
-    }
+import "./styles/App.scss";
+
+function App() {
+  return (
+    <Provider store={store}>
+      <AppRouter />
+      <Footer/>
+    </Provider>
+  );
 }
 
 export default App;
