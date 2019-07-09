@@ -96,5 +96,10 @@ $eventLeftWidth: 350px;
     flex-grow: 1;
     box-sizing: border-box;
     padding-left: $largePadding;
+
+    &-button {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }

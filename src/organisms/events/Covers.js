@@ -1,13 +1,37 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
+import { rotateArray, rotateArrayRight } from '../../tools/rotateArray';
 import EventCover from '../../molecules/EventCover';
 
 function Covers({ events }) {
+  const [state, setState] = useState({
+    events: [],
+    animate: 'on',
+  });
+
   const { Title } = Typography;
+
+
+  useEffect(() => {
+    if (state.events.length === 0) {
+      setState({ events });
+    }
+  }, [events]);
+
+
+  const goLeft = () => {
+    setState({ animate: 'on', events: rotateArray(state.events) });
+  };
+
+
+  const goRight = () => {
+    setState({ animate: 'on', events: rotateArrayRight(state.events) });
+  };
 
   return (
     <div className="events-covers-container">
@@ -16,11 +40,16 @@ function Covers({ events }) {
       </div>
       <div className="events-covers-carousel">
         <div
+          onClick={() => goLeft()}
+          role="button"
+          tabIndex={0}
           className="carousel-button-left"
-          style={events.length > 3 ? { display: 'flex' } : {}} />
+          style={state.events.length > 3 ? { display: 'flex' } : {}} />
         {
-          events.map(event => (
-            <Link to={{ pathname: `/dashboard/events/${event._id}`, event }}>
+          state.events.slice(0, 3).map(event => (
+            <Link
+              to={{ pathname: `/dashboard/events/${event._id}`, event }}
+              className={`event-carousel-${state.animate} carousel-item`}>
               <EventCover
                 key={event._id}
                 title={event.title}
@@ -32,8 +61,11 @@ function Covers({ events }) {
           ))
         }
         <div
+          onClick={() => goRight()}
+          role="button"
+          tabIndex={0}
           className="carousel-button-right"
-          style={events.length > 3 ? { display: 'flex' } : {}} />
+          style={state.events.length > 3 ? { display: 'flex' } : {}} />
       </div>
     </div>
   );
