@@ -218,6 +218,14 @@ $eventImageHeight: 315px;
   align-items: flex-end;
 }
 
+.event-image-large {
+  @extend .event-image;
+  width: 100%;
+  height: 450px;
+  background-size: cover;
+  padding: $largePadding;
+}
+
 .image-text {
   display: flex;
   flex-direction: column;

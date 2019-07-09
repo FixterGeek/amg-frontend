@@ -7,7 +7,7 @@ import EventImage from '../atoms/EventImage';
 import ImageText from '../atoms/ImageText';
 
 function EventCover({
-  title, location, startDate, endDate, image,
+  title, location, startDate, endDate, image, size,
 }) {
   const sDate = moment(startDate).locale('es');
   const eDate = moment(endDate).locale('es');
@@ -19,7 +19,7 @@ function EventCover({
 
   return (
     <div style={{ cursor: 'pointer' }}>
-      <EventImage image={image}>
+      <EventImage image={image} size={size}>
         <ImageText title={title} location={location} date={date} />
       </EventImage>
     </div>
@@ -34,4 +34,9 @@ EventCover.propTypes = {
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(['normal', 'large']),
+};
+
+EventCover.defaultProps = {
+  size: 'normal',
 };

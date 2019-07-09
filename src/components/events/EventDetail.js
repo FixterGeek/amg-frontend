@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -11,8 +12,7 @@ import AmgButton from '../../atoms/Button';
 import useAmgService from '../../hooks/services/useAmgService';
 
 function EventDetail(props) {
-  const { match, history } = props;
-  const { params } = match;
+  const { history } = props;
   const { location } = history;
 
   const { Title } = Typography;
