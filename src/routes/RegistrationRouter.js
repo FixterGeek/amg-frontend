@@ -8,8 +8,8 @@ const RegistrationRouter = () => {
   return (
     <Switch>
       <Route path="/signup" exact component={Registration} />
-      <Route path="/signup/general" component={GeneralData} />
-      <Route path="/signup/fiscal" component={FiscalData} />
+      <Route path="/signup/general" exact component={GeneralData} />
+      <Route path="/signup/fiscal" exact component={FiscalData} />
     </Switch>
   );
 };

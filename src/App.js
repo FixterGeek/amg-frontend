@@ -1,9 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import "moment/locale/es";
-import React from "react";
 import Footer from "./components/home/Footer";
-import { Provider } from "react-redux";
 
 import store from "./store/store";
 import AppRouter from "./routes/Router";
