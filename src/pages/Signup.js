@@ -1,6 +1,6 @@
 import React from "react";
-import Home from "./Home";
+import RegistrationRouter from "../routes/RegistrationRouter";
 
 export default () => {
-  return <Home />;
+  return <RegistrationRouter />;
 };
