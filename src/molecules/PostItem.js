@@ -3,6 +3,7 @@ import React from 'react';
 import { Typography } from 'antd';
 
 import ProfilePhoto from '../atoms/ProfilePhoto';
+import PostIcons from '../atoms/PostIcons';
 
 
 function PostItem() {
@@ -21,13 +22,14 @@ function PostItem() {
           <Text>Hoy a las 5:00 pm</Text>
         </div>
       </div>
-      <div>
+      <div className="post-item-post">
         <Text>
           Officia eiusmod cupidatat eu ea nisi ipsum. Reprehenderit Lorem velit
           exercitation incididunt aliqua voluptate mollit minim Lorem dolor. Dolor
           occaecat qui qui proident reprehenderit sit aliquip ipsum officia nulla id.
         </Text>
       </div>
+      <PostIcons />
     </div>
   );
 }

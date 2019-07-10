@@ -207,6 +207,7 @@ $inputHeight: 50px;
 /** EventImage **/
 $eventImageWith: 350px;
 $eventImageHeight: 315px;
+$eventImageHeightLarge: 415px;
 
 .event-image {
   width: $eventImageWith;
@@ -221,7 +222,7 @@ $eventImageHeight: 315px;
 .event-image-large {
   @extend .event-image;
   width: 100%;
-  height: 450px;
+  height: $eventImageHeightLarge;
   background-size: cover;
   padding: $largePadding;
 }
@@ -299,5 +300,21 @@ $profilePhotoSize: 120px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+  }
+}
+
+
+
+/* Post Icons */
+.post-icons {
+  display: flex;
+  justify-content: flex-end;
+
+  svg {
+    cursor: pointer;
+    font-size: 1.2em;
+    &:first-child {
+      margin-right: $margin;
+    }
   }
 }

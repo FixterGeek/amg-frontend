@@ -47,9 +47,14 @@
 .post-item {
   min-height: 350px;
   width: 100%;
-  background-color: $lightBlue;
+  background-color: $clouds;
   box-sizing: border-box;
   padding: $padding;
+  margin-top: $largeMargin;
+  margin-bottom: $largeMargin;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &-info {
     display: flex;
@@ -62,9 +67,12 @@
     align-items: center;
   }
 
-  
-
   h2 {
     margin-bottom: $smallMargin;
+  }
+
+  &-post {
+    margin-top: $largeMargin;
+    flex-grow: 1;
   }
 }

@@ -58,6 +58,7 @@ function Feed(props) {
       </div>
       <div>
         <PostItem />
+        <PostItem />
       </div>
     </div>
   );
