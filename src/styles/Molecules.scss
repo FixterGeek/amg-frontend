@@ -39,3 +39,32 @@
     margin-top: ($largeMargin * 2);
   }
 }
+
+
+
+
+/* Post Item */
+.post-item {
+  min-height: 350px;
+  width: 100%;
+  background-color: $lightBlue;
+  box-sizing: border-box;
+  padding: $padding;
+
+  &-info {
+    display: flex;
+  }
+
+  &-photo {
+    margin-right: $margin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+
+  h2 {
+    margin-bottom: $smallMargin;
+  }
+}

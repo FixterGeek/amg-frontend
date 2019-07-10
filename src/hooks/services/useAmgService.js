@@ -28,7 +28,7 @@ function useAmgService() {
 
   const getSelfUser = async () => {
     const authToken = await localStorage.getItem('authToken');
-    return axios.get(`${baseAuthURL}users/self`, {
+    return axios.get(`${baseAuthURL}/self`, {
       headers: {
         Authorization: authToken,
       },
@@ -37,7 +37,7 @@ function useAmgService() {
 
   const getEvents = async () => {
     const authToken = await localStorage.getItem('authToken');
-    return axios.get(`${APIURL}events/`, {
+    return axios.get(`${APIURL}/events/`, {
       headers: {
         Authorization: authToken,
       },
@@ -46,7 +46,7 @@ function useAmgService() {
 
   const getSingleEvent = async (id) => {
     const authToken = await localStorage.getItem('authToken');
-    return axios.get(`${APIURL}events/${id}`, {
+    return axios.get(`${APIURL}/events/${id}`, {
       headers: {
         Authorization: authToken,
       },

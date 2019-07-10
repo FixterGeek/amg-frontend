@@ -6,13 +6,14 @@ import { connect } from 'react-redux';
 import { Typography } from 'antd';
 
 import useAmgService from '../../hooks/services/useAmgService';
-import { updateEvents } from '../../store/actions';
+import { updateEvents, createUser } from '../../store/actions';
 import EventCover from '../../molecules/EventCover';
+import PostItem from '../../molecules/PostItem';
 
 function Feed(props) {
   console.log(props);
-  const { events: { events }, dispatch } = props;
-  const { getEvents } = useAmgService();
+  const { events: { events }, user, dispatch } = props;
+  const { getEvents, getSelfUser } = useAmgService();
   const { Title } = Typography;
 
   useEffect(() => {
@@ -20,9 +21,17 @@ function Feed(props) {
       getEvents().then(({ data }) => dispatch(updateEvents({ events: [...data] })));
       // dispatch(updateEvents());
     }
+
+    if (!user.email) {
+      getSelfUser().then(({ data }) => {
+        dispatch(createUser({ ...data }));
+      }).catch(({ response }) => {
+        console.log(response);
+      });
+    }
   }, []);
 
-  console.log(events);
+  console.log(user);
 
   return (
     <div className="dashboard-container">
@@ -47,13 +56,16 @@ function Feed(props) {
           )
         }
       </div>
+      <div>
+        <PostItem />
+      </div>
     </div>
   );
 }
 
 
 function mapStateToProps(state) {
-  return { events: state.events };
+  return { events: state.events, user: state.user };
 }
 
 export default connect(mapStateToProps)(Feed);
