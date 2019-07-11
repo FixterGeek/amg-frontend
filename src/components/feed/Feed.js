@@ -9,6 +9,7 @@ import useAmgService from '../../hooks/services/useAmgService';
 import { updateEvents, createUser } from '../../store/actions';
 import EventCover from '../../molecules/EventCover';
 import PostItem from '../../molecules/PostItem';
+import Publisher from '../../molecules/Publisher';
 
 function Feed(props) {
   console.log(props);
@@ -55,6 +56,9 @@ function Feed(props) {
             </Link>
           )
         }
+      </div>
+      <div>
+        <Publisher />
       </div>
       <div>
         <PostItem />

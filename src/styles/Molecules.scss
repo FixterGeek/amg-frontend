@@ -76,3 +76,30 @@
     flex-grow: 1;
   }
 }
+
+
+
+/* Publisher */
+$inputHeight: 72px;
+
+.publisher {
+  margin-top: $largeMargin;
+  margin-bottom: $largeMargin;
+
+  input, button {
+    border-radius: 0px!important;
+    height: $inputHeight;
+    border: none!important;
+  }
+
+  input {
+    background-color: $clouds!important;
+    font-size: 1.2em!important;
+  }
+
+  button {
+    min-width: 241px;
+    font-size: 1em!important;
+    background-color: $secondary!important;
+  }
+}
