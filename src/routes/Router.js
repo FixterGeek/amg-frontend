@@ -5,7 +5,7 @@ import PrivateRoute from "./PrivateRoute";
 import WithoutLoginRoute from "./WithoutLoginRoute";
 import Home from "../components/home/HomeContainer";
 import Login from "../components/login/Login";
-import Signup from "../pages/Signup";
+import Signup from "../components/signup/GeneralData";
 import DashBoard from "../pages/DashBoard";
 
 function AppRouter() {
@@ -13,7 +13,7 @@ function AppRouter() {
     <Router>
       <Route path="/" exact component={Home} />
       <WithoutLoginRoute path="/login" exact component={Login} />
-      <Route path="/signup" exact component={Signup} />
+      <Route path="/signup" exact render={() => <Signup />} />
       <PrivateRoute path="/dashboard" component={DashBoard} />
     </Router>
   );

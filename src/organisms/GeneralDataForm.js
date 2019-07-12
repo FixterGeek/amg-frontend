@@ -1,47 +1,56 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React from "react";
+//import { withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
 
 import TextField from "../molecules/TextFields";
-import useAmgService from "../hooks/services/useAmgService";
+import SelectField from "../molecules/SelectField";
+// import useAmgService from "../hooks/services/useAmgService";
 import AmgButton from "../atoms/Button";
-import { createUser } from "../store/actions";
+// import { createUser } from "../store/actions";
 
-function SignupForm(props) {
-  const { history } = props;
-  const [error, setError] = useState({
-    name: false,
-    dadSurname: false,
-    momSurname: false,
-    email: false,
-    password: false,
-    birthdate: false,
-    placeOfBirth: false,
-    specialty: false
-  });
+function SignupForm() {
+  // const { history } = props;
+  // const [error, setError] = useState({
+  //   name: false,
+  //   dadSurname: false,
+  //   momSurname: false,
+  //   email: false,
+  //   password: false,
+  //   birthdate: false,
+  //   placeOfBirth: false,
+  //   specialty: false
+  // });
 
-  const { user, dispatch } = props;
-  const { signup } = useAmgService();
+  //const { user, dispatch } = props;
+  //const { signup } = useAmgService();
+
+  // const handleChange = e => {
+  //   const {
+  //     target: { value, name }
+  //   } = e;
+  //   dispatch(createUser({ [name]: value }));
+  // };
 
   const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ [name]: value }));
+    console.log(e);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  // const handleSubmit = e => {
+  //   e.preventDefault();
 
-    signup(user.email, user.password)
-      .then(async ({ data }) => {
-        await dispatch(createUser({ ...data.user, userToken: data.token }));
-        await localStorage.setItem("authToken", data.token);
-        history.push("/dashboard");
-      })
-      .catch(() => {
-        setError({ email: true, password: true });
-      });
+  //   signup(user.email, user.password)
+  //     .then(async ({ data }) => {
+  //       await dispatch(createUser({ ...data.user, userToken: data.token }));
+  //       await localStorage.setItem("authToken", data.token);
+  //       history.push("/dashboard");
+  //     })
+  //     .catch(() => {
+  //       setError({ email: true, password: true });
+  //     });
+  // };
+
+  const handleSubmit = e => {
+    console.log(e);
   };
 
   return (
@@ -51,64 +60,42 @@ function SignupForm(props) {
       onSubmit={handleSubmit}
     >
       <TextField
-        value={user.name}
+        //value={user.name}
         onChange={handleChange}
         name="name"
         label="Nombre"
       />
 
       <TextField
-        value={user.dadSurname}
+        //value={user.dadSurname}
         onChange={handleChange}
         name="dadSurname"
         label="Apellido paterno"
       />
 
       <TextField
-        value={user.momSurname}
+        //value={user.momSurname}
         onChange={handleChange}
         name="momSurname"
         label="Apellido materno"
       />
 
       <TextField
-        width="100%"
-        error={error.email}
-        errorMessage="El email no puede estar vacio"
-        value={user.email}
-        onChange={handleChange}
-        name="email"
-        label="Correo"
-      />
-
-      <TextField
-        width="100%"
-        error={error.password}
-        errorMessage="la contraseña no puede ir vacia"
-        value={user.password}
-        onChange={handleChange}
-        name="password"
-        type="password"
-        label="Contraseña"
-        marginBottom="0px"
-      />
-
-      <TextField
-        value={user.birthdate}
+        //value={user.birthdate}
         onChange={handleChange}
         name="birthdate"
         label="Fecha de nacimiento"
       />
 
-      <TextField
-        value={user.placeOfBirth}
+      <SelectField
+        //value={user.placeOfBirth}
         onChange={handleChange}
         name="placeOfBirth"
         label="Lugar de nacimiento"
       />
 
       <TextField
-        value={user.specialty}
+        //value={user.specialty}
         onChange={handleChange}
         name="specialty"
         label="Especialidad"
@@ -121,10 +108,10 @@ function SignupForm(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     user: state.user
+//   };
+// }
 
-export default withRouter(connect(mapStateToProps)(SignupForm));
+export default SignupForm; // withRouter(connect(mapStateToProps)(SignupForm));

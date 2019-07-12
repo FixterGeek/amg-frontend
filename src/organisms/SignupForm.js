@@ -12,6 +12,7 @@ function SignupForm(props) {
   const { history } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
+    name: false,
     email: false,
     password: false
   });
@@ -50,6 +51,13 @@ function SignupForm(props) {
       onSubmit={handleSubmit}
     >
       {loading && <Spinner tip="Registrando usuario..." />}
+      <TextField
+        value={user.name}
+        onChange={handleChange}
+        errorMessage="El nombre no puede estar vacio"
+        name="name"
+        label="Nombre"
+      />
 
       <TextField
         width="100%"
