@@ -25,12 +25,36 @@ function useAmgService() {
     history.push("/login");
   };
 
-  const signup = async (name, email, password) =>
-    axios.post(`${baseAuthURL}/signup`, {
-      name,
-      email,
-      password
-    });
+  const signup = async (
+    name,
+    dadSurname,
+    momSurname,
+    email,
+    password,
+    birthDate,
+    placeOfBirth,
+    speciality,
+    userStatus
+  ) =>
+    axios.post(
+      `${baseAuthURL}/signup`,
+      {
+        name,
+        dadSurname,
+        momSurname,
+        email,
+        password,
+        birthDate,
+        placeOfBirth,
+        speciality,
+        userStatus
+      },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
   const getEvents = async () => {
     const authToken = await localStorage.getItem("authToken");

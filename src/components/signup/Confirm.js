@@ -5,9 +5,9 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import GeneralDataForm from "../../organisms/forms/GeneralDataFormD";
+import ConfirmForm from "../../organisms/forms/ConfirmForm";
 
-const GeneralData = () => {
+const Confirm = () => {
   const { Title } = Typography;
   return (
     <FullScreenContainer
@@ -39,13 +39,13 @@ const GeneralData = () => {
           paddingBottom={size.largePadding}
         >
           <Title clasName="title-left" level={6}>
-            Datos generales
+            Aviso de privacidad
           </Title>
         </Container>
-        <GeneralDataForm />
+        <ConfirmForm />
       </Container>
     </FullScreenContainer>
   );
 };
 
-export default GeneralData;
+export default Confirm;

@@ -5,7 +5,7 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-// import FiscalDataForm from "../../organisms/FiscalDataForm";
+import FiscalDataForm from "../../organisms/forms/FiscalDataForm";
 
 const FiscalData = () => {
   const { Title } = Typography;
@@ -38,9 +38,11 @@ const FiscalData = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title level={6}>Datos fiscales</Title>
+          <Title clasName="title-left" level={6}>
+            Datos fiscales
+          </Title>
         </Container>
-        {/* <FiscalDataForm /> */}
+        <FiscalDataForm />
       </Container>
     </FullScreenContainer>
   );

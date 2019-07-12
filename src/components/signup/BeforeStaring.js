@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import icon from "../../assets/download.svg";
 import { Typography, Button } from "antd";
 
@@ -79,7 +79,7 @@ const BeforeStaring = () => {
         </Container>
         <Container flexGrow={1} height="100px">
           <AmgButton width="100%" htmlType="submit">
-            Comenzar
+            <Link to="/signup/general">Comenzar</Link>
           </AmgButton>
         </Container>
       </Container>

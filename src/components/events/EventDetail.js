@@ -11,8 +11,8 @@ import AmgButton from '../../atoms/Button';
 import useAmgService from '../../hooks/services/useAmgService';
 
 function EventDetail(props) {
-  const { match, history } = props;
-  const { params } = match;
+  const { history } = props;
+  //const { params } = match;
   const { location } = history;
 
   const { Title } = Typography;

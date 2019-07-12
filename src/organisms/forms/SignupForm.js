@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import TextField from "../molecules/TextFields";
-import useAmgService from "../hooks/services/useAmgService";
-import AmgButton from "../atoms/Button";
-import Spinner from "../atoms/Spinner";
-import { createUser } from "../store/actions";
+import TextField from "../../molecules/TextFields";
+import useAmgService from "../../hooks/services/useAmgService";
+import AmgButton from "../../atoms/Button";
+import Spinner from "../../atoms/Spinner";
+import { createUser } from "../../store/actions";
 
 function SignupForm(props) {
   const { history } = props;
