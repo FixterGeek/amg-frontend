@@ -6,6 +6,7 @@ import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
 import EducationDataForm from "../../organisms/forms/EducationDataForm";
+import Steper from "../../organisms/Steper";
 
 const EducationData = () => {
   const { Title } = Typography;
@@ -26,7 +27,7 @@ const EducationData = () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        {/* <Steper /> */}
+        <Steper />
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">

@@ -13,7 +13,6 @@ import Fiscal from "../components/signup/FiscalData";
 import Confirm from "../components/signup/Confirm";
 import DashBoard from "../pages/DashBoard";
 
-import Welcome from "../pages/templates/ResetPassword";
 
 function AppRouter() {
   return (
@@ -26,7 +25,6 @@ function AppRouter() {
       <Route path="/signup/laboral" exact component={Laboral} />
       <Route path="/signup/fiscal" exact component={Fiscal} />
       <Route path="/signup/confirm" exact component={Confirm} />
-      <Route path="/welcome" exact component={Welcome} />
       <PrivateRoute path="/dashboard" component={DashBoard} />
     </Router>
   );

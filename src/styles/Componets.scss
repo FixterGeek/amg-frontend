@@ -24,6 +24,7 @@
 
 .signup-left {
   display: none;
+  padding-left: 32px !important;
 
   @include for-size(tablet-landscape-up) {
     display: flex;

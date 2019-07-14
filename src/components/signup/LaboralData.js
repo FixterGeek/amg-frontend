@@ -6,6 +6,7 @@ import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
 import LaboralDataForm from "../../organisms/forms/LaboralDataForm";
+import Steper from "../../organisms/Steper";
 
 const LaboralData = () => {
   const { Title } = Typography;
@@ -26,7 +27,7 @@ const LaboralData = () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        {/* <Steper /> */}
+        <Steper />
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
@@ -35,7 +36,7 @@ const LaboralData = () => {
           flexGrow={5}
           height="auto"
           width="100%"
-          paddingTop={size.largePadding}
+          paddingTop={ size.largePadding}
           paddingBottom={size.largePadding}
         >
           <Title clasName="title-left" level={6}>

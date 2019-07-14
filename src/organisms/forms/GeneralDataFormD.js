@@ -2,7 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 import TextField from "../../molecules/TextFields";
+import SelectField from "../../molecules/SelectField";
 import AmgButton from "../../atoms/Button";
+import { DatePicker, Radio } from "antd";
 
 const GeneralDataFormD = ({ history }) => {
   const handleSubmit = () => {
@@ -19,7 +21,7 @@ const GeneralDataFormD = ({ history }) => {
       <TextField name="dadSurname" label="Apellido paterno" />
       <TextField name="momSurname" label="Apellido materno" />
       <TextField name="email" label="Correo" />
-      <TextField name="placeOfBirth" label="Lugar de nacimiento" />
+      <SelectField name="placeOfBirth" label="Lugar de nacimiento" />
       <TextField name="specialty" label="Especialidad" />
       <AmgButton width="100%" htmlType="submit">
         Siguiente
