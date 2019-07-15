@@ -35,6 +35,8 @@ function useAmgService() {
     });
   };
 
+  /* Events section */
+
   const getEvents = async () => {
     const authToken = await localStorage.getItem('authToken');
     return axios.get(`${APIURL}/events/`, {
@@ -53,6 +55,18 @@ function useAmgService() {
     });
   };
 
+
+  /* Publications section */
+
+  const getPublications = async () => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/publications/`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
   return {
     login,
     logout,
@@ -60,6 +74,7 @@ function useAmgService() {
     getSelfUser,
     getEvents,
     getSingleEvent,
+    getPublications,
   };
 }
 
