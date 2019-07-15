@@ -318,3 +318,40 @@ $profilePhotoSize: 120px;
     }
   }
 }
+
+/* Text N Icon Button */
+.text-n-icon-button {
+  margin-top: $largeMargin;
+  margin-bottom: $largeMargin;
+  padding-right: $largePadding;
+  box-sizing: border-box;
+  
+  a {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    color: $secondary;
+  }
+}
+
+.text-n-icon-icon {
+  color: $primary;
+}
+
+.bino {
+  background-image: url('../assets/bino.svg');
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.micro {
+  background-image: url('../assets/micro.svg');
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

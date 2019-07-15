@@ -8,6 +8,7 @@ import { Typography } from 'antd';
 import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
 import AmgButton from '../../atoms/Button';
+import TextNIconButton from '../../atoms/TextNIconButton';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -47,6 +48,13 @@ function EventDetail(props) {
                 image={state.photoURL} />
             )
           }
+          <TextNIconButton text="Ver programa" icon="bino" />
+          <TextNIconButton text="Ver ponentes" icon="micro" />
+          <TextNIconButton
+            downloadable
+            to={state.permisoURL}
+            event={state}
+            text="Descargar carta permiso" />
         </div>
         <div className="right">
           { state.directedTo && <TextBlock title="Dirigido a" text={state.directedTo} /> }
