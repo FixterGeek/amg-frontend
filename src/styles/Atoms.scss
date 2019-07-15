@@ -199,8 +199,10 @@ $inputHeight: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 10;
   background-color: rgba($color: #fff, $alpha: 0.6);
+  padding: $largePadding;
+  box-sizing: border-box;
 }
 
 /* Events */
@@ -313,6 +315,10 @@ $profilePhotoSize: 120px;
   svg {
     cursor: pointer;
     font-size: 1.2em;
+    margin-right: $smallMargin;
+  }
+
+  &-item {
     &:first-child {
       margin-right: $margin;
     }

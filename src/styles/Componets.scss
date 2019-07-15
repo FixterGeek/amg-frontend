@@ -103,3 +103,18 @@ $eventLeftWidth: 350px;
     }
   }
 }
+
+
+
+/* Feed */
+.feed {
+  &-event {
+    position: relative;
+    min-height: 415px;
+  }
+
+  &-publications {
+    position: relative;
+    min-height: 356px;
+  }
+}

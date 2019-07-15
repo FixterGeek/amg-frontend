@@ -1,14 +1,12 @@
-import React from "react";
-import { Provider } from "react-redux";
-import "moment/locale/es";
-import React from "react";
-import Footer from "./components/home/Footer";
-import { Provider } from "react-redux";
+import React from 'react';
+import { Provider } from 'react-redux';
+import 'moment/locale/es';
+import Footer from './components/home/Footer';
 
-import store from "./store/store";
-import AppRouter from "./routes/Router";
+import store from './store/store';
+import AppRouter from './routes/Router';
 
-import "./styles/App.scss";
+import './styles/App.scss';
 
 function App() {
   return (
