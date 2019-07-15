@@ -39,7 +39,7 @@ const FiscalData = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title clasName="title-left" level={6}>
+          <Title clasName="title-left" level={1}>
             Datos fiscales
           </Title>
         </Container>

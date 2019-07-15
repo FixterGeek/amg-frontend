@@ -9,7 +9,7 @@ export default () => {
       <Step title="Datos generales" />
       <Step title="Datos profesionales" />
       <Step title="Educación" />
-      <Step title="Datos físcales" />
+      <Step title="Datos físcales s" />
     </Steps>
   );
 };

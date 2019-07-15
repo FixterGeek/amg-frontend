@@ -8,7 +8,7 @@ import { palette, size } from "../../styles/theme";
 import ConfirmForm from "../../organisms/forms/ConfirmForm";
 
 const Confirm = () => {
-  const { Title } = Typography;
+  const { Title, Text } = Typography;
   return (
     <FullScreenContainer
       lateralSpace="0px"
@@ -26,7 +26,6 @@ const Confirm = () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        {/* <Steper /> */}
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
@@ -38,7 +37,7 @@ const Confirm = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title clasName="title-left" level={6}>
+          <Title clasName="title-left" level={1}>
             Aviso de privacidad
           </Title>
         </Container>

@@ -34,3 +34,12 @@
     margin-top: ($largeMargin * 2);
   }
 }
+
+/* CheckBox */
+.check-box {
+  display: flex;
+  flex-direction: column;
+  .ant-checkbox-wrapper {
+    margin-left: 0;
+  }
+}

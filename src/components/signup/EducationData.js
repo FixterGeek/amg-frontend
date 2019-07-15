@@ -6,6 +6,8 @@ import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
 import EducationDataForm from "../../organisms/forms/EducationDataForm";
+import InternshipDataForm from "../../organisms/forms/InternshipDataForm";
+import CoursesDataForm from "../../organisms/forms/CoursesDataForm";
 import Steper from "../../organisms/Steper";
 
 const EducationData = () => {
@@ -31,19 +33,33 @@ const EducationData = () => {
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
-        <Container
-          alignItems="flex-start"
-          flexGrow={5}
-          height="auto"
-          width="100%"
-          paddingTop={size.largePadding}
-          paddingBottom={size.largePadding}
-        >
-          <Title clasName="title-left" level={6}>
-            Educación
-          </Title>
+        <Container flexGrow={1} height="100px">
+          <div style={{ textAlign: "center" }}>
+            <Title level={1} style={{ margin: 0 }}>
+              Educación
+            </Title>
+            <Title level={4} style={{ margin: 0 }}>
+              Educación profesional
+            </Title>
+          </div>
         </Container>
         <EducationDataForm />
+        <Container flexGrow={1} height="100px">
+          <div style={{ textAlign: "center" }}>
+            <Title level={4} style={{ margin: 0 }}>
+              Internado de pregrado
+            </Title>
+          </div>
+        </Container>
+        <InternshipDataForm />
+        <Container flexGrow={1} height="100px">
+          <div style={{ textAlign: "center" }}>
+            <Title level={4} style={{ margin: 0 }}>
+              Cursos de posgrado
+            </Title>
+          </div>
+        </Container>
+        <CoursesDataForm />
       </Container>
     </FullScreenContainer>
   );

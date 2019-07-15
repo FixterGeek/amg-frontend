@@ -18,7 +18,7 @@ const BeforeStaring = () => {
       paddingBottom="0px"
       flexWrap="nowrap"
     >
-      <Container className="signup-left" height="100vh" width="50%">
+      <Container height="100vh" width="50%">
         <Container
           alignItems="flex-start"
           paddingTop={size.largePadding}

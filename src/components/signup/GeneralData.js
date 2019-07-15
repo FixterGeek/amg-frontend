@@ -5,7 +5,7 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import GeneralDataForm from "../../organisms/forms/GeneralDataFormD";
+import GeneralDataForm from "../../organisms/forms/GeneralDataForm";
 import Steper from "../../organisms/Steper";
 
 const GeneralData = () => {
@@ -39,7 +39,7 @@ const GeneralData = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title clasName="title-left" level={6}>
+          <Title clasName="title-left" level={1}>
             Datos generales
           </Title>
         </Container>

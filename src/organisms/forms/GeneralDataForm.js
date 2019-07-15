@@ -3,12 +3,16 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
-import useAmgService from "../../hooks/services/useAmgService";
+import SelectField from "../../molecules/SelectField";
+import { Checkbox } from "antd";
+//import useAmgService from "../../hooks/services/useAmgService";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
+import Label from "../../atoms/data_entry/Label";
 
 function GeneralDataForm(props) {
   const { history } = props;
+  const [chekedShow, setChekedShow] = useState(false);
   const [error, setError] = useState({
     name: false,
     dadSurname: false,
@@ -21,43 +25,58 @@ function GeneralDataForm(props) {
   });
 
   const { user, dispatch } = props;
-  const { signup } = useAmgService();
+  // const { signup } = useAmgService();
+
+  function onChangeCheckBox(e) {
+    const {
+      target: { value, name, checked }
+    } = e;
+    if (value !== "Otra") {
+      dispatch(createUser({ [name]: value }));
+      console.log(`checked = ${e.target.checked}`);
+    } else {
+      setChekedShow(checked);
+      dispatch(createUser({ [name]: "" }));
+    }
+  }
 
   const handleChange = e => {
     const {
       target: { value, name }
     } = e;
-    console.log(e);
     dispatch(createUser({ [name]: value }));
+
+    //address: {...user.address, [name]: value}
   };
+
+  console.log(user);
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    signup(
-      user.name,
-      user.dadSurname,
-      user.momSurname,
-      user.email,
-      user.birthDate,
-      user.placleOfBirth,
-      user.userStatus
-    )
-      .then(async ({ data }) => {
-        await dispatch(createUser({ ...data.user, userToken: data.token }));
-        await localStorage.setItem("authToken", data.token);
-        console.log(data);
-        history.push("dashboard/user");
-      })
-      .catch(() => {
-        setError({
-          name: true,
-          dadSurname: true,
-          momSurname: true,
-          email: true,
-          birthDate: true
-        });
-      });
+    history.push("education");
+    // signup(
+    //   user.name,
+    //   user.dadSurname,
+    //   user.momSurname,
+    //   user.email,
+    //   user.birthDate,
+    //   user.placleOfBirth,
+    // )
+    //   .then(async ({ data }) => {
+    //     await dispatch(createUser({ ...data.user, userToken: data.token }));
+    //     await localStorage.setItem("authToken", data.token);
+    //     console.log(data);
+    //     history.push("/education");
+    //   })
+    //   .catch(() => {
+    //     setError({
+    //       name: true,
+    //       dadSurname: true,
+    //       momSurname: true,
+    //       email: true,
+    //       birthDate: true
+    //     });
+    //   });
   };
 
   return (
@@ -103,19 +122,63 @@ function GeneralDataForm(props) {
         label="Fecha de nacimiento"
       />
 
-      <TextField
+      <SelectField
         value={user.placeOfBirth}
         onChange={handleChange}
         name="placeOfBirth"
         label="Lugar de nacimiento"
+        options={[{ value: "Hidalgo", text: "Hidalgo" }]}
       />
 
-      <TextField
-        value={user.specialty}
-        onChange={handleChange}
-        name="specialty"
-        label="Especialidad"
-      />
+      <Label>Especialidad</Label>
+      <div className="check-box">
+        <Checkbox
+          onChange={onChangeCheckBox}
+          name="specialty"
+          value="Medicina Interna"
+        >
+          Medicina Interna
+        </Checkbox>
+        <Checkbox
+          onChange={onChangeCheckBox}
+          name="specialty"
+          value="Gastroenterología pediátrica"
+        >
+          Gastroenterología pediátrica
+        </Checkbox>
+        <Checkbox
+          onChange={onChangeCheckBox}
+          name="specialty"
+          value="Cirugía interna"
+        >
+          Cirugía interna
+        </Checkbox>
+        <Checkbox
+          onChange={onChangeCheckBox}
+          name="specialty"
+          value="Gastroenterología"
+        >
+          Gastroenterología
+        </Checkbox>
+        <Checkbox
+          onChange={onChangeCheckBox}
+          name="specialty"
+          value="Endoscopía gastrointestinal"
+        >
+          Endoscopía gastrointestinal
+        </Checkbox>
+        <Checkbox onChange={onChangeCheckBox} name="specialty" value="Otra">
+          Otra
+        </Checkbox>
+        {chekedShow && (
+          <TextField
+            value={user.specialty}
+            onChange={handleChange}
+            name="specialty"
+            label="Especialidad"
+          />
+        )}
+      </div>
 
       <AmgButton width="100%" htmlType="submit">
         Siguiente

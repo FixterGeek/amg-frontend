@@ -36,10 +36,10 @@ const LaboralData = () => {
           flexGrow={5}
           height="auto"
           width="100%"
-          paddingTop={ size.largePadding}
+          paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title clasName="title-left" level={6}>
+          <Title clasName="title-left" level={1}>
             Datos laborales
           </Title>
         </Container>

@@ -4,7 +4,7 @@ const { Upload, Icon, message } = antd;
 const Avatar = () => {
   return (
     <div>
-      <h1>Hola soy ek avatar</h1>
+      <h1>Hola soy el avatar</h1>
     </div>
   );
 };
