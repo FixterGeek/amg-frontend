@@ -1,4 +1,6 @@
-.app {
+
+.app{
+    font-family: Avenir !important;
   font-family: Avenir, Avenir-black;
   position: relative;
 }
@@ -187,4 +189,67 @@
   background-position: center;
   background-repeat: no-repeat;
   margin-top: -30px;
+}
+
+.card:hover{
+    border-top: 2px solid #022047;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-top: -15px;
+}
+.card:hover .btn-dark-blue{
+    background-color: #022047;
+    color: white;
+}
+.download{
+    width: 70%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.app-down{
+    width: 300px;
+    flex-grow: 1;
+    margin-right: 50px;
+}
+.tiendas{
+    display: flex;
+    margin-top: 50px;
+}
+.tiendas img{
+    width: 120px;
+    height: 40px;
+    margin-right: 12px;
+}
+.phone{
+    width: 300px;
+    height: 400px;
+    flex-grow: 1;
+    background-image: url("../../assets/PruebaCelular_SinFondo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -30px;
+}
+
+/*
+Footer*/
+
+.footer {
+    width: 100%;
+    min-height: 260px;
+    background-color: #1F2536;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: Avenir;
+    padding: 0 10%;
+    box-sizing: border-box;
+}
+.footer p{
+    font-size: 18px;
+}
+.footer span{
+    font-size: 24px;
+    margin: 0 16px 0 0;
 }

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import "./Home.css";
+import ios from "../../assets/40px.png"
+import google from "../../assets/40px (1).png"
+
 import NavBar from '../../organisms/NavBar';
 
 import './Home.css';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class HomeContainer extends Component {
   render() {
     return (
@@ -98,16 +101,23 @@ class HomeContainer extends Component {
             </div>
           </div>
         </section>
-        <section className="download">
-          <div className="app-down">
-            <h2 className="titles">¡Donde sea y cuando sea!</h2>
-            <p>Disfruta de los beneficios que ofrece la membresía y lleva
-                    toda la AMG donde quiera que estes. Disponible para iOs
-                    y Android</p>
-          </div>
-          <div className="phone" />
-        </section>
-      </div>
+          <section className="download">
+              <div className="app-down">
+                  <h2 className="titles">¡Donde sea y cuando sea!</h2>
+                  <p>Disfruta de los beneficios que ofrece la membresía y lleva
+                      toda la AMG donde quiera que estes. Disponible para iOs
+                      y Android</p>
+                  <div className="tiendas">
+                      <img src={google} alt=""/>
+                      <img src={ios} alt=""/>
+                  </div>
+              </div>
+              <div className="phone"/>
+
+          </section>
+    </div>
+
+
     );
   }
 }

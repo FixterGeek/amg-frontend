@@ -5,8 +5,7 @@ import PrivateRoute from "./PrivateRoute";
 import WithoutLoginRoute from "./WithoutLoginRoute";
 import Home from "../components/home/HomeContainer";
 import Login from "../components/login/Login";
-import Registration from "../components/profile/BeforeStaring";
-import Signup from "../components/signup/Signup";
+import Signup from "../pages/Signup";
 import DashBoard from "../pages/DashBoard";
 
 function AppRouter() {
@@ -15,7 +14,6 @@ function AppRouter() {
       <Route path="/" exact component={Home} />
       <WithoutLoginRoute path="/login" exact component={Login} />
       <Route path="/signup" exact component={Signup} />
-      <Route path="/registration" exact component={Registration} />
       <PrivateRoute path="/dashboard" component={DashBoard} />
     </Router>
   );
