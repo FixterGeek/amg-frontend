@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faFileWord, faFileCsv } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFilePdf, faFileWord, faFileCsv, faFilePowerpoint,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Input } from 'antd';
 
@@ -16,7 +18,7 @@ function Publisher({ publications, dispatch }) {
   const {
     image, image64, file, fileType,
   } = publications;
-  const icon = [faFilePdf, faFileWord, faFileCsv];
+  const icon = [faFilePdf, faFileWord, faFileCsv, faFilePowerpoint];
   const { Search } = Input;
 
   const resetFields = () => {
@@ -106,6 +108,12 @@ function Publisher({ publications, dispatch }) {
           fileType && (
             <div className="publisher-file">
               { fileType === 'pdf' && (<FontAwesomeIcon icon={icon[0]} />) }
+              { fileType === 'doc' || fileType === 'docx' || fileType === 'odt'
+                ? (<FontAwesomeIcon icon={icon[1]} />)
+                : null
+              }
+              { fileType === 'csv' && (<FontAwesomeIcon icon={icon[2]} />) }
+              { fileType === 'ppt' && (<FontAwesomeIcon icon={icon[3]} />) }
             </div>
           )
         }
