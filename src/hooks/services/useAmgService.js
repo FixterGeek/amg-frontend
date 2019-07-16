@@ -67,6 +67,16 @@ function useAmgService() {
     });
   };
 
+  const toPublish = async (data, headers) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.post(`${APIURL}/publications`, data, {
+      headers: {
+        Authorization: authToken,
+        ...headers,
+      },
+    });
+  };
+
   const addToFav = async (postId) => {
     const authToken = await localStorage.getItem('authToken');
     return axios.post(`${APIURL}/publications/${postId}/like`, null, {
@@ -84,6 +94,7 @@ function useAmgService() {
     getEvents,
     getSingleEvent,
     getPublications,
+    toPublish,
     addToFav,
   };
 }

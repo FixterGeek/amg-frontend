@@ -361,3 +361,24 @@ $profilePhotoSize: 120px;
   background-position: center;
   background-repeat: no-repeat;
 }
+
+
+
+/* Attach Buttons */
+.attach-buttons {
+  display: flex;
+
+  div {
+    margin: $smallMargin;
+    cursor: pointer;
+    font-size: 1.3em;
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    button {
+      width: auto;
+      height: auto;
+    }
+  }
+}

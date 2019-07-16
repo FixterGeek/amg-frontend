@@ -85,6 +85,7 @@ $inputHeight: 72px;
 .publisher {
   margin-top: $largeMargin;
   margin-bottom: $largeMargin;
+  position: relative;
 
   input, button {
     border-radius: 0px!important;
@@ -101,5 +102,34 @@ $inputHeight: 72px;
     min-width: 241px;
     font-size: 1em!important;
     background-color: $secondary!important;
+  }
+
+  &-image-preview {
+    margin-top: $smallMargin;
+    display: block;
+    margin-right: $margin;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &-file {
+    margin-top: $smallMargin;
+    width: 100px;
+    height: 100px;
+    background-color: $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      color: white;
+      font-size: 4em;
+    }
+  }
+
+  &-attaches {
+    display: flex;
   }
 }

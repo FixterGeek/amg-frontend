@@ -13,7 +13,6 @@ function PostItem({ publication }) {
   const { Title, Text } = Typography;
 
   const date = moment(updatedAt).local('es');
-  console.log(date.format(''));
   const momentDate = moment().calendar(date, {
     sameDay: `[Hoy a las ${date.format('h:mm a')}]`,
     nextDay: `[Ayer a las ${date.format('h:mm a')}]`,
@@ -21,9 +20,6 @@ function PostItem({ publication }) {
     sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
   });
 
-  // let postHour = date.fromNow();
-
-  console.log(publication);
   return (
     <div className="post-item">
       <div className="post-item-info">

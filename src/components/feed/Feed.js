@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import uniqid from 'uniqid';
 
 import { Typography } from 'antd';
 
@@ -13,7 +14,6 @@ import Publisher from '../../molecules/Publisher';
 import Spinner from '../../atoms/Spinner';
 
 function Feed(props) {
-  console.log(props);
   const [loadingPost, setLoadingPost] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
   const {
@@ -57,8 +57,6 @@ function Feed(props) {
     }
   }, []);
 
-  console.log(publications);
-
   return (
     <div className="dashboard-container">
       <div>
@@ -89,7 +87,7 @@ function Feed(props) {
       <div className="feed-publications">
         { loadingPost && (<Spinner tip="Cargando publicaciones..." />) }
         {
-          publications.map(publication => <PostItem publication={publication} />)
+          publications.map(publication => <PostItem key={uniqid()} publication={publication} />)
         }
       </div>
     </div>
