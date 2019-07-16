@@ -9,7 +9,10 @@ import PostIcons from '../atoms/PostIcons';
 
 
 function PostItem({ publication }) {
-  const { text, updatedAt, _id, liked } = publication;
+  const {
+    text, updatedAt, _id, liked,
+    docsURLS, imagesURLS,
+  } = publication;
   const { Title, Text } = Typography;
 
   const date = moment(updatedAt).local('es');
@@ -37,6 +40,13 @@ function PostItem({ publication }) {
         <Text>
           { text }
         </Text>
+        {
+          imagesURLS.length > 0 && (
+            <div
+              className="post-item-image"
+              style={{ backgroundImage: `url(${imagesURLS[0]})` }} />
+          )
+        }
       </div>
       <PostIcons pubId={_id} favs={liked} />
     </div>
