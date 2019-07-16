@@ -83,7 +83,7 @@ $eventLeftWidth: 350px;
 
 .event-detail {
   .title {
-    margin-bottom: $padding;
+    margin-bottom: $largeMargin;
   }
 }
 
@@ -104,5 +104,20 @@ $eventLeftWidth: 350px;
       display: flex;
       justify-content: flex-end;
     }
+  }
+}
+
+
+
+/* Feed */
+.feed {
+  &-event {
+    position: relative;
+    min-height: 415px;
+  }
+
+  &-publications {
+    position: relative;
+    min-height: 356px;
   }
 }

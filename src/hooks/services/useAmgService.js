@@ -1,76 +1,88 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 
 function useAmgService() {
   const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
   const APIURL = process.env.REACT_APP_BASE_API_URL;
 
-  const login = async (email, password) =>
-    axios.post(
-      `${baseAuthURL}/login`,
-      {
-        email,
-        password
+  const login = async (email, password) => axios.post(
+    `${baseAuthURL}/login`, { email, password },
+    {
+      headers: {
+        'Content-Type': 'application/json',
       },
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
+    },
+  );
 
-  const logout = async history => {
-    await localStorage.removeItem("authToken");
-    history.push("/login");
+  const logout = async (history) => {
+    await localStorage.removeItem('authToken');
+    history.push('/login');
   };
 
-  const signup = async (
+  const signup = async (name, email, password) => axios.post(`${baseAuthURL}/signup`, {
     name,
-    dadSurname,
-    momSurname,
     email,
     password,
-    birthDate,
-    placeOfBirth,
-    speciality,
-    userStatus
-  ) =>
-    axios.post(
-      `${baseAuthURL}/signup`,
-      {
-        name,
-        dadSurname,
-        momSurname,
-        email,
-        password,
-        birthDate,
-        placeOfBirth,
-        speciality,
-        userStatus
-      },
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
+  });
 
-  const getEvents = async () => {
-    const authToken = await localStorage.getItem("authToken");
-    return axios.get(`${APIURL}events/`, {
+  const getSelfUser = async () => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${baseAuthURL}/self`, {
       headers: {
-        Authorization: authToken
-      }
+        Authorization: authToken,
+      },
     });
   };
 
-  const getSingleEvent = async id => {
-    const authToken = await localStorage.getItem("authToken");
-    return axios.get(`${APIURL}events/${id}`, {
+  /* Events section */
+
+  const getEvents = async () => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/events/`, {
       headers: {
-        Authorization: authToken
-      }
+        Authorization: authToken,
+      },
+    });
+  };
+
+  const getSingleEvent = async (id) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/events/${id}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
+
+  /* Publications section */
+
+  const getPublications = async () => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/publications/`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
+  const toPublish = async (data, headers) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.post(`${APIURL}/publications`, data, {
+      headers: {
+        Authorization: authToken,
+        ...headers,
+      },
+    });
+  };
+
+  const addToFav = async (postId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.post(`${APIURL}/publications/${postId}/like`, null, {
+      headers: {
+        Authorization: authToken,
+      },
     });
   };
 
@@ -78,8 +90,12 @@ function useAmgService() {
     login,
     logout,
     signup,
+    getSelfUser,
     getEvents,
-    getSingleEvent
+    getSingleEvent,
+    getPublications,
+    toPublish,
+    addToFav,
   };
 }
 

@@ -27,10 +27,12 @@ function LateralMenu(props) {
     history.push(to);
   };
 
+  console.log(currentLocation);
+
   return (
     <Menu inlineCollapsed defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item key={1}>
-        <Icon className={`${currentLocation === "" ? "menu-item-active" : ""}`}>
+      <Menu.Item key={1} onClick={() => link("/dashboard/")}>
+        <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
         <span>Home</span>

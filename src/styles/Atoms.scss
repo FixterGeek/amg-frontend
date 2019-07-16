@@ -97,18 +97,18 @@ $inputHeight: 50px;
 
 .select-field {
   width: 100%;
-  height: $inputHeight!important;
+  height: $inputHeight !important;
   border-bottom: solid 2px transparent;
   box-sizing: border-box;
 
   &:focus {
-    border-color: transparent!important;
+    border-color: transparent !important;
   }
 
   div {
-    min-height: 100%!important;
-    border-radius: 0px!important;
-    background-color: $clouds!important;
+    min-height: 100% !important;
+    border-radius: 0px !important;
+    background-color: $clouds !important;
     border-color: $clouds;
 
     &:hover {
@@ -118,15 +118,15 @@ $inputHeight: 50px;
 }
 
 .select-error {
-  border-bottom: solid 2px $red!important;
+  border-bottom: solid 2px $red !important;
 }
 
 .select-success {
-  border-bottom: solid 2px $green!important;
+  border-bottom: solid 2px $green !important;
 }
 
 .select-warning {
-  border-bottom: solid 2px $yellow!important;
+  border-bottom: solid 2px $yellow !important;
 }
 
 /** Status Message **/
@@ -149,23 +149,21 @@ $inputHeight: 50px;
 }
 
 .select-field-option {
-  height: $inputHeight!important;
-  padding: 0px $smallPadding!important;
-  display: flex!important;
-  justify-content: flex-start!important;
-  align-items: center!important;
-  font-weight: 900!important;
-  font-size: 1em!important;
-  color: $darkSilver!important;
-  background-color: $clouds!important;
+  height: $inputHeight !important;
+  padding: 0px $smallPadding !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  font-weight: 900 !important;
+  font-size: 1em !important;
+  color: $darkSilver !important;
+  background-color: $clouds !important;
 
   &:hover {
-    background-color: $primary!important;
-    color: white!important;
+    background-color: $primary !important;
+    color: white !important;
   }
 }
-
-
 
 /* Button */
 .amg-button {
@@ -175,7 +173,6 @@ $inputHeight: 50px;
   height: 50px !important;
   max-width: 445px !important;
 }
-
 
 /* Layout */
 .full-screen {
@@ -199,14 +196,17 @@ $inputHeight: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 10;
   background-color: rgba($color: #fff, $alpha: 0.6);
+  padding: $largePadding;
+  box-sizing: border-box;
 }
 
 /* Events */
 /** EventImage **/
 $eventImageWith: 350px;
 $eventImageHeight: 315px;
+$eventImageHeightLarge: 415px;
 
 .event-image {
   width: $eventImageWith;
@@ -216,6 +216,14 @@ $eventImageHeight: 315px;
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
+}
+
+.event-image-large {
+  @extend .event-image;
+  width: 100%;
+  height: $eventImageHeightLarge;
+  background-size: cover;
+  padding: $largePadding;
 }
 
 .image-text {
@@ -230,8 +238,6 @@ $eventImageHeight: 315px;
     color: white;
   }
 }
-
-
 
 /* Event Item */
 $infoHeight: 90px;
@@ -261,13 +267,104 @@ $infoHeight: 90px;
   }
 }
 
-
-
 /* Text Block */
 .text-block {
   margin-bottom: $largeMargin;
 
   span {
     font-size: 1.8em;
+  }
+}
+
+/* Profile Photo */
+$profilePhotoSize: 120px;
+
+.profile-photo {
+  width: $profilePhotoSize;
+  height: $profilePhotoSize;
+  background-color: $secondary;
+
+  &-none {
+    font-size: 6rem;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+}
+
+/* Post Icons */
+.post-icons {
+  display: flex;
+  justify-content: flex-end;
+
+  svg {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-right: $smallMargin;
+  }
+
+  &-item {
+    &:first-child {
+      margin-right: $margin;
+    }
+  }
+}
+
+/* Text N Icon Button */
+.text-n-icon-button {
+  margin-top: $largeMargin;
+  margin-bottom: $largeMargin;
+  padding-right: $largePadding;
+  box-sizing: border-box;
+
+  a {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    color: $secondary;
+  }
+}
+
+.text-n-icon-icon {
+  color: $primary;
+}
+
+.bino {
+  background-image: url("../assets/bino.svg");
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.micro {
+  background-image: url("../assets/micro.svg");
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Attach Buttons */
+.attach-buttons {
+  display: flex;
+
+  div {
+    margin: $smallMargin;
+    cursor: pointer;
+    font-size: 1.3em;
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    button {
+      width: auto;
+      height: auto;
+    }
   }
 }
