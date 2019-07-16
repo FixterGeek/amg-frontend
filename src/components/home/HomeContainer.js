@@ -6,6 +6,8 @@ import google from "../../assets/40px (1).png";
 import NavBar from "../../organisms/NavBar";
 import { Link } from "react-router-dom";
 
+import Footer from "./Footer";
+
 import "./Home.css";
 
 class HomeContainer extends Component {
@@ -149,6 +151,7 @@ class HomeContainer extends Component {
           </div>
           <div className="phone" />
         </section>
+        <Footer />
       </div>
     );
   }
