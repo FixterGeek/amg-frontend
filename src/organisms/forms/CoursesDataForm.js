@@ -3,49 +3,26 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
-import SelectField from "../../molecules/SelectField";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
 import Label from "../../atoms/data_entry/Label";
-import Container from "../../atoms/layout/Container";
 
 function CoursesDataForm(props) {
   const { history } = props;
   const { user, dispatch } = props;
 
-  const handleChange = e => {
+  const onChangeResidenciesData = e => {
     const {
       target: { value, name }
     } = e;
-    dispatch(createUser({ ...user.residences, [name]: value }));
+    dispatch(
+      createUser({ residencies: { ...user.residencies, [name]: value } })
+    );
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     history.push("laboral");
-    // signup(
-    //   user.name,
-    //   user.dadSurname,
-    //   user.momSurname,
-    //   user.email,
-    //   user.birthDate,
-    //   user.placleOfBirth,
-    // )
-    //   .then(async ({ data }) => {
-    //     await dispatch(createUser({ ...data.user, userToken: data.token }));
-    //     await localStorage.setItem("authToken", data.token);
-    //     console.log(data);
-    //     history.push("/education");
-    //   })
-    //   .catch(() => {
-    //     setError({
-    //       name: true,
-    //       dadSurname: true,
-    //       momSurname: true,
-    //       email: true,
-    //       birthDate: true
-    //     });
-    //   });
   };
 
   console.log(user);
@@ -56,8 +33,8 @@ function CoursesDataForm(props) {
       onSubmit={handleSubmit}
     >
       <TextField
-        value={user.residences.institution}
-        onChange={handleChange}
+        value={user.residencies.institution}
+        onChange={onChangeResidenciesData}
         name="institution"
         label="Institución"
       />
@@ -67,13 +44,15 @@ function CoursesDataForm(props) {
           name="startDate"
           label="De"
           width="121px"
-          onChange={handleChange}
+          onChange={onChangeResidenciesData}
+          value={user.residencies.startDate}
         />
         <TextField
           name="endDate"
           label="A"
           width="121px"
-          onChange={handleChange}
+          onChange={onChangeResidenciesData}
+          value={user.residencies.endDate}
         />
       </div>
       <AmgButton width="100%" htmlType="submit">

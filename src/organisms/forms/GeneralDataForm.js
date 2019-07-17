@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
 import SelectField from "../../molecules/SelectField";
-import { Checkbox } from "antd";
+import { Checkbox, DatePicker } from "antd";
+import moment from "moment";
 //import useAmgService from "../../hooks/services/useAmgService";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
@@ -19,15 +20,53 @@ function GeneralDataForm(props) {
     momSurname: false,
     email: false,
     birthDate: false,
-    placeOfBirth: false,
-    specialty: false,
-    userStatus: "Pendiente"
+    placeOfBirth: false
   });
+
+  // const { MonthPicker, RangePicker } = DatePicker;
+  // const dateFormat = "YYYY/MM/DD";
+  // const monthFormat = "YYYY/MM";
+  // const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
 
   const { user, dispatch } = props;
   // const { signup } = useAmgService();
 
-  function onChangeCheckBox(e) {
+  // state un nivel
+  const onChangeData = e => {
+    const {
+      target: { value, name }
+    } = e;
+    dispatch(createUser({ [name]: value }));
+  };
+
+  // state nivel 2
+  const onChangeBasicData = e => {
+    const {
+      target: { value, name }
+    } = e;
+    dispatch(createUser({ basicData: { ...user.basicData, [name]: value } }));
+  };
+
+  // state nivel 3
+  const onChangeBasicDataPlace = e => {
+    const {
+      target: { value, name }
+    } = e;
+    dispatch(
+      createUser({
+        basicData: {
+          ...user.basicData,
+          placeOfBirth: {
+            ...user.basicData.placeOfBirth,
+            [name]: value
+          }
+        }
+      })
+    );
+  };
+
+  // state checkbox
+  const onChangeCheckBox = e => {
     const {
       target: { value, name, checked }
     } = e;
@@ -38,16 +77,16 @@ function GeneralDataForm(props) {
       setChekedShow(checked);
       dispatch(createUser({ [name]: "" }));
     }
-  }
-
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ [name]: value }));
-
-    //address: {...user.address, [name]: value}
   };
+
+  // const handleChange = e => {
+  //   const {
+  //     target: { value, name }
+  //   } = e;
+  //   dispatch(createUser({ [name]: value }));
+
+  //   //address: {...user.address, [name]: value}
+  // };
 
   console.log(user);
 
@@ -86,22 +125,22 @@ function GeneralDataForm(props) {
       onSubmit={handleSubmit}
     >
       <TextField
-        value={user.name}
-        onChange={handleChange}
+        value={user.basicData.name}
+        onChange={onChangeBasicData}
         name="name"
         label="Nombre"
       />
 
       <TextField
-        value={user.dadSurname}
-        onChange={handleChange}
+        value={user.basicData.dadSurname}
+        onChange={onChangeBasicData}
         name="dadSurname"
         label="Apellido paterno"
       />
 
       <TextField
-        value={user.momSurname}
-        onChange={handleChange}
+        value={user.basicData.momSurname}
+        onChange={onChangeBasicData}
         name="momSurname"
         label="Apellido materno"
       />
@@ -110,25 +149,40 @@ function GeneralDataForm(props) {
         error={error.email}
         errorMessage="El email no puede estar vacio"
         value={user.email}
-        onChange={handleChange}
+        onChange={onChangeData}
         name="email"
         label="Correo"
       />
 
       <TextField
-        value={user.birthdate}
-        onChange={handleChange}
+        value={user.basicData.birthdate}
+        onChange={onChangeBasicData}
         name="birthdate"
         label="Fecha de nacimiento"
       />
 
-      <SelectField
-        value={user.placeOfBirth}
-        onChange={handleChange}
-        name="placeOfBirth"
-        label="Lugar de nacimiento"
-        options={[{ value: "Hidalgo", text: "Hidalgo" }]}
+      {/* <DatePicker
+        defaultValue={moment("01/01/2015", dateFormatList[0])}
+        format={dateFormatList}
+        value={user.basicData.birthdate}
+        onChange={onChangeBasicData}
+        name="birthdate"
+      /> */}
+
+      <TextField
+        value={user.basicData.placeOfBirth.state}
+        onChange={onChangeBasicDataPlace}
+        name="state"
+        label="lugar de nacimiento"
       />
+
+      {/* <SelectField
+        value={user.basicData.placeOfBirth.state}
+        onChange={onChangeBasicDataPlace}
+        name="state"
+        label="Estado de nacimiento"
+        options={[{ value: "Hidalgo", text: "Hidalgo" }]}
+      /> */}
 
       <Label>Especialidad</Label>
       <div className="check-box">
@@ -173,7 +227,7 @@ function GeneralDataForm(props) {
         {chekedShow && (
           <TextField
             value={user.specialty}
-            onChange={handleChange}
+            onChange={onChangeBasicData}
             name="specialty"
             label="Especialidad"
           />

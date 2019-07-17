@@ -1,27 +1,30 @@
 import { WRITE_USER, CREATE_USER } from "./actions";
 
 const userState = {
-  name: "",
-  dadSurName: "",
-  momSurName: "",
   email: "",
   password: "",
-  birthDate: "",
-  placeOfBirth: {
-    addressName: "Pachuca",
-    street: "",
-    outdoorNumber: "",
-    interiorNumber: "",
-    colony: "",
-    zipCode: "",
-    city: "Pachuca",
-    state: "Hidalgo",
-    coordinates: ["123312", "123123"]
+  basicData: {
+    name: "",
+    dadSurname: "",
+    momSurname: "",
+    birthDate: "",
+    placeOfBirth: {
+      addressName: "",
+      street: "",
+      outdoorNumber: "",
+      interiorNumber: "",
+      colony: "",
+      zipCode: "",
+      city: "",
+      state: "",
+      coordinates: ["123312", "123123"]
+    }
   },
   speciality: "",
+  photoURL: "",
   userToken: "",
   phone: "",
-  civilStatus: "",
+  civilStatus: ["Soltero", "Casado", "Divorciado", "Unión Libre", "Viudo"],
   address: {
     addressName: "",
     street: "",
@@ -41,7 +44,6 @@ const userState = {
     phone: ""
   },
   studies: {
-    user: "",
     major: "",
     institution: "",
     startDate: "",
@@ -50,13 +52,11 @@ const userState = {
     professionalLicence: ""
   },
   internships: {
-    user: "",
     institution: "",
     startDate: "",
     endDate: ""
   },
-  residences: {
-    user: "",
+  residencies: {
     speciality: "",
     institution: "",
     startDate: "",
@@ -81,7 +81,19 @@ const userState = {
       state: "",
       coordinates: ["123312", "123123"]
     }
-  }
+  },
+  registrationDate: "",
+  membershipStatus: ["Pendiente de Pago", "Pagado", "Veterano"],
+  userStatus: ["Registrado", "Pendiente", "Aprobado", "No Aprobado"],
+  revisionDate: "",
+  reviwedBy: "",
+  membersWhoRecommend: [],
+  workedAtInstitutions: {
+    institution: "",
+    startDate: "",
+    endDate: ""
+  },
+  consultories: []
 };
 
 function userReducer(state = userState, action) {

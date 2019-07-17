@@ -5,6 +5,13 @@ import TextField from "../../molecules/TextFields";
 import AmgButton from "../../atoms/Button";
 
 const FiscalDataForm = ({ history }) => {
+  // const onChangeAddress = e => {
+  //   const {
+  //     target: { value, name }
+  //   } = e;
+  //   dispatch(createUser({ address: { ...user.address, [name]: value } }));
+  // };
+
   const handleSubmit = () => {
     history.push("confirm");
   };
@@ -21,6 +28,13 @@ const FiscalDataForm = ({ history }) => {
       <TextField name="zipCode" label="Código postal" />
       <TextField name="city" label="Ciudad" />
       <TextField name="state" label="Estado" />
+
+      {/* <TextField
+        value={user.address.addressName}
+        onChange={onChangeAddress}
+        name="addressName"
+        label="Nombre de la calle"
+      /> */}
       <AmgButton width="100%" htmlType="submit">
         Siguiente
       </AmgButton>

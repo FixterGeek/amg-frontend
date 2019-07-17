@@ -8,11 +8,13 @@ import { createUser } from "../../store/actions";
 function InternshipDataForm(props) {
   const { user, dispatch } = props;
 
-  const handleChange = e => {
+  const onChangeinternshipsData = e => {
     const {
       target: { value, name }
     } = e;
-    dispatch(createUser({ ...user.internships, [name]: value }));
+    dispatch(
+      createUser({ internships: { ...user.internships, [name]: value } })
+    );
   };
 
   return (
@@ -20,7 +22,7 @@ function InternshipDataForm(props) {
       <TextField
         name="institution"
         label="Hospital"
-        onChange={handleChange}
+        onChange={onChangeinternshipsData}
         value={user.internships.institution}
       />
       <Label>Fecha</Label>
@@ -29,13 +31,15 @@ function InternshipDataForm(props) {
           name="startDate"
           label="De"
           width="121px"
-          onChange={handleChange}
+          onChange={onChangeinternshipsData}
+          value={user.internships.startDate}
         />
         <TextField
           name="endDate"
           label="A"
           width="121px"
-          onChange={handleChange}
+          onChange={onChangeinternshipsData}
+          value={user.internships.endDate}
         />
       </div>
     </form>
