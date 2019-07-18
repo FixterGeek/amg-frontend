@@ -55,6 +55,11 @@ function ConfirmForm(props) {
           email: true,
           birthDate: true
         });
+        Swal.fire({
+          type: "error",
+          title: "Oops algo salio mal...",
+          text: "Vuelve a intentar!"
+        });
       });
   };
 
