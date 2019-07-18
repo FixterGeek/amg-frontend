@@ -1,43 +1,48 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPowerOff, faHome, faCalendar,
+  faPowerOff,
+  faHome,
+  faCalendar,
   faBookOpen,
-} from '@fortawesome/free-solid-svg-icons';
+  faGraduationCap,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
 
-import { Menu, Icon } from 'antd';
+import { Menu, Icon } from "antd";
 
-import useAmgService from '../hooks/services/useAmgService';
+import useAmgService from "../hooks/services/useAmgService";
 
 function LateralMenu(props) {
   // eslint-disable-next-line react/prop-types
   const { history } = props;
   const { location } = history;
-  const locationSplit = location.pathname.split('/');
+  const locationSplit = location.pathname.split("/");
   const currentLocation = locationSplit[2];
 
   const { logout } = useAmgService();
 
-  const link = (to) => {
+  const link = to => {
     history.push(to);
   };
 
   console.log(currentLocation);
 
   return (
-    <Menu
-      inlineCollapsed
-      defaultSelectedKeys={['1']}
-      mode="inline">
-      <Menu.Item key={1} onClick={() => link('/dashboard/')}>
-        <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
+    <Menu inlineCollapsed defaultSelectedKeys={["1"]} mode="inline">
+      <Menu.Item key={1} onClick={() => link("/dashboard/")}>
+        <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
         <span>Home</span>
       </Menu.Item>
-      <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
-        <Icon className={`${currentLocation === 'events' ? 'menu-item-active' : ''}`}>
+      <Menu.Item key={2} onClick={() => link("/dashboard/events")}>
+        <Icon
+          className={`${
+            currentLocation === "events" ? "menu-item-active" : ""
+          }`}
+        >
           <FontAwesomeIcon icon={faCalendar} />
         </Icon>
         <span>Eventos</span>
@@ -48,7 +53,19 @@ function LateralMenu(props) {
         </Icon>
         <span>Agenda</span>
       </Menu.Item>
-      <Menu.Item key={4} onClick={() => logout(history)}>
+      <Menu.Item key={4}>
+        <Icon>
+          <FontAwesomeIcon icon={faGraduationCap} />
+        </Icon>
+        <span>Educación</span>
+      </Menu.Item>
+      <Menu.Item key={5} onClick={() => link("/dashboard/user")}>
+        <Icon>
+          <FontAwesomeIcon icon={faUser} />
+        </Icon>
+        <span>Mi perfil</span>
+      </Menu.Item>
+      <Menu.Item key={5} onClick={() => logout(history)}>
         <Icon>
           <FontAwesomeIcon icon={faPowerOff} />
         </Icon>

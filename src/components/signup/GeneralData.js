@@ -5,7 +5,9 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import GeneralDataForm from "../../organisms/GeneralDataForm";
+import GeneralDataForm from "../../organisms/forms/GeneralDataForm";
+import Steper from "../../organisms/Steper";
+
 const GeneralData = () => {
   const { Title } = Typography;
   return (
@@ -13,7 +15,7 @@ const GeneralData = () => {
       lateralSpace="0px"
       paddingTop="0px"
       paddingBottom="0px"
-      flexWrap="nowrap"
+      bgColor={palette.secondary}
     >
       <Container
         alignItems="flex-start"
@@ -25,7 +27,7 @@ const GeneralData = () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        {/* <Steper /> */}
+        <Steper alignItems="center" />
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
@@ -37,7 +39,9 @@ const GeneralData = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title level={6}>Datos generales</Title>
+          <Title clasName="title-left" level={1}>
+            Datos generales
+          </Title>
         </Container>
         <GeneralDataForm />
       </Container>

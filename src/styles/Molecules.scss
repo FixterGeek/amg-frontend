@@ -21,15 +21,10 @@
   }
 }
 
-
-
 /* Lateral Menu */
 .menu-item-active {
-  color: $primary!important;
+  color: $textSecondary !important;
 }
-
-
-
 
 /* Events Month */
 .events-month {
@@ -40,8 +35,14 @@
   }
 }
 
-
-
+/* CheckBox */
+.check-box {
+  display: flex;
+  flex-direction: column;
+  .ant-checkbox-wrapper {
+    margin-left: 0;
+  }
+}
 
 /* Post Item */
 .post-item {
@@ -86,8 +87,6 @@
   }
 }
 
-
-
 /* Publisher */
 $inputHeight: 72px;
 
@@ -96,21 +95,22 @@ $inputHeight: 72px;
   margin-bottom: $largeMargin;
   position: relative;
 
-  input, button {
-    border-radius: 0px!important;
+  input,
+  button {
+    border-radius: 0px !important;
     height: $inputHeight;
-    border: none!important;
+    border: none !important;
   }
 
   input {
-    background-color: $clouds!important;
-    font-size: 1.2em!important;
+    background-color: $clouds !important;
+    font-size: 1.2em !important;
   }
 
   button {
     min-width: 241px;
-    font-size: 1em!important;
-    background-color: $secondary!important;
+    font-size: 1em !important;
+    background-color: $secondary !important;
   }
 
   &-image-preview {

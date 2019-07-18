@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import icon from "../../assets/download.svg";
 import { Typography, Button } from "antd";
 
@@ -18,7 +18,7 @@ const BeforeStaring = () => {
       paddingBottom="0px"
       flexWrap="nowrap"
     >
-      <Container className="signup-left" height="100vh" width="50%">
+      <Container height="100vh" width="50%">
         <Container
           alignItems="flex-start"
           paddingTop={size.largePadding}
@@ -79,7 +79,7 @@ const BeforeStaring = () => {
         </Container>
         <Container flexGrow={1} height="100px">
           <AmgButton width="100%" htmlType="submit">
-            Comenzar
+            <Link to="/signup/general">Comenzar</Link>
           </AmgButton>
         </Container>
       </Container>

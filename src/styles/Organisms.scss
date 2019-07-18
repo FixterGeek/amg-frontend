@@ -3,12 +3,11 @@
 /* Uinities for sizes */
 @import "./Unities.scss";
 
-.login-form, .signup-form {
+.login-form,
+.signup-form {
   width: 100%;
   position: relative;
 }
-
-
 
 /* Lateral Menu */
 $menuBarWidth: 59px;
@@ -31,8 +30,8 @@ $menuBarWidth: 59px;
   }
 
   .ant-menu-item {
-    padding: 0px!important;
-    padding-left: 0px!important;
+    padding: 0px !important;
+    padding-left: 0px !important;
     margin: 0px;
     display: flex;
     justify-content: center;
@@ -44,11 +43,18 @@ $menuBarWidth: 59px;
   }
 
   .ant-menu-item-selected {
-    background-color: transparent!important;
+    background-color: transparent !important;
   }
 }
 
+/* Steper */
+.ant-steps-item-title {
+  color: $textSecondary !important;
+}
 
+.ant-steps-item-description {
+  color: $silver !important;
+}
 
 /* Events */
 /** Covers **/
@@ -90,7 +96,9 @@ $menuBarWidth: 59px;
     opacity: 0;
   }
 
-  40%{ margin-left: -350px; }
+  40% {
+    margin-left: -350px;
+  }
 
   100% {
     opacity: 0;
@@ -121,7 +129,7 @@ $menuBarWidth: 59px;
 
 .carousel-button-left {
   &::before {
-    content: '❬'; 
+    content: "❬";
   }
 
   @extend %carousel-button;
@@ -132,7 +140,7 @@ $menuBarWidth: 59px;
 
 .carousel-button-right {
   &::before {
-    content: '❭';
+    content: "❭";
   }
 
   @extend %carousel-button;

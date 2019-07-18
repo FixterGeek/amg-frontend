@@ -5,10 +5,10 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import FiscalDataForm from "../../organisms/forms/FiscalDataForm";
+import LaboralDataForm from "../../organisms/forms/LaboralDataForm";
 import Steper from "../../organisms/Steper";
 
-const FiscalData = () => {
+const LaboralData = () => {
   const { Title } = Typography;
   return (
     <FullScreenContainer
@@ -40,13 +40,13 @@ const FiscalData = () => {
           paddingBottom={size.largePadding}
         >
           <Title clasName="title-left" level={1}>
-            Datos fiscales
+            Datos laborales
           </Title>
         </Container>
-        <FiscalDataForm />
+        <LaboralDataForm />
       </Container>
     </FullScreenContainer>
   );
 };
 
-export default FiscalData;
+export default LaboralData;

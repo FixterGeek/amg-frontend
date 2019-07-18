@@ -5,11 +5,10 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import FiscalDataForm from "../../organisms/forms/FiscalDataForm";
-import Steper from "../../organisms/Steper";
+import ConfirmForm from "../../organisms/forms/ConfirmForm";
 
-const FiscalData = () => {
-  const { Title } = Typography;
+const Confirm = () => {
+  const { Title, Text } = Typography;
   return (
     <FullScreenContainer
       lateralSpace="0px"
@@ -27,7 +26,6 @@ const FiscalData = () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        <Steper />
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
@@ -40,13 +38,13 @@ const FiscalData = () => {
           paddingBottom={size.largePadding}
         >
           <Title clasName="title-left" level={1}>
-            Datos fiscales
+            Aviso de privacidad
           </Title>
         </Container>
-        <FiscalDataForm />
+        <ConfirmForm />
       </Container>
     </FullScreenContainer>
   );
 };
 
-export default FiscalData;
+export default Confirm;

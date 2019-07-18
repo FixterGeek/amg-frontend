@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import TextField from "../molecules/TextFields";
-import useAmgService from "../hooks/services/useAmgService";
-import AmgButton from "../atoms/Button";
-import { createUser } from "../store/actions";
+import TextField from "../../molecules/TextFields";
+import useAmgService from "../../hooks/services/useAmgService";
+import AmgButton from "../../atoms/Button";
+import Spinner from "../../atoms/Spinner";
+import { createUser } from "../../store/actions";
 
 function SignupForm(props) {
   const { history } = props;
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     name: false,
-    dadSurname: false,
-    momSurname: false,
     email: false,
-    password: false,
-    birthdate: false,
-    placeOfBirth: false,
-    specialty: false
+    password: false
   });
 
   const { user, dispatch } = props;
@@ -32,14 +29,17 @@ function SignupForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setLoading(true);
 
     signup(user.email, user.password)
       .then(async ({ data }) => {
         await dispatch(createUser({ ...data.user, userToken: data.token }));
+        await setLoading(false);
         await localStorage.setItem("authToken", data.token);
         history.push("/dashboard");
       })
       .catch(() => {
+        setLoading(false);
         setError({ email: true, password: true });
       });
   };
@@ -50,25 +50,13 @@ function SignupForm(props) {
       style={{ width: "400px" }}
       onSubmit={handleSubmit}
     >
+      {loading && <Spinner tip="Registrando usuario..." />}
       <TextField
         value={user.name}
         onChange={handleChange}
+        errorMessage="El nombre no puede estar vacio"
         name="name"
         label="Nombre"
-      />
-
-      <TextField
-        value={user.dadSurname}
-        onChange={handleChange}
-        name="dadSurname"
-        label="Apellido paterno"
-      />
-
-      <TextField
-        value={user.momSurname}
-        onChange={handleChange}
-        name="momSurname"
-        label="Apellido materno"
       />
 
       <TextField
@@ -93,29 +81,8 @@ function SignupForm(props) {
         marginBottom="0px"
       />
 
-      <TextField
-        value={user.birthdate}
-        onChange={handleChange}
-        name="birthdate"
-        label="Fecha de nacimiento"
-      />
-
-      <TextField
-        value={user.placeOfBirth}
-        onChange={handleChange}
-        name="placeOfBirth"
-        label="Lugar de nacimiento"
-      />
-
-      <TextField
-        value={user.specialty}
-        onChange={handleChange}
-        name="specialty"
-        label="Especialidad"
-      />
-
       <AmgButton width="100%" htmlType="submit">
-        Siguiente
+        Regístrate
       </AmgButton>
     </form>
   );
