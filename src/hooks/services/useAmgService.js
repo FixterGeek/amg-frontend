@@ -55,6 +55,15 @@ function useAmgService() {
     });
   };
 
+  const assistAnEvent = async (eventId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.post(`${APIURL}/events/${eventId}/assist`, null, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
 
   /* Publications section */
 
@@ -93,6 +102,7 @@ function useAmgService() {
     getSelfUser,
     getEvents,
     getSingleEvent,
+    assistAnEvent,
     getPublications,
     toPublish,
     addToFav,

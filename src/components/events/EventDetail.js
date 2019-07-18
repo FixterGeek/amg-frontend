@@ -18,8 +18,18 @@ function EventDetail(props) {
 
   const { Title } = Typography;
 
-  const { getSingleEvent } = useAmgService();
+  const { getSingleEvent, assistAnEvent } = useAmgService();
   const [state, setState] = useState({});
+
+
+  const subscribeToEvent = () => {
+    console.log('asistiendo');
+    assistAnEvent(state._id).then(({ data }) => {
+      console.log(data);
+    }).catch(({ response }) => {
+      console.log(response);
+    });
+  };
 
   useEffect(() => {
     if (location.event) {
@@ -60,7 +70,9 @@ function EventDetail(props) {
           { state.directedTo && <TextBlock title="Dirigido a" text={state.directedTo} /> }
           { state.curricularValue && <TextBlock title="Valor curricular" text={state.curricularValue} /> }
           <div className="right-button">
-            <AmgButton width="100%">Inscribirme</AmgButton>
+            <AmgButton width="100%" onClick={subscribeToEvent}>
+              Inscribirme
+            </AmgButton>
           </div>
         </div>
       </div>
