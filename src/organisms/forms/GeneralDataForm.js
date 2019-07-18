@@ -79,43 +79,11 @@ function GeneralDataForm(props) {
     }
   };
 
-  // const handleChange = e => {
-  //   const {
-  //     target: { value, name }
-  //   } = e;
-  //   dispatch(createUser({ [name]: value }));
-
-  //   //address: {...user.address, [name]: value}
-  // };
-
   console.log(user);
 
   const handleSubmit = e => {
     e.preventDefault();
     history.push("education");
-    // signup(
-    //   user.name,
-    //   user.dadSurname,
-    //   user.momSurname,
-    //   user.email,
-    //   user.birthDate,
-    //   user.placleOfBirth,
-    // )
-    //   .then(async ({ data }) => {
-    //     await dispatch(createUser({ ...data.user, userToken: data.token }));
-    //     await localStorage.setItem("authToken", data.token);
-    //     console.log(data);
-    //     history.push("/education");
-    //   })
-    //   .catch(() => {
-    //     setError({
-    //       name: true,
-    //       dadSurname: true,
-    //       momSurname: true,
-    //       email: true,
-    //       birthDate: true
-    //     });
-    //   });
   };
 
   return (

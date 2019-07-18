@@ -89,11 +89,51 @@ const userState = {
   reviwedBy: "",
   membersWhoRecommend: [],
   workedAtInstitutions: {
-    institution: "",
+    institution: {
+      name: "",
+      president: "",
+      type: ["Hospital", "Escuela", "Consultorio", "Sociedad"],
+      location: {
+        addressName: "",
+        street: "",
+        outdoorNumber: "",
+        interiorNumber: "",
+        colony: "",
+        zipCode: "",
+        city: "",
+        state: "",
+        coordinates: ["123312", "123123"]
+      },
+      phones: [124123412341234, 123412341234],
+      email: "",
+      logoURL: ""
+    },
     startDate: "",
     endDate: ""
   },
-  consultories: []
+  consultories: {
+    institution: {
+      name: "",
+      president: "",
+      type: ["Hospital", "Escuela", "Consultorio", "Sociedad"],
+      location: {
+        addressName: "",
+        street: "",
+        outdoorNumber: "",
+        interiorNumber: "",
+        colony: "",
+        zipCode: "",
+        city: "",
+        state: "",
+        coordinates: ["123312", "123123"]
+      },
+      phones: [124123412341234, 123412341234],
+      email: "",
+      logoURL: ""
+    },
+    startDate: "",
+    endDate: ""
+  },
 };
 
 function userReducer(state = userState, action) {

@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
 import AmgButton from "../../atoms/Button";
+import { createUser } from "../../store/actions";
 
-const FiscalDataForm = ({ history }) => {
-  // const onChangeAddress = e => {
-  //   const {
-  //     target: { value, name }
-  //   } = e;
-  //   dispatch(createUser({ address: { ...user.address, [name]: value } }));
-  // };
+const FiscalDataForm = props => {
+  const { history } = props;
+  const [error, setError] = useState({
+    name: false
+  });
+  const { user, dispatch } = props;
 
-  const handleSubmit = () => {
+  const onChangeFiscal = e => {
+    const {
+      target: { value, name }
+    } = e;
+    dispatch(createUser({ fiscalData: { ...user.fiscalData, [name]: value } }));
+  };
+
+  const onChangeFiscalAddress = e => {
+    const {
+      target: { value, name }
+    } = e;
+    dispatch(
+      createUser({
+        fiscalData: {
+          ...user.fiscalData,
+          address: {
+            ...user.fiscalData.address,
+            [name]: value
+          }
+        }
+      })
+    );
+  };
+
+  console.log(user);
+
+  const handleSubmit = e => {
+    e.preventDefault();
     history.push("confirm");
   };
 
@@ -22,19 +50,43 @@ const FiscalDataForm = ({ history }) => {
       style={{ width: "400px" }}
       onSubmit={handleSubmit}
     >
-      <TextField name="rfc" label="RFC" />
-      <TextField name="street" label="Dirección" />
-      <TextField name="colony" label="Colonia" />
-      <TextField name="zipCode" label="Código postal" />
-      <TextField name="city" label="Ciudad" />
-      <TextField name="state" label="Estado" />
+      <TextField
+        name="rfc"
+        label="RFC"
+        onChange={onChangeFiscal}
+        value={user.fiscalData.rfc}
+      />
+      <TextField
+        name="street"
+        label="Dirección"
+        onChange={onChangeFiscalAddress}
+        value={user.fiscalData.address.street}
+      />
+      <TextField
+        name="colony"
+        label="Colonia"
+        onChange={onChangeFiscalAddress}
+        value={user.fiscalData.address.colony}
+      />
+      <TextField
+        name="zipCode"
+        label="Código postal"
+        onChange={onChangeFiscalAddress}
+        value={user.fiscalData.address.zipCode}
+      />
+      <TextField
+        name="city"
+        label="Ciudad"
+        onChange={onChangeFiscalAddress}
+        value={user.fiscalData.address.city}
+      />
+      <TextField
+        name="state"
+        label="Estado"
+        onChange={onChangeFiscalAddress}
+        value={user.fiscalData.address.state}
+      />
 
-      {/* <TextField
-        value={user.address.addressName}
-        onChange={onChangeAddress}
-        name="addressName"
-        label="Nombre de la calle"
-      /> */}
       <AmgButton width="100%" htmlType="submit">
         Siguiente
       </AmgButton>
@@ -42,4 +94,10 @@ const FiscalDataForm = ({ history }) => {
   );
 };
 
-export default withRouter(FiscalDataForm);
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(FiscalDataForm));

@@ -1,21 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Typography } from "antd";
+import { connect } from "react-redux";
+import useAmgService from "../../hooks/services/useAmgService";
 
 import AmgButton from "../../atoms/Button";
+import { createUser } from "../../store/actions";
 import Container from "../../atoms/layout/Container";
 import { Checkbox } from "antd";
 
-const ConfirmForm = () => {
+function ConfirmForm(props) {
+  const { history } = props;
+
   const { Text, Title } = Typography;
+
+  const [error, setError] = useState({
+    name: false,
+    dadSurname: false,
+    momSurname: false,
+    email: false,
+    birthDate: false,
+    placeOfBirth: false
+  });
+
+  const { user, dispatch } = props;
+  const { signup } = useAmgService();
+
   const handleSubmit = e => {
     e.preventDefault();
-    Swal.fire(
-      "Genial!",
-      "Te cuenta se creo correctamente y te enviamos un correo!",
-      "success"
-    );
-    console.log("test");
+    signup(
+      user.name,
+      user.dadSurname,
+      user.momSurname,
+      user.email,
+      user.birthDate,
+      user.placleOfBirth
+    )
+      .then(async ({ data }) => {
+        await dispatch(createUser({ ...data.user, userToken: data.token }));
+        await localStorage.setItem("authToken", data.token);
+        Swal.fire(
+          "Genial!",
+          "Te cuenta se creo correctamente y te enviamos un correo!",
+          "success"
+        );
+        history.push("/");
+      })
+      .catch(() => {
+        setError({
+          name: true,
+          dadSurname: true,
+          momSurname: true,
+          email: true,
+          birthDate: true
+        });
+      });
   };
 
   return (
@@ -50,6 +90,12 @@ const ConfirmForm = () => {
       </AmgButton>
     </form>
   );
-};
+}
 
-export default ConfirmForm;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(ConfirmForm));
