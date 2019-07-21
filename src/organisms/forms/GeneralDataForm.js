@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import TextField from "../../molecules/TextFields";
 import SelectField from "../../molecules/SelectField";
 import { Checkbox, DatePicker } from "antd";
-import moment from "moment";
-//import useAmgService from "../../hooks/services/useAmgService";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
 import Label from "../../atoms/data_entry/Label";
@@ -23,13 +21,7 @@ function GeneralDataForm(props) {
     placeOfBirth: false
   });
 
-  // const { MonthPicker, RangePicker } = DatePicker;
-  // const dateFormat = "YYYY/MM/DD";
-  // const monthFormat = "YYYY/MM";
-  // const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
-
   const { user, dispatch } = props;
-  // const { signup } = useAmgService();
 
   // state un nivel
   const onChangeData = e => {

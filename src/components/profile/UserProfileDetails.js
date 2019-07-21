@@ -1,11 +1,137 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import uniqid from "uniqid";
 
-const Profile = () => {
+import { Typography, Avatar } from "antd";
+
+import useAmgService from "../../hooks/services/useAmgService";
+import {
+  updateEvents,
+  createUser,
+  updatePublications
+} from "../../store/actions";
+import EventCover from "../../molecules/EventCover";
+import PostItem from "../../molecules/PostItem";
+import Publisher from "../../molecules/Publisher";
+import Spinner from "../../atoms/Spinner";
+import Container from "../../atoms/layout/Container";
+import ProfilePhoto from "../../atoms/ProfilePhoto";
+
+function UserProfileDetails(props) {
+  const [loadingPost, setLoadingPost] = useState(false);
+  const [loadingEvent, setLoadingEvent] = useState(false);
+  const {
+    events: { events },
+    user,
+    publications: { publications },
+    dispatch
+  } = props;
+  const { getEvents, getSelfUser, getPublications } = useAmgService();
+  const { Title } = Typography;
+
+  useEffect(() => {
+    if (events.length === 0) {
+      setLoadingEvent(true);
+      getEvents()
+        .then(({ data }) => {
+          dispatch(updateEvents({ events: [...data] }));
+          setLoadingEvent(false);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          setLoadingEvent(false);
+        });
+    }
+
+    if (!user.email) {
+      getSelfUser()
+        .then(({ data }) => {
+          dispatch(createUser({ ...data }));
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    }
+
+    if (publications.length === 0) {
+      setLoadingPost(true);
+      getPublications()
+        .then(({ data }) => {
+          dispatch(updatePublications({ publications: [...data] }));
+          setLoadingPost(false);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          setLoadingPost(false);
+        });
+    }
+  }, []);
+
   return (
-    <div>
-      <h1>Hola soy el profile</h1>
+    <div className="dashboard-container">
+      <div>
+        <Title>Dra. María Eugenia Icaza</Title>
+      </div>
+      <Container>
+        <ProfilePhoto className="avatar" />
+        <div>
+          <h2>Socio emérito</h2>
+          <h3>Gastroenterología</h3>
+          <p>Mérida, Yucatán</p>
+          <Container bgColor="#f5f8f9">
+            <div>
+              <h4>Te siguen</h4>
+              <p>101</p>
+            </div>
+            <div>
+              <h4>Sigues</h4>
+              <p>68</p>
+            </div>
+          </Container>
+        </div>
+      </Container>
+
+      {/* <div className="feed-event">
+        {loadingEvent && <Spinner tip="Cargando evento..." />}
+        {events.length > 0 && (
+          <Link
+            to={{
+              pathname: `/dashboard/events/${events[2]._id}`,
+              event: { ...events[2] }
+            }}
+          >
+            <EventCover
+              size="large"
+              location={events[2].location}
+              title={events[2].title}
+              startDate={events[2].startDate}
+              endDate={events[2].endDate}
+              image={events[2].photoURL}
+            />
+          </Link>
+        )}
+      </div> */}
+      <div>
+        <Publisher />
+      </div>
+      <div className="feed-publications">
+        {loadingPost && <Spinner tip="Cargando publicaciones..." />}
+        {publications.map(publication => (
+          <PostItem key={uniqid()} publication={publication} />
+        ))}
+      </div>
     </div>
   );
-};
+}
 
-export default Profile;
+function mapStateToProps(state) {
+  return {
+    events: state.events,
+    user: state.user,
+    publications: state.publications
+  };
+}
+
+export default connect(mapStateToProps)(UserProfileDetails);

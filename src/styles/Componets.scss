@@ -64,6 +64,10 @@
   background-size: 70%;
 }
 
+.dates-inline {
+  flex: 1;
+}
+
 .shapeIcon {
   padding-left: 4px;
   width: 25px;
@@ -106,8 +110,6 @@ $eventLeftWidth: 350px;
     }
   }
 }
-
-
 
 /* Feed */
 .feed {

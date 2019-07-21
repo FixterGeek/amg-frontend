@@ -13,9 +13,11 @@ const GeneralData = () => {
   return (
     <FullScreenContainer
       lateralSpace="0px"
+      justifyContent="space-between"
       paddingTop="0px"
       paddingBottom="0px"
       bgColor={palette.secondary}
+      style={{ display: "flex" }}
     >
       <Container
         alignItems="flex-start"
@@ -30,7 +32,12 @@ const GeneralData = () => {
         <Steper alignItems="center" />
       </Container>
 
-      <Container className="signup-rigth" height="100vh" width="65%">
+      <Container
+        className="signup-rigth"
+        height="100vh"
+        width="65%"
+        justifyContent="space-around"
+      >
         <Container
           alignItems="flex-start"
           flexGrow={5}
@@ -43,7 +50,14 @@ const GeneralData = () => {
             Datos generales
           </Title>
         </Container>
-        <GeneralDataForm />
+        <Container
+          className="signup-rigth"
+          justifyContent="center"
+          alignItems="flex-end"
+          lateralSpace="50px"
+        >
+          <GeneralDataForm />
+        </Container>
       </Container>
     </FullScreenContainer>
   );

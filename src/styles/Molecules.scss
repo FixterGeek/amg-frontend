@@ -21,6 +21,51 @@
   }
 }
 
+.date-field {
+  border-radius: 0px !important;
+  color: #333333 !important;
+  background-color: #f5f8f9 !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  &:first-child {
+    margin-top: 0 !important;
+  }
+
+  label {
+    margin-bottom: $smallMargin;
+  }
+  .ant-input {
+    border-radius: 0px !important;
+    color: $textPrimary !important;
+    background-color: $clouds !important;
+    border: none !important;
+    height: 50px !important;
+    padding: $padding !important;
+    box-sizing: border-box !important;
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    border-bottom: 2px solid transparent !important;
+
+    &:focus {
+      outline: none !important;
+      border-bottom: 2px solid $primary !important;
+    }
+
+    &:disabled {
+      background-color: $silver !important;
+    }
+  }
+}
+
 /* Lateral Menu */
 .menu-item-active {
   color: $textSecondary !important;

@@ -5,6 +5,8 @@ import TextField from "../../molecules/TextFields";
 import Label from "../../atoms/data_entry/Label";
 import { createUser } from "../../store/actions";
 
+import { DatePicker } from "antd";
+
 const EducationDataForm = props => {
   const { user, dispatch } = props;
 
@@ -35,6 +37,8 @@ const EducationDataForm = props => {
 
       <Label>Fecha</Label>
       <div className="dates-inline">
+        <DatePicker className="date-field" />
+
         <TextField
           onChange={onChangeStudiesData}
           value={user.studies.startDate}
