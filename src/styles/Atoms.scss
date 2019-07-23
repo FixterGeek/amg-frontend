@@ -8,6 +8,86 @@
   height: 162px !important;
 }
 
+.user-info-text {
+  width: 300px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.socio-emrito {
+  width: 431px;
+  height: 28px;
+  font-family: Avenir;
+  font-size: 22px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #333333;
+}
+
+.gastroenterologa {
+  width: 130px;
+  height: 22px;
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+}
+
+.merida-yucatan {
+  width: 116px;
+  height: 22px;
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+}
+
+.reactangle-follow {
+  width: 95px;
+  height: 65px;
+  background-color: #f5f8f9;
+  text-align: -webkit-center;
+}
+
+.te-siguen {
+  width: 53px;
+  height: 16px;
+  font-family: Avenir;
+  font-size: 12px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+  text-align: center;
+}
+
+.te-siguen-numero {
+  width: 40px;
+  height: 30px;
+  font-family: Avenir;
+  font-size: 22px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+  text-align: center;
+}
+
 /* Form Entries */
 
 $maxWidthFields: 445px;

@@ -69,6 +69,8 @@ function UserProfileDetails(props) {
     }
   }, []);
 
+  console.log(user);
+
   return (
     <div className="dashboard-container">
       <div>
@@ -76,18 +78,23 @@ function UserProfileDetails(props) {
       </div>
       <Container>
         <ProfilePhoto className="avatar" />
-        <div>
-          <h2>Socio emérito</h2>
-          <h3>Gastroenterología</h3>
-          <p>Mérida, Yucatán</p>
-          <Container bgColor="#f5f8f9">
+        <div className="user-info-text">
+          <p className="socio-emrito">Socio emérito</p>
+          <p className="gastroenterologa">Gastroenterología</p>
+          <p className="merida-yucatan">Mérida, Yucatán</p>
+          <Container
+            bgColor="#f5f8f9"
+            width="50%"
+            height="65px"
+            justifyContent="space-around"
+          >
             <div>
-              <h4>Te siguen</h4>
-              <p>101</p>
+              <p className="te-siguen">Te siguen</p>
+              <p className="te-siguen-numero">101</p>
             </div>
             <div>
-              <h4>Sigues</h4>
-              <p>68</p>
+              <p className="te-siguen"> Sigues</p>
+              <p className="te-siguen-numero">68</p>
             </div>
           </Container>
         </div>
