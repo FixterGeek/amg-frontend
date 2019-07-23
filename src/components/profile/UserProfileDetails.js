@@ -74,15 +74,18 @@ function UserProfileDetails(props) {
   return (
     <div className="dashboard-container">
       <div>
-        <Title>Dra. María Eugenia Icaza</Title>
+        <Title>
+          {user.basicData.name} {user.basicData.dadSurname}
+          {user.basicData.momSurname}
+        </Title>
       </div>
       <Container alignItems="flex-start" paddingTop="20px" paddingBottom="10px">
-        {/* <ProfilePhoto /> */}
         <div className="mask" />
         <div className="user-info-text">
-          <p className="socio-emrito">Socio emérito</p>
-          <p className="gastroenterologa">Gastroenterología</p>
-          <p className="merida-yucatan">Mérida, Yucatán</p>
+          <p className="partner-type">{user.userStatus}</p>
+          {/* <p className="specialty-name">{user.speciality}</p> */}
+          <p className="specialty-name">Gastroenterología</p>
+          <p className="address-name"> Mérida, Yucatán</p>
           <Container
             bgColor="#f5f8f9"
             width="50%"
@@ -90,12 +93,12 @@ function UserProfileDetails(props) {
             justifyContent="space-around"
           >
             <div className="follow-info">
-              <p className="te-siguen">Te siguen</p>
-              <p className="te-siguen-numero">101</p>
+              <p className="follow">Te siguen</p>
+              <p className="follow-number">101</p>
             </div>
             <div className="follow-info">
-              <p className="te-siguen"> Sigues</p>
-              <p className="te-siguen-numero">68</p>
+              <p className="follow"> Sigues</p>
+              <p className="follow-number">68</p>
             </div>
           </Container>
         </div>
