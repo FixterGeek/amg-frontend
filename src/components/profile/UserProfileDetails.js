@@ -76,8 +76,9 @@ function UserProfileDetails(props) {
       <div>
         <Title>Dra. María Eugenia Icaza</Title>
       </div>
-      <Container>
-        <ProfilePhoto className="avatar" />
+      <Container alignItems="flex-start" paddingTop="20px" paddingBottom="10px">
+        {/* <ProfilePhoto /> */}
+        <div className="mask" />
         <div className="user-info-text">
           <p className="socio-emrito">Socio emérito</p>
           <p className="gastroenterologa">Gastroenterología</p>
@@ -88,11 +89,11 @@ function UserProfileDetails(props) {
             height="65px"
             justifyContent="space-around"
           >
-            <div>
+            <div className="follow-info">
               <p className="te-siguen">Te siguen</p>
               <p className="te-siguen-numero">101</p>
             </div>
-            <div>
+            <div className="follow-info">
               <p className="te-siguen"> Sigues</p>
               <p className="te-siguen-numero">68</p>
             </div>

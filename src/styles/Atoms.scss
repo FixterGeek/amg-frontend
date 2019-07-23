@@ -3,20 +3,21 @@
 // Unities
 @import "./Unities.scss";
 
-.avatar {
-  width: 162px !important;
-  height: 162px !important;
+.mask {
+  width: 162px;
+  height: 162px;
+  background-color: #d8d8d8;
 }
 
 .user-info-text {
+  padding-top: 0%;
   width: 300px;
-  padding: 20px;
-  justify-content: center;
-  align-items: center;
+  height: 162px;
+  padding-left: 30px;
 }
 .socio-emrito {
   width: 431px;
-  height: 28px;
+  height: 14px;
   font-family: Avenir;
   font-size: 22px;
   font-weight: 900;
@@ -24,12 +25,12 @@
   font-stretch: normal;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #333333;
+  color: $textPrimary;
 }
 
 .gastroenterologa {
   width: 130px;
-  height: 22px;
+  height: 12px;
   font-family: Avenir;
   font-size: 16px;
   font-weight: normal;
@@ -37,12 +38,12 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #333333;
+  color: $textPrimary;
 }
 
 .merida-yucatan {
   width: 116px;
-  height: 22px;
+  height: 12px;
   font-family: Avenir;
   font-size: 16px;
   font-weight: normal;
@@ -50,19 +51,16 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #333333;
+  color: $textPrimary;
 }
 
-.reactangle-follow {
-  width: 95px;
-  height: 65px;
-  background-color: #f5f8f9;
-  text-align: -webkit-center;
+.follow-info {
+  text-align: center;
 }
 
 .te-siguen {
   width: 53px;
-  height: 16px;
+  height: 6px;
   font-family: Avenir;
   font-size: 12px;
   font-weight: 900;
@@ -70,13 +68,12 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #333333;
-  text-align: center;
+  color: $textPrimary;
 }
 
 .te-siguen-numero {
   width: 40px;
-  height: 30px;
+  height: 0px;
   font-family: Avenir;
   font-size: 22px;
   font-weight: 900;
@@ -84,8 +81,7 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #333333;
-  text-align: center;
+  color: $textPrimary;
 }
 
 /* Form Entries */
