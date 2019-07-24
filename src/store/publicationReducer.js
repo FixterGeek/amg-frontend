@@ -2,10 +2,10 @@ import { UPDATE_PUBLICATIONS } from './actions';
 
 const eventsState = {
   publications: [],
-  image: null,
+  imagesVideos: [],
   image64: null,
-  file: null,
-  fileType: null,
+  files: [],
+  urls: [],
 };
 
 function publicationReducer(state = eventsState, action) {

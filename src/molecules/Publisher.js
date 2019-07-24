@@ -1,124 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFilePdf, faFileWord, faFileCsv, faFilePowerpoint,
-} from '@fortawesome/free-solid-svg-icons';
+import getURL from 'get-urls';
 
-import { Input } from 'antd';
-
-import Attach from '../atoms/AttachButtons';
+import PublicationBox from '../atoms/PublicationBox';
+import AttachedFiles from './AttachedFiles';
+import FilesToUpload from './FilesToUpload';
 import Spinner from '../atoms/Spinner';
+import AmgButton from '../atoms/Button';
 import useAmgService from '../hooks/services/useAmgService';
-import { updatePublications } from '../store/actions';
 
 function Publisher({ publications, dispatch }) {
   const [loading, setLoading] = useState(false);
+  const [postText, setPostText] = useState('');
+  const [urls, setUrls] = useState([]);
   const { toPublish } = useAmgService();
-  const {
-    image, image64, file, fileType,
-  } = publications;
-  const icon = [faFilePdf, faFileWord, faFileCsv, faFilePowerpoint];
-  const { Search } = Input;
+  const { imagesVideos, files } = publications;
 
-  const resetFields = () => {
-    dispatch(updatePublications({
-      image: null,
-      image64: null,
-      file: null,
-      fileType: null,
-    }));
-  };
+  useEffect(() => {
+    let tempUrls = [];
+    const finded = getURL(postText);
+    finded.forEach((value) => {
+      tempUrls = [...tempUrls, value];
+    });
 
-  const handleClick = (value) => {
+    setUrls([tempUrls]);
+  }, [postText]);
+
+
+  const handleClick = () => {
     setLoading(true);
 
-    if (!image && !file) {
-      toPublish({
-        text: value,
-      }).then(({ data }) => {
+    const formData = new FormData();
+
+    formData.append('text', postText);
+    urls.map(url => formData.append('urls', url));
+    imagesVideos.map(file => formData.append('images', file));
+    files.map(file => formData.append('docs', file));
+
+    toPublish(formData, { 'X-Requested-With': 'XMLHttpRequest' })
+      .then(({ data }) => {
         console.log(data);
         setLoading(false);
-        resetFields();
-      }).catch(({ response }) => {
-        setLoading(false);
+      })
+      .catch(({ response }) => {
         console.log(response);
+        setLoading(false);
       });
-    } else if (image && !file) {
-      const formData = new FormData();
-
-      formData.append('images', image);
-      formData.append('text', value);
-      toPublish(formData, { 'X-Requested-With': 'XMLHttpRequest' })
-        .then(({ data }) => {
-          setLoading(false);
-          resetFields();
-          console.log(data);
-        }).catch(({ response }) => {
-          setLoading(false);
-          console.log(response);
-        });
-    } else if (file && !image) {
-      const formData = new FormData();
-
-      formData.append('docs', file);
-      formData.append('text', value);
-      toPublish(formData, { 'X-Requested-With': 'XMLHttpRequest' })
-        .then(({ data }) => {
-          setLoading(false);
-          resetFields();
-          console.log(data);
-        }).catch(({ response }) => {
-          setLoading(false);
-          console.log(response);
-        });
-    } else if (file && image) {
-      const formData = new FormData();
-
-      formData.append('images', image);
-      formData.append('docs', file);
-      formData.append('text', value);
-      toPublish(formData, { 'X-Requested-With': 'XMLHttpRequest' })
-        .then(({ data }) => {
-          setLoading(false);
-          resetFields();
-          console.log(data);
-        }).catch(({ response }) => {
-          setLoading(false);
-          console.log(response);
-        });
-    }
   };
 
   return (
     <div className="publisher">
       { loading && <Spinner tip="Publicando..." /> }
-      <Search enterButton="Publicar" placeholder="Cuéntanos algo" onSearch={handleClick} />
-      <div className="publisher-attaches">
-        {
-          image64 && (
-            <div
-              className="publisher-image-preview"
-              style={{ backgroundImage: `url(${image64})` }}>
-              {/* <img src={image64} width="120" alt="Preview" /> */}
-            </div>
-          )
-        }
-        {
-          fileType && (
-            <div className="publisher-file">
-              { fileType === 'pdf' && (<FontAwesomeIcon icon={icon[0]} />) }
-              { fileType === 'doc' || fileType === 'docx' || fileType === 'odt'
-                ? (<FontAwesomeIcon icon={icon[1]} />)
-                : null
-              }
-              { fileType === 'csv' && (<FontAwesomeIcon icon={icon[2]} />) }
-              { fileType === 'ppt' && (<FontAwesomeIcon icon={icon[3]} />) }
-            </div>
-          )
-        }
+      <PublicationBox postText={postText} setText={setPostText} />
+      <AttachedFiles />
+      <div className="files-preview-container">
+        { files.length > 0 && <FilesToUpload type="files" /> }
       </div>
-      <Attach />
+      { imagesVideos.length > 0 && <FilesToUpload type="imagesVideos" /> }
+      <AmgButton width="200px" onClick={handleClick}>Publicar</AmgButton>
     </div>
   );
 }

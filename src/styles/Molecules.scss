@@ -23,7 +23,7 @@
 
 /* Lateral Menu */
 .menu-item-active {
-  color: $textSecondary !important;
+  color: $primary !important;
 }
 
 /* Events Month */
@@ -94,9 +94,11 @@ $inputHeight: 72px;
   margin-top: $largeMargin;
   margin-bottom: $largeMargin;
   position: relative;
+  background-color: $clouds;
+  padding: $padding;
+  box-sizing: border-box;
 
-  input,
-  button {
+  input {
     border-radius: 0px !important;
     height: $inputHeight;
     border: none !important;
@@ -106,39 +108,81 @@ $inputHeight: 72px;
     background-color: $clouds !important;
     font-size: 1.2em !important;
   }
+}
 
-  button {
-    min-width: 241px;
-    font-size: 1em !important;
-    background-color: $secondary !important;
+
+
+/* Attached Files */
+.attached-files {
+  display: flex;
+}
+
+
+
+/* Files To Upload */
+.files-to-upload {
+  display: flex;
+  flex-wrap: wrap;
+
+  .remove-file {
+    display: none;
+    color: $red;
+    font-size: 3em;
   }
 
-  &-image-preview {
-    margin-top: $smallMargin;
-    display: block;
-    margin-right: $margin;
+  .image-preview {
     width: 100px;
     height: 100px;
-    background-size: cover;
-    background-position: center;
-  }
-
-  &-file {
-    margin-top: $smallMargin;
-    width: 100px;
-    height: 100px;
-    background-color: $primary;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: $margin;
+    margin-top: $smallMargin;
+    position: relative;
 
-    svg {
-      color: white;
-      font-size: 4em;
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    &:hover {
+      .remove-file {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($color: $clouds, $alpha: 0.5)
+      }
     }
   }
 
-  &-attaches {
+  .file-preview {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 50px;
+    background-color: $primary;
+    border-radius: 25px;
+    padding: $padding;
+    box-sizing: border-box;
+    font-size: 1.3em;
+    margin-right: $margin;
+    margin-top: $smallMargin;
+
+    svg {
+      margin-right: $smallMargin;
+    }
   }
+}
+
+.files-preview-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }

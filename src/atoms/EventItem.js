@@ -5,27 +5,25 @@ import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
-function EventItem({ event, baseTo }) {
+function EventItem({ time, title, level1, level2, baseTo, id, state }) {
   const { Title, Text } = Typography;
-  const { program, startDate } = event;
-  const day = moment(startDate).date();
 
   return (
     <div className="event-item">
-      <div className="event-item-day">{ `${day}`.length === 1 ? `0${day}` : day }</div>
+      <div className="event-item-day">{ time }</div>
       <div className="event-item-info">
-        <Link to={{ pathname: `${baseTo}${event._id}`, event }}>
+        <Link to={{ pathname: `${baseTo}${id}`, state }}>
           <div>
-            <Title level={4}>{ event.title }</Title>
+            <Title level={4}>{ title }</Title>
           </div>
           <div>
             <Text>
-              { program[0] ? program[0].speaker.fullName : '' }
+              { level1 }
             </Text>
           </div>
           <div>
             <Text>
-              { program[0] ? program[0].place : '' }
+              { level2 }
             </Text>
           </div>
         </Link>

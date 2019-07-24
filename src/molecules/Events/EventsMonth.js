@@ -1,8 +1,9 @@
 import React from 'react';
+import moment from 'moment';
 
 import { Typography } from 'antd';
 
-import EventItem from '../atoms/EventItem';
+import EventItem from '../../atoms/EventItem';
 
 function EventsMonth({ month, events }) {
   const { Title } = Typography;
@@ -21,9 +22,16 @@ function EventsMonth({ month, events }) {
         </div>
         <div>
           {
-            events.map(event => (
-              <EventItem key={event._id} event={event} />
-            ))
+            events.map((event) => {
+              console.log(event);
+              return (
+                <EventItem
+                  key={event._id}
+                  time={moment(event.startDate).format('DD')}
+                  title={event.title}
+                  state={event} />
+              );
+            })
           }
         </div>
       </div>

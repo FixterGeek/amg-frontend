@@ -7,7 +7,7 @@ import uniqid from 'uniqid';
 import { updateEvents } from '../../store/actions';
 import useAmgService from '../../hooks/services/useAmgService';
 import Covers from '../../organisms/events/Covers';
-import EventsMonth from '../../molecules/EventsMonth';
+import EventsMonth from '../../molecules/Events/EventsMonth';
 
 function EventsList(props) {
   // eslint-disable-next-line react/prop-types
@@ -19,6 +19,7 @@ function EventsList(props) {
   });
 
   useEffect(() => {
+    console.log(events.events);
     const byMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
       month,
       events: events.events.filter(
