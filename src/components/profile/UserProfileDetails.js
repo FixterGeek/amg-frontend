@@ -75,16 +75,21 @@ function UserProfileDetails(props) {
     <div className="dashboard-container">
       <div>
         <Title>
-          {user.basicData.name} {user.basicData.dadSurname}
+          {user.basicData.name} {user.basicData.dadSurname}{" "}
           {user.basicData.momSurname}
         </Title>
       </div>
       <Container alignItems="flex-start" paddingTop="20px" paddingBottom="10px">
-        <div className="mask" />
+        <div className="mask">
+          <img
+            src={user.basicData.photoURL}
+            alt={user.basicData.name}
+            className="avatar"
+          />
+        </div>
         <div className="user-info-text">
           <p className="partner-type">{user.userStatus}</p>
-          {/* <p className="specialty-name">{user.speciality}</p> */}
-          <p className="specialty-name">Gastroenterología</p>
+          <p className="specialty-name">{user.basicData.speciality}</p>
           <p className="address-name"> Mérida, Yucatán</p>
           <Container
             bgColor="#f5f8f9"
