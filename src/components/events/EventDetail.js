@@ -26,7 +26,6 @@ function EventDetail(props) {
 
 
   const subscribeToEvent = () => {
-    console.log('asistiendo');
     assistAnEvent(state._id).then(({ data }) => {
       console.log(data);
     }).catch(({ response }) => {
@@ -42,7 +41,7 @@ function EventDetail(props) {
       const id = locationSplit[locationSplit.length - 1];
       getSingleEvent(id).then(({ data }) => setState({ ...data }));
     }
-  }, []);
+  }, [getSingleEvent, location.event, location.pathname]);
 
   return (
     <div className="dashboard-container event-detail">

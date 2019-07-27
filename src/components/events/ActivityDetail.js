@@ -40,7 +40,7 @@ function ActivityDetail({ history, user }) {
     };
 
     runAsync();
-  }, []);
+  }, [location, getSingleActivity]);
 
 
   const subscribeToActivity = (activityId) => {

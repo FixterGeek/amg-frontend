@@ -40,7 +40,7 @@ function EventsList(props) {
         console.log(response);
       });
     }
-  }, []);
+  }, [dispatch, events.events.length, getEvents]);
 
   return (
     <div className="dashboard-container">

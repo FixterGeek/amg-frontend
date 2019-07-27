@@ -35,7 +35,7 @@ function Program({ history }) {
     };
 
     runAsync();
-  }, []);
+  }, [getActivitiesForEvent, getSingleEvent, location]);
 
 
   const getLocalActivity = activityId => activitiesState.filter(activity => activity._id === activityId);
