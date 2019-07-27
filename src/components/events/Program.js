@@ -19,23 +19,25 @@ function Program({ event, dispatch, history }) {
     const { pathname } = location;
     const id = pathname.split('/')[3];
 
-    getActivitiesForEvent(id).then(({ data }) => {
-      setActivitiesState(data);
-    }).catch(({ response }) => console.log(response));
+    const runAsync = async () => {
+      await getActivitiesForEvent(id).then(({ data }) => {
+        setActivitiesState(data);
+      }).catch(({ response }) => console.log(response));
 
-    if (!location.event) {
-      getSingleEvent(id).then(({ data }) => setEventState(data))
-        .catch(error => console.log(error));
-    } else {
-      setEventState(location.event);
-    }
+      if (!location.event) {
+        getSingleEvent(id).then(({ data }) => setEventState(data))
+          .catch(error => console.log(error));
+      } else {
+        setEventState(location.event);
+      }
+    };
+
+    runAsync();
   }, []);
 
 
   const getLocalActivity = activityId => activitiesState.filter(activity => activity._id === activityId);
 
-
-  console.log(activitiesState);
 
   return (
     <div className="dashboard-container">

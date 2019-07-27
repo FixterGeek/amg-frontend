@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
 import { Typography } from 'antd';
 
@@ -25,24 +26,40 @@ function ActivityDetail({ history, user }) {
     const { pathname } = location;
     const id = pathname.split('/')[5];
 
-    if (!location.state) {
-      getSingleActivity(id).then(({ data }) => {
-        console.log(data);
-        setActivity({ ...data });
-      }).catch(({ response }) => console.log(response));
-    } else {
-      setActivity({ ...location.state });
-    }
+    const runAsync = async () => {
+      if (!location.state) {
+        await getSingleActivity(id).then(({ data }) => {
+          setActivity({ ...data });
+        }).catch(({ response }) => console.log(response));
+      } else {
+        setActivity({ ...location.state });
+      }
+    };
+
+    runAsync();
   }, []);
 
 
-  const subscribeToActivity = (eventId) => {
-    console.log(eventId);
-    activitySubscribe(eventId).then(response => console.log(response))
-      .catch(({ response }) => console.log(response));
+  const subscribeToActivity = (activityId) => {
+    activitySubscribe(activityId).then(({ data }) => {
+      const { assistants } = data;
+      if (assistants.includes(user._id)) {
+        Swal.fire({
+          title: 'Listo',
+          text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.',
+          type: 'success',
+          confirmButtonText: 'Entendido',
+        });
+      } else {
+        Swal.fire({
+          title: 'Calcelado',
+          text: 'Tu asistencia al evento a sido cancelada',
+          type: 'info',
+          confirmButtonText: 'Entendido',
+        });
+      }
+    }).catch(({ response }) => console.log(response));
   };
-
-  console.log(activity);
 
 
   return (
