@@ -1,46 +1,54 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPowerOff,
   faHome,
   faCalendar,
   faBookOpen,
   faGraduationCap,
-  faUser
-} from "@fortawesome/free-solid-svg-icons";
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 
-import { Menu, Icon } from "antd";
+import { Menu, Icon } from 'antd';
 
-import useAmgService from "../hooks/services/useAmgService";
+import useAmgService from '../hooks/services/useAmgService';
+import { createUser } from '../store/actions';
 
-function LateralMenu(props) {
+function LateralMenu({ history, user, dispatch }) {
+  const { logout, getSelfUser } = useAmgService();
   // eslint-disable-next-line react/prop-types
-  const { history } = props;
   const { location } = history;
-  const locationSplit = location.pathname.split("/");
+  const locationSplit = location.pathname.split('/');
   const currentLocation = locationSplit[2];
 
-  const { logout } = useAmgService();
 
-  const link = to => {
+  useEffect(() => {
+    if (!user.basicData.name) {
+      getSelfUser().then(({ data }) => dispatch(createUser({ ...data })))
+        .catch(({ response }) => console.log(response));
+    }
+  }, []);
+
+
+  const link = (to) => {
     history.push(to);
   };
 
-  console.log(currentLocation);
 
   return (
-    <Menu inlineCollapsed defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item key={1} onClick={() => link("/dashboard/")}>
-        <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
+    <Menu inlineCollapsed defaultSelectedKeys={['1']} mode="inline">
+      <Menu.Item key={1} onClick={() => link('/dashboard/')}>
+        <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
         <span>Home</span>
       </Menu.Item>
-      <Menu.Item key={2} onClick={() => link("/dashboard/events")}>
+      <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
         <Icon
           className={`${
-            currentLocation === "events" ? "menu-item-active" : ""
+            currentLocation === 'events' ? 'menu-item-active' : ''
           }`}
         >
           <FontAwesomeIcon icon={faCalendar} />
@@ -59,13 +67,13 @@ function LateralMenu(props) {
         </Icon>
         <span>Educación</span>
       </Menu.Item>
-      <Menu.Item key={5} onClick={() => link("/dashboard/user")}>
+      <Menu.Item key={5} onClick={() => link('/dashboard/user')}>
         <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
         <span>Mi perfil</span>
       </Menu.Item>
-      <Menu.Item key={5} onClick={() => logout(history)}>
+      <Menu.Item key={6} onClick={() => logout(history)}>
         <Icon>
           <FontAwesomeIcon icon={faPowerOff} />
         </Icon>
@@ -75,4 +83,8 @@ function LateralMenu(props) {
   );
 }
 
-export default withRouter(LateralMenu);
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+export default withRouter(connect(mapStateToProps)(LateralMenu));
