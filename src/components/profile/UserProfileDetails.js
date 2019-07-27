@@ -90,7 +90,7 @@ function UserProfileDetails(props) {
         <div className="user-info-text">
           <p className="partner-type">{user.userStatus}</p>
           <p className="specialty-name">{user.basicData.speciality}</p>
-          <p className="address-name"> Mérida, Yucatán</p>
+          <p className="address-name">{user.address.addressName}</p>
           <Container
             bgColor="#f5f8f9"
             width="50%"
