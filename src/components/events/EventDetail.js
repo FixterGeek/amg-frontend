@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { Typography } from "antd";
+import { Typography } from 'antd';
 
-import EventCover from "../../molecules/EventCover";
-import TextBlock from "../../atoms/TextBlock";
-import AmgButton from "../../atoms/Button";
-import TextNIconButton from "../../atoms/TextNIconButton";
+import EventCover from '../../molecules/EventCover';
+import TextBlock from '../../atoms/TextBlock';
+import AmgButton from '../../atoms/Button';
+import TextNIconButton from '../../atoms/TextNIconButton';
 
-import useAmgService from "../../hooks/services/useAmgService";
+import useAmgService from '../../hooks/services/useAmgService';
 
 function EventDetail(props) {
   const { history } = props;
@@ -19,7 +19,9 @@ function EventDetail(props) {
   const { Title } = Typography;
 
   const { getSingleEvent, assistAnEvent } = useAmgService();
-  const [state, setState] = useState({});
+  const [state, setState] = useState({
+    description: [],
+  });
 
 
   const subscribeToEvent = () => {
@@ -35,7 +37,7 @@ function EventDetail(props) {
     if (location.event) {
       setState({ ...location.event });
     } else {
-      const locationSplit = location.pathname.split("/");
+      const locationSplit = location.pathname.split('/');
       const id = locationSplit[locationSplit.length - 1];
       getSingleEvent(id).then(({ data }) => setState({ ...data }));
     }
@@ -48,17 +50,23 @@ function EventDetail(props) {
       </div>
       <div className="event-details">
         <div className="left">
-          {state.photoURL && (
+          {state.thumbnailImagesURLS && (
             <EventCover
               title={state.title}
               location={state.location}
               startDate={state.startDate}
               endDate={state.endDate}
-              image={state.photoURL}
+              image={state.thumbnailImagesURLS[0]}
             />
           )}
-          <TextNIconButton text="Ver programa" icon="bino" />
-          <TextNIconButton text="Ver ponentes" icon="micro" />
+          <TextNIconButton
+            text="Ver programa"
+            icon="bino"
+            to={{ pathname: `/dashboard/events/${state._id}/program`, event: state }} />
+          <TextNIconButton
+            text="Ver ponentes"
+            icon="micro"
+            to={{ pathname: `/dashboard/events/${state._id}/speakers`, event: state }} />
           <TextNIconButton
             downloadable
             to={state.permisoURL}
@@ -67,12 +75,16 @@ function EventDetail(props) {
           />
         </div>
         <div className="right">
-          {state.directedTo && (
-            <TextBlock title="Dirigido a" text={state.directedTo} />
+          {state.description[0] && (
+            <TextBlock title="Dirigido a" text={state.description[0]} />
           )}
-          {state.curricularValue && (
-            <TextBlock title="Valor curricular" text={state.curricularValue} />
+          {state.description[1] && (
+            <TextBlock title="Valor curricular" text={state.description[1]} />
           )}
+          {state.description[2] && (
+            <TextBlock title="Objetivo" text={state.description[2]} />
+          )}
+
           <div className="right-button">
             <AmgButton width="100%" onClick={subscribeToEvent}>
               Inscribirme

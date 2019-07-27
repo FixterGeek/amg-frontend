@@ -20,7 +20,7 @@ function TextNIconButton({ text, icon, to, downloadable, event }) {
 
   return (
     <div className="text-n-icon-button">
-      <Link to="/">
+      <Link to={to}>
         <div>{ text }</div>
         <div className={`text-n-icon-icon ${icon}`} />
       </Link>

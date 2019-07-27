@@ -67,16 +67,16 @@ function Feed(props) {
         {
           events.length > 0 && (
             <Link to={{
-              pathname: `/dashboard/events/${events[2]._id}`,
-              event: { ...events[2] },
+              pathname: `/dashboard/events/${events[0]._id}`,
+              event: { ...events[0] },
             }}>
               <EventCover
                 size="large"
-                location={events[2].location}
-                title={events[2].title}
-                startDate={events[2].startDate}
-                endDate={events[2].endDate}
-                image={events[2].photoURL} />
+                location={events[0].location}
+                title={events[0].title}
+                startDate={events[0].startDate}
+                endDate={events[0].endDate}
+                image={events[0].mainImagesURLS[0]} />
             </Link>
           )
         }

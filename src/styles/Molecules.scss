@@ -186,3 +186,21 @@ $inputHeight: 72px;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
+
+/* Speaker Item */
+.speaker-item {
+  display: flex;
+  padding-left: ($lateralSpace + $largeMargin);
+  box-sizing: border-box;
+  align-items: center;
+  margin-top: $largeMargin;
+  margin-bottom: $margin;
+
+  &-info {
+    background-color: $lightBlue;
+    height: 120px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: $padding;
+  }
+}

@@ -29,6 +29,7 @@ function EventsMonth({ month, events }) {
                   key={event._id}
                   time={moment(event.startDate).format('DD')}
                   title={event.title}
+                  to={`/dashboard/events/${event._id}`}
                   state={event} />
               );
             })
