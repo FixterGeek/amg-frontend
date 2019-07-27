@@ -56,7 +56,7 @@ function Covers({ events }) {
                 location={event.location}
                 startDate={event.startDate}
                 endDate={event.endDate}
-                image={event.photoURL} />
+                image={event.mainImagesURLS[0]} />
             </Link>
           ))
         }

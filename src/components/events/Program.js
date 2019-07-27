@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { Typography } from 'antd';
 
@@ -72,7 +73,7 @@ function Program({ history }) {
                       return (
                         <ActivityItem
                           key={activity._id}
-                          hour={activity.date}
+                          hour={moment(activity.date).format('hh:mm a')}
                           title={activity.activityName}
                           level1={activity.speaker.fullName}
                           level2={activity.location.addressName}

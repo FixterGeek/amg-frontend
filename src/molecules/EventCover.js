@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 
-import EventImage from '../atoms/EventImage';
+import EventImage from '../atoms/events/EventImage';
 import ImageText from '../atoms/ImageText';
 
 function EventCover({

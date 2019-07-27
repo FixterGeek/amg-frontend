@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EventItem from '../../atoms/EventItem';
+import EventItem from '../../atoms/events/EventItem';
 
 function ActivityItem({
   hour, title, level1, level2, to, activity,

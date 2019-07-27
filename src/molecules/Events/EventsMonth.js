@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import { Typography } from 'antd';
 
-import EventItem from '../../atoms/EventItem';
+import EventItem from '../../atoms/events/EventItem';
 
 function EventsMonth({ month, events }) {
   const { Title } = Typography;
@@ -23,12 +23,13 @@ function EventsMonth({ month, events }) {
         <div>
           {
             events.map((event) => {
-              console.log(event);
               return (
                 <EventItem
                   key={event._id}
                   time={moment(event.startDate).format('DD')}
                   title={event.title}
+                  level1={event.location.addressName}
+                  level2={moment(event.startDate).format('dddd DD [de] MMMM')}
                   to={`/dashboard/events/${event._id}`}
                   state={event} />
               );
