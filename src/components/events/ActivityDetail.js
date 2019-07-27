@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Typography } from 'antd';
 
 import useAmgService from '../../hooks/services/useAmgService';
+import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
 import AmgButton from '../../atoms/Button';
 
@@ -13,9 +14,11 @@ function ActivityDetail({ history, user }) {
   const [activity, setActivity] = useState({
     activityType: '',
     activityName: '',
+    description: '',
     speaker: {},
     amgSpeaker: {},
     location: {},
+    assistants: [],
   });
   const { speaker } = activity;
   const { location } = history;
@@ -43,6 +46,8 @@ function ActivityDetail({ history, user }) {
   const subscribeToActivity = (activityId) => {
     activitySubscribe(activityId).then(({ data }) => {
       const { assistants } = data;
+      setActivity({ ...data });
+
       if (assistants.includes(user._id)) {
         Swal.fire({
           title: 'Listo',
@@ -63,42 +68,44 @@ function ActivityDetail({ history, user }) {
 
 
   return (
-    <div className="dashboard-container">
-      <div>
+    <div className="dashboard-container activity-detail">
+      <DashboardContainerItem>
         <Title>{ activity.activityType }</Title>
-      </div>
-      <div>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
         <Title level={3}>{ activity.activityName }</Title>
-      </div>
-      <div>
-        { activity.description }
-      </div>
-      <div>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
+        <Text>{ activity.description }</Text>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
         <div>
           <Title level={3}>Ponente</Title>
         </div>
-        <div>
+        <div className="activity-detail-speaker">
           <div>
             <ProfilePhoto photoURL={speaker.photoURL} />
           </div>
-          <div>
-            <Text>{ speaker.fullName }</Text>
+          <div className="activity-detail-speaker-info">
+            <Text strong>{ speaker.fullName }</Text>
             <Text>{ speaker.professionalTitle }</Text>
             <Text>{ speaker.origin }</Text>
           </div>
         </div>
-      </div>
-      <div>
+      </DashboardContainerItem>
+      <DashboardContainerItem style={{ textAlign: 'center' }}>
         {
           user.membershipStatus === 'Free' ? (
             <AmgButton width="100%"> Pagar por esta actividad </AmgButton>
           ) : (
             <AmgButton width="100%" onClick={() => subscribeToActivity(activity._id)}>
-              Inscribirse
+              {
+                activity.assistants.includes(user._id) ? 'Cancelar inscripción' : 'Inscribirme'
+              }
             </AmgButton>
           )
         }
-      </div>
+      </DashboardContainerItem>
     </div>
   );
 }

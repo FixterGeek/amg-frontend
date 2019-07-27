@@ -78,6 +78,10 @@
   box-sizing: border-box;
 }
 
+.dashboard-container-item {
+  margin-bottom: $largeMargin;
+}
+
 /* Event Detail */
 $eventLeftWidth: 350px;
 
@@ -119,5 +123,23 @@ $eventLeftWidth: 350px;
   &-publications {
     position: relative;
     min-height: 356px;
+  }
+}
+
+/* Activity Detail */
+.activity-detail {
+
+  &-speaker {
+    display: flex;
+
+    &-info {
+      display: flex;
+      flex-flow: column;
+      margin-left: $margin;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding-top: $smallPadding;
+      padding-bottom: $smallPadding;
+    }
   }
 }
