@@ -29,7 +29,7 @@ function LateralMenu({ history, user, dispatch }) {
       getSelfUser().then(({ data }) => dispatch(createUser({ ...data })))
         .catch(({ response }) => console.log(response));
     }
-  }, []);
+  }, [dispatch, getSelfUser, user.basicData.name]);
 
 
   const link = (to) => {

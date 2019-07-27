@@ -2,7 +2,7 @@ import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 function FilePicker({ children, multi, type, onChange, name, className }) {
-  const [state, setState] = useState({
+  const [state] = useState({
     inputFile: createRef(),
   });
 
@@ -47,7 +47,7 @@ export default FilePicker;
 
 FilePicker.propTypes = {
   multi: PropTypes.bool,
-  type: PropTypes.oneOf(['forImages', 'forFiles']),
+  type: PropTypes.oneOf(['forImagesAndVideos', 'forFiles']),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]).isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
@@ -56,6 +56,6 @@ FilePicker.propTypes = {
 
 FilePicker.defaultProps = {
   multi: false,
-  type: 'forImagesAndImages',
+  type: 'forImagesAndVideos',
   className: 'file-picker',
 };

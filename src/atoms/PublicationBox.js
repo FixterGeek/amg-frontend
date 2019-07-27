@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { Input } from 'antd';
 
-import {updatePublications } from '../store/actions';
 import ProfilePhoto from './ProfilePhoto';
 
 function PublicationBox({ user, postText, setText }) {
@@ -41,6 +40,8 @@ export default connect(mapStateToProps)(PublicationBox);
 PublicationBox.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   user: PropTypes.object,
+  postText: PropTypes.string,
+  setText: PropTypes.func,
 };
 
 PublicationBox.defaultProps = {
@@ -49,4 +50,6 @@ PublicationBox.defaultProps = {
       photoURL: 'https://res.cloudinary.com/dlopomjr5/image/upload/v1563563368/amg-examples/generic_user.jpg',
     },
   },
+  postText: '',
+  setText: null,
 };

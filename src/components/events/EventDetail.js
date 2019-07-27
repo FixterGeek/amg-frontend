@@ -9,6 +9,7 @@ import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
 import AmgButton from '../../atoms/Button';
 import TextNIconButton from '../../atoms/TextNIconButton';
+import Spinner from '../../atoms/Spinner';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -45,6 +46,7 @@ function EventDetail(props) {
 
   return (
     <div className="dashboard-container event-detail">
+      { !state._id && <Spinner tip="Cargando evento..." /> }
       <div className="title">
         <Title>{state.title}</Title>
       </div>

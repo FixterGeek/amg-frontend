@@ -55,7 +55,11 @@ function Feed(props) {
         setLoadingPost(false);
       });
     }
-  }, []);
+  }, [
+    dispatch, events.length, getEvents,
+    getPublications, getSelfUser, publications.length,
+    user.email,
+  ]);
 
   return (
     <div className="dashboard-container">

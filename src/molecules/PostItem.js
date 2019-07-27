@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { Typography } from 'antd';
@@ -11,7 +10,7 @@ import PostIcons from '../atoms/PostIcons';
 function PostItem({ publication }) {
   const {
     text, updatedAt, _id, liked,
-    docsURLS, imagesURLS,
+    imagesURLS,
   } = publication;
   const { Title, Text } = Typography;
 

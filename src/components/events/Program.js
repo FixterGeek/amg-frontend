@@ -7,6 +7,7 @@ import useAmgService from '../../hooks/services/useAmgService';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import EventCover from '../../molecules/EventCover';
 import ActivityItem from '../../molecules/Events/ActivityItem';
+import Spinner from '../../atoms/Spinner';
 
 function Program({ history }) {
   const { getSingleEvent, getActivitiesForEvent } = useAmgService();
@@ -41,6 +42,7 @@ function Program({ history }) {
 
   return (
     <div className="dashboard-container">
+      { !eventState && <Spinner tip="Cargando programa..." /> }
       <DashboardContainerItem>
         <Title>Programa</Title>
       </DashboardContainerItem>

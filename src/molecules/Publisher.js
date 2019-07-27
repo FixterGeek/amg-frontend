@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import getURL from 'get-urls';
 
@@ -9,7 +9,7 @@ import Spinner from '../atoms/Spinner';
 import AmgButton from '../atoms/Button';
 import useAmgService from '../hooks/services/useAmgService';
 
-function Publisher({ publications, dispatch }) {
+function Publisher({ publications }) {
   const [loading, setLoading] = useState(false);
   const [postText, setPostText] = useState('');
   const [urls, setUrls] = useState([]);

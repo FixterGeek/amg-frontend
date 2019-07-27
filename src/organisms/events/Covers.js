@@ -21,7 +21,7 @@ function Covers({ events }) {
     if (state.events.length === 0) {
       setState({ events });
     }
-  }, [events]);
+  }, [events, state.events.length]);
 
 
   const goLeft = () => {
