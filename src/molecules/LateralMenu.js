@@ -59,8 +59,7 @@ function LateralMenu(props) {
         </Icon>
         <span>Educación</span>
       </Menu.Item>
-      <Menu.Item key={5} onClick={(user) => link(`/dashboard/user/${user._id}`)}>
-      {/* <Menu.Item key={5} onClick={() => link("/dashboard/user")}> */}
+      <Menu.Item key={5} onClick={user => link(`/dashboard/user/${user._id}`)}>
         <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
