@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Typography } from 'antd';
 
 import useAmgService from '../../hooks/services/useAmgService';
+import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import EventCover from '../../molecules/EventCover';
 import ActivityItem from '../../molecules/Events/ActivityItem';
 
-function Program({ event, dispatch, history }) {
+function Program({ history }) {
   const { getSingleEvent, getActivitiesForEvent } = useAmgService();
   const [eventState, setEventState] = useState();
   const [activitiesState, setActivitiesState] = useState();
@@ -38,13 +39,12 @@ function Program({ event, dispatch, history }) {
 
   const getLocalActivity = activityId => activitiesState.filter(activity => activity._id === activityId);
 
-
   return (
     <div className="dashboard-container">
-      <div>
+      <DashboardContainerItem>
         <Title>Programa</Title>
-      </div>
-      <div>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
         { eventState && (
         <EventCover
           title={eventState.title}
@@ -54,19 +54,22 @@ function Program({ event, dispatch, history }) {
           image={eventState.mainImagesURLS[0]} />
         )
         }
-      </div>
-      <div>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
         {
           eventState && eventState.program.map((module) => {
             return (
-              <div>
-                <Title level={3}>{ module.title }</Title>
+              <DashboardContainerItem key={module._id}>
+                <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
+                  { module.title }
+                </Title>
                 <div>
                   {
                     module.activities.map((activityId) => {
                       const activity = getLocalActivity(activityId)[0];
                       return (
                         <ActivityItem
+                          key={activity._id}
                           hour={activity.date}
                           title={activity.activityName}
                           level1={activity.speaker.fullName}
@@ -77,11 +80,11 @@ function Program({ event, dispatch, history }) {
                     })
                   }
                 </div>
-              </div>
+              </DashboardContainerItem>
             );
           })
         }
-      </div>
+      </DashboardContainerItem>
     </div>
   );
 }
