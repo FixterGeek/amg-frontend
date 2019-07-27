@@ -65,6 +65,36 @@ function useAmgService() {
   };
 
 
+  /* Activities section */
+
+  const getActivitiesForEvent = async (eventId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/eventActivities?query={"event": "${eventId}"}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
+  const getSingleActivity = async (activityId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/aventActivities/${activityId}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
+  const activitySubscribe = async (eventId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.post(`${APIURL}/eventActivities/${eventId}/assist`, null, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
+
   /* Publications section */
 
   const getPublications = async () => {
@@ -103,6 +133,9 @@ function useAmgService() {
     getEvents,
     getSingleEvent,
     assistAnEvent,
+    getActivitiesForEvent,
+    getSingleActivity,
+    activitySubscribe,
     getPublications,
     toPublish,
     addToFav,
