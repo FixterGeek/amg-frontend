@@ -39,7 +39,7 @@ function LoginForm(props) {
         await dispatch(writeUser({ ...data.user, userToken: data.token }));
         await setLoading(false);
         await localStorage.setItem("authToken", data.token);
-        history.push(`/dashboard/user/${user._id}`);
+        history.push(`/dashboard/user/${data._id}`);
       })
       .catch(({ response }) => {
         const { data } = response;

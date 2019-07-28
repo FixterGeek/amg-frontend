@@ -17,6 +17,7 @@ function GeneralDataForm(props) {
     dadSurname: false,
     momSurname: false,
     email: false,
+    password: false,
     birthDate: false,
     placeOfBirth: false
   });
@@ -89,6 +90,7 @@ function GeneralDataForm(props) {
         onChange={onChangeBasicData}
         name="name"
         label="Nombre"
+        error={error.name}
       />
 
       <TextField
@@ -106,12 +108,23 @@ function GeneralDataForm(props) {
       />
       <TextField
         width="100%"
-        error={error.email}
         errorMessage="El email no puede estar vacio"
         value={user.email}
         onChange={onChangeData}
         name="email"
         label="Correo"
+        error={error.email}
+      />
+
+      <TextField
+        width="100%"
+        errorMessage="La contraseña no puede estar vacia"
+        value={user.password}
+        onChange={onChangeData}
+        name="password"
+        label="Contraseña"
+        error={error.password}
+        type="password"
       />
 
       <TextField
@@ -133,7 +146,7 @@ function GeneralDataForm(props) {
         value={user.basicData.placeOfBirth.state}
         onChange={onChangeBasicDataPlace}
         name="state"
-        label="lugar de nacimiento"
+        label="Lugar de nacimiento"
       />
 
       {/* <SelectField
@@ -186,7 +199,7 @@ function GeneralDataForm(props) {
         </Checkbox>
         {chekedShow && (
           <TextField
-            value={user.specialty}
+            value={user.basicData.specialty}
             onChange={onChangeBasicData}
             name="specialty"
             label="Especialidad"

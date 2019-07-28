@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import TextField from "../../molecules/TextFields";
 import Label from "../../atoms/data_entry/Label";
 import { createUser } from "../../store/actions";
+import Container from '../../atoms/layout/Container'
 
 import { DatePicker } from "antd";
 
@@ -38,21 +39,24 @@ const EducationDataForm = props => {
       <Label>Fecha</Label>
       <div className="dates-inline">
         <DatePicker className="date-field" />
-
-        <TextField
-          onChange={onChangeStudiesData}
-          value={user.studies.startDate}
-          name="startDate"
-          label="De"
-          width="121px"
-        />
-        <TextField
-          onChange={onChangeStudiesData}
-          value={user.studies.endDate}
-          name="endDate"
-          label="A"
-          width="121px"
-        />
+        <Container>
+          <TextField
+            onChange={onChangeStudiesData}
+            value={user.studies.startDate}
+            type="number"
+            name="startDate"
+            label="De"
+            width="121px"
+          />
+          <TextField
+            onChange={onChangeStudiesData}
+            value={user.studies.endDate}
+            type="number"
+            name="endDate"
+            label="A"
+            width="121px"
+          />
+        </Container>
       </div>
 
       <TextField

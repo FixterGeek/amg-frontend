@@ -1,12 +1,15 @@
-import { WRITE_USER, CREATE_USER } from "./actions";
+import { WRITE_USER, CREATE_USER, UPDATE_USER, SHOW_USERS } from "./actions";
 
 const userState = {
   email: "",
   password: "",
+  userToken: "",
   basicData: {
     name: "",
     dadSurname: "",
     momSurname: "",
+    speciality: "",
+    phone: "",
     birthDate: "",
     placeOfBirth: {
       addressName: "",
@@ -18,12 +21,9 @@ const userState = {
       city: "",
       state: "",
       coordinates: ["123312", "123123"]
-    }
+    },
+    photoURL: ""
   },
-  speciality: "",
-  photoURL: "",
-  userToken: "",
-  phone: "",
   civilStatus: ["Soltero", "Casado", "Divorciado", "Unión Libre", "Viudo"],
   address: {
     addressName: "",
@@ -133,7 +133,7 @@ const userState = {
     },
     startDate: "",
     endDate: ""
-  },
+  }
 };
 
 function userReducer(state = userState, action) {
@@ -141,6 +141,10 @@ function userReducer(state = userState, action) {
     case WRITE_USER:
       return { ...state, ...action.value };
     case CREATE_USER:
+      return { ...state, ...action.value };
+    case UPDATE_USER:
+      return { ...state, ...action.value };
+    case SHOW_USERS:
       return { ...state, ...action.value };
     default:
       return state;
