@@ -102,18 +102,21 @@ class HomeContainer extends Component {
           </div>
         </section>
           <section className="download">
-              <div className="app-down">
-                  <h2 className="titles">¡Donde sea y cuando sea!</h2>
-                  <p>Disfruta de los beneficios que ofrece la membresía y lleva
-                      toda la AMG donde quiera que estes. Disponible para iOs
-                      y Android</p>
-                  <div className="tiendas">
-                      <img src={google} alt=""/>
-                      <img src={ios} alt=""/>
-                  </div>
-              </div>
-              <div className="phone"/>
+            <h2 className="titles">¡Donde sea y cuando sea!</h2>
+            <div className="bx-app">
 
+              <div className="app-down">
+
+                    <p>Disfruta de los beneficios que ofrece la membresía y lleva
+                        toda la AMG donde quiera que estes. Disponible para iOs
+                        y Android</p>
+                    <div className="tiendas">
+                        <img src={google} alt=""/>
+                        <img src={ios} alt=""/>
+                    </div>
+                </div>
+                <div className="phone"/>
+            </div>
           </section>
     </div>
 
