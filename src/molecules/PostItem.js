@@ -10,8 +10,9 @@ import PostIcons from '../atoms/PostIcons';
 function PostItem({ publication }) {
   const {
     text, updatedAt, _id, liked,
-    imagesURLS,
+    imagesURLS, user,
   } = publication;
+  const { basicData } = user;
   const { Title, Text } = Typography;
 
   const date = moment(updatedAt).local('es');
@@ -22,15 +23,17 @@ function PostItem({ publication }) {
     sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
   });
 
+  console.log(publication);
+
   return (
     <div className="post-item">
       <div className="post-item-info">
         <div className="post-item-photo">
-          <ProfilePhoto />
+          <ProfilePhoto photoURL={basicData.photoURL} />
         </div>
         <div>
           <div>
-            <Title level={2}>Benito</Title>
+            <Title level={2}>{ `${basicData.name} ${basicData.dadSurname}` }</Title>
           </div>
           <Text>{ momentDate }</Text>
         </div>
