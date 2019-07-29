@@ -85,6 +85,15 @@ function useAmgService() {
     });
   };
 
+  const getActivitiesForUser = async (userId) => {
+    const authToken = await localStorage.getItem('authToken');
+    return axios.get(`${APIURL}/eventActivities?query={"assistants":{"$in":["${userId}"]}}`, {
+      headers: {
+        Authorization: authToken,
+      },
+    });
+  };
+
   const activitySubscribe = async (eventId) => {
     const authToken = await localStorage.getItem('authToken');
     return axios.post(`${APIURL}/eventActivities/${eventId}/assist`, null, {
@@ -135,6 +144,7 @@ function useAmgService() {
     assistAnEvent,
     getActivitiesForEvent,
     getSingleActivity,
+    getActivitiesForUser,
     activitySubscribe,
     getPublications,
     toPublish,

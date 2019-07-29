@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import uniqid from 'uniqid';
 
 import { Typography } from 'antd';
 
@@ -37,7 +36,7 @@ function Feed(props) {
       });
     }
 
-    if (!user.email) {
+    if (!user._id) {
       getSelfUser().then(({ data }) => {
         dispatch(createUser({ ...data }));
       }).catch(({ response }) => {
@@ -91,7 +90,7 @@ function Feed(props) {
       <div className="feed-publications">
         { loadingPost && (<Spinner tip="Cargando publicaciones..." />) }
         {
-          publications.map(publication => <PostItem key={uniqid()} publication={publication} />)
+          publications.map(publication => <PostItem key={publication._id} publication={publication} />)
         }
       </div>
     </div>

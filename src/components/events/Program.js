@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { Typography } from 'antd';
 
 import useAmgService from '../../hooks/services/useAmgService';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import EventCover from '../../molecules/EventCover';
-import ActivityItem from '../../molecules/Events/ActivityItem';
+import ActivitiesList from '../../molecules/Events/ActivitiesList';
 import Spinner from '../../atoms/Spinner';
 
 function Program({ history }) {
@@ -35,7 +34,7 @@ function Program({ history }) {
       }
     };
 
-    runAsync();
+    if (!eventState || !activitiesState) runAsync();
   }, [getActivitiesForEvent, getSingleEvent, location]);
 
 
@@ -58,36 +57,7 @@ function Program({ history }) {
         )
         }
       </DashboardContainerItem>
-      <DashboardContainerItem>
-        {
-          eventState && eventState.program.map((module) => {
-            return (
-              <DashboardContainerItem key={module._id}>
-                <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
-                  { module.title }
-                </Title>
-                <div>
-                  {
-                    module.activities.map((activityId) => {
-                      const activity = getLocalActivity(activityId)[0];
-                      return (
-                        <ActivityItem
-                          key={activity._id}
-                          hour={moment(activity.date).format('hh:mm a')}
-                          title={activity.activityName}
-                          level1={activity.speaker.fullName}
-                          level2={activity.location.addressName}
-                          to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
-                          activity={activity} />
-                      );
-                    })
-                  }
-                </div>
-              </DashboardContainerItem>
-            );
-          })
-        }
-      </DashboardContainerItem>
+      { eventState && <ActivitiesList event={eventState} getLocalActivity={getLocalActivity} /> }
     </div>
   );
 }
