@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import uniqid from "uniqid";
 
-import { Typography, Avatar } from "antd";
+import { Typography } from "antd";
 
 import useAmgService from "../../hooks/services/useAmgService";
 import {
@@ -12,12 +12,10 @@ import {
   createUser,
   updatePublications
 } from "../../store/actions";
-import EventCover from "../../molecules/EventCover";
 import PostItem from "../../molecules/PostItem";
 import Publisher from "../../molecules/Publisher";
 import Spinner from "../../atoms/Spinner";
 import Container from "../../atoms/layout/Container";
-import ProfilePhoto from "../../atoms/ProfilePhoto";
 
 function UserProfileDetails(props) {
   const [loadingPost, setLoadingPost] = useState(false);

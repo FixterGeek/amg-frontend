@@ -30,7 +30,7 @@ function LateralAdminMenu(props) {
 
   return (
     <Menu inlineCollapsed defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item key={1} onClick={() => link("/admin/")}>
+      <Menu.Item key={1} onClick={() => link("/admin")}>
         <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
@@ -42,17 +42,17 @@ function LateralAdminMenu(props) {
         </Icon>
         <span>Eventos</span>
       </Menu.Item>
-      <Menu.Item key={3} onClick={() => link("/admin/pays")}>
+      <Menu.Item key={3} onClick={() => link("/admin/invoices")}>
         <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faFileInvoiceDollar} />
         </Icon>
-        <span>Pagos</span>
+        <span>Facturas</span>
       </Menu.Item>
-      <Menu.Item key={4} onClick={() => link("/admin/users")}>
+      <Menu.Item key={4} onClick={() => link("/admin/partners")}>
         <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faUsers} />
         </Icon>
-        <span>Usuarios</span>
+        <span>Socios</span>
       </Menu.Item>
       <Menu.Item key={5} onClick={() => logout(history)}>
         <Icon>

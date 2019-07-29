@@ -84,6 +84,117 @@
   box-sizing: border-box;
 }
 
+.title-container {
+  width: 393px;
+  height: 82px;
+  font-family: Avenir;
+  font-size: 60px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $textPrimary;
+}
+.button-right {
+  align-content: flex-end;
+  height: 80px;
+  direction: rtl;
+}
+
+.button-right-top {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
+}
+
+.button-right-bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.label-center {
+  display: flex;
+}
+
+.button-rectangle {
+  width: 216px;
+  height: 43px;
+  border: solid 1px;
+  font-family: Avenir;
+  font-size: 16px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+}
+
+.button-top {
+  width: 65px;
+  height: 44px;
+  background-color: #eaf0f7;
+  border: none;
+  direction: rtl;
+}
+
+.button-bottom {
+  width: 66px;
+  height: 36px;
+  background-color: #eaf0f7;
+  border: none;
+}
+
+.header-container {
+  width: 1110px;
+  height: 49px;
+  background-color: #eaf0f7;
+}
+
+.label-list {
+  font-family: Avenir;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $textPrimary;
+}
+
+.label-pagination {
+  width: 30px;
+  height: 20px;
+  font-family: Avenir;
+  font-size: 12px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #333333;
+  padding-top: 9px;
+  align-content: center;
+}
+
+.content-list {
+  font-family: Avenir;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $textPrimary;
+}
+
+/* Admin */
+.admin-container {
+  width: 100%;
+  padding-left: $lateralSpace;
+  box-sizing: border-box;
+}
+
 /* Event Detail */
 $eventLeftWidth: 350px;
 

@@ -5,7 +5,7 @@ import UserDetails from "../components/profile/UserProfileDetails";
 const UserProfileRouter = () => {
   return (
     <Switch>
-      <Route path="/dasboard/user/:id" component={UserDetails} />
+      <Route path="/dasboard/user/" component={UserDetails} />
     </Switch>
   );
 };
