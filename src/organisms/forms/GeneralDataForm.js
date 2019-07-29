@@ -132,14 +132,17 @@ function GeneralDataForm(props) {
         onChange={onChangeBasicData}
         name="birthdate"
         label="Fecha de nacimiento"
+        type="date"
       />
 
       {/* <DatePicker
-        defaultValue={moment("01/01/2015", dateFormatList[0])}
-        format={dateFormatList}
+        className="date-field"
+        //defaultValue={moment("01/01/2015", dateFormatList[0])}
+        //format={dateFormatList}
         value={user.basicData.birthdate}
         onChange={onChangeBasicData}
         name="birthdate"
+        label="Fecha de nacimiento"
       /> */}
 
       <TextField

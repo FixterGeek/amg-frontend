@@ -150,6 +150,7 @@ const LaboralDataForm = props => {
         label="Código postal"
         onChange={onChangeWorkedLocation}
         value={user.workedAtInstitutions.institution.location.zipCode}
+        type="number"
       />
       <TextField
         name="city"
@@ -163,8 +164,7 @@ const LaboralDataForm = props => {
         onChange={onChangeWorkedLocation}
         value={user.workedAtInstitutions.institution.location.state}
       />
-      <Radio.Group //onChange={onChangeRadio} value={value}
-      >
+      <Radio.Group>
         <Label>¿Posee un consultorio?</Label>
         <Radio style={radioStyle} value={1}>
           Si
@@ -173,6 +173,7 @@ const LaboralDataForm = props => {
           No
         </Radio>
       </Radio.Group>
+      {}
       <TextField
         name="name"
         label="Nombre institución"
@@ -196,6 +197,7 @@ const LaboralDataForm = props => {
         label="Código postal"
         onChange={onChangeConsultoriesLocation}
         value={user.consultories.institution.location.zipCode}
+        type="number"
       />
       <TextField
         name="city"

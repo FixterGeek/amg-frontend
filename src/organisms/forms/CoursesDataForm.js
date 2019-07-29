@@ -39,13 +39,14 @@ function CoursesDataForm(props) {
         label="Institución"
       />
       <Label>Fecha</Label>
-      <div>
+      <div className="dates-inline">
         <TextField
           name="startDate"
           label="De"
           width="121px"
           onChange={onChangeResidenciesData}
           value={user.residencies.startDate}
+          type="number"
         />
         <TextField
           name="endDate"
@@ -53,6 +54,7 @@ function CoursesDataForm(props) {
           width="121px"
           onChange={onChangeResidenciesData}
           value={user.residencies.endDate}
+          type="number"
         />
       </div>
       <AmgButton width="100%" htmlType="submit">

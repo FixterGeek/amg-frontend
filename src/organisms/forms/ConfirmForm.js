@@ -14,16 +14,6 @@ function ConfirmForm(props) {
   const { history } = props;
 
   const { Text, Title } = Typography;
-
-  const [error, setError] = useState({
-    name: false,
-    dadSurname: false,
-    momSurname: false,
-    email: false,
-    birthDate: false,
-    placeOfBirth: false
-  });
-
   const { user, dispatch } = props;
   const { signup } = useAmgService();
 
@@ -48,13 +38,6 @@ function ConfirmForm(props) {
         history.push("/");
       })
       .catch(() => {
-        setError({
-          name: true,
-          dadSurname: true,
-          momSurname: true,
-          email: true,
-          birthDate: true
-        });
         Swal.fire({
           type: "error",
           title: "Oops algo salio mal...",
@@ -71,7 +54,6 @@ function ConfirmForm(props) {
     >
       <Container
         flexGrow={1}
-        height="100px"
         bgColor="#f7f7f7"
         height="200px"
         alignItems="center"

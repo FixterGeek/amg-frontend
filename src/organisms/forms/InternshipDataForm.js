@@ -26,13 +26,14 @@ function InternshipDataForm(props) {
         value={user.internships.institution}
       />
       <Label>Fecha</Label>
-      <div>
+      <div className="dates-inline">
         <TextField
           name="startDate"
           label="De"
           width="121px"
           onChange={onChangeinternshipsData}
           value={user.internships.startDate}
+          type="number"
         />
         <TextField
           name="endDate"
@@ -40,6 +41,7 @@ function InternshipDataForm(props) {
           width="121px"
           onChange={onChangeinternshipsData}
           value={user.internships.endDate}
+          type="number"
         />
       </div>
     </form>

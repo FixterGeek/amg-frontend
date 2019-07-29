@@ -73,6 +73,7 @@ const FiscalDataForm = props => {
         label="Código postal"
         onChange={onChangeFiscalAddress}
         value={user.fiscalData.address.zipCode}
+        type="number"
       />
       <TextField
         name="city"
