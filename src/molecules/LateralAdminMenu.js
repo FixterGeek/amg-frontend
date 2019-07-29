@@ -5,16 +5,15 @@ import {
   faPowerOff,
   faHome,
   faCalendar,
-  faBookOpen,
-  faGraduationCap,
-  faUser
+  faFileInvoiceDollar,
+  faUsers
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Menu, Icon } from "antd";
 
 import useAmgService from "../hooks/services/useAmgService";
 
-function LateralMenu(props) {
+function LateralAdminMenu(props) {
   // eslint-disable-next-line react/prop-types
   const { history } = props;
   const { location } = history;
@@ -31,39 +30,29 @@ function LateralMenu(props) {
 
   return (
     <Menu inlineCollapsed defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item key={1} onClick={() => link("/dashboard/")}>
+      <Menu.Item key={1} onClick={() => link("/admin/")}>
         <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faHome} />
         </Icon>
         <span>Home</span>
       </Menu.Item>
-      <Menu.Item key={2} onClick={() => link("/dashboard/events")}>
-        <Icon
-          className={`${
-            currentLocation === "events" ? "menu-item-active" : ""
-          }`}
-        >
+      <Menu.Item key={2} onClick={() => link("/admin/events")}>
+        <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
           <FontAwesomeIcon icon={faCalendar} />
         </Icon>
         <span>Eventos</span>
       </Menu.Item>
-      <Menu.Item key={3}>
-        <Icon>
-          <FontAwesomeIcon icon={faBookOpen} />
-        </Icon>
-        <span>Agenda</span>
-      </Menu.Item>
-      <Menu.Item key={4}>
-        <Icon>
-          <FontAwesomeIcon icon={faGraduationCap} />
-        </Icon>
-        <span>Educación</span>
-      </Menu.Item>
-      <Menu.Item key={5} onClick={user => link(`/dashboard/user/${user._id}`)}>
+      <Menu.Item key={3} onClick={() => link("/admin/pays")}>
         <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={faFileInvoiceDollar} />
         </Icon>
-        <span>Mi perfil</span>
+        <span>Pagos</span>
+      </Menu.Item>
+      <Menu.Item key={4} onClick={() => link("/admin/users")}>
+        <Icon className={`${!currentLocation ? "menu-item-active" : ""}`}>
+          <FontAwesomeIcon icon={faUsers} />
+        </Icon>
+        <span>Usuarios</span>
       </Menu.Item>
       <Menu.Item key={5} onClick={() => logout(history)}>
         <Icon>
@@ -75,4 +64,4 @@ function LateralMenu(props) {
   );
 }
 
-export default withRouter(LateralMenu);
+export default withRouter(LateralAdminMenu);
