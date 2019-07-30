@@ -43,10 +43,28 @@ function useAmgService() {
 
   /* User section */
 
-  const getUser = async () => {
+  const getUser = async id => {
     const authToken = await localStorage.getItem("authToken");
-    return axios.get(`${baseUserURL}/`, {
+    return axios.get(`${baseUserURL}/${id}`, {
       headers: {
+        Authorization: authToken
+      }
+    });
+  };
+
+  const editUser = async id => {
+    const authToken = await localStorage.getItem("authToken");
+    return axios.get(`${baseUserURL}/${id}/edit`, {
+      headers: {
+        Authorization: authToken
+      }
+    });
+  };
+
+  const getUsers = async () => {
+    const authToken = await localStorage.getItem("authToken");
+    return axios.get(`${baseUserURL}/users`, {
+      header: {
         Authorization: authToken
       }
     });
@@ -107,6 +125,9 @@ function useAmgService() {
     logout,
     signup,
     getSelfUser,
+    getUser,
+    editUser,
+    getUsers,
     getEvents,
     getSingleEvent,
     getPublications,

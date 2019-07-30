@@ -96,10 +96,35 @@
   letter-spacing: normal;
   color: $textPrimary;
 }
+
+.inline-elements {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-left {
+  width: 99px;
+  height: 41px;
+  font-family: Avenir;
+  font-size: 30px;
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $textPrimary;
+}
+
 .button-right {
   align-content: flex-end;
   height: 80px;
   direction: rtl;
+}
+
+.button-center {
+  align-content: center;
+  justify-content: center;
+  height: 80px;
 }
 
 .button-right-top {
