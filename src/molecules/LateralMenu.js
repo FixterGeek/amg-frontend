@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState , createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ import useAmgService from '../hooks/services/useAmgService';
 import { createUser } from '../store/actions';
 
 function LateralMenu({ history, user, dispatch }) {
+  const [state, setState] = useState({ anchor: createRef() });
   const { logout, getSelfUser } = useAmgService();
   // eslint-disable-next-line react/prop-types
   const { location } = history;
@@ -34,6 +35,10 @@ function LateralMenu({ history, user, dispatch }) {
 
   const link = (to) => {
     history.push(to);
+  };
+
+  const toMagazine = () => {
+    state.anchor.current.click();
   };
 
 
@@ -55,11 +60,11 @@ function LateralMenu({ history, user, dispatch }) {
         </Icon>
         <span>Eventos</span>
       </Menu.Item>
-      <Menu.Item key={3}>
+      <Menu.Item key={3} onClick={() => toMagazine()}>
         <Icon>
           <FontAwesomeIcon icon={faBookOpen} />
         </Icon>
-        <span>Agenda</span>
+        <span>Revista</span>
       </Menu.Item>
       <Menu.Item key={4}>
         <Icon>
@@ -79,6 +84,10 @@ function LateralMenu({ history, user, dispatch }) {
         </Icon>
         <span>Salir</span>
       </Menu.Item>
+      <a href="http://www.revistagastroenterologiamexico.org/?codref=ddh3dk3Yjdsafg503zSInMNxBdsddsa545vs809jdn02nubHHtJufRpNPu3hjd673&py=7jb39db3"
+        target="_blanck" 
+        style={{ display: 'none' }}
+        ref={state.anchor}/>
     </Menu>
   );
 }
