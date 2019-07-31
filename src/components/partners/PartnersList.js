@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { Typography } from "antd";
 import Container from "../../atoms/layout/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,8 +13,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Menu, Icon } from "antd";
 
-function PartnersList() {
+import { showUsers } from "../../store/actions";
+import useAmgService from "../../hooks/services/useAmgService";
+
+function PartnersList(props) {
   const { Title } = Typography;
+  const { users, dispatch } = props;
+  const { getUsers } = useAmgService();
+
+  useEffect(() => {
+    getUsers()
+      .then(({ data }) => {
+        dispatch(showUsers({ users: [...data] }));
+        console.log(data);
+      })
+      .catch(({ res }) => {
+        console.log(res);
+      });
+  }, []);
+
   return (
     <div className="admin-container">
       <div>
@@ -86,4 +105,8 @@ function PartnersList() {
   );
 }
 
-export default PartnersList;
+function mapStateToProps(state) {
+  return { users: state.user };
+}
+
+export default withRouter(connect(mapStateToProps)(PartnersList));

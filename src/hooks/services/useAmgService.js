@@ -6,6 +6,7 @@ function useAmgService() {
   const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
   const APIURL = process.env.REACT_APP_BASE_API_URL;
   const baseUserURL = process.env.REACT_APP_BASE_USER_URL;
+  const baseAdminURL = process.env.REACT_APP_BASE_ADMIN_URL
 
   const login = async (email, password) =>
     axios.post(
@@ -63,7 +64,7 @@ function useAmgService() {
 
   const getUsers = async () => {
     const authToken = await localStorage.getItem("authToken");
-    return axios.get(`${baseUserURL}/users`, {
+    return axios.get(`${baseUserURL}`, {
       header: {
         Authorization: authToken
       }
