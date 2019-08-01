@@ -19,66 +19,43 @@ const BeforeStaring = () => {
       flexWrap="nowrap"
     >
       <Container height="100vh" width="50%">
-        <Container
-          alignItems="flex-start"
-          paddingTop={size.largePadding}
-          paddingBottom={size.largePadding}
-          style={{
-            maxWidth: "445px",
-            maxHeight: "100vh",
-            flexDirection: "column"
-          }}
-        >
-          <Container flexGrow={1} height="100px">
-            <div style={{ textAlign: "left" }}>
-              <Title>Registro</Title>
-              <Title level={3} style={{ margin: 0 }}>
-                Bienvenido
-              </Title>
-              <Container flexGrow={1} height="100px">
-                <Text>
-                  Este es el registro en línea para la Asociación Mexicana de
-                  Gastroenterología. El formulario tiene una duración aproximada
-                  de 15 minutos.
-                </Text>
-              </Container>
-
-              <Container flexGrow={5} height="auto">
-                <Button type="link" style={{ padding: 0 }}>
-                  Formulario para imprimir
-                  <span className="shapeIcon">
-                    <img src={icon} alt="Descargar" />
-                  </span>
-                </Button>
-              </Container>
-            </div>
-          </Container>
-          <Container flexGrow={1} height="100px" />
-          <div style={{ textAlign: "left" }}>
-            <Title level={3} style={{ margin: 0 }}>
-              Ten a la mano
-            </Title>
-            <br />
-            <div style={{ textAlign: "left" }}>
-              <li>Una fotografía tamaño infantil </li>
-              <li>Titulo universitario</li>
-              <li>Cédula profesional</li>
-              <li>Título de la especialidad</li>
-              <li>Certficación de especialidad</li>
-            </div>
-            <br />
-            <Container flexGrow={1} height="100px">
-              <Text style={{ textAlign: "left" }} height="66px" width="540px">
-                NOTA: La solicitud de ingreso no podrá ser evaluada hasta contar
-                con la documentación completa. Solamente se registrarán en el
-                Directorio las especialidades que cuenten con documentación que
-                lo avale.
-              </Text>
-            </Container>
+        <div>
+          <p className="title-amg">Asociación Mexicana de Gastroenterología</p>
+        </div>
+        <div style={{ textAlign: "left" }}>
+          <p className="title-signup">Registro</p>
+          <p className="title-welcome">Bienvenido</p>
+          <p className="copy-signup">
+            Este es el registro en línea para la Asociación Mexicana de
+            Gastroenterología. El formulario tiene una duración aproximada de 15
+            minutos.
+          </p>
+          <Button type="link" className="text-link">
+            Formulario para imprimir
+            <span className="shapeIcon">
+              <img src={icon} alt="Descargar" />
+            </span>
+          </Button>
+          <br />
+          <p className="text-tip">Ten a la mano</p>
+          <br />
+          <div className="text-list">
+            <li>Una fotografía tamaño infantil </li>
+            <li>Titulo universitario</li>
+            <li>Cédula profesional</li>
+            <li>Título de la especialidad</li>
+            <li>Certficación de especialidad</li>
           </div>
-        </Container>
+          <br />
+
+          <p className="text-request">
+            NOTA: La solicitud de ingreso no podrá ser evaluada hasta contar con
+            la documentación completa. Solamente se registrarán en el Directorio
+            las especialidades que cuenten con documentación que lo avale.
+          </p>
+        </div>
         <Container flexGrow={1} height="100px">
-          <AmgButton width="100%" htmlType="submit">
+          <AmgButton width="60%" htmlType="submit">
             <Link to="/signup/general">Comenzar</Link>
           </AmgButton>
         </Container>
