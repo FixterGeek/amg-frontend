@@ -204,3 +204,56 @@ $inputHeight: 72px;
     padding: $padding;
   }
 }
+
+/* MembershipCard */
+$membershipCardWidth: 300px;
+
+.membership-card {
+  width: $membershipCardWidth;
+  margin: $smallMargin;
+  border: none;
+  border-top: 2px solid transparent;
+  padding-left: $padding;
+  padding-right: $padding;
+  transition: all ease 0.3s;
+  cursor: pointer;
+
+  ul {
+    padding-left: 0px;
+    color: $darkSilver;
+  }
+
+  &-header {
+    text-align: center;
+
+    .name {
+      font-size: 1.3em;
+      color: $darkSilver;
+    }
+
+    .price {
+      font-size: 3em;
+      color: $navy;
+      font-weight: normal;
+      margin-top: $margin;
+    }
+
+    .currency {
+      font-size: 1.2em;
+      color: $navy;
+    }
+
+    .period {
+      font-size: 0.85em;
+      color: $darkSilver;
+      min-height: 20px;
+    }
+  }
+
+  .content {
+    min-height: 250px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function DashboardContainerItem({ children, style }) {
+function DashboardContainerItem({ children, style, className }) {
   return (
-    <div className="dashboard-container-item" style={{ ...style }}>
+    <div className={`dashboard-container-item ${className}`} style={{ ...style }}>
       { children }
     </div>
   );
@@ -18,8 +18,10 @@ DashboardContainerItem.propTypes = {
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.node])),
   ]).isRequired,
   style: PropTypes.oneOfType([PropTypes.object]),
+  className: PropTypes.string,
 };
 
 DashboardContainerItem.defaultProps = {
   style: {},
+  className: '',
 };

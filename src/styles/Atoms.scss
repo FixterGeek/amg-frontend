@@ -168,10 +168,11 @@ $inputHeight: 50px;
 /* Button */
 .amg-button {
   border-radius: 0px !important;
-  color: $clouds !important;
+  color: $clouds;
   font-weight: 900 !important;
   height: 50px !important;
   max-width: 445px !important;
+  border: 2px solid;
 }
 
 /* Layout */

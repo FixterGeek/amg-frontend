@@ -148,3 +148,17 @@ $menuBarWidth: 59px;
   padding-left: 2px;
   margin-left: $margin;
 }
+
+/*Membership */
+/*MembershipCards */
+.membership-cards-container {
+  display: flex;
+  justify-content: center;
+  background-color: $clouds;
+  padding: $extraPadding $padding;
+
+  .checked {
+    border-top-color: $secondary;
+    transform: scale(1.08) translateY(-2%);
+  }
+}

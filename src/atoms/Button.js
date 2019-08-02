@@ -6,19 +6,22 @@ import { Button as Btn } from 'antd';
 import { palette, size } from '../styles/theme';
 
 function Button({
-  children, bgColor, width, marginTop, marginBottom, ...others
+  children, bgColor, width, marginTop, marginBottom, line, ...others
 }) {
-  const bgColorBtn = palette[bgColor];
+  const bgColorBtn = !line ? palette[bgColor] : 'transparent';
+  const borderColorBtn = palette[bgColor];
+  const textColotBtn = line ? palette[bgColor] : '#f5f8f9';
 
   return (
     <Btn
       className="amg-button"
       style={{
         backgroundColor: bgColorBtn,
-        borderColor: bgColorBtn,
+        borderColor: borderColorBtn,
         width,
         marginTop,
         marginBottom,
+        color: textColotBtn,
       }}
       {...others}>
       { children }
@@ -35,6 +38,7 @@ Button.propTypes = {
   width: PropTypes.oneOf(['auto', '100%']),
   marginTop: PropTypes.string,
   marginBottom: PropTypes.string,
+  line: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -42,4 +46,5 @@ Button.defaultProps = {
   width: 'auto',
   marginTop: size.largeMargin,
   marginBottom: size.largeMargin,
+  line: false,
 };
