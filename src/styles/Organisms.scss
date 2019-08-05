@@ -162,3 +162,32 @@ $menuBarWidth: 59px;
     transform: scale(1.08) translateY(-2%);
   }
 }
+
+
+
+
+/* PaymentType */
+.payment-type {
+  &-group {
+    display: flex;
+    flex-flow: column;
+
+    label {
+      margin-top: $margin;
+      margin-bottom: $margin;
+    }
+  }
+}
+
+/** PaymentCard */
+
+.payment-card {
+  &-form {
+    max-width: 445px;
+  }
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}

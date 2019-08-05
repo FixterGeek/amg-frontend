@@ -8,6 +8,8 @@ import Program from '../components/events/Program';
 import Speakers from '../components/events/Speakers';
 import ActivityDetail from '../components/events/ActivityDetail';
 import Settings from '../components/settings/Settings';
+import MembershipPayment from '../components/membership/MembershipPayment';
+
 
 function DashBoardRouter() {
   return (
@@ -16,6 +18,8 @@ function DashBoardRouter() {
       <Route path="/dashboard/events/:id/program" component={Program} />
       <Route path="/dashboard/events/:id/speakers" component={Speakers} />
       <Route path="/dashboard/events/:id" component={EventDetail} />
+      <Route path="/dashboard/payment/:membership/:type" component={MembershipPayment} />
+      <Route path="/dashboard/payment/:membership" component={MembershipPayment} />
       <Route exact path="/dashboard/settings/" component={Settings} />
       <Route exact path="/dashboard/events" component={EventsList} />
       <Route exact path="/dashboard" component={Feed} />
