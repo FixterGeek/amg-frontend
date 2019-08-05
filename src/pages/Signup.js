@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "../components/home/home";
+import Home from "./Home";
 
 export default () => {
   return <Home />;

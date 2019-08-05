@@ -1,32 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Input } from 'antd';
+import { Input, Icon } from 'antd';
 
-import StatusSuffix from './StatusSuffix';
-import StatusMessage from './StatusMessage';
+import colorPalette from '../../styles/palette';
 
 function InputField({
-  onChange, type, value, fontSize, width,
-  successMessage, errorMessage, warningMessage,
-  status, ...others
+  onChange, type, value, fontSize, width, error, success,
+  successMessage, errorMessage, ...others
 }) {
+  // Here start the magic
+  const { red, green } = colorPalette;
+  // eslint-disable-next-line no-nested-ternary
+  const statusColor = error
+    ? 'input-error' : success
+      ? 'input-success' : '';
+
   return (
     <div className="input-field-container">
       <Input
-        className={`input-field input-${status}`}
-        style={{ fontSize, width }}
+        className={`input-field ${statusColor}`}
+        style={{ fontSize, width, ...statusColor }}
         onChange={onChange ? event => onChange(event) : null}
         type={type}
         value={value}
         {...others}
       />
-      { status && <StatusSuffix status={status} /> }
-      <StatusMessage
-        status={status}
-        errorMessage={errorMessage}
-        successMessage={successMessage}
-        warningMessage={warningMessage} />
+      {
+        error || success
+          ? (
+            <div
+              className="input-after-element"
+              style={error
+                ? { borderColor: red, color: red } : { borderColor: green, color: green }}
+            >
+              { error ? <Icon type="close" /> : <Icon type="check" /> }
+            </div>
+          )
+          : null
+      }
+      {
+        error || success
+          ? (
+            <div
+              className="input-message"
+              style={error
+                ? { borderColor: red, color: red } : { borderColor: green, color: green }}
+            >
+              { error ? errorMessage : successMessage }
+            </div>
+          )
+          : null
+      }
     </div>
   );
 }
@@ -39,18 +64,19 @@ InputField.propTypes = {
   value: PropTypes.string,
   fontSize: PropTypes.string,
   width: PropTypes.string,
+  error: PropTypes.bool,
   errorMessage: PropTypes.string,
+  success: PropTypes.bool,
   successMessage: PropTypes.string,
-  warningMessage: PropTypes.string,
-  status: PropTypes.string.isRequired,
 };
 
 InputField.defaultProps = {
   onChange: false,
   fontSize: '1em',
   width: 'auto',
+  error: false,
   value: null,
   errorMessage: null,
+  success: false,
   successMessage: null,
-  warningMessage: null,
 };

@@ -12,10 +12,8 @@ class Footer extends Component {
                     <FontAwesome name="facebook-square"/>
                    <FontAwesome name="twitter-square"/>
                    <FontAwesome name="youtube-square"/>
-
                    <br/>
                    <br/>
-
                    <p>Asociación Mexicana de Gastroenterología © 2019</p>
 
                </div>

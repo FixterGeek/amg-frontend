@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,16 +6,9 @@ import InputField from '../atoms/data_entry/InputField';
 import { size } from '../styles/theme';
 
 function TextField({
-  width, error, success, warning,
-  errorMessage, successMessage, warningMessage,
-  onChange, value, label,
+  width, error, success, errorMessage, successMessage, onChange, value, label,
   marginTop, marginBottom, ...others
 }) {
-  const status = error
-    ? 'error' : success
-      ? 'success' : warning
-        ? 'warning' : '';
-
   return (
     <div
       className="text-field"
@@ -34,10 +26,10 @@ function TextField({
         width="100%"
         type="text"
         value={value}
-        status={status}
+        error={error}
         errorMessage={errorMessage}
+        success={success}
         successMessage={successMessage}
-        warningMessage={warningMessage}
         onChange={onChange ? event => onChange(event) : null}
         {...others}
       />
@@ -51,10 +43,8 @@ TextField.propTypes = {
   width: PropTypes.string,
   error: PropTypes.bool,
   success: PropTypes.bool,
-  warning: PropTypes.bool,
   errorMessage: PropTypes.string,
   successMessage: PropTypes.string,
-  warningMessage: PropTypes.string,
   onChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   value: PropTypes.string,
   label: PropTypes.string,
@@ -66,13 +56,11 @@ TextField.defaultProps = {
   width: 'auto',
   error: false,
   success: false,
-  warning: false,
-  warningMessage: 'Probably something is not right.',
   errorMessage: 'Opps! Somethings not right here.',
   successMessage: 'Perfect!',
   onChange: false,
   value: null,
   label: 'Field Name',
-  marginTop: size.fields.margin,
-  marginBottom: size.fields.margin,
+  marginTop: size.largeMargin,
+  marginBottom: size.largeMargin,
 };
