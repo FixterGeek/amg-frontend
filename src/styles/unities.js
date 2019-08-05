@@ -11,6 +11,9 @@ const unities = {
     smallMargin: '8px',
     margin: '16px',
     largeMargin: '32px',
+    fields: {
+      margin: '8px',
+    },
   },
 };
 

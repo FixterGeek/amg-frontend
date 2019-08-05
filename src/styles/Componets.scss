@@ -24,6 +24,9 @@
 
 .signup-left {
   display: none;
+  padding-left: 32px !important;
+  position: fixed;
+  left: 0;
 
   @include for-size(tablet-landscape-up) {
     display: flex;
@@ -31,7 +34,7 @@
 }
 
 .login-bg {
-  background-image: url('../assets/login-bg.png');
+  background-image: url("../assets/login-bg.png");
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -40,8 +43,104 @@
 .login-logo {
   width: 100%;
   height: 100%;
-  background-image: url('../assets/gastro@2x.png');
+  background-image: url("../assets/gastro@2x.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
+}
+
+.signup-bg {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.signup-logo {
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/gastro@2x.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+
+.shapeIcon {
+  padding-left: 4px;
+  width: 25px;
+  height: 25px;
+  margin: auto;
+}
+
+/* Dashboard */
+.dashboard-container {
+  width: 100%;
+  padding-left: $lateralSpace;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.dashboard-container-item {
+  margin-bottom: $largeMargin;
+}
+
+/* Event Detail */
+$eventLeftWidth: 350px;
+
+.event-detail {
+  .title {
+    margin-bottom: $largeMargin;
+  }
+}
+
+.event-details {
+  display: flex;
+
+  .left {
+    width: $eventLeftWidth;
+    min-width: $eventLeftWidth;
+  }
+
+  .right {
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding-left: $largePadding;
+
+    &-button {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+
+
+/* Feed */
+.feed {
+  &-event {
+    position: relative;
+    min-height: 415px;
+  }
+
+  &-publications {
+    position: relative;
+    min-height: 356px;
+  }
+}
+
+/* Activity Detail */
+.activity-detail {
+
+  &-speaker {
+    display: flex;
+
+    &-info {
+      display: flex;
+      flex-flow: column;
+      margin-left: $margin;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding-top: $smallPadding;
+      padding-bottom: $smallPadding;
+    }
+  }
 }
