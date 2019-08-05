@@ -4,8 +4,6 @@ import "./Home.css";
 import ios from "../../assets/40px.png"
 import google from "../../assets/40px (1).png"
 
-import NavBar from '../../organisms/NavBar';
-
 import NavBar from "../../organisms/NavBar";
 import { Link } from "react-router-dom";
 
