@@ -7,7 +7,7 @@ import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
 import Container from "../../atoms/layout/Container";
 import Gastro from "../../atoms/gastro/Gastro";
 import { palette, size } from "../../styles/theme";
-import Steper from "../../organisms/steper/Steper";
+// import Steper from "../../organisms/Steper";
 
 export default () => {
   const { Title } = Typography;
@@ -28,7 +28,7 @@ export default () => {
         paddingBottom={size.largePadding}
       >
         <Gastro />
-        <Steper />
+        {/* <Steper /> */}
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
@@ -40,7 +40,7 @@ export default () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title level={2}>Datos generales</Title>
+          <Title level={2}>Regístrate</Title>
         </Container>
         <SignupForm />
       </Container>

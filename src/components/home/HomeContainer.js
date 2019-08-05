@@ -1,11 +1,18 @@
-import React, { Component } from 'react';
+
+import React, { Component } from "react";
 import "./Home.css";
-import ios from "../../assets/40px.png"
-import google from "../../assets/40px (1).png"
+import ios from "../../assets/40px.png";
+import google from "../../assets/40px (1).png";
 
 import NavBar from '../../organisms/NavBar';
 
-import './Home.css';
+
+import NavBar from "../../organisms/NavBar";
+import { Link } from "react-router-dom";
+
+import Footer from "./Footer";
+
+import "./Home.css";
 
 class HomeContainer extends Component {
   render() {
@@ -19,8 +26,13 @@ class HomeContainer extends Component {
                 GASTR
                 <span>O</span>
               </h1>
-              <p>GASTRO es la plataforma digital de la Asociación Mexicana de Gastroenterología.</p>
-              <button className="btn-blue">Quiero ser miembro</button>
+              <p>
+                GASTRO es la plataforma digital de la Asociación Mexicana de
+                Gastroenterología.
+              </p>
+              <Link to="/signup">
+                <button className="btn-blue">Quiero ser miembro</button>
+              </Link>
             </div>
           </div>
         </section>
@@ -29,9 +41,27 @@ class HomeContainer extends Component {
           <div className="about-box">
             <div className="people" />
             <div className="info text">
-              <p>Fundada en 1935, se caracteriza por la integración de grupos multidisciplinarios que comparten y suman sus habilidades y esfuerzos para enriquecer y mejorar la práctica de la Gastroenterología en México.</p>
-              <p>Es una institución sin fines de lucro que congrega a los profesionales interesados en el estudio del aparato digestivo, su función y las enfermedades que lo afectan, y promueve la educación continua, la investigación y la difusión de esta especialidad</p>
-              <p>Con fin de servir mejor a sus miembros, la Asociación Mexicana de Gastroenterología ha creado GASTRO, una plataforma que contiene recursos digitales como la Revista de la Asociación Mexicana de Gastroenterología, Guías y Consensos así como los eventos de la asociación como la Semana Nacional de Gastroenterología. </p>
+              <p>
+                Fundada en 1935, se caracteriza por la integración de grupos
+                multidisciplinarios que comparten y suman sus habilidades y
+                esfuerzos para enriquecer y mejorar la práctica de la
+                Gastroenterología en México.
+              </p>
+              <p>
+                Es una institución sin fines de lucro que congrega a los
+                profesionales interesados en el estudio del aparato digestivo,
+                su función y las enfermedades que lo afectan, y promueve la
+                educación continua, la investigación y la difusión de esta
+                especialidad
+              </p>
+              <p>
+                Con fin de servir mejor a sus miembros, la Asociación Mexicana
+                de Gastroenterología ha creado GASTRO, una plataforma que
+                contiene recursos digitales como la Revista de la Asociación
+                Mexicana de Gastroenterología, Guías y Consensos así como los
+                eventos de la asociación como la Semana Nacional de
+                Gastroenterología.{" "}
+              </p>
             </div>
           </div>
         </section>
@@ -43,27 +73,31 @@ class HomeContainer extends Component {
                 <div>
                   <p className="tx1">No socio</p>
                   <h3 className="tx2">Gratis</h3>
-                  <span style={{ color: 'white' }}>.</span><br/>
-                  <span style={{ color: 'white' }}>.</span>
-                  <hr/>
+                  <span style={{ color: "white" }}>.</span>
+                  <br />
+                  <span style={{ color: "white" }}>.</span>
+                  <hr />
                   <div className="tx5">
-                    <p >&bull; Vista previa de revista</p>
-                    <p >&bull; Vista previa de eventos</p>
+                    <p>&bull; Vista previa de revista</p>
+                    <p>&bull; Vista previa de eventos</p>
                   </div>
                 </div>
                 <div>
-                  <button className="btn-dark-blue">
-                    Quiero ser miembro
-                  </button>
+                  <Link to="/signup">
+                    <button className="btn-dark-blue">
+                      Quiero ser miembro
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="card">
                 <div>
                   <p className="tx1">Socio</p>
                   <h3 className="tx2">$4,750</h3>
-                  <span className="tx3">MXN</span><br/>
+                  <span className="tx3">MXN</span>
+                  <br />
                   <span className="tx4">anual</span>
-                  <hr/>
+                  <hr />
                   <div className="tx5">
                     <p>&bull; Consulta completa de revista </p>
                     <p>&bull; Inscripción a eventos sin costo</p>
@@ -71,19 +105,23 @@ class HomeContainer extends Component {
                     <p>&bull; Descarga constancias de participacón</p>
                   </div>
                 </div>
+
                 <div>
-                  <button className="btn-dark-blue">
-                    Quiero ser miembro
-                  </button>
+                  <Link to="/signup">
+                    <button className="btn-dark-blue">
+                      Quiero ser miembro
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="card">
                 <div>
                   <p className="tx1">Residente</p>
                   <h3 className="tx2">$625</h3>
-                  <span className="tx3">MXN</span><br/>
+                  <span className="tx3">MXN</span>
+                  <br />
                   <span className="tx4">anual</span>
-                  <hr/>
+                  <hr />
 
                   <div className="tx5">
                     <p>&bull; Consulta completa de revista </p>
@@ -93,9 +131,11 @@ class HomeContainer extends Component {
                   </div>
                 </div>
                 <div>
-                  <button className="btn-dark-blue">
-                    Quiero ser miembro
-                  </button>
+                  <Link to="/signup">
+                    <button className="btn-dark-blue">
+                      Quiero ser miembro
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -119,6 +159,7 @@ class HomeContainer extends Component {
             </div>
           </section>
     </div>
+
 
 
     );
