@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+
+import React, { Component } from 'react';
 import "./Home.css";
-import ios from "../../assets/40px.png";
-import google from "../../assets/40px (1).png";
+import ios from "../../assets/40px.png"
+import google from "../../assets/40px (1).png"
+
+import NavBar from '../../organisms/NavBar';
 
 import NavBar from "../../organisms/NavBar";
 import { Link } from "react-router-dom";
@@ -137,22 +140,27 @@ class HomeContainer extends Component {
             </div>
           </div>
         </section>
-        <section className="download">
-          <div className="app-down">
+          <section className="download">
             <h2 className="titles">¡Donde sea y cuando sea!</h2>
-            <p>
-              Disfruta de los beneficios que ofrece la membresía y lleva toda la
-              AMG donde quiera que estes. Disponible para iOs y Android
-            </p>
-            <div className="tiendas">
-              <img src={google} alt="" />
-              <img src={ios} alt="" />
+
+            <div className="bx-app">
+
+              <div className="app-down">
+
+                    <p>Disfruta de los beneficios que ofrece la membresía y lleva
+                        toda la AMG donde quiera que estes. Disponible para iOs
+                        y Android</p>
+                    <div className="tiendas">
+                        <img src={google} alt=""/>
+                        <img src={ios} alt=""/>
+                    </div>
+                </div>
+                <div className="phone"/>
             </div>
-          </div>
-          <div className="phone" />
-        </section>
-        <Footer />
-      </div>
+          </section>
+    </div>
+
+
     );
   }
 }
