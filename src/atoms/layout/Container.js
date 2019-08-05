@@ -1,21 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Container({
-  children,
-  justifyContent,
-  alignItems,
-  lateralSpace,
-  paddingTop,
-  paddingBottom,
-  flexWrap,
-  height,
-  width,
-  className,
-  bgColor,
-  style,
-  flexGrow,
-  boxSizing
+  children, justifyContent, alignItems, lateralSpace, paddingTop,
+  paddingBottom, flexWrap, height, width, className, bgColor, style,
+  flexGrow, boxSizing,
 }) {
   return (
     <div
@@ -33,10 +22,10 @@ function Container({
         flexGrow,
         backgroundColor: bgColor,
         boxSizing,
-        ...style
+        ...style,
       }}
     >
-      {children}
+      { children }
     </div>
   );
 }
@@ -44,10 +33,8 @@ function Container({
 export default Container;
 
 Container.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element
-  ]).isRequired,
+  children:
+    PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
   justifyContent: PropTypes.string,
   alignItems: PropTypes.string,
   lateralSpace: PropTypes.string,
@@ -61,21 +48,21 @@ Container.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object,
   flexGrow: PropTypes.number,
-  boxSizing: PropTypes.string
+  boxSizing: PropTypes.string,
 };
 
 Container.defaultProps = {
-  justifyContent: "center",
-  alignItems: "center",
-  lateralSpace: "0px",
-  paddingTop: "0px",
-  paddingBottom: "0px",
-  flexWrap: "wrap",
-  height: "100%",
-  width: "100%",
-  className: "",
-  bgColor: "transparent",
+  justifyContent: 'center',
+  alignItems: 'center',
+  lateralSpace: '0px',
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  flexWrap: 'wrap',
+  height: '100%',
+  width: '100%',
+  className: '',
+  bgColor: 'transparent',
   style: {},
   flexGrow: 1,
-  boxSizing: "border-box"
+  boxSizing: 'border-box',
 };

@@ -217,7 +217,6 @@
     justify-content: space-around;
     width: 100%;
 }
-
 .app-down{
     width: 300px;
     flex-grow: 1;
@@ -264,6 +263,7 @@ Footer*/
     font-size: 24px;
     margin: 0 16px 0 0;
 }
+
 
 @media(max-width: 1024px){
     .cover h1 {
