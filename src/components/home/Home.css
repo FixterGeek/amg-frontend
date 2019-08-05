@@ -18,6 +18,7 @@
   background-color: rgba(2, 32, 71, 0.3);
   display: flex;
   justify-content: flex-end;
+    align-items: center;
 }
 .cover h1 {
   font-family: Avenir-black;
@@ -59,6 +60,8 @@
   align-items: center;
   justify-content: space-between;
   margin: 50px 0;
+    flex-wrap: wrap;
+
 }
 .people {
   width: 380px;
@@ -94,6 +97,8 @@
 }
 .member-box {
   display: flex;
+    justify-content: center;
+
 }
 .mm {
   width: 70%;
@@ -111,6 +116,7 @@
   border-top: 2px solid white;
   transition: all 1s ease;
   height: 500px;
+
 }
 .card hr {
   width: 80%;
@@ -171,9 +177,7 @@
 .download {
   width: 70%;
   margin: 50px auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
 }
 .app-down {
   width: 300px;
@@ -206,6 +210,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+.bx-app{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
 }
 .app-down{
     width: 300px;
@@ -252,4 +262,99 @@ Footer*/
 .footer span{
     font-size: 24px;
     margin: 0 16px 0 0;
+}
+
+
+@media(max-width: 1024px){
+    .cover h1 {
+        font-size: 136px;
+    }
+    .about .people {
+      margin-bottom: 32px;
+    }
+}
+
+@media(max-width: 768px){
+    .cover h1 {
+        font-family: Avenir-black;
+        color: white;
+        font-size: 80px;
+        margin-bottom: 0px;
+    }
+    .cover p {
+        color: white;
+        font-size: 18px;
+    }
+    .titles{
+        font-size: 24px;
+    }
+    .about-box{
+        flex-wrap: wrap;
+    }
+    .mm{
+        width: 90%;
+    }
+    .member-box{
+        flex-wrap: wrap;
+    }
+    .phone{
+        width: 200px;
+        margin-top: 32px;
+    }
+    .card{
+        flex-grow: 1;
+    }
+}
+@media(max-width: 425px){
+    .descript{
+        width: 100%;
+    }
+    .cover {
+        justify-content: flex-start;
+        padding: 0 5%;
+        box-sizing: border-box;
+    }
+    .about{
+        width: 90%;
+        padding: 24px 0;
+    }
+    .membership{
+        padding: 24px 0%;
+    }
+    .card{
+        flex-grow: initial;
+    }
+    .bx-app{
+        flex-direction: column-reverse;
+    }
+    .phone{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .download{
+        width: 90%;
+        margin: 30px auto;
+    }
+    .app-down{
+        width: 100%;
+        margin: 0 auto;
+        text-align: justify;
+    }
+    .tiendas{
+        justify-content: center;
+    }
+
+}
+
+@media(max-width: 320px){
+    .cover h1 {
+
+        font-size: 48px;
+
+    }
+    .cover p{
+        font-size: 16px;
+        margin-bottom: 32px;
+    }
+
 }
