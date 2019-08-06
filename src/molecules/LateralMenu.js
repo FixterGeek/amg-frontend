@@ -75,8 +75,8 @@ function LateralMenu({ history, user, dispatch }) {
         </Icon>
         <span>Educación</span>
       </Item>
-      <Item key={5} onClick={() => link('/dashboard/user')}>
-        <Icon>
+      <Item key={5} onClick={() => link('/dashboard/profile')}>
+        <Icon className={`${currentLocation === 'profile' ? 'menu-item-active' : ''}`}>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
         <span>Mi perfil</span>

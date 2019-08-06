@@ -191,3 +191,56 @@ $menuBarWidth: 59px;
     justify-content: space-between;
   }
 }
+
+
+
+/* Profile */
+/** BasicData **/
+.basic-data {
+  display: flex;
+
+  &-photo {
+    position: relative;
+
+    .edit {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+    }
+  }
+
+  &-info {
+    margin-left: $largeMargin;
+    display: flex;
+    flex-flow: column;
+  }
+
+  &-folow {
+    display: flex;
+    background-color: $clouds;
+    padding: $smallPadding;
+
+    div {
+      padding: 0px $smallPadding;
+      text-align: center;
+
+      div {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+.personal {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/** PersonalBio **/
+.personal-bio {
+  text-align: right;
+}
+
+/** PersonalEducation **/

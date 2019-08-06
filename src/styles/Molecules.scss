@@ -22,6 +22,14 @@
   }
 }
 
+.text-area {
+  .area {
+    background-color: $clouds;
+    border-radius: 0px;
+    border: solid transparent;
+  }
+}
+
 /* Lateral Menu */
 .menu-item-active {
   color: $primary !important;

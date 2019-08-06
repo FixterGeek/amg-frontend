@@ -7,7 +7,15 @@ const userState = {
   email: '',
   password: '',
   birthDate: '',
-  basicData: {},
+  basicData: {
+    name: '',
+    dadSurname: '',
+    momSurname: '',
+    address: {
+      addressName: '',
+    },
+  },
+  membershipStatus: '',
   placeOfBirth: {
     addressName: 'Pachuca',
     street: '',
