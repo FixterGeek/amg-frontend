@@ -87,7 +87,7 @@ const userState = {
 
 function userReducer(state = userState, action) {
   switch (action.type) {
-    case WRITE_USER:
+    case WRITE_USER:      
       return { ...state, ...action.value };
     case CREATE_USER:
       return { ...state, ...action.value };
