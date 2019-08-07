@@ -29,7 +29,7 @@ function LateralMenu({ history, user, dispatch }) {
 
 
   useEffect(() => {
-    if (!user.basicData.name) {
+    if (!user._id) {
       getSelfUser().then(({ data }) => dispatch(createUser({ ...data })))
         .catch(({ response }) => console.log(response));
     }

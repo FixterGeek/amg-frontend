@@ -14,6 +14,7 @@ function FilePicker({ children, multi, type, onChange, name, className }) {
   };
 
   const fileTypes = {
+    forImages: '.jpg, .jpeg, .gif, .png',
     forImagesAndVideos: 'jpg, .jpeg, .gif, .png, .mp4, .avi, .mov, .flv, .wmv, .mkv, .qt',
     forFiles: `${ft.text}${ft.data}${ft.spreadshhet}${ft.compress}`,
   };
@@ -47,7 +48,7 @@ export default FilePicker;
 
 FilePicker.propTypes = {
   multi: PropTypes.bool,
-  type: PropTypes.oneOf(['forImagesAndVideos', 'forFiles']),
+  type: PropTypes.oneOf(['forImages', 'forImagesAndVideos', 'forFiles']),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]).isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,

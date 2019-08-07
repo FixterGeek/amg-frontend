@@ -26,6 +26,36 @@ function useAmgService() {
     password,
   });
 
+
+  /* User */
+
+  const updateUser = async (userId, userData) => {
+    const authToken = await localStorage.getItem('authToken');
+
+    return new Promise((resolve, reject) => {
+      axios.patch(`${APIURL}/users/${userId}`, userData, {
+        headers: {
+          Authorization: authToken,
+        },
+      }).then(({ data }) => resolve(data))
+        .catch(({ response }) => reject(response));
+    });
+  };
+
+  const updateUserPhoto = async (userId, formData) => {
+    const authToken = await localStorage.getItem('authToken');
+
+    return new Promise((resolve, reject) => {
+      axios.patch(`${APIURL}/users/${userId}`, formData, {
+        headers: {
+          Authorization: authToken,
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      }).then(({ data }) => resolve(data))
+        .catch(({ response }) => reject(response));
+    });
+  };
+
   const getSelfUser = async () => {
     const authToken = await localStorage.getItem('authToken');
     return axios.get(`${baseAuthURL}/self`, {
@@ -138,6 +168,8 @@ function useAmgService() {
     login,
     logout,
     signup,
+    updateUser,
+    updateUserPhoto,
     getSelfUser,
     getEvents,
     getSingleEvent,

@@ -8,25 +8,30 @@ import BasicData from '../../organisms/profile/BasicData';
 import PersonalBio from '../../organisms/profile/PersonalBio';
 import PersonalEducation from '../../organisms/profile/PersonalEducation'
 
-function PersonalProfile({ user }) {
+function PersonalProfile({ user, dispatch }) {
   const { Title, Text } = Typography;
   const {
     basicData, membershipStatus, studies, hospitalActivities,
+    photo,
   } = user;
   const { photoURL, speciality, address } = basicData;
 
-  console.log(address);
+  console.log('profile');
+
 
   return (
     <div className="dashboard-container">
       <Title>{`${basicData.name} ${basicData.dadSurname} ${basicData.momSurname}`}</Title>
       <BasicData
+        photoFile={photo}
+        dispatch={dispatch}
         photoURL={photoURL}
+        userId={user._id}
         membershipStatus={membershipStatus}
         speciality={speciality}
-        place={address.addressName} />
+        basicData={basicData} />
 
-      <PersonalBio />
+      <PersonalBio dispatch={dispatch} />
 
       <PersonalEducation />
     </div>

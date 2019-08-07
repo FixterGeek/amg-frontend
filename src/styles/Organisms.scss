@@ -206,6 +206,15 @@ $menuBarWidth: 59px;
       position: absolute;
       right: 4px;
       top: 4px;
+
+      button {
+        border-radius: 50%;
+        appearance: none;
+        border: none;
+        background-color: $primary;
+        color: white;
+        cursor: pointer;
+      }
     }
   }
 
@@ -213,6 +222,15 @@ $menuBarWidth: 59px;
     margin-left: $largeMargin;
     display: flex;
     flex-flow: column;
+
+    .edit, .save {
+      margin-left: $smallMargin;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary;
+      }
+    }
   }
 
   &-folow {

@@ -129,6 +129,29 @@ $inputHeight: 50px;
   border-bottom: solid 2px $yellow !important;
 }
 
+/* TransparentTextField */
+.transparent-input {
+  .ant-input {
+    border-color: transparent;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    &:disabled {
+      background-color: transparent;
+      color: $darkSilver;
+    }
+  }
+
+  .ant-input-suffix {
+    padding: $smallPadding;
+
+    &:hover {
+      color: $primary;
+      cursor: pointer;
+    }
+  }
+}
+
 /** Status Message **/
 .status {
   width: 100%;
