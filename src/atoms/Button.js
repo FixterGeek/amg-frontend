@@ -35,7 +35,7 @@ export default Button;
 Button.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   bgColor: PropTypes.oneOf(['primary', 'secondary', 'red', 'yellow']),
-  width: PropTypes.oneOf(['auto', '100%']),
+  width: PropTypes.string,
   marginTop: PropTypes.string,
   marginBottom: PropTypes.string,
   line: PropTypes.bool,

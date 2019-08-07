@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toFormData from 'object-to-formdata';
 
 import { Typography, Icon, Button } from 'antd';
 
@@ -35,7 +36,6 @@ function BasicData({
   const { speciality, address: { addressName } } = basicData;
 
   const handleEdit = (name) => {
-    console.log('edit');
     let icon = 'edit';
     if (!edits[name].edit) {
       icon = 'save';
@@ -58,7 +58,6 @@ function BasicData({
   };
 
   const handleChange = (event) => {
-    console.log('change');
     const { target } = event;
     const { name, value } = target;
     console.log(value);
@@ -67,7 +66,6 @@ function BasicData({
   };
 
   const handleFilePicker = (event) => {
-    console.log('picker')
     const { target } = event;
     const { files } = target;
 
@@ -81,17 +79,12 @@ function BasicData({
   };
 
   const savePhoto = () => {
-    console.log('save');
-    const formData = new FormData();
-    formData.append('photo', photoFile);
-    formData.append('basicData[speciality]', speciality);
+    const formData = toFormData({ basicData, photo: photoFile }, { nulls: true });
 
     updateUserPhoto(userId, formData)
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
+      .then(data => dispatch(writeUserBasicData({ photoURL: data.basicData.photoURL })))
+      .catch(() => errorAlert());
   };
-
-  console.log(basicData);
 
   return (
     <DashboardContainerItem className="basic-data">

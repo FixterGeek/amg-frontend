@@ -525,3 +525,13 @@ $profilePhotoSize: 120px;
     border: 1px solid transparent;
   }
 }
+
+/* EditIcon */
+.edit-icon, .save-icon {
+  margin-left: $smallMargin;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary;
+  }
+}

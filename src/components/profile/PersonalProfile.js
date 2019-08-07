@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Typography } from 'antd';
+import { Typography, Icon } from 'antd';
 
-import DashboardContainerItem from '../../atoms/DashboardContainerItem';
+import Spinner from '../../atoms/Spinner';
+import ModalName from '../../organisms/profile/ModalName';
 import BasicData from '../../organisms/profile/BasicData';
 import PersonalBio from '../../organisms/profile/PersonalBio';
-import PersonalEducation from '../../organisms/profile/PersonalEducation'
+import PersonalEducation from '../../organisms/profile/PersonalEducation';
 
 function PersonalProfile({ user, dispatch }) {
-  const { Title, Text } = Typography;
+  const [loading, setLoading] = useState(false);
   const {
     basicData, membershipStatus, studies, hospitalActivities,
     photo,
   } = user;
-  const { photoURL, speciality, address } = basicData;
-
-  console.log('profile');
+  const { photoURL, speciality } = basicData;
 
 
   return (
     <div className="dashboard-container">
-      <Title>{`${basicData.name} ${basicData.dadSurname} ${basicData.momSurname}`}</Title>
+      { loading && <Spinner /> }
+
+      <ModalName
+        userId={user._id}
+        basicData={basicData}
+        setLoading={setLoading}
+        dispatch={dispatch} />
+
       <BasicData
         photoFile={photo}
         dispatch={dispatch}
