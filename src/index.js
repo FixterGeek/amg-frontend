@@ -5,12 +5,16 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import "./index.css";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const WithRoute = () => (
-  <Router>
-    <App />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
+  
 );
 
 ReactDOM.render(<WithRoute />, document.getElementById("root"));

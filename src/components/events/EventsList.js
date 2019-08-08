@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import uniqid from 'uniqid';
 
-import { updateEvents } from '../../store/actions';
+import { updateEvents } from '../../redux/actions';
 import useAmgService from '../../hooks/services/useAmgService';
 import Covers from '../../organisms/events/Covers';
 import EventsMonth from '../../molecules/Events/EventsMonth';

@@ -16,7 +16,7 @@ import {
 import { Menu, Icon } from 'antd';
 
 import useAmgService from '../hooks/services/useAmgService';
-import { createUser } from '../store/actions';
+import { createUser } from '../redux/actions';
 
 function LateralMenu({ history, user, dispatch }) {
   const { logout, getSelfUser } = useAmgService();

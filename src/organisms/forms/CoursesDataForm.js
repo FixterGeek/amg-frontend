@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import TextField from "../../molecules/TextFields";
 import SelectField from "../../molecules/SelectField";
 import AmgButton from "../../atoms/Button";
-import { createUser } from "../../store/actions";
+import { createUser } from "../../redux/actions";
 import Label from "../../atoms/data_entry/Label";
 import Container from "../../atoms/layout/Container";
 
