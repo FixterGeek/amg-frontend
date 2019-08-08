@@ -152,6 +152,20 @@ $inputHeight: 50px;
   }
 }
 
+
+/* DatePicker */
+.date-picker {
+  input {
+    margin-bottom: $largeMargin;
+    margin-top: $smallMargin;
+    background-color: $clouds;
+    height: $inputHeight;
+    border-color: transparent;
+    border-radius: 0px;
+    max-width: $maxWidthFields;
+  }
+}
+
 /** Status Message **/
 .status {
   width: 100%;

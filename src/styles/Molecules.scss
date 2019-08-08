@@ -30,6 +30,54 @@
   }
 }
 
+/*Input*/
+.input {
+  max-width: 445px;
+
+  .field {
+    position: relative;
+    input {
+      width: 100%;
+      height: 50px;
+      appearance: none;
+      background-color: $clouds;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding-right: 54px;
+      box-sizing: border-box;
+      padding-left: $padding;
+
+      &:focus, &:hover {
+        appearance: none;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        outline: none;
+        border-bottom: 2px solid $primary;
+      }
+    }
+  }
+
+  .error {
+    input {
+      border-bottom: solid 2px $red;
+    }
+  }
+
+  .success {
+    input {
+      border-bottom: solid 2px $green;
+    }
+  }
+
+  .warning {
+    input {
+      border-bottom: solid 2px $yellow;
+    }
+  }
+}
+
 /* Lateral Menu */
 .menu-item-active {
   color: $primary !important;

@@ -1,23 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from '../atoms/data_entry/Label';
-import Date from '../atoms/data_entry/DatePicker';
+import { DatePicker as DP } from 'antd';
 
-function DatePicker({ name, label, width, onChange }) {
+function DatePicker({ name, width, onChange }) {
   return (
-    <div>
-      <Label>{ label }</Label>
-      <Date width={width} onChange={onChange} name={name} />
+    <div className="date-picker">
+      <DP name={name} style={{ width }} onChange={onChange ? event => onChange(event) : null} />
     </div>
   );
-
 }
 
 export default DatePicker;
 
 DatePicker.propTypes = {
-  label: PropTypes.string.isRequired,
   width: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
