@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import fileToURL from '../tools/fileToURL';
-import { updatePublications } from '../redux/actions';
+import { updatePublications } from '../store/actions';
 import FilePicker from '../atoms/FilePicker';
 import Spinner from '../atoms/Spinner';
 

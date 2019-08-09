@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Typography } from 'antd';
 
 import useAmgService from '../../hooks/services/useAmgService';
-import { updateEvents, createUser, updatePublications } from '../../redux/actions';
+import { updateEvents, createUser, updatePublications } from '../../store/actions';
 import EventCover from '../../molecules/EventCover';
 import PostItem from '../../molecules/PostItem';
 import Publisher from '../../molecules/Publisher';

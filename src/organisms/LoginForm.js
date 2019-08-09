@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { Button } from 'antd';
 
-import { writeUser } from '../redux/actions';
+import { writeUser } from '../store/actions';
 import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';

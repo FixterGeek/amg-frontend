@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
-import * as usersActions from '../../redux/users/actions'
+import * as usersActions from '../../store/ducks/users'
 
 
-const Admin = (props) => {
-    console.log(props)
-    const {users} = props
+const Admin = (props) => {    
+    const {users, usersLoading} = props
     useEffect(()=>{
-        const query = JSON.stringify({userStatus:'Registrado'})
-        props.usersActions.getAllUsers(`?query=${query}&limit=${0}&skip=${0}`)        
-    },[])
-    console.log(users)
+        const query = JSON.stringify({userStatus:'Pendiente'})
+        props.usersActions.getUsers(`?query=${query}&limit=${0}&skip=${0}`)
+        
+    },[])    
+    console.log(users, usersLoading)
     return (
         <>
             <h2>Miembros</h2>
@@ -39,13 +39,10 @@ const Admin = (props) => {
                 <h2>Afiliaciones</h2>
                 <div>
                     <div>
-                        <span>
-                            Oswaldinho Martínez Anaya
-                        </span>
-                        <span>
-                            Solicitud creada: <br/>
-                            10/10/10
-                        </span>
+                        {usersLoading && <p>Loading...</p>}
+                        {users.map((user, key)=>(
+                            <p key={key}>{user.email}-{user.createdAt}</p> 
+                        ))}
                     </div>
                 </div>
             </div>
@@ -55,7 +52,8 @@ const Admin = (props) => {
 
 const mapStateToProps=(state, ownProps)=>{
     return{
-        users:state.users
+        users:state.users.data,
+        usersLoading:state.users.fetching
     }
 }
 const mapDispatchToProps=(dispatch)=>{

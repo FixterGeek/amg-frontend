@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
-import { updatePublications } from '../redux/actions';
+import { updatePublications } from '../store/actions';
 import FilePicker from '../atoms/FilePicker';
 
 function AttachedFiles({ images, publications, dispatch }) {

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
 import Label from "../../atoms/data_entry/Label";
-import { createUser } from "../../redux/actions";
+import { createUser } from "../../store/actions";
 
 function InternshipDataForm(props) {
   const { user, dispatch } = props;
