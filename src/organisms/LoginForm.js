@@ -15,12 +15,7 @@ import { loginUser } from '../store/ducks/userDuck'
 
 function LoginForm(props) {
   // eslint-disable-next-line react/prop-types
-  const { history, fetching, isLogged } = props;
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({
-    email: false,
-    password: false,
-  });
+  const { history, fetching, isLogged, error } = props;
   const [auth, setAuth] = useState({
     email: null,
     password: null,
@@ -37,8 +32,6 @@ function LoginForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-
     props.loginUser(auth)
   };
 
@@ -47,16 +40,16 @@ function LoginForm(props) {
       {fetching && <Spinner tip="Iniciando sesión..." />}
       <TextField
         width="100%"
-        error={error.email}
-        errorMessage="Correo incorrecto."
+        // error={error}
+        // errorMessage={error}
         value={auth.email}
         onChange={handleChange}
         name="email"
         label="Correo" />
       <TextField
         width="100%"
-        error={error.password}
-        errorMessage="Contraseña incorrecta."
+        error={error}
+        errorMessage={error}
         value={auth.password}
         onChange={handleChange}
         name="password"
@@ -78,7 +71,7 @@ function LoginForm(props) {
 }
 
 function mapStateToProps({ user }) {
-  return { user, fetching: user.fetching, isLogged: user.isLogged };
+  return { ...user };
 }
 
 export default withRouter(connect(mapStateToProps, { loginUser })(LoginForm));
