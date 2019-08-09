@@ -23,8 +23,6 @@ function PostItem({ publication }) {
     sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
   });
 
-  console.log(publication);
-
   return (
     <div className="post-item">
       <div className="post-item-info">

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Button } from 'antd';
 
-import { writeUser } from '../store/actions';
-import useAmgService from '../hooks/services/useAmgService';
 import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
 
-//redux
-import { connect } from 'react-redux';
-import { loginUserAction } from '../store/ducks/userDuck'
+import { loginUserAction } from '../store/ducks/userDuck';
 
 function LoginForm(props) {
   // eslint-disable-next-line react/prop-types
@@ -25,9 +22,6 @@ function LoginForm(props) {
     email: null,
     password: null,
   });
-  // eslint-disable-next-line react/prop-types
-  const { user, dispatch } = props;
-  const { login } = useAmgService();
 
   const handleChange = (event) => {
     const { target: { value, name } } = event;
@@ -39,9 +33,7 @@ function LoginForm(props) {
     setLoading(true);
 
     props.loginUserAction(auth)
-
-      // login(user.email, user.password)
-      .then(data => {
+      .then((data) => {
         setLoading(false);
         history.push('/dashboard');
       })

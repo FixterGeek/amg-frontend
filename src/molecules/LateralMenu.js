@@ -15,12 +15,14 @@ import {
 
 import { Menu, Icon } from 'antd';
 
+import useSweetAlert from '../hooks/useSweetAlert';
 import useAmgService from '../hooks/services/useAmgService';
-import { createUser } from '../store/actions';
+import { populateUserAction } from '../store/ducks/userDuck';
 
-function LateralMenu({ history, user, dispatch }) {
+function LateralMenu({ history, user, populateUserAction }) {
+  const { errorAlert } = useSweetAlert();
+  const { logout } = useAmgService();
   const [state] = useState({ anchor: createRef() });
-  const { logout, getSelfUser } = useAmgService();
   const { Item } = Menu;
   // eslint-disable-next-line react/prop-types
   const { location } = history;
@@ -30,10 +32,9 @@ function LateralMenu({ history, user, dispatch }) {
 
   useEffect(() => {
     if (!user._id) {
-      getSelfUser().then(({ data }) => dispatch(createUser({ ...data })))
-        .catch(({ response }) => console.log(response));
+      populateUserAction().catch(() => errorAlert());
     }
-  }, [dispatch, getSelfUser, user.basicData.name]);
+  }, [user._id, populateUserAction]);
 
 
   const link = (to) => {
@@ -106,4 +107,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default withRouter(connect(mapStateToProps)(LateralMenu));
+export default withRouter(connect(mapStateToProps, { populateUserAction })(LateralMenu));

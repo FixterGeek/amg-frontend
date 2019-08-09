@@ -9,12 +9,19 @@ import Spinner from '../atoms/Spinner';
 import AmgButton from '../atoms/Button';
 import useAmgService from '../hooks/services/useAmgService';
 
-function Publisher({ publications }) {
+function Publisher() {
   const [loading, setLoading] = useState(false);
+  const [publications, setPublications] = useState({
+    publications: [],
+    imagesVideos: [],
+    files: [],
+    urls: [],
+  });
   const [postText, setPostText] = useState('');
   const [urls, setUrls] = useState([]);
   const { toPublish } = useAmgService();
   const { imagesVideos, files } = publications;
+
 
   useEffect(() => {
     let tempUrls = [];
@@ -52,7 +59,7 @@ function Publisher({ publications }) {
     <div className="publisher">
       { loading && <Spinner tip="Publicando..." /> }
       <PublicationBox postText={postText} setText={setPostText} />
-      <AttachedFiles />
+      <AttachedFiles publications={publications} setPublications={setPublications} />
       <div className="files-preview-container">
         { files.length > 0 && <FilesToUpload type="files" /> }
       </div>
