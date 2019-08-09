@@ -12,8 +12,7 @@ export function writeUser(value) {
 
 export function createUser(value) {
   return {
-    type: CREATE_USER,
-    value,
+
   };
 }
 
