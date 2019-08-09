@@ -4,22 +4,24 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import uniqid from 'uniqid';
 
-import { updateEvents } from '../../store/actions';
-import useAmgService from '../../hooks/services/useAmgService';
+import useSweetAlert from '../../hooks/useSweetAlert';
+import { populateEventsAction } from '../../store/ducks/eventsDuck';
+import Spinner from '../../atoms/Spinner';
 import Covers from '../../organisms/events/Covers';
 import EventsMonth from '../../molecules/Events/EventsMonth';
 
 function EventsList(props) {
   // eslint-disable-next-line react/prop-types
-  const { events, dispatch } = props;
-  const { getEvents } = useAmgService();
+  const { errorAlert } = useSweetAlert();
+  const { events, populateEventsAction } = props;
+  const [loading, setLoading] = useState(false);
 
   const [state, setState] = useState({
     byMonths: [],
   });
 
+
   useEffect(() => {
-    console.log(events.events);
     const byMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
       month,
       events: events.events.filter(
@@ -34,16 +36,19 @@ function EventsList(props) {
 
   useEffect(() => {
     if (events.events.length === 0) {
-      getEvents().then(({ data }) => {
-        dispatch(updateEvents({ events: [...data] }));
-      }).catch(({ response }) => {
-        console.log(response);
-      });
+      populateEventsAction()
+        .then(() => setLoading(false))
+        .catch(() => {
+          setLoading(false);
+          errorAlert();
+        });
     }
-  }, [dispatch, events.events.length, getEvents]);
+  }, []);
+
 
   return (
     <div className="dashboard-container">
+      { loading && <Spinner tip="Cargando eventos..." /> }
       <Covers events={events.events} />
       <div>
         {
@@ -61,4 +66,4 @@ function mapStateToProps(state) {
   return { events: state.events };
 }
 
-export default withRouter(connect(mapStateToProps)(EventsList));
+export default withRouter(connect(mapStateToProps, { populateEventsAction })(EventsList));
