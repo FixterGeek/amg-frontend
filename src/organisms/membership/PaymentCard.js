@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Typography } from 'antd';
 
@@ -9,6 +9,22 @@ import Button from '../../atoms/Button';
 
 function PaymentCard() {
   const { Title } = Typography;
+  const [card, setCard] = useState({
+    numberCard: null,
+  });
+
+  const { Conekta } = window;
+  Conekta.setPublicKey(process.env.REACT_APP_CONEKTA_PUBLIC_KEY);
+
+  console.log(Conekta.getLanguage());
+
+  const handleCard = (event) => {
+    const { target } = event;
+    const { value } = target;
+
+    console.log(Conekta.card.validateNumber(value));
+    setCard({ ...card, numberCard: value });
+  };
 
   return (
     <DashboardContainerItem className="payment-card">
@@ -18,7 +34,11 @@ function PaymentCard() {
       <DashboardContainerItem>
         <form className="payment-card-form">
           <div>
-            <TextField label="Número de tarjeta" />
+            <TextField
+              onChange={handleCard}
+              value={card.numberCard}
+              name="card"
+              label="Número de tarjeta" />
           </div>
           <div>
             <TextField label="Nombre del titular" />

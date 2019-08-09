@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import TextField from "../../molecules/TextFields";
-import Label from "../../atoms/data_entry/Label";
+import Label from "../../atoms/data-entry/Label";
 import { createUser } from "../../store/actions";
 
 function InternshipDataForm(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from '../atoms/data_entry/Label';
-import Date from '../atoms/data_entry/DatePicker';
+import Label from '../atoms/data-entry/Label';
+import Date from '../atoms/data-entry/DatePicker';
 
 function DatePicker({ name, label, width, onChange }) {
   return (

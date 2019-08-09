@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from '../atoms/data_entry/Label';
-import InputField from '../atoms/data_entry/InputField';
+import Label from '../atoms/data-entry/Label';
+import InputField from '../atoms/data-entry/InputField';
 import { size } from '../styles/theme';
 
 function TextField({

@@ -9,7 +9,7 @@ import fileToURL from '../../tools/fileToURL';
 import { writeUser, writeUserBasicData, writeUserAddress } from '../../store/actions';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
-import TransparentTextField from '../../atoms/data_entry/TransparentTextField';
+import TransparentTextField from '../../atoms/data-entry/TransparentTextField';
 import FilePicker from '../../atoms/FilePicker';
 
 function BasicData({

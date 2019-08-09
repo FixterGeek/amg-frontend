@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { DatePicker } from 'antd';
 
-import Label from '../atoms/data_entry/Label';
+import Label from '../atoms/data-entry/Label';
 
 function DateMonthPicker({ label, format, onChange }) {
   const { MonthPicker } = DatePicker;
