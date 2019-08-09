@@ -1,4 +1,4 @@
-import { getPublications } from '../../services/Services';
+import { getPublications } from '../../services/userServices';
 
 const publicationState = {
   publications: [],

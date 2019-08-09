@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import { Button } from 'antd';
 
@@ -8,20 +7,21 @@ import TextField from '../molecules/TextFields';
 import AmgButton from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
 
-import { loginUserAction } from '../store/ducks/userDuck';
+//redux
+import { connect } from 'react-redux';
+import { loginUser } from '../store/ducks/userDuck'
 
 function LoginForm(props) {
   // eslint-disable-next-line react/prop-types
-  const { history } = props;
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({
-    email: false,
-    password: false,
-  });
+  const { history, fetching, isLogged, error } = props;
   const [auth, setAuth] = useState({
     email: null,
     password: null,
   });
+
+  useEffect(() => {
+    if (isLogged) history.push("/dashboard")
+  }, [isLogged])
 
   const handleChange = (event) => {
     const { target: { value, name } } = event;
@@ -30,36 +30,24 @@ function LoginForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-
-    props.loginUserAction(auth)
-      .then((data) => {
-        setLoading(false);
-        history.push('/dashboard');
-      })
-      .catch(({ response }) => {
-        const { data } = response;
-        if (data.name === 'IncorrectPasswordError') setError({ password: true, email: false });
-        if (data.name === 'IncorrectUsernameError') setError({ email: true, password: false });
-        setLoading(false);
-      });
+    props.loginUser(auth)
   };
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      {loading && <Spinner tip="Iniciando sesión..." />}
+      {fetching && <Spinner tip="Iniciando sesión..." />}
       <TextField
         width="100%"
-        error={error.email}
-        errorMessage="Correo incorrecto."
+        // error={error}
+        // errorMessage={error}
         value={auth.email}
         onChange={handleChange}
         name="email"
         label="Correo" />
       <TextField
         width="100%"
-        error={error.password}
-        errorMessage="Contraseña incorrecta."
+        error={error}
+        errorMessage={error}
         value={auth.password}
         onChange={handleChange}
         name="password"
@@ -80,8 +68,8 @@ function LoginForm(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return { user: state.user };
+function mapStateToProps({ user }) {
+  return { ...user };
 }
 
-export default withRouter(connect(mapStateToProps, { loginUserAction })(LoginForm));
+export default withRouter(connect(mapStateToProps, { loginUser })(LoginForm));

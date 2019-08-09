@@ -10,7 +10,11 @@ import Button from '../../atoms/Button';
 function PaymentCard() {
   const { Title } = Typography;
   const [card, setCard] = useState({
-    numberCard: null,
+    numberCard: {
+      value: null,
+      error: null,
+      errorMessage: '',
+    },
   });
 
   const { Conekta } = window;
@@ -22,7 +26,11 @@ function PaymentCard() {
     const { target } = event;
     const { value } = target;
 
-    console.log(Conekta.card.validateNumber(value));
+    if (Conekta.card.validateNumber(value)) {
+      //
+    } else {
+      setCard({ ...card, numberCard: { value, error: true, errorMessage: 'Tarjeta no valida' } });
+    }
     setCard({ ...card, numberCard: value });
   };
 

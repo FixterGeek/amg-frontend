@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from '../../atoms/data-entrie/Label';
-import StatusMessage from '../../atoms/data-entrie/StatusMessage';
-import StatusSuffix from '../../atoms/data-entrie/StatusSuffix';
+import Label from '../../atoms/data-entry/Label';
+import StatusMessage from '../../atoms/data-entry/StatusMessage';
+import StatusSuffix from '../../atoms/data-entry/StatusSuffix';
 
 function InputField({
   children, label, error, success, warning, errorMessage,

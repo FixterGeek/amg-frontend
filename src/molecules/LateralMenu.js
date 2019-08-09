@@ -17,7 +17,7 @@ import { Menu, Icon } from 'antd';
 
 import useSweetAlert from '../hooks/useSweetAlert';
 import useAmgService from '../hooks/services/useAmgService';
-import { populateUserAction } from '../store/ducks/userDuck';
+// import { populateUserAction } from '../store/ducks/userDuck';
 
 function LateralMenu({ history, user, populateUserAction }) {
   const { errorAlert } = useSweetAlert();
@@ -32,7 +32,7 @@ function LateralMenu({ history, user, populateUserAction }) {
 
   useEffect(() => {
     if (!user._id) {
-      populateUserAction().catch(() => errorAlert());
+      // populateUserAction().catch(() => errorAlert());
     }
   }, [user._id, populateUserAction]);
 
@@ -107,4 +107,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default withRouter(connect(mapStateToProps, { populateUserAction })(LateralMenu));
+export default withRouter(connect(mapStateToProps)(LateralMenu));

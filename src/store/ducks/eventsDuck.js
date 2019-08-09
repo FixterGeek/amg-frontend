@@ -1,4 +1,4 @@
-import { getEvents } from '../../services/Services';
+import { getEvents } from '../../services/userServices';
 
 const eventState = {
   events: [],
