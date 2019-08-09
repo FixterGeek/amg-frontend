@@ -36,7 +36,7 @@ function PaymentCard() {
 
   function validateCardData() {
     // 0.- Optimistic way isValid = true
-    setIsValid(true)
+    let valid = true
     let e = {}
     // 1.- hay que validar todos los campos de tarjeta no solo 1
     console.log(String(card.number).length < 15)
@@ -54,6 +54,7 @@ function PaymentCard() {
       e = { ...e, expiration: "El formato de fecha debe ser mm/yy" }
     }
     setErrors({ ...e })
+    setIsValid(valid)
     // 2.- Si hay un campo mal (1) isValid = false y agregar el error
     // 3.- return isValid
   }
