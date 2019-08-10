@@ -5,12 +5,16 @@ import PropTypes from 'prop-types';
 import Label from '../atoms/data-entry/Label';
 import InputField from '../atoms/data-entry/InputField';
 import { size } from '../styles/theme';
+import { Input } from 'antd'
+let { TextArea } = Input
 
 function TextField({
   width, error, success, warning,
   errorMessage, successMessage, warningMessage,
   onChange, value, label,
-  marginTop, marginBottom, ...others
+  name,
+  type,
+  style, ...others
 }) {
   const status = error
     ? 'error' : success
@@ -20,17 +24,13 @@ function TextField({
   return (
     <div
       className="text-field"
-      style={{
-        width,
-        color: 'red',
-        marginTop,
-        marginBottom,
-      }}
+      style={style}
     >
       <Label width="100%">
-        { label }
+        {label}
       </Label>
-      <InputField
+      {type !== "textarea" ? <InputField
+        name={name}
         width="100%"
         type="text"
         value={value}
@@ -41,6 +41,22 @@ function TextField({
         onChange={onChange ? event => onChange(event) : null}
         {...others}
       />
+        :
+        <TextArea
+          rows="6"
+          style={{ marginBottom: 40 }}
+          name={name}
+          width="100%"
+          type="text"
+          value={value}
+          status={status}
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+          warningMessage={warningMessage}
+          onChange={onChange ? event => onChange(event) : null}
+          {...others}
+        />
+      }
     </div>
   );
 }
@@ -48,6 +64,7 @@ function TextField({
 export default TextField;
 
 TextField.propTypes = {
+  name: PropTypes.string,
   width: PropTypes.string,
   error: PropTypes.bool,
   success: PropTypes.bool,
@@ -58,8 +75,8 @@ TextField.propTypes = {
   onChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   value: PropTypes.string,
   label: PropTypes.string,
-  marginTop: PropTypes.string,
-  marginBottom: PropTypes.string,
+  style: PropTypes.object,
+  type: PropTypes.string,
 };
 
 TextField.defaultProps = {
@@ -73,6 +90,5 @@ TextField.defaultProps = {
   onChange: false,
   value: null,
   label: 'Field Name',
-  marginTop: size.fields.margin,
-  marginBottom: size.fields.margin,
+  style: {}
 };

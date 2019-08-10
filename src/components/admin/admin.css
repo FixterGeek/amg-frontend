@@ -1,0 +1,46 @@
+
+
+
+
+
+.admin-form-submit-button{
+    width:300px;
+    background-color:#1f2536;
+    padding: 16px 0;
+    color:white;
+    margin-bottom: 40px;
+}
+
+.admin-form-group b{
+    margin-bottom: 20px;
+    display: block;
+}
+.admin-form-group{
+    padding-top: 0px;
+    margin-bottom: 40px;
+}
+.admin-flex-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.admin-menu-container{
+    height: 100%;
+}
+.admin-event-form-container{
+    padding-top:30px; 
+    height: 100%;
+}
+
+.admin-page-menu-container{
+    position: fixed;
+    left:0;
+    top:0;
+    margin-right:100px;
+}
+
+.admin-page-container{
+    padding-left: 150px;
+    height: 100%;
+}
