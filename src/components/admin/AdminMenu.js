@@ -7,12 +7,9 @@ import {
     faPowerOff,
     faHome,
     faCalendar,
-    faBookOpen,
-    faGraduationCap,
-    faUser,
+    faBell,
     faUsers,
-    faFile,
-    faCog
+    faFileInvoiceDollar
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Menu, Icon } from 'antd';
@@ -54,7 +51,7 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Home</span>
             </Item>
-            <Item key={2} onClick={() => link('/dashboard/events')}>
+            <Item key={2} onClick={() => link('/admin/events')}>
                 <Icon
                     className={`${
                         currentLocation === 'events' ? 'menu-item-active' : ''
@@ -64,17 +61,23 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Eventos</span>
             </Item>
-            <Item key={3} onClick={() => toMagazine()}>
+            <Item key={3} onClick={() => link('/admin/events')}>
                 <Icon>
-                    <FontAwesomeIcon icon={faBookOpen} />
+                    <FontAwesomeIcon icon={faFileInvoiceDollar} />
                 </Icon>
-                <span>Revista</span>
+                <span>Facturas</span>
             </Item>
             <Item key={4}>
                 <Icon>
-                    <FontAwesomeIcon icon={faGraduationCap} />
+                    <FontAwesomeIcon icon={faUsers} />
                 </Icon>
-                <span>Educación</span>
+                <span>Usuarios</span>
+            </Item>
+            <Item key={4}>
+                <Icon>
+                    <FontAwesomeIcon icon={faBell} />
+                </Icon>
+                <span>Biblioteca</span>
             </Item>
             <Item key={7} onClick={() => { }}>
                 <Icon>
