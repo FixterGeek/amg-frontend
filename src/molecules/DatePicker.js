@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 import Label from '../atoms/data-entry/Label';
 import Date from '../atoms/data-entry/DatePicker';
 
-function DatePicker({ name, label, width, onChange }) {
+function DatePicker({ name, label, style, onChange, format, placeholder, value }) {
   return (
     <div>
       <Label>{ label }</Label>
-      <Date width={width} onChange={onChange} name={name} />
+      <Date
+        style={{ ...style }}
+        onChange={onChange}
+        name={name}
+        format={format}
+        placeholder={placeholder}
+        value={value} />
     </div>
   );
 
@@ -21,9 +27,11 @@ DatePicker.propTypes = {
   width: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
+  format: PropTypes.string,
 };
 
 DatePicker.defaultProps = {
   width: 'auto',
   onChange: null,
+  format: null,
 };

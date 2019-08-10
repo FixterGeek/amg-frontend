@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import momment from 'moment';
 
+import { Checkbox } from 'antd';
 import { writeSignupAction, writeBasicDataAction } from '../../store/ducks/signupDuck';
-import TextField from "../../molecules/TextFields";
-import SelectField from "../../molecules/SelectField";
-import { Checkbox } from "antd";
-import AmgButton from "../../atoms/Button";
-import { createUser } from "../../store/actions";
-import Label from "../../atoms/data-entry/Label";
+import TextField from '../../molecules/TextFields';
+import SelectField from '../../molecules/SelectField';
+import DatePicker from '../../molecules/DatePicker';
+import AmgButton from '../../atoms/Button';
+import { createUser } from '../../store/actions';
+import Label from '../../atoms/data-entry/Label';
 
 function GeneralDataForm(props) {
   const { history } = props;
@@ -21,7 +23,7 @@ function GeneralDataForm(props) {
     birthDate: false,
     placeOfBirth: false,
     specialty: false,
-    userStatus: "Pendiente"
+    userStatus: 'Pendiente'
   });
 
   const { signup, writeSignupAction, writeBasicDataAction } = props;
@@ -42,6 +44,7 @@ function GeneralDataForm(props) {
   }
 
   const handleChange = (event) => {
+    console.log(event);
     const { target } = event;
     const { name, value } = target;
 
@@ -49,18 +52,22 @@ function GeneralDataForm(props) {
     else writeBasicDataAction({ [name]: value });
   };
 
+  const handleDate = (date, name) => {
+    writeBasicDataAction({ [name]: date.toString() });
+  };
+
   console.log(signup);
 
   const handleSubmit = e => {
     e.preventDefault();
-    history.push("education");
+    history.push('education');
     
   };
 
   return (
     <form
       className="signup-form"
-      style={{ width: "400px" }}
+      style={{ width: '400px' }}
       onSubmit={handleSubmit}
     >
       <TextField
@@ -93,6 +100,13 @@ function GeneralDataForm(props) {
         label="Correo"
       />
 
+      <DatePicker
+        format="LL"
+        label="Fecha de nacimiento"
+        onChange={handleDate}
+        name="birthDate"
+        value={basicData.birthDate} />
+
       <TextField
         value={signup.birthdate}
         onChange={handleChange}
@@ -105,7 +119,7 @@ function GeneralDataForm(props) {
         onChange={handleChange}
         name="placeOfBirth"
         label="Lugar de nacimiento"
-        options={[{ value: "Hidalgo", text: "Hidalgo" }]}
+        options={[{ value: 'Hidalgo', text: 'Hidalgo' }]}
       />
 
       <Label>Especialidad</Label>
