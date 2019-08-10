@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { useState, useEffect } from 'react';
 
 import { Typography } from 'antd';
@@ -6,65 +7,106 @@ import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import TextField from '../../molecules/TextFields';
 import MonthPicker from '../../molecules/MonthPicker';
 import Button from '../../atoms/Button';
-let errorInitial = {
-  name: null,
-  number: null,
-  expiration: null,
-  ccv: null
-}
+
 function PaymentCard() {
   const { Title } = Typography;
 
-  let [isValid, setIsValid] = useState(false)
-  let [errors, setErrors] = useState({ ...errorInitial })
-  const [card, setCard] = useState({
+  const initialMessages = {
     name: '',
     number: '',
     expiration: '',
-    ccv: ''
+    ccv: '',
+  }
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({
+    name: '',
+    number: '',
+    expiration: '',
+    ccv: '',
   });
-  let [loading, setLoading] = useState(false)
+  const [warnings, setWarning] = useState({ ...initialMessages });
+  const [success, setSuccess] = useState({ ...initialMessages });
+  const [card, setCard] = useState({ ...initialMessages });
+  const [loading, setLoading] = useState(false);
 
 
-  useEffect(() => {
-    validateCardData()
-    console.log("validating")
-  }, [card])
+  const { Conekta } = window;
 
-  //const { Conekta } = window;
-  //Conekta.setPublicKey(process.env.REACT_APP_CONEKTA_PUBLIC_KEY);
+  function validateCardData(name, value) {
+    console.log(value);
+    let valid = true;
+    let e = { ...initialMessages };
+    let w = { ...initialMessages };
+    let s = { ...initialMessages };
 
-  function validateCardData() {
-    // 0.- Optimistic way isValid = true
-    let valid = true
-    let e = {}
-    // 1.- hay que validar todos los campos de tarjeta no solo 1
-    console.log(String(card.number).length < 15)
-    if (String(card.number).length < 15) {
-      setIsValid(false)
-      e = { ...e, number: "El numero de la tarjeta debe ser mayor a 14 digitos" }
-      // con el regex formateamos el numero para agregar - or " "
+    switch (name) {
+      case 'number':
+        if (value.length < 15) {
+          valid = false;
+          w = { ...e, number: 'El numero de la tarjeta debe ser mayor a 14 digitos' };
+          // con el regex formateamos el numero para agregar - or " "
+        }
+        if (value.length > 14) {
+          if (!Conekta.card.validateNumber(value)) {
+            valid = false;
+            e = { ...e, number: 'El número de tarjeta no es valido' };
+          } else {
+            s = { ...s, number: `Tarjeta ${Conekta.card.getBrand(value)}` };
+          }
+        }
+        break;
+      case 'name':
+        if (value.length < 5) {
+          valid = false;
+          w = { ...w, name: 'Tu nombre completo' };
+        }
+        break;
+      case 'expiration':
+        if (value.length < 4) {
+          valid = false;
+          w = { ...w, expiration: 'El formato de fecha debe ser mm/yy' };
+        } else {
+          // eslint-disable-next-line no-lonely-if
+          if (!Conekta.card.validateExpirationDate(`${value}`.slice(0, 2), `${value}`.slice(2, 4))) {
+            valid = false;
+            e = { ...e, expiration: 'La fecha no es valida' };
+          }
+        }
+        break;
+      case 'ccv':
+        if (value.length < 3) {
+          valid = false;
+          w = { ...w, ccv: 'el código de seguridad debe ser de 3 ó 4 digitos' };
+        } else {
+          if (!Conekta.card.validateCVC(value)) {
+            valid = false;
+            e = { ...e, ccv: 'Código de seguridad no valido' };
+          }
+        }
+        break;
+      default:
+        break;
     }
-    if (card.name.length < 5) {
-      setIsValid(false)
-      e = { ...e, name: "Tu nombre completo" }
-    }
-    if (card.expiration.length < 4) {
-      setIsValid(false)
-      e = { ...e, expiration: "El formato de fecha debe ser mm/yy" }
-    }
-    setErrors({ ...e })
-    setIsValid(valid)
+
+    console.log(e, w);
+
+    setErrors({ errors, ...e });
+    setWarning({ warnings, ...w });
+    setSuccess({ success, ...s });
+    setIsValid(valid);
     // 2.- Si hay un campo mal (1) isValid = false y agregar el error
     // 3.- return isValid
   }
 
   const handleCard = (event) => {
     const { target } = event;
-    let { value, name } = target;
-    if (name === "expiration" && String(value).length > 4) value = value.slice(0, 3)
-    if (name === "ccv" && String(value).length > 3) value = value.slice(0, 2)
-    setCard({ ...card, [name]: value })
+    const { value, name } = target;
+    let val = value;
+
+    if (name === 'expiration' && String(value).length > 4) val = value.slice(0, 3);
+    if (name === 'ccv' && String(value).length > 3) val = value.slice(0, 2);
+    setCard({ ...card, [name]: val });
+    validateCardData(name, val);
   };
 
   function handleSubmit() {
@@ -86,6 +128,10 @@ function PaymentCard() {
               label="Número de tarjeta"
               error={errors.number}
               errorMessage={errors.number}
+              warning={warnings.number}
+              warningMessage={warnings.number}
+              success={success.number}
+              successMessage={success.number}
             />
           </div>
           <div>
@@ -108,12 +154,16 @@ function PaymentCard() {
               value={card.expiration}
               name="expiration" />
             <TextField
-              error={errors.ccv}
-              errorMessage={errors.ccv}
               value={card.ccv}
               onChange={handleCard}
               label="Código de seguridad"
-              name="ccv" width="100px" />
+              name="ccv"
+              width="100px"
+              error={errors.ccv}
+              errorMessage={errors.ccv}
+              warning={warnings.ccv}
+              warningMessage={warnings.ccv}
+            />
           </div>
           <Button disabled={!isValid || loading} width="100%">Pagar</Button>
         </form>

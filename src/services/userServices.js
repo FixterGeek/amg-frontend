@@ -35,33 +35,6 @@ export const getSelfUser = async () => {
 
 /* Events section */
 
-export const getEvents = async () => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.get(`${APIURL}/events/`, {
-    headers: {
-      Authorization: authToken,
-    },
-  }).then(({ data }) => data);
-};
-
-const getSingleEvent = async (id) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.get(`${APIURL}/events/${id}`, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
-};
-
-const assistAnEvent = async (eventId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.post(`${APIURL}/events/${eventId}/assist`, null, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
-};
-
 
 /* Activities section */
 
