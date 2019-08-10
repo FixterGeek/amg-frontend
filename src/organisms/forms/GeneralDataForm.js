@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { writeSignupAction, writeBasicDataAction } from '../../store/ducks/signupDuck';
 import TextField from "../../molecules/TextFields";
 import SelectField from "../../molecules/SelectField";
 import { Checkbox } from "antd";
-//import useAmgService from "../../hooks/services/useAmgService";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
 import Label from "../../atoms/data-entry/Label";
@@ -24,59 +24,37 @@ function GeneralDataForm(props) {
     userStatus: "Pendiente"
   });
 
-  const { user, dispatch } = props;
+  const { signup, writeSignupAction, writeBasicDataAction } = props;
+  const { basicData } = signup;
   // const { signup } = useAmgService();
 
   function onChangeCheckBox(e) {
-    const {
-      target: { value, name, checked }
-    } = e;
-    if (value !== "Otra") {
-      dispatch(createUser({ [name]: value }));
-      console.log(`checked = ${e.target.checked}`);
-    } else {
-      setChekedShow(checked);
-      dispatch(createUser({ [name]: "" }));
-    }
+    // const {
+    //   target: { value, name, checked }
+    // } = e;
+    // if (value !== "Otra") {
+    //   dispatch(createUser({ [name]: value }));
+    //   console.log(`checked = ${e.target.checked}`);
+    // } else {
+    //   setChekedShow(checked);
+    //   dispatch(createUser({ [name]: "" }));
+    // }
   }
 
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ [name]: value }));
+  const handleChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
 
-    //address: {...user.address, [name]: value}
+    if (name === 'email') writeSignupAction({ email: value });
+    else writeBasicDataAction({ [name]: value });
   };
 
-  console.log(user);
+  console.log(signup);
 
   const handleSubmit = e => {
     e.preventDefault();
     history.push("education");
-    // signup(
-    //   user.name,
-    //   user.dadSurname,
-    //   user.momSurname,
-    //   user.email,
-    //   user.birthDate,
-    //   user.placleOfBirth,
-    // )
-    //   .then(async ({ data }) => {
-    //     await dispatch(createUser({ ...data.user, userToken: data.token }));
-    //     await localStorage.setItem("authToken", data.token);
-    //     console.log(data);
-    //     history.push("/education");
-    //   })
-    //   .catch(() => {
-    //     setError({
-    //       name: true,
-    //       dadSurname: true,
-    //       momSurname: true,
-    //       email: true,
-    //       birthDate: true
-    //     });
-    //   });
+    
   };
 
   return (
@@ -86,21 +64,21 @@ function GeneralDataForm(props) {
       onSubmit={handleSubmit}
     >
       <TextField
-        value={user.name}
+        value={basicData.name}
         onChange={handleChange}
         name="name"
         label="Nombre"
       />
 
       <TextField
-        value={user.dadSurname}
+        value={basicData.dadSurname}
         onChange={handleChange}
         name="dadSurname"
         label="Apellido paterno"
       />
 
       <TextField
-        value={user.momSurname}
+        value={basicData.momSurname}
         onChange={handleChange}
         name="momSurname"
         label="Apellido materno"
@@ -109,21 +87,21 @@ function GeneralDataForm(props) {
         width="100%"
         error={error.email}
         errorMessage="El email no puede estar vacio"
-        value={user.email}
+        value={signup.email}
         onChange={handleChange}
         name="email"
         label="Correo"
       />
 
       <TextField
-        value={user.birthdate}
+        value={signup.birthdate}
         onChange={handleChange}
         name="birthdate"
         label="Fecha de nacimiento"
       />
 
       <SelectField
-        value={user.placeOfBirth}
+        value={signup.placeOfBirth}
         onChange={handleChange}
         name="placeOfBirth"
         label="Lugar de nacimiento"
@@ -172,7 +150,7 @@ function GeneralDataForm(props) {
         </Checkbox>
         {chekedShow && (
           <TextField
-            value={user.specialty}
+            value={signup.specialty}
             onChange={handleChange}
             name="specialty"
             label="Especialidad"
@@ -189,8 +167,10 @@ function GeneralDataForm(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    signup: state.signup,
   };
 }
 
-export default withRouter(connect(mapStateToProps)(GeneralDataForm));
+export default withRouter(
+  connect(mapStateToProps, { writeSignupAction, writeBasicDataAction })(GeneralDataForm),
+);

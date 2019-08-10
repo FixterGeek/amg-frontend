@@ -1,0 +1,5 @@
+import { createInstitution } from '../../services/institutionsServices';
+
+const CREATE_INSTITUTION = 'CREATE_INSTITUTION';
+const CREATE_INSTITUTION_SUCCESS = 'CREATE_INSTITUTION_SUCCESS';
+const CREATE_INSTITUTION_ERROR = 'CREATE_INSTITUTION_ERROR';

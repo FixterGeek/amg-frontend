@@ -12,12 +12,7 @@ import AmgButton from "../../atoms/Button";
 const BeforeStaring = () => {
   const { Text, Title } = Typography;
   return (
-    <FullScreenContainer
-      lateralSpace="0px"
-      paddingTop="0px"
-      paddingBottom="0px"
-      flexWrap="nowrap"
-    >
+    <div className="sinup-container">
       <Container height="100vh" width="50%">
         <Container
           alignItems="flex-start"
@@ -95,7 +90,7 @@ const BeforeStaring = () => {
           <div className="signup-logo" />
         </div>
       </Container>
-    </FullScreenContainer>
+    </div>
   );
 };
 

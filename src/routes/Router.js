@@ -19,7 +19,7 @@ function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={Home} />
-      <WithoutLoginRoute path="/login" exact component={Login} />
+      <Route path="/login" exact component={Login} />
       <Route path="/signup" exact component={Signup} />
       <Route path="/signup/general" exact component={General} />
       <Route path="/signup/education" exact component={Education} />

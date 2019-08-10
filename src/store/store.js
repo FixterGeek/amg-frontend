@@ -9,12 +9,14 @@ import { getUsersEpic } from './ducks/users';
 import publicationsDuck from './ducks/publicationsDuck';
 import userDuck from './ducks/userDuck';
 import usersReducer from './ducks/users';
+import sigupDuck from './ducks/signupDuck';
 
 let rootReducer = combineReducers({
     user: userDuck,
     events: eventsDuck,
     publications: publicationsDuck,
-    users: usersReducer
+    users: usersReducer,
+    signup: sigupDuck,
 });
 
 

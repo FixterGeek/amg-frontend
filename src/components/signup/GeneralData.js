@@ -11,16 +11,10 @@ import Steper from "../../organisms/Steper";
 const GeneralData = () => {
   const { Title } = Typography;
   return (
-    <FullScreenContainer
-      lateralSpace="0px"
-      paddingTop="0px"
-      paddingBottom="0px"
-      bgColor={palette.secondary}
-    >
+    <div className="signup-container">
       <Container
         alignItems="flex-start"
         className="signup-left"
-        height="100vh"
         width="30%"
         bgColor={palette.secondary}
         paddingTop={size.largePadding}
@@ -30,7 +24,7 @@ const GeneralData = () => {
         <Steper alignItems="center" />
       </Container>
 
-      <Container className="signup-rigth" height="100vh" width="65%">
+      <Container className="signup-rigth" width="65%">
         <Container
           alignItems="flex-start"
           flexGrow={5}
@@ -45,7 +39,7 @@ const GeneralData = () => {
         </Container>
         <GeneralDataForm />
       </Container>
-    </FullScreenContainer>
+    </div>
   );
 };
 
