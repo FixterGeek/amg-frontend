@@ -1,30 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from "../assets/logo-gastro.svg"
 
 function NavBar() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        position: "absolute",
-        top: "0",
-        left: "0",
-        right: "0",
-        padding: "32px 44px",
-        boxSizing: "border-box"
-      }}
-    >
-      <span style={{ color: "white", fontSize: "1.2em" }}>
-        Asociación Mexicana de Gastroenterología
-      </span>
-      <div>
-        <Link to="/login" style={{ color: "white", fontSize: "1.2em" }}>
-          Iniciar sesión
-        </Link>
-      </div>
-    </div>
-  );
+    return (
+        <div className="navbar">
+            <Link to="/">
+                <img src={logo} alt=""/>
+            </Link>
+            <div>
+                <Link to="/biblioteca">
+                    <p>Biblioteca</p>
+                </Link>
+                <Link to="/sesion-mensual">
+                    <p>Sesión Mensual</p>
+                </Link>
+                <Link to="/nosotros">
+                    <p>Nosotros</p>
+                </Link>
+                <Link to="/contacto">
+                    <p>Contacto</p>
+                </Link>
+                <Link
+                    to="/login"
+
+                    style={{ color: 'white', fontSize: '1.2em' }}>
+                    <div className="btn-log"><p>Iniciar sesión</p></div>
+                </Link>
+            </div>
+        </div>
+    );
 }
 
 export default NavBar;

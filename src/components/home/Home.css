@@ -1,198 +1,266 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    background-color: transparent;
+    position: absolute;
+    padding:0 2% ;
+    box-sizing: border-box;
+}
+.navbar div{
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+.navbar div a{
+    margin: 0 20px;
+    color: white;
+    font-size: 18px;
+}
+.navbar div p{
+    margin: 0;
+}
+.btn-log{
+    border: 1px solid white;
+    padding: 1%;
+    height: 40px !important;
+    width: 120px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 
 .app{
     font-family: Avenir !important;
-  font-family: Avenir, Avenir-black;
-  position: relative;
+    font-family: Avenir, Avenir-black;
+    position: relative;
 }
 
 .welcome {
-  width: 100%;
-  height: 100vh;
-  background-image: url("../../assets/Mask.png");
-  background-size: cover;
-  background-position: center;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/Mask.png");
+    background-size: cover;
+    background-position: center;
+}
+.biblioteca {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/biblioteca.png");
+    background-size: cover;
+    background-position: center;
+}
+.sesion {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/sesion.png");
+    background-size: cover;
+    background-position: center;
+}
+.ab {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/photo.png");
+    background-size: cover;
+    background-position: center;
 }
 .cover {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(2, 32, 71, 0.3);
-  display: flex;
-  justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2, 32, 71, 0.3);
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 .cover h1 {
-  font-family: Avenir-black;
-  color: white;
-  font-size: 160px;
-  margin-bottom: 45px;
+    font-family: Avenir-black;
+    color: white;
+    font-size: 110px;
+    margin-bottom: 45px;
 }
 .cover h1 span {
-  font-family: Avenir-black;
-  color: #28abd8;
+    font-family: Avenir-black;
+    color: #28abd8;
 }
 .cover p {
-  color: white;
-  font-size: 24px;
+    color: white;
+    font-size: 24px;
 }
 .descript {
-  width: 60%;
-  padding-top: 3%;
+    width: 60%;
+    padding-top: 3%;
 }
 .btn-blue {
-  width: 180px;
-  height: 50px;
-  color: white;
-  border: none;
-  font-family: Avenir;
-  background-color: #28abd8;
-  font-size: 16px;
-  font-weight: bolder;
-  margin: 20px 0;
+    width: 180px;
+    height: 50px;
+    color: white;
+    border: none;
+    font-family: Avenir;
+    background-color: #28abd8;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+    cursor: pointer;
+}
+.btn-blue-dark {
+    width: 240px;
+    height: 50px;
+    color: white;
+    border: none;
+    font-family: Avenir;
+    background-color: #022047;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+    cursor: pointer;
 }
 .about {
-  padding: 50px 0;
-  width: 70%;
-  margin: 0 auto;
+    padding: 50px 0;
+    width: 70%;
+    margin: 0 auto;
 }
 
 .about-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 0;
     flex-wrap: wrap;
 
 }
 .people {
-  width: 380px;
-  height: 330px;
-  background-position: center;
-  background-size: cover;
-  background-image: url("../../assets/people.png");
+    width: 380px;
+    height: 330px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../../assets/people.png");
 }
 .about .people {
-  width: 300px;
-  flex-grow: 1;
-  padding: 0 2%;
+    width: 300px;
+    flex-grow: 1;
+    padding: 0 2%;
 }
 .about .info {
-  width: 500px;
-  flex-grow: 2;
-  padding: 0 2%;
+    width: 500px;
+    flex-grow: 2;
+    padding: 0 2%;
 }
 .text {
-  color: #666666;
+    color: #666666;
 }
 .titles {
-  color: #333333;
-  font-size: 32px;
+    color: #333333;
+    font-size: 32px;
 }
 .membership {
-  width: 100%;
-  background-color: #f3f5f8;
-  padding: 50px 0;
+    width: 100%;
+    background-color: #f3f5f8;
+    padding: 50px 0;
 }
 .membership h2 {
-  text-align: center;
+    text-align: center;
 }
 .member-box {
-  display: flex;
+    display: flex;
     justify-content: center;
 
 }
 .mm {
-  width: 70%;
-  margin: 0 auto;
+    width: 70%;
+    margin: 0 auto;
 }
 .card {
-  width: 300px;
-  background-color: white;
-  padding: 1% 2%;
-  box-sizing: border-box;
-  margin: 20px 10px;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-  border-top: 2px solid white;
-  transition: all 1s ease;
-  height: 500px;
+    width: 300px;
+    background-color: white;
+    padding: 1% 2%;
+    box-sizing: border-box;
+    margin: 20px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    border-top: 2px solid white;
+    transition: all 1s ease;
+    height: 500px;
 
 }
 .card hr {
-  width: 80%;
-  margin: 0 auto;
-  background-color: #d8d8d8;
-  height: 1px;
-  border: none;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #d8d8d8;
+    height: 1px;
+    border: none;
 }
 .card p {
-  text-align: left;
+    text-align: left;
 }
 .tx1 {
-  color: #696969;
-  font-size: 24px;
-  text-align: center !important;
+    color: #696969;
+    font-size: 24px;
+    text-align: center !important;
 }
 .tx2 {
-  color: #022047;
-  font-size: 32px;
-  margin-top: -10px;
-  margin-bottom: 0px;
+    color: #022047;
+    font-size: 32px;
+    margin-top: -10px;
+    margin-bottom: 0px;
 }
 .tx3 {
-  color: #022047;
-  font-size: 18px;
+    color: #022047;
+    font-size: 18px;
 }
 .tx4 {
-  color: #999999;
-  font-size: 12px;
+    color: #999999;
+    font-size: 12px;
 }
 .tx5 {
-  color: #666666;
-  font-weight: lighter;
-  min-height: 200px;
+    color: #666666;
+    font-weight: lighter;
+    min-height: 200px;
 }
 
 .btn-dark-blue {
-  width: 180px;
-  height: 50px;
-  color: #022047;
-  border: 1px solid #022047;
-  font-family: Avenir;
-  /*   background-color: #022047;*/
-  font-size: 16px;
-  font-weight: bolder;
-  margin: 20px 0;
-  transition: all 1s ease;
+    width: 180px;
+    height: 50px;
+    color: #022047;
+    border: 1px solid #022047;
+    font-family: Avenir;
+    /*   background-color: #022047;*/
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+    transition: all 1s ease;
 }
 .card:hover {
-  border-top: 2px solid #022047;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  margin-top: -15px;
+    border-top: 2px solid #022047;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin-top: -15px;
 }
 .card:hover .btn-dark-blue {
-  background-color: #022047;
-  color: white;
+    background-color: #022047;
+    color: white;
 }
 .download {
-  width: 70%;
-  margin: 50px auto;
+    width: 70%;
+    margin: 50px auto;
 
 }
 .app-down {
-  width: 300px;
-  flex-grow: 1;
-  margin-right: 50px;
+    width: 300px;
+    flex-grow: 1;
+    margin-right: 50px;
 }
 .phone {
-  width: 300px;
-  height: 400px;
-  flex-grow: 1;
-  background-image: url("../../assets/PruebaCelular_SinFondo.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-top: -30px;
+    width: 300px;
+    height: 400px;
+    flex-grow: 1;
+    background-image: url("../../assets/PruebaCelular_SinFondo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -30px;
 }
 
 .card:hover{
@@ -263,14 +331,82 @@ Footer*/
     font-size: 24px;
     margin: 0 16px 0 0;
 }
+        .partners{
+            width: 100%;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+        }
 
+               /*Biblioteca*/
+
+           .biblioteca-box{
+               display: flex;
+               flex-wrap: wrap;
+               padding: 50px 15%;
+               min-height: 600px;
+               align-items: center;
+               color:#666666;
+               font-style:italic;
+           }
+.logo-am{
+    width: 300px;
+}
+.grey{
+    background-color: #F3F5F8;
+}
+.biblioteca-text{
+    width: 500px;
+    flex-grow: 2;
+    margin-right: 40px;
+}
+.biblioteca-img{
+    width: 300px;
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+}
+.biblioteca-img img{
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.form-contacto{
+    padding: 50px 15%;
+}
+.form-contacto h2{
+    text-align: center;
+}
+.form-contacto form{
+    width: 60%;
+    margin-left: 20%;
+}
+.left{
+    margin-right: 40px;
+}
+.padd{
+    padding: 10px 5% 10px 15%;
+}
+
+.form-contacto .ant-select-selection{
+    height: 50px;
+    background-color: #f5f8f9;
+    border: none;
+}
+.form-contacto .ant-select-selection__rendered{
+    height: 50px !important;
+}
+
+.form-contacto .ant-select-selection-selected-value{
+    margin-top: 8px;
+}
 
 @media(max-width: 1024px){
     .cover h1 {
-        font-size: 136px;
+        font-size: 80px;
     }
     .about .people {
-      margin-bottom: 32px;
+        margin-bottom: 32px;
     }
 }
 
@@ -278,7 +414,7 @@ Footer*/
     .cover h1 {
         font-family: Avenir-black;
         color: white;
-        font-size: 80px;
+        font-size: 56px;
         margin-bottom: 0px;
     }
     .cover p {
@@ -303,6 +439,10 @@ Footer*/
     }
     .card{
         flex-grow: 1;
+    }
+    .form-contacto form{
+        width: 80%;
+        margin-left: 10%;
     }
 }
 @media(max-width: 425px){
@@ -342,6 +482,25 @@ Footer*/
     }
     .tiendas{
         justify-content: center;
+    }
+    .biblioteca-img img{
+        width: 70%;
+    }
+    .form-contacto form{
+        width: 90%;
+        margin-left: 5%;
+    }
+    .biblioteca-box{
+        padding: 30px 5%;
+        text-align: center;
+    }
+
+    .biblioteca-text{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .left{
+        margin-right: 0px;
     }
 
 }

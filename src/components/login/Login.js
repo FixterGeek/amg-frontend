@@ -7,6 +7,7 @@ import LoginForm from '../../organisms/LoginForm';
 import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
 import Container from '../../atoms/layout/Container';
 import { palette, size } from '../../styles/theme';
+import log from "../../assets/LOGO-COMPLETO.svg";
 
 function Login() {
   const { Text, Title } = Typography;
@@ -28,9 +29,9 @@ function Login() {
             flexDirection: 'column',
           }}
         >
-          <Text strong style={{ textAlign: 'left' }}>
-            Asociación Mexicana de Gastroenterología
-          </Text>
+          <Link to="/">
+            <img src={log} alt="logo-oficial"/>
+          </Link>
           <Container flexGrow={1} height="100px">
             <div style={{ textAlign: 'center' }}>
               <Title level={2} style={{ margin: 0 }}>
@@ -45,7 +46,7 @@ function Login() {
               ¿No tienes cuenta?
               <Link
                 style={{ paddingLeft: size.smallPadding, fontWeight: 'bold' }}
-                to="/signup">
+                to="/pre-signup">
                   creala aquí
               </Link>
             </Text>
