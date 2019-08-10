@@ -5,7 +5,7 @@ import Menu from '../molecules/LateralMenu';
 function AdminMenu() {
   return (
     <div className="lateral-menu">
-      {/* <Menu /> */}
+      <Menu />
     </div>
   );
 }

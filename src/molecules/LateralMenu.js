@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React, { useEffect, useState , createRef } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,7 +60,7 @@ function LateralMenu({ history, user, populateUserAction }) {
         <Icon
           className={`${
             currentLocation === 'events' ? 'menu-item-active' : ''
-          }`}
+            }`}
         >
           <FontAwesomeIcon icon={faCalendar} />
         </Icon>

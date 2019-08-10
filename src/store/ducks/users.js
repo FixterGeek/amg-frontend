@@ -18,54 +18,54 @@ export const GET_USERS = 'amg-frontend/users/GET';
 //initialState
 
 const initialState = {
-    data: [],
-    fetching:false,
-    error:''
+  data: [],
+  fetching: false,
+  error: ''
 }
 
 //reducer
 
 
-export function reducer (state=initialState, action) {
-    switch (action.type) {
-        case GET_USERS:
-            return {
-                ...state,
-                fetching:true
-            }
-      case GET_USERS_SUCCESS:                
-          return {
-              ...state,
-              data: [...action.payload],
-              fetching:false
-          }
-      default:
-        return state;
-    }
-  }
-
-//actions
-
-export const getAllUsersSuccess=(users)=>{  
-  return{
-    type:GET_USERS_SUCCESS,
-    payload:users
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case GET_USERS:
+      return {
+        ...state,
+        fetching: true
+      }
+    case GET_USERS_SUCCESS:
+      return {
+        ...state,
+        data: [...action.payload],
+        fetching: false
+      }
+    default:
+      return state;
   }
 }
 
-export const getUsers=(query)=>{    
-    return{
-      type:GET_USERS,
-      payload:query
-    }
+//actions
+
+export const getAllUsersSuccess = (users) => {
+  return {
+    type: GET_USERS_SUCCESS,
+    payload: users
   }
+}
+
+export const getUsers = (query) => {
+  return {
+    type: GET_USERS,
+    payload: query
+  }
+}
 
 // thunks
 
-export const getAllUsers =(query)=>(dispatch, getState)=>{
+export const getAllUsers = (query) => (dispatch, getState) => {
   return usersService.getAllUsers(query)
-    .then(response=>dispatch(getAllUsersSuccess(response)))
-    .catch(error=> error)
+    .then(response => dispatch(getAllUsersSuccess(response)))
+    .catch(error => error)
 }
 
 //or 
@@ -73,19 +73,21 @@ export const getAllUsers =(query)=>(dispatch, getState)=>{
 //epics
 
 export function getUsersEpic(action$) {
-    return action$.pipe(
-        ofType(GET_USERS),                
-        switchMap(action => {
-            return concat(                
-                ajax.get(`${APIURL}/users${action.payload}`, {
-                     'Content-Type': 'application/json',
-                     'Authorization':authToken
-                    }).pipe(
-                    map(resp => getAllUsersSuccess(resp.response)),
-                    catchError(err=>console.log(err))
-                )
-            )
-        })
-    )
+  return action$.pipe(
+    ofType(GET_USERS),
+    switchMap(action => {
+      return concat(
+        ajax.get(`${APIURL}/users${action.payload}`, {
+          'Content-Type': 'application/json',
+          'Authorization': authToken
+        }).pipe(
+          map(resp => getAllUsersSuccess(resp.response)),
+          catchError(err => console.log(err))
+        )
+      )
+    })
+  )
 
 }
+
+export default reducer

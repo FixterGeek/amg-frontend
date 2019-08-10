@@ -9,22 +9,19 @@ import eventReducer from './eventReducer';
 import { getUsersEpic } from './ducks/users';
 import publicationReducer from './publicationReducer';
 import userDuck from './ducks/userDuck';
+import usersReducer from './ducks/users';
 
 let rootReducer = combineReducers({
     user: userDuck,
     events: eventReducer,
     publications: publicationReducer,
+    users: usersReducer
 });
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootEpic = combineEpics(() => of({ type: "EPIC" }), loginUserEpic, persistEpic, hydrateEpic,getUsersEpic)
-
-const epicMiddleware = createEpicMiddleware()
-
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, epicMiddleware)));
-epicMiddleware.run(rootEpic)
+const rootEpic = combineEpics(() => of({ type: "EPIC" }), loginUserEpic, persistEpic, hydrateEpic, getUsersEpic)
 
 const epicMiddleware = createEpicMiddleware()
 

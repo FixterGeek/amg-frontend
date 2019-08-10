@@ -12,6 +12,7 @@ import Laboral from '../components/signup/LaboralData';
 import Fiscal from '../components/signup/FiscalData';
 import Confirm from '../components/signup/Confirm';
 import DashBoard from '../pages/DashBoard';
+import AdminPage from '../components/admin/AdminPage';
 
 
 function AppRouter() {
@@ -27,7 +28,7 @@ function AppRouter() {
       <Route path="/signup/confirm" exact component={Confirm} />
       <PrivateRoute path="/dashboard" component={DashBoard} />
       {/* Admin Section */}
-      <PrivateRoute path="/admin" component={AdminDashboard} />
+      <PrivateRoute path="/admin" component={AdminPage} />
     </Router>
   );
 }
