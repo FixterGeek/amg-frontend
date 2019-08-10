@@ -17,12 +17,17 @@ function ActivityDetail({ history, user }) {
     description: '',
     speaker: {},
     amgSpeaker: {},
-    location: {},
+    location: {
+      street: '',
+      colony: '',
+      zipCode: '',
+    },
     assistants: [],
     _id: null,
   });
   const { speaker } = activity;
   const { location } = history;
+  const { coordinates = [] } = location;
   const { Title, Text } = Typography;
 
 
@@ -42,6 +47,24 @@ function ActivityDetail({ history, user }) {
 
     if (!activity._id) runAsync();
   }, [location, getSingleActivity]);
+
+  useEffect(() => {
+    let script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBAXOLs6pgumFSwvd3R3bqU4y2Cvm8Azj4';
+    document.body.appendChild(script);
+    script.onload = () =>{
+      const map = new window.google.maps.Map(document.getElementById('map'), {
+        center: { lat: 19.4199552, lng: -99.1567872 },
+        zoom: 8,
+      });
+
+      const marker = new window.google.maps.Marker({
+        position: { lat: 19.4199552, lng: -99.1567872 },
+        map,
+        title: 'Here!',
+      });
+    }
+  }, [window.google]);
 
 
   const subscribeToActivity = (activityId) => {
@@ -66,6 +89,8 @@ function ActivityDetail({ history, user }) {
       }
     }).catch(({ response }) => console.log(response));
   };
+
+  console.log(window);
 
 
   return (
@@ -92,6 +117,13 @@ function ActivityDetail({ history, user }) {
             <Text>{ speaker.professionalTitle }</Text>
             <Text>{ speaker.origin }</Text>
           </div>
+        </div>
+      </DashboardContainerItem>
+      <DashboardContainerItem>
+        <div id="map" className="component-map" />
+        <div>
+          <Text strong>{ location.addressName }</Text>
+          { `${location.street}, ${location.colony}, ${location.zipCode}` }
         </div>
       </DashboardContainerItem>
       <DashboardContainerItem style={{ textAlign: 'center' }}>

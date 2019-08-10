@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Label from '../../atoms/data-entry/Label';
 import StatusMessage from '../../atoms/data-entry/StatusMessage';
 import StatusSuffix from '../../atoms/data-entry/StatusSuffix';
@@ -17,10 +16,10 @@ function InputField({
 
   return (
     <div className="input">
-      <Label>{ label }</Label>
+      <Label>{label}</Label>
       <div className={`field ${status}`}>
-        { children }
-        { status && <StatusSuffix status={status} /> }
+        {children}
+        {status && <StatusSuffix status={status} />}
       </div>
       <StatusMessage
         status={status}

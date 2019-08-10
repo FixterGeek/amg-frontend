@@ -7,7 +7,7 @@ import { Input } from 'antd';
 import ProfilePhoto from './ProfilePhoto';
 
 function PublicationBox({ user, postText, setText }) {
-  const { basicData } = user;
+  const { basicData = {} } = user;
   const { photoURL } = basicData;
   const { TextArea } = Input;
 
