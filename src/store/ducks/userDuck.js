@@ -1,98 +1,58 @@
-import { combineReducers } from 'redux'
-import { signup, login } from '../../services/userService'
-import { switchMap, map, debounceTime, filter } from 'rxjs/operators'
+import { combineReducers } from 'redux';
+import { signup, login } from '../../services/userServices'
+import {
+    switchMap,
+    map,
+    debounceTime,
+    filter,
+    catchError,
+    delay,
+    takeUntil,
+    withLatestFrom,
+    pluck,
+    tap,
+    ignoreElements
+} from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
-import { concat, of } from 'rxjs'
+import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
 
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 
-//inital data
+// inital data
 const userState = {
-    name: '',
-    dadSurName: '',
-    momSurName: '',
-    email: '',
-    password: '',
-    birthDate: '',
-    basicData: {},
-    placeOfBirth: {
-        addressName: 'Pachuca',
-        street: '',
-        outdoorNumber: '',
-        interiorNumber: '',
-        colony: '',
-        zipCode: '',
-        city: 'Pachuca',
-        state: 'Hidalgo',
-        coordinates: ['123312', '123123']
-    },
-    speciality: '',
-    userToken: '',
-    phone: '',
-    civilStatus: '',
-    address: {
-        addressName: '',
-        street: '',
-        outdoorNumber: '',
-        interiorNumber: '',
-        colony: '',
-        zipCode: '',
-        city: '',
-        state: '',
-        coordinates: ['123312', '123123']
-    },
-    spouse: {
-        name: '',
-        dadSurname: '',
-        momSurname: '',
-        email: '',
-        phone: ''
-    },
-    studies: {
-        user: '',
-        major: '',
-        institution: '',
-        startDate: '',
-        endDate: '',
-        receptionDate: '',
-        professionalLicence: ''
-    },
-    internships: {
-        user: '',
-        institution: '',
-        startDate: '',
-        endDate: ''
-    },
-    residences: {
-        user: '',
-        speciality: '',
-        institution: '',
-        startDate: '',
-        endDate: '',
-        specialityLicence: '',
-        specialityLicenceCopy: '',
-        specialistLicence: '',
-        specialityDirectorsCertificates: ''
-    },
-    fiscalData: {
-        rfc: '',
-        phone: '',
-        email: '',
-        address: {
-            addressName: '',
-            street: '',
-            outdoorNumber: '',
-            interiorNumber: '',
-            colony: '',
-            zipCode: '',
-            city: '',
-            state: '',
-            coordinates: ['123312', '123123']
-        }
-    },
-    fetching: false,
-    isLogged: false
+  email: null,
+  basicData: {
+    name: null,
+    darSurname: null,
+    momSurname: null,
+    birthDate: null,
+    placeOfBirth: {},
+    speciality: null,
+    photoURL: null,
+    phone: null,
+    civilStatus: null,
+    adress: {},
+  },
+  spouse: {},
+  fiscalData: {},
+  registrationDate: null,
+  userStatus: null,
+  revisonDate: null,
+  reviwedBy: null,
+  membersWhoRecommend: [],
+  workedAtInstitutions: [],
+  consultories: [],
+  studies: [],
+  interships: [],
+  residencies: [],
+  teachingActivities: [],
+  medicalSocieties: [],
+  createdAt: null,
+  updatedAt: null,
+  _id: null,
+  fetching: false,
+  isLogged: false,
 };
 
 
@@ -134,21 +94,44 @@ export function setFetchingUser() {
         type: SET_FETCHING_USER
     };
 }
-export function loginUserError(payload) {
+export function loginUserError(errorMessage) {
     return {
         type: LOGIN_USER_ERROR,
-        payload
+        payload: errorMessage
     };
 }
-export function loginUserSuccess(payload) {
+export function loginUserSuccess(userData) {
     return {
         type: LOGIN_USER_SUCCESS,
-        payload
+        payload: userData
     };
 }
 
-// thunks
-//login
+// EPICS
+export function persistEpic(action$, state$) {
+    return action$.pipe(
+        ofType(LOGIN_USER_SUCCESS),
+        withLatestFrom(state$.pipe(pluck('user'))),
+        tap(([action, user]) => {
+            localStorage.user = JSON.stringify(user)
+        }),
+        ignoreElements()
+    )
+}
+
+export function hydrateEpic() {
+    let user = localStorage.user
+    if (typeof user === "string") {
+        try {
+            let parsed = JSON.parse(user)
+            return of(loginUserSuccess(parsed))
+        } catch (e) {
+            return EMPTY
+        }
+    }
+    return EMPTY
+}
+
 export function loginUserEpic(action$) {
     return action$.pipe(
         ofType(LOGIN_USER),
@@ -160,7 +143,13 @@ export function loginUserEpic(action$) {
                 ajax.post(baseAuthURL + "/login", action.payload, { 'Content-Type': 'application/json' }).pipe(
                     map(resp => {
                         localStorage.authToken = resp.response.token
-                        return loginUserSuccess(resp.response.user)
+                        return loginUserSuccess({ ...resp.response.user, token: resp.response.token })
+                    }),
+                    //delay(5000),
+                    takeUntil(action$.pipe(ofType("CANCEL"))),
+                    catchError(err => {
+                        console.log("ero", err)
+                        return of(loginUserError(err.response.name))
                     })
                 )
             )
@@ -168,6 +157,9 @@ export function loginUserEpic(action$) {
     )
 
 }
+
+// thunks
+//login
 
 export const loginUserAction = (auth) => (dispatch) => {
     dispatch(loginUser())
@@ -206,7 +198,9 @@ function reducer(state = userState, action) {
         case LOGIN_USER_SUCCESS:
             return { ...action.payload, fetching: false, isLogged: true }
         case LOGIN_USER_ERROR:
-            return { ...userState, fetching: false, error: JSON.stringify(action.payload) }
+            let error
+            if (action.payload === "IncorrectPasswordError") error = "Nombre de usuario o contraseña incorrectos"
+            return { ...userState, fetching: false, error }
         case CREATE_USER:
             return { ...userState, fetching: true }
         case CREATE_USER_SUCCESS:
@@ -219,6 +213,5 @@ function reducer(state = userState, action) {
 }
 
 
-
-//exportacion
-export default reducer
+// exportacion
+export default reducer;

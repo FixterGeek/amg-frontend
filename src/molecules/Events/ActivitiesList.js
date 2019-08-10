@@ -11,16 +11,19 @@ function ActivitiesList({ event, getLocalActivity}) {
   return (
     <DashboardContainerItem>
       {
-        event.program.map((module) => {
+        event.program.map((modul) => {
           return (
-            <DashboardContainerItem key={module._id}>
+            <DashboardContainerItem>
               <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
-                { module.title }
+                { modul.title }
               </Title>
               <div>
                 {
-                  module.activities.map((activityId) => {
-                    const activity = getLocalActivity(activityId)[0];
+                  modul.activities.map((activityId) => {
+                    console.log(activityId);
+                    let activity = null;
+                    if (!activityId._id) activity = getLocalActivity(activityId)[0];
+                    else activity = activityId;
                     console.log(activity);
                     return (
                       <ActivityItem

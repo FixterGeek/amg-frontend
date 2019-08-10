@@ -129,6 +129,43 @@ $inputHeight: 50px;
   border-bottom: solid 2px $yellow !important;
 }
 
+/* TransparentTextField */
+.transparent-input {
+  .ant-input {
+    border-color: transparent;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    &:disabled {
+      background-color: transparent;
+      color: $darkSilver;
+    }
+  }
+
+  .ant-input-suffix {
+    padding: $smallPadding;
+
+    &:hover {
+      color: $primary;
+      cursor: pointer;
+    }
+  }
+}
+
+
+/* DatePicker */
+.date-picker {
+  input {
+    margin-bottom: $largeMargin;
+    margin-top: $smallMargin;
+    background-color: $clouds;
+    height: $inputHeight;
+    border-color: transparent;
+    border-radius: 0px;
+    max-width: $maxWidthFields;
+  }
+}
+
 /** Status Message **/
 .status {
   width: 100%;
@@ -168,10 +205,11 @@ $inputHeight: 50px;
 /* Button */
 .amg-button {
   border-radius: 0px !important;
-  color: $clouds !important;
+  color: $clouds;
   font-weight: 900 !important;
   height: 50px !important;
   max-width: 445px !important;
+  border: 2px solid;
 }
 
 /* Layout */
@@ -499,5 +537,15 @@ $profilePhotoSize: 120px;
 
   textarea {
     border: 1px solid transparent;
+  }
+}
+
+/* EditIcon */
+.edit-icon, .save-icon {
+  margin-left: $smallMargin;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary;
   }
 }

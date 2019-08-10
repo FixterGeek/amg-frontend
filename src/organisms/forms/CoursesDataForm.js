@@ -1,13 +1,13 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import TextField from "../../molecules/TextFields";
-import SelectField from "../../molecules/SelectField";
-import AmgButton from "../../atoms/Button";
-import { createUser } from "../../store/actions";
-import Label from "../../atoms/data_entry/Label";
-import Container from "../../atoms/layout/Container";
+import TextField from '../../molecules/TextFields';
+import SelectField from '../../molecules/SelectField';
+import AmgButton from '../../atoms/Button';
+import { createUser } from '../../store/actions';
+import Label from '../../atoms/data-entry/Label';
+import Container from '../../atoms/layout/Container';
 
 function CoursesDataForm(props) {
   const { history } = props;
@@ -22,7 +22,7 @@ function CoursesDataForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    history.push("laboral");
+    history.push('laboral');
     // signup(
     //   user.name,
     //   user.dadSurname,
@@ -52,7 +52,7 @@ function CoursesDataForm(props) {
   return (
     <form
       className="signup-form"
-      style={{ width: "400px" }}
+      style={{ width: '400px' }}
       onSubmit={handleSubmit}
     >
       <TextField

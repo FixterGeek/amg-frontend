@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages, faPaperclip } from '@fortawesome/free-solid-svg-icons';
@@ -8,11 +7,11 @@ import { faImages, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { updatePublications } from '../store/actions';
 import FilePicker from '../atoms/FilePicker';
 
-function AttachedFiles({ images, publications, dispatch }) {
+function AttachedFiles({ publications, setPublications }) {
 
   const handleChange = (event) => {
     const { target: { name, files } } = event;
-    dispatch(updatePublications({ [name]: [...publications[name], ...files] }));
+    setPublications({ [name]: [...publications[name], ...files] });
   };
 
   return (
@@ -33,16 +32,4 @@ function AttachedFiles({ images, publications, dispatch }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { publications: state.publications };
-}
-
-export default connect(mapStateToProps)(AttachedFiles);
-
-AttachedFiles.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object),
-};
-
-AttachedFiles.defaultProps = {
-  images: [],
-};
+export default AttachedFiles;

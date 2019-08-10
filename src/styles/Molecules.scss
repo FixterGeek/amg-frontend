@@ -7,6 +7,7 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  max-width: 445px;
 
   &:last-child {
     margin-bottom: 0 !important;
@@ -18,6 +19,62 @@
 
   label {
     margin-bottom: $smallMargin;
+  }
+}
+
+.text-area {
+  .area {
+    background-color: $clouds;
+    border-radius: 0px;
+    border: solid transparent;
+  }
+}
+
+/*Input*/
+.input {
+  max-width: 445px;
+
+  .field {
+    position: relative;
+    input {
+      width: 100%;
+      height: 50px;
+      appearance: none;
+      background-color: $clouds;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      padding-right: 54px;
+      box-sizing: border-box;
+      padding-left: $padding;
+
+      &:focus, &:hover {
+        appearance: none;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        outline: none;
+        border-bottom: 2px solid $primary;
+      }
+    }
+  }
+
+  .error {
+    input {
+      border-bottom: solid 2px $red;
+    }
+  }
+
+  .success {
+    input {
+      border-bottom: solid 2px $green;
+    }
+  }
+
+  .warning {
+    input {
+      border-bottom: solid 2px $yellow;
+    }
   }
 }
 
@@ -202,5 +259,58 @@ $inputHeight: 72px;
     width: 100%;
     box-sizing: border-box;
     padding: $padding;
+  }
+}
+
+/* MembershipCard */
+$membershipCardWidth: 300px;
+
+.membership-card {
+  width: $membershipCardWidth;
+  margin: $smallMargin;
+  border: none;
+  border-top: 2px solid transparent;
+  padding-left: $padding;
+  padding-right: $padding;
+  transition: all ease 0.3s;
+  cursor: pointer;
+
+  ul {
+    padding-left: 0px;
+    color: $darkSilver;
+  }
+
+  &-header {
+    text-align: center;
+
+    .name {
+      font-size: 1.3em;
+      color: $darkSilver;
+    }
+
+    .price {
+      font-size: 3em;
+      color: $navy;
+      font-weight: normal;
+      margin-top: $margin;
+    }
+
+    .currency {
+      font-size: 1.2em;
+      color: $navy;
+    }
+
+    .period {
+      font-size: 0.85em;
+      color: $darkSilver;
+      min-height: 20px;
+    }
+  }
+
+  .content {
+    min-height: 250px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
   }
 }

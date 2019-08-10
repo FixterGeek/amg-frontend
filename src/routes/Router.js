@@ -1,18 +1,17 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import PrivateRoute from "./PrivateRoute";
-import WithoutLoginRoute from "./WithoutLoginRoute";
-import Home from "../components/home/HomeContainer";
-import Login from "../components/login/Login";
-import Signup from "../components/signup/BeforeStaring";
-import General from "../components/signup/GeneralData";
-import Education from "../components/signup/EducationData";
-import Laboral from "../components/signup/LaboralData";
-import Fiscal from "../components/signup/FiscalData";
-import Confirm from "../components/signup/Confirm";
-import DashBoard from "../pages/DashBoard";
-import AdminDashboard from "../pages/AdminDashboard";
+import PrivateRoute from './PrivateRoute';
+import WithoutLoginRoute from './WithoutLoginRoute';
+import Home from '../components/home/HomeContainer';
+import Login from '../components/login/Login';
+import Signup from '../components/signup/BeforeStaring';
+import General from '../components/signup/GeneralData';
+import Education from '../components/signup/EducationData';
+import Laboral from '../components/signup/LaboralData';
+import Fiscal from '../components/signup/FiscalData';
+import Confirm from '../components/signup/Confirm';
+import DashBoard from '../pages/DashBoard';
 
 
 function AppRouter() {

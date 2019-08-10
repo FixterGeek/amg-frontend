@@ -5,60 +5,41 @@ import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
-import useAmgService from '../../hooks/services/useAmgService';
-import { updateEvents, createUser, updatePublications } from '../../store/actions';
+import useSweetAlert from '../../hooks/useSweetAlert';
+import { populateEventsAction } from '../../store/ducks/eventsDuck';
+import { populatePublicationsAction } from '../../store/ducks/publicationsDuck';
 import EventCover from '../../molecules/EventCover';
 import PostItem from '../../molecules/PostItem';
 import Publisher from '../../molecules/Publisher';
 import Spinner from '../../atoms/Spinner';
 
-function Feed(props) {
-  const [loadingPost, setLoadingPost] = useState(false);
-  const [loadingEvent, setLoadingEvent] = useState(false);
-  const {
-    events: { events },
-    user,
-    publications: { publications },
-    dispatch,
-  } = props;
-  const { getEvents, getSelfUser, getPublications } = useAmgService();
+function Feed({
+  events, publications, populateEventsAction, populatePublicationsAction
+}) {
   const { Title } = Typography;
 
+  const { errorAlert } = useSweetAlert();
+  const [loadingPost, setLoadingPost] = useState(false);
+  const [loadingEvent, setLoadingEvent] = useState(false);
+  const { events: eventsList } = events;
+  const { publications: pubs } = publications;
+
   useEffect(() => {
-    if (events.length === 0) {
-      setLoadingEvent(true);
-      getEvents().then(({ data }) => {
-        dispatch(updateEvents({ events: [...data] }));
+    setLoadingEvent(true);
+    populateEventsAction()
+      .then(() => setLoadingEvent(false))
+      .catch(() => {
         setLoadingEvent(false);
-      }).catch(({ response }) => {
-        console.log(response);
-        setLoadingEvent(false);
+        errorAlert();
       });
-    }
+  }, []);
 
-    if (!user._id) {
-      getSelfUser().then(({ data }) => {
-        dispatch(createUser({ ...data }));
-      }).catch(({ response }) => {
-        console.log(response);
-      });
-    }
-
-    if (publications.length === 0) {
-      setLoadingPost(true);
-      getPublications().then(({ data }) => {
-        dispatch(updatePublications({ publications: [...data] }));
-        setLoadingPost(false);
-      }).catch(({ response }) => {
-        console.log(response);
-        setLoadingPost(false);
-      });
-    }
-  }, [
-    dispatch, events.length, getEvents,
-    getPublications, getSelfUser, publications.length,
-    user.email,
-  ]);
+  useEffect(() => {
+    setLoadingPost(true);
+    populatePublicationsAction()
+      .then(() => setLoadingPost(false))
+      .catch(() => errorAlert());
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -68,18 +49,18 @@ function Feed(props) {
       <div className="feed-event">
         { loadingEvent && (<Spinner tip="Cargando evento..." />) }
         {
-          events.length > 0 && (
+          eventsList.length > 0 && (
             <Link to={{
-              pathname: `/dashboard/events/${events[0]._id}`,
-              event: { ...events[0] },
+              pathname: `/dashboard/events/${eventsList[0]._id}`,
+              event: { ...eventsList[0] },
             }}>
               <EventCover
                 size="large"
-                location={events[0].location}
-                title={events[0].title}
-                startDate={events[0].startDate}
-                endDate={events[0].endDate}
-                image={events[0].mainImagesURLS[0]} />
+                location={eventsList[0].location}
+                title={eventsList[0].title}
+                startDate={eventsList[0].startDate}
+                endDate={eventsList[0].endDate}
+                image={eventsList[0].mainImagesURLS[0]} />
             </Link>
           )
         }
@@ -90,7 +71,7 @@ function Feed(props) {
       <div className="feed-publications">
         { loadingPost && (<Spinner tip="Cargando publicaciones..." />) }
         {
-          publications.map(publication => <PostItem key={publication._id} publication={publication} />)
+          pubs.map(publication => <PostItem key={publication._id} publication={publication} />)
         }
       </div>
     </div>
@@ -102,4 +83,7 @@ function mapStateToProps(state) {
   return { events: state.events, user: state.user, publications: state.publications };
 }
 
-export default connect(mapStateToProps)(Feed);
+export default connect(
+  mapStateToProps,
+  { populateEventsAction, populatePublicationsAction },
+)(Feed);

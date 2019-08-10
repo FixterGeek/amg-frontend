@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux';
-//import userReducer from './userReducer';
-import eventReducer from './eventReducer';
-import publicationReducer from './publicationReducer';
-import {reducer as usersReducer} from './ducks/users'
 import userDuck from './ducks/userDuck';
+import eventsDuck from './ducks/eventsDuck';
+import publicationsDuck from './ducks/publicationsDuck';
 
 export default combineReducers({
   user: userDuck,
-  events: eventReducer,
-  publications: publicationReducer,
-  users:usersReducer,
+  events: eventsDuck,
+  publications: publicationsDuck,
 });

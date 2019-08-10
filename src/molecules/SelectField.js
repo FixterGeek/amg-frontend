@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Label from '../atoms/data_entry/Label';
-import Select from '../atoms/data_entry/SelectField';
-import StatusMessage from '../atoms/data_entry/StatusMessage';
+import Label from '../atoms/data-entry/Label';
+import Select from '../atoms/data-entry/SelectField';
+import StatusMessage from '../atoms/data-entry/StatusMessage';
 import { size } from '../styles/theme';
 
 function SelectField({

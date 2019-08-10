@@ -6,7 +6,7 @@ import AmgButton from "../../atoms/Button";
 import { Radio, Input } from "antd";
 
 //import { createUser } from "../../store/actions";
-import Label from "../../atoms/data_entry/Label";
+import Label from "../../atoms/data-entry/Label";
 
 const LaboralDataForm = ({ history }) => {
   const handleSubmit = () => {

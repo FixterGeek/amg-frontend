@@ -148,3 +148,117 @@ $menuBarWidth: 59px;
   padding-left: 2px;
   margin-left: $margin;
 }
+
+/*Membership */
+/*MembershipCards */
+.membership-cards-container {
+  display: flex;
+  justify-content: center;
+  background-color: $clouds;
+  padding: $extraPadding $padding;
+
+  .checked {
+    border-top-color: $secondary;
+    transform: scale(1.08) translateY(-2%);
+  }
+}
+
+
+
+
+/* PaymentType */
+.payment-type {
+  &-group {
+    display: flex;
+    flex-flow: column;
+
+    label {
+      margin-top: $margin;
+      margin-bottom: $margin;
+    }
+  }
+}
+
+/** PaymentCard */
+
+.payment-card {
+  &-form {
+    max-width: 445px;
+  }
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+
+/* Profile */
+/** BasicData **/
+.basic-data {
+  display: flex;
+
+  &-photo {
+    position: relative;
+
+    .edit {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+
+      button {
+        border-radius: 50%;
+        appearance: none;
+        border: none;
+        background-color: $primary;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-info {
+    margin-left: $largeMargin;
+    display: flex;
+    flex-flow: column;
+
+    .edit, .save {
+      margin-left: $smallMargin;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+
+  &-folow {
+    display: flex;
+    background-color: $clouds;
+    padding: $smallPadding;
+
+    div {
+      padding: 0px $smallPadding;
+      text-align: center;
+
+      div {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+.personal {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/** PersonalBio **/
+.personal-bio {
+  text-align: right;
+}
+
+/** PersonalEducation **/

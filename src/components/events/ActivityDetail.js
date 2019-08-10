@@ -19,6 +19,7 @@ function ActivityDetail({ history, user }) {
     amgSpeaker: {},
     location: {},
     assistants: [],
+    _id: null,
   });
   const { speaker } = activity;
   const { location } = history;
@@ -26,10 +27,10 @@ function ActivityDetail({ history, user }) {
 
 
   useEffect(() => {
-    const { pathname } = location;
-    const id = pathname.split('/')[5];
-
     const runAsync = async () => {
+      const { pathname } = location;
+      const id = pathname.split('/')[5];
+
       if (!location.state) {
         await getSingleActivity(id).then(({ data }) => {
           setActivity({ ...data });
@@ -39,7 +40,7 @@ function ActivityDetail({ history, user }) {
       }
     };
 
-    runAsync();
+    if (!activity._id) runAsync();
   }, [location, getSingleActivity]);
 
 

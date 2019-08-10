@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable jsx-a11y/anchor-has-content */
+import React, { useEffect, useState , createRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,16 +11,21 @@ import {
   faGraduationCap,
   faUser,
   faUsers,
-  faFile
+  faFile,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Menu, Icon } from 'antd';
 
+import useSweetAlert from '../hooks/useSweetAlert';
 import useAmgService from '../hooks/services/useAmgService';
-import { createUser } from '../store/actions';
+// import { populateUserAction } from '../store/ducks/userDuck';
 
-function LateralMenu({ history, user, dispatch }) {
-  const { logout, getSelfUser } = useAmgService();
+function LateralMenu({ history, user, populateUserAction }) {
+  const { errorAlert } = useSweetAlert();
+  const { logout } = useAmgService();
+  const [state] = useState({ anchor: createRef() });
+  const { Item } = Menu;
   // eslint-disable-next-line react/prop-types
   const { location } = history;
   const locationSplit = location.pathname.split('/');
@@ -27,111 +33,75 @@ function LateralMenu({ history, user, dispatch }) {
 
 
   useEffect(() => {
-    if (!user.basicData.name) {
-      getSelfUser().then(({ data }) => dispatch(createUser({ ...data })))
-        .catch(({ response }) => console.log(response));
+    if (!user._id) {
+      // populateUserAction().catch(() => errorAlert());
     }
-  }, [dispatch, getSelfUser, user.basicData.name]);
+  }, [user._id, populateUserAction]);
 
 
   const link = (to) => {
     history.push(to);
   };
 
+  const toMagazine = () => {
+    state.anchor.current.click();
+  };
+
+
   return (
-    <>
-      {user.userType === 'Admin' ? 
-      
-      <Menu inlineCollapsed defaultSelectedKeys={['1']} mode="inline">             
-        <Menu.Item key={1} onClick={() => link('/admin')}>
-            <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
-              <FontAwesomeIcon icon={faHome} />
-            </Icon>
-            <span>Home</span>
-          </Menu.Item>
-          <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
-            <Icon
-              className={`${
-                currentLocation === 'events' ? 'menu-item-active' : ''
-              }`}
-            >
-              <FontAwesomeIcon icon={faCalendar} />
-            </Icon>
-            <span>Eventos</span>
-          </Menu.Item>
-          <Menu.Item key={3} onClick={() => link('/admin/tests')}>
-            <Icon
-              className={`${
-                currentLocation === 'tests' ? 'menu-item-active' : ''
-              }`}
-            >
-              <FontAwesomeIcon icon={faFile} />
-            </Icon>
-            <span>Tests</span>
-          </Menu.Item>
-          <Menu.Item key={4} onClick={() => link('/admin/users')}>
-            <Icon
-              className={`${
-                currentLocation === 'users' ? 'menu-item-active' : ''
-              }`}
-            >
-              <FontAwesomeIcon icon={faUsers} />
-            </Icon>
-            <span>Usuarios</span>
-          </Menu.Item>          
-          <Menu.Item key={5} onClick={() => logout(history)}>
-            <Icon>
-              <FontAwesomeIcon icon={faPowerOff} />
-            </Icon>
-            <span>Salir</span>
-          </Menu.Item>
-        </Menu>
-        :
-        <Menu inlineCollapsed defaultSelectedKeys={['1']} mode="inline">             
-        <Menu.Item key={1} onClick={() => link('/dashboard/')}>
-            <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
-              <FontAwesomeIcon icon={faHome} />
-            </Icon>
-            <span>Home</span>
-          </Menu.Item>
-          <Menu.Item key={2} onClick={() => link('/dashboard/events')}>
-            <Icon
-              className={`${
-                currentLocation === 'events' ? 'menu-item-active' : ''
-              }`}
-            >
-              <FontAwesomeIcon icon={faCalendar} />
-            </Icon>
-            <span>Eventos</span>
-          </Menu.Item>
-          <Menu.Item key={3}>
-            <Icon>
-              <FontAwesomeIcon icon={faBookOpen} />
-            </Icon>
-            <span>Agenda</span>
-          </Menu.Item>
-          <Menu.Item key={4}>
-            <Icon>
-              <FontAwesomeIcon icon={faGraduationCap} />
-            </Icon>
-            <span>Educación</span>
-          </Menu.Item>
-          <Menu.Item key={5} onClick={() => link('/dashboard/user')}>
-            <Icon>
-              <FontAwesomeIcon icon={faUser} />
-            </Icon>
-            <span>Mi perfil</span>
-          </Menu.Item>
-          <Menu.Item key={6} onClick={() => logout(history)}>
-            <Icon>
-              <FontAwesomeIcon icon={faPowerOff} />
-            </Icon>
-            <span>Salir</span>
-          </Menu.Item>
-        </Menu>
-      }
-    </>
-    
+    <Menu inlineCollapsed defaultSelectedKeys={['1']} mode="inline">
+      <Item key={1} onClick={() => link('/dashboard/')}>
+        <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
+          <FontAwesomeIcon icon={faHome} />
+        </Icon>
+        <span>Home</span>
+      </Item>
+      <Item key={2} onClick={() => link('/dashboard/events')}>
+        <Icon
+          className={`${
+            currentLocation === 'events' ? 'menu-item-active' : ''
+          }`}
+        >
+          <FontAwesomeIcon icon={faCalendar} />
+        </Icon>
+        <span>Eventos</span>
+      </Item>
+      <Item key={3} onClick={() => toMagazine()}>
+        <Icon>
+          <FontAwesomeIcon icon={faBookOpen} />
+        </Icon>
+        <span>Revista</span>
+      </Item>
+      <Item key={4}>
+        <Icon>
+          <FontAwesomeIcon icon={faGraduationCap} />
+        </Icon>
+        <span>Educación</span>
+      </Item>
+      <Item key={5} onClick={() => link('/dashboard/profile')}>
+        <Icon className={`${currentLocation === 'profile' ? 'menu-item-active' : ''}`}>
+          <FontAwesomeIcon icon={faUser} />
+        </Icon>
+        <span>Mi perfil</span>
+      </Item>
+      <Item key={6} onClick={() => link('/dashboard/settings')}>
+        <Icon className={`${currentLocation === 'settings' ? 'menu-item-active' : ''}`}>
+          <FontAwesomeIcon icon={faCog} />
+        </Icon>
+        <span>Configuración</span>
+      </Item>
+      <Item key={7} onClick={() => logout(history)}>
+        <Icon>
+          <FontAwesomeIcon icon={faPowerOff} />
+        </Icon>
+        <span>Salir</span>
+      </Item>
+      <a
+        href="http://www.revistagastroenterologiamexico.org/?codref=ddh3dk3Yjdsafg503zSInMNxBdsddsa545vs809jdn02nubHHtJufRpNPu3hjd673&py=7jb39db3"
+        target="_blanck"
+        style={{ display: 'none' }}
+        ref={state.anchor} />
+    </Menu>
   );
 }
 

@@ -8,7 +8,7 @@ import { Checkbox } from "antd";
 //import useAmgService from "../../hooks/services/useAmgService";
 import AmgButton from "../../atoms/Button";
 import { createUser } from "../../store/actions";
-import Label from "../../atoms/data_entry/Label";
+import Label from "../../atoms/data-entry/Label";
 
 function GeneralDataForm(props) {
   const { history } = props;
