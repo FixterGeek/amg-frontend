@@ -44,7 +44,9 @@ function LateralMenu({ history, user, populateUserAction }) {
 
 
     return (
-        <Menu inlineCollapsed defaultSelectedKeys={['1']} mode="inline">
+        <Menu
+            style={{ height: "100vh" }}
+            inlineCollapsed defaultSelectedKeys={['1']} mode="inline">
             <Item key={1} onClick={() => link('/admin/')}>
                 <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
                     <FontAwesomeIcon icon={faHome} />
