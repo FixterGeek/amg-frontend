@@ -6,6 +6,8 @@ import LoginForm from '../../organisms/LoginForm';
 import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
 import Container from '../../atoms/layout/Container';
 import { palette, size } from '../../styles/theme';
+import log from "../../assets/LOGO-COMPLETO.svg"
+import {Link} from "react-router-dom";
 
 function Login() {
   const { Text, Title } = Typography;
@@ -27,9 +29,9 @@ function Login() {
             flexDirection: 'column',
           }}
         >
-          <Text strong style={{ textAlign: 'left' }}>
-            Asociación Mexicana de Gastroenterología
-          </Text>
+          <Link to="/">
+            <img src={log} alt="logo-oficial"/>
+          </Link>
           <Container flexGrow={1} height="100px">
             <div style={{ textAlign: 'center' }}>
               <Title level={2} style={{ margin: 0 }}>
@@ -42,12 +44,14 @@ function Login() {
             <LoginForm />
             <Text strong>
               ¿No tienes cuenta?
-              <Button
-                type="link"
-                style={{ paddingRight: 0, fontWeight: 'bold' }}
-              >
-                creala aquí
-              </Button>
+              <Link to="/pre-signup">
+                <Button
+                  type="link"
+                  style={{ paddingRight: 0, fontWeight: 'bold' }}
+                >
+                  creala aquí
+                </Button>
+              </Link>
             </Text>
           </Container>
         </Container>

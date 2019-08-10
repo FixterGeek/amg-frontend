@@ -1,3 +1,37 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    background-color: transparent;
+    position: absolute;
+    padding:0 2% ;
+    box-sizing: border-box;
+}
+.navbar div{
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+.navbar div a{
+    margin: 0 20px;
+    color: white;
+    font-size: 18px;
+}
+.navbar div p{
+    margin: 0;
+}
+.btn-log{
+    border: 1px solid white;
+    padding: 1%;
+    height: 40px !important;
+    width: 120px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
 
 .app{
     font-family: Avenir !important;
@@ -12,6 +46,27 @@
   background-size: cover;
   background-position: center;
 }
+.biblioteca {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/biblioteca.png");
+    background-size: cover;
+    background-position: center;
+}
+.sesion {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/sesion.png");
+    background-size: cover;
+    background-position: center;
+}
+.ab {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/photo.png");
+    background-size: cover;
+    background-position: center;
+}
 .cover {
   width: 100%;
   height: 100%;
@@ -23,7 +78,7 @@
 .cover h1 {
   font-family: Avenir-black;
   color: white;
-  font-size: 160px;
+  font-size: 110px;
   margin-bottom: 45px;
 }
 .cover h1 span {
@@ -48,6 +103,19 @@
   font-size: 16px;
   font-weight: bolder;
   margin: 20px 0;
+    cursor: pointer;
+}
+.btn-blue-dark {
+    width: 240px;
+    height: 50px;
+    color: white;
+    border: none;
+    font-family: Avenir;
+    background-color: #022047;
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 20px 0;
+    cursor: pointer;
 }
 .about {
   padding: 50px 0;
@@ -263,11 +331,80 @@ Footer*/
     font-size: 24px;
     margin: 0 16px 0 0;
 }
+.partners{
+    width: 100%;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+}
 
+
+/*Biblioteca*/
+
+.biblioteca-box{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 15%;
+    min-height: 600px;
+    align-items: center;
+    color:#666666;
+    font-style:italic;
+}
+.logo-am{
+    width: 300px;
+}
+.grey{
+    background-color: #F3F5F8;
+}
+.biblioteca-text{
+    width: 500px;
+    flex-grow: 2;
+    margin-right: 40px;
+}
+.biblioteca-img{
+    width: 300px;
+    flex-grow: 1;
+    text-align: center;
+    font-size: 14px;
+}
+.biblioteca-img img{
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.form-contacto{
+    padding: 50px 15%;
+}
+.form-contacto h2{
+    text-align: center;
+}
+.form-contacto form{
+    width: 60%;
+    margin-left: 20%;
+}
+.left{
+    margin-right: 40px;
+}
+.padd{
+    padding: 10px 5% 10px 15%;
+}
+
+.form-contacto .ant-select-selection{
+    height: 50px;
+    background-color: #f5f8f9;
+    border: none;
+}
+.form-contacto .ant-select-selection__rendered{
+    height: 50px !important;
+  }
+
+.form-contacto .ant-select-selection-selected-value{
+    margin-top: 8px;
+}
 
 @media(max-width: 1024px){
     .cover h1 {
-        font-size: 136px;
+        font-size: 80px;
     }
     .about .people {
       margin-bottom: 32px;
@@ -278,7 +415,7 @@ Footer*/
     .cover h1 {
         font-family: Avenir-black;
         color: white;
-        font-size: 80px;
+        font-size: 56px;
         margin-bottom: 0px;
     }
     .cover p {
@@ -303,6 +440,10 @@ Footer*/
     }
     .card{
         flex-grow: 1;
+    }
+    .form-contacto form{
+        width: 80%;
+        margin-left: 10%;
     }
 }
 @media(max-width: 425px){
@@ -342,6 +483,25 @@ Footer*/
     }
     .tiendas{
         justify-content: center;
+    }
+    .biblioteca-img img{
+        width: 70%;
+    }
+    .form-contacto form{
+        width: 90%;
+        margin-left: 5%;
+    }
+    .biblioteca-box{
+        padding: 30px 5%;
+        text-align: center;
+    }
+
+    .biblioteca-text{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .left{
+        margin-right: 0px;
     }
 
 }

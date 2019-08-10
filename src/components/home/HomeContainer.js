@@ -4,6 +4,10 @@ import ios from "../../assets/40px.png"
 import google from "../../assets/40px (1).png"
 
 import NavBar from '../../organisms/NavBar';
+import logo1 from "../../assets/Logo_Faes_CVS.png"
+import logo2 from "../../assets/Logo Liomont 2017.png"
+import logo3 from "../../assets/logo takeda.png"
+import logo4 from "../../assets/Gastro Asofarma_logo.png"
 
 import './Home.css';
 
@@ -116,6 +120,13 @@ class HomeContainer extends Component {
                     </div>
                 </div>
                 <div className="phone"/>
+            </div>
+            <h2 className="titles">Nuestros Patrocinadores</h2>
+            <div className="partners">
+              <img src={logo1} alt="logo-faes-farma"/>
+              <img src={logo2} alt="logo-liomont"/>
+              <img src={logo3} alt="logo-takeda"/>
+              <img src={logo4} alt="logo-gastro-asofarma"/>
             </div>
           </section>
     </div>
