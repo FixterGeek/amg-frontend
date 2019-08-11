@@ -1,0 +1,66 @@
+
+:root {
+    --blue:#1F2536;
+    --orange:#fa6400;
+    --light-blue:#e6f4ff;
+    --light-gray:#eaf0f7;
+  }
+
+
+.summary-card{
+    width:350px;
+    height: 100px;
+    padding:30px;    
+    display: flex;   
+    flex-direction: column; 
+    justify-content: center;
+    align-items: flex-start;
+    margin-right: 30px;
+    color:white;
+    font-family: Avenir;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.summary-card .title{
+    font-size: 20px;    
+}
+
+.summary-card .number{
+    font-size: 36px;    
+}
+
+.blue{
+    background-color:var(--blue); 
+}
+
+.orange{
+    background-color:var(--orange); 
+}
+
+/* Lista / tabla */
+
+.users-table{
+
+}
+.users-table .columns{
+    background: var(--light-gray);
+    padding:14px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.users-table .rows{
+    margin: 0;
+    padding:14px;
+    height: 50px;
+    background: var(--light-blue);
+    display: flex;
+    justify-content: space-around;
+}
+.users-table .rows > span{
+    min-width: 100px;
+}
