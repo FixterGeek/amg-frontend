@@ -1,14 +1,84 @@
 
 
 
-
-
+.admin-form-speaker i:hover{
+    color: grey;
+}
+.admin-form-speaker i{
+    color:darkgrey;
+    float:right;
+    margin-right:10px; 
+    cursor: pointer;
+}
+.admin-form-speaker{
+    width: 300px;
+    padding: 10px 0px 10px 10px;
+    background: #F8F8F8;
+    margin-bottom:20px;
+}
+.admin-form-button-add::after{
+    content: " +"
+}
+.admin-form-button-add{
+    /* box-sizing: border-box; */
+    float: right;
+    width:220px;
+    height: 40px;
+    background-color:lightgrey;
+    padding: 10px 0;
+    color:white;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
+    outline: none;
+}
+.admin-form-second-column{
+    padding-right: 20px;
+    margin-left:50px;
+}
+.admin-form-two-columns-container{
+    display: flex;
+    justify-content: center;
+}
+.admin-form-header button:hover{
+    font-size: 1.1rem;
+}
+.admin-form-header button{
+    box-sizing: border-box;
+    width:220px;
+    height: 60px;
+    background-color:lightgrey;
+    padding: 16px 0;
+    color:white;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
+    outline: none;
+}
+.admin-form-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin-form-submit-button:hover{
+    font-size: 1.1rem;
+    background-color: #2d364f;
+}
 .admin-form-submit-button{
+    outline: none;
+    box-sizing: border-box;
     width:300px;
+    height: 60px;
     background-color:#1f2536;
     padding: 16px 0;
     color:white;
     margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
 }
 
 .admin-form-group b{
@@ -23,6 +93,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-right:50px;
 }
 
 .admin-menu-container{
