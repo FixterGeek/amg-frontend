@@ -64,6 +64,7 @@ let LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS"
 let LOGIN_USER = "LOGIN_USER"
 let LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 let SET_FETCHING_USER = "SET_FETCHING_USER"
+let LOGOUT_USER = "LOGOUT_USER"
 
 // actionCreators
 export function createUser() {
@@ -105,6 +106,10 @@ export function loginUserSuccess(userData) {
         type: LOGIN_USER_SUCCESS,
         payload: userData
     };
+}
+
+export function logoutUser() {
+    return { type: LOGOUT_USER };
 }
 
 // EPICS
@@ -190,6 +195,12 @@ export const createUserAction = ({ name, email, password }) => (dispatch) => {
         })
 }
 
+// logout
+export const logoutAction = () => (dispatch) => {
+    localStorage.removeItem('user');
+    return dispatch(logoutUser());
+};
+
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
@@ -207,6 +218,8 @@ function reducer(state = userState, action) {
             return { ...action.payload, fetching: false }
         case CREATE_USER_ERROR:
             return { ...userState, fetching: false, error: true }
+        case LOGOUT_USER:
+            return { ...userState };
         default:
             return state;
     }

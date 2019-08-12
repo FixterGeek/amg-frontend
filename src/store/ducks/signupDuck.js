@@ -92,7 +92,6 @@ export function signUpUserError(payload) {
 
 
 export const signupUserAction = userData => (dispatch) => {
-  console.log(userData);
   dispatch(signUpUser());
   return signup(userData)
     .then((data) => {
@@ -106,8 +105,7 @@ export const signupUserAction = userData => (dispatch) => {
 };
 
 
-function writeReducer(state = signupState, action) {
-  console.log(action.payload);
+function reducer(state = signupState, action) {
   switch (action.type) {
     case WRITE_SIGNUP:
       return { ...state, ...action.payload };
@@ -132,4 +130,4 @@ function writeReducer(state = signupState, action) {
   }
 }
 
-export default writeReducer;
+export default reducer;
