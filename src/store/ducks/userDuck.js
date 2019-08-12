@@ -197,8 +197,11 @@ export const createUserAction = ({ name, email, password }) => (dispatch) => {
 
 // logout
 export const logoutAction = () => (dispatch) => {
-    localStorage.removeItem('user');
-    return dispatch(logoutUser());
+    return new Promise((resolve, reject) => {
+        localStorage.removeItem('user');
+        dispatch(logoutUser());
+        resolve(true);
+    });
 };
 
 // reducer
