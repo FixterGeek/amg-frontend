@@ -1,66 +1,56 @@
-import React from "react";
+import React from 'react';
 // import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import TextField from "../../molecules/TextFields";
+import TextField from '../../molecules/TextFields';
 //import AmgButton from "../../atoms/Button";
-import Label from "../../atoms/data-entry/Label";
-import { createUser } from "../../store/actions";
-import Container from "../../atoms/layout/Container";
+import Label from '../../atoms/data-entry/Label';
+import { createUser } from '../../store/actions';
 
-const EducationDataForm = props => {
-  const { user, dispatch } = props;
+import DatePicker from '../../molecules/DatePicker';
+
+const EducationDataForm = ({ signup }) => {
 
   // const handleSubmit = () => {
   //   history.push("laboral");
   // };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const {
       target: { value, name }
     } = e;
-    dispatch(createUser({ ...user.studies, [name]: value }));
+    // ok
   };
 
-  console.log(user);
+  console.log(signup);
 
   return (
     <form
       className="signup-form"
-      style={{ width: "400px" }}
+      style={{ width: '400px' }}
       // onSubmit={handleSubmit}
     >
-      <TextField
+      {/* <TextField
         name="major"
         label="Carrera"
         onChange={handleChange}
-        value={user.studies.major}
-      />
+        value={signup.studies}
+      /> */}
       <Label>Fecha</Label>
       <div className="dates-inline">
-        <TextField
+        <DatePicker
           name="startDate"
           label="De"
           width="121px"
           onChange={handleChange}
         />
-        <TextField
+        <DatePicker
           name="endDate"
           label="A"
           width="121px"
           onChange={handleChange}
         />
       </div>
-      <TextField
-        name="emailreceptionDate"
-        label="Año de recepción profesional"
-        onChange={handleChange}
-      />
-      <TextField
-        name="professionalLicence"
-        label="No. de cédula profesional"
-        onChange={handleChange}
-      />
       {/* aqui va el input para la cedula */}
     </form>
   );
@@ -68,7 +58,7 @@ const EducationDataForm = props => {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    signup: state.signup,
   };
 }
 

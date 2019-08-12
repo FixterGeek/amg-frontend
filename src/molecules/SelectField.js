@@ -27,7 +27,7 @@ function SelectField({
       }}>
       <Label>{ label }</Label>
       <Select
-        onChanche={onChange}
+        onChange={onChange}
         options={options}
         status={status} />
       <StatusMessage

@@ -7,7 +7,7 @@ function WithoutLoginRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={
-        props => (!localStorage.getItem('authToken') ? (
+        props => (!localStorage.getItem('user') ? (
           <Component {...props} />
         ) : (
           <Redirect

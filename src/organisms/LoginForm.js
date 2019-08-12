@@ -21,7 +21,7 @@ function LoginForm(props) {
 
   useEffect(() => {
     if (isLogged) history.push("/dashboard")
-  }, [isLogged])
+  }, [isLogged]);
 
   const handleChange = (event) => {
     const { target: { value, name } } = event;

@@ -33,7 +33,7 @@ const GeneralData = () => {
           paddingTop={size.largePadding}
           paddingBottom={size.largePadding}
         >
-          <Title clasName="title-left" level={1}>
+          <Title className="title-left" level={1}>
             Datos generales
           </Title>
         </Container>

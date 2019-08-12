@@ -59,7 +59,7 @@ const EducationData = () => {
             </Title>
           </div>
         </Container>
-        <CoursesDataForm />
+        {/* <CoursesDataForm /> */}
       </Container>
     </FullScreenContainer>
   );

@@ -18,11 +18,11 @@ const logout = async (history) => {
   history.push('/login');
 };
 
-export const signup = async (name, email, password) => axios.post(`${baseAuthURL}/signup`, {
-  name,
-  email,
-  password,
-}).then(res => res.data);
+export const signup = async (userData) => {
+  console.log(userData);
+  return axios.post(`${baseAuthURL}/signup`, { ...userData })
+    .then(res => res.data);
+};
 
 export const getSelfUser = async () => {
   const authToken = await localStorage.getItem('authToken');
