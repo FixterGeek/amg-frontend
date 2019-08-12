@@ -4,14 +4,14 @@ import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { of } from 'rxjs';
 import { loginUserEpic, persistEpic, hydrateEpic } from './ducks/userDuck';
 //import userReducer from './userReducer';
-import eventsDuck from './ducks/eventsDuck';
+import eventsDuck, { getAdminEventsEpic } from './ducks/eventsDuck';
 import { getUsersEpic } from './ducks/users';
 import publicationsDuck from './ducks/publicationsDuck';
 import userDuck from './ducks/userDuck';
 import usersReducer from './ducks/users';
 import sigupDuck from './ducks/signupDuck';
 import configReducer from './ducks/configDuck'
-import adminReducer, { saveDraftEventEpic } from './ducks/adminDuck'
+import adminReducer, { saveDraftEventEpic, getSingleEventEpic } from './ducks/adminDuck'
 
 let rootReducer = combineReducers({
     user: userDuck,
@@ -32,7 +32,8 @@ const rootEpic = combineEpics(() => of({ type: "EPIC" }),
     hydrateEpic,
     getUsersEpic,
     saveDraftEventEpic,
-
+    getSingleEventEpic,
+    getAdminEventsEpic
 )
 
 const epicMiddleware = createEpicMiddleware();

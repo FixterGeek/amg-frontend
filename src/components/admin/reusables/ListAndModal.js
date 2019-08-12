@@ -15,7 +15,7 @@ export default function ListAndModal({
     onChange
 }) {
 
-    let [showModal, setShowModal] = useState(true)
+    let [showModal, setShowModal] = useState(false)
     let [array, setArray] = useState([])
 
     useEffect(() => {

@@ -48,41 +48,53 @@ function LateralMenu({ history, user, populateUserAction }) {
             style={{ height: "100vh" }}
             inlineCollapsed defaultSelectedKeys={['1']} mode="inline">
             <Item key={1} onClick={() => link('/admin/')}>
-                <Icon className={`${!currentLocation ? 'menu-item-active' : ''}`}>
+                <Icon className={`${currentLocation ? null : 'menu-item-active'}`}>
                     <FontAwesomeIcon icon={faHome} />
                 </Icon>
                 <span>Home</span>
             </Item>
             <Item key={2} onClick={() => link('/admin/events')}>
                 <Icon
-                    className={`${
+                    className={
                         currentLocation === 'events' ? 'menu-item-active' : ''
-                        }`}
+                    }
                 >
                     <FontAwesomeIcon icon={faCalendar} />
                 </Icon>
                 <span>Eventos</span>
             </Item>
             <Item key={3} onClick={() => link('/admin/events')}>
-                <Icon>
+                <Icon
+                    className={
+                        currentLocation === 'facturas' ? 'menu-item-active' : ''
+                    }
+                >
                     <FontAwesomeIcon icon={faFileInvoiceDollar} />
                 </Icon>
                 <span>Facturas</span>
             </Item>
-            <Item key={4}>
-                <Icon>
+            <Item key={4} onClick={() => link('/admin/users')} >
+                <Icon
+                    className={currentLocation === 'users' ? 'menu-item-active' : ''}
+                >
                     <FontAwesomeIcon icon={faUsers} />
                 </Icon>
-                <span>Usuarios</span>
+                <span>Socios</span>
             </Item>
             <Item key={4}>
-                <Icon>
+                <Icon
+                    className={currentLocation === 'biblioteca' ? 'menu-item-active' : ''}
+                >
                     <FontAwesomeIcon icon={faBell} />
                 </Icon>
                 <span>Biblioteca</span>
             </Item>
             <Item key={7} onClick={() => { }}>
-                <Icon>
+                <Icon
+                    className={
+                        currentLocation === 'logout' ? 'menu-item-active' : ''
+                    }
+                >
                     <FontAwesomeIcon icon={faPowerOff} />
                 </Icon>
                 <span>Salir</span>
