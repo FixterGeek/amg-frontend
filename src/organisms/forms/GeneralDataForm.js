@@ -49,7 +49,7 @@ function GeneralDataForm({
     event.preventDefault();
     // history.push('education');
     signupUserAction({ ...signup })
-      .then((data) => console.log(data))
+      .then(() => history.push('/dashboard'))
       .catch(({ response }) => console.log(response));
   };
 
@@ -92,6 +92,7 @@ function GeneralDataForm({
 
       <TextField
         onChange={handleChange}
+        password
         name="password"
         label="Contraseña"
         value={signup.password} />

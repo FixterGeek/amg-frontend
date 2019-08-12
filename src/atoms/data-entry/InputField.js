@@ -9,18 +9,32 @@ import StatusMessage from './StatusMessage';
 function InputField({
   onChange, type, value, fontSize, width,
   successMessage, errorMessage, warningMessage,
-  status, ...others
+  status, password, ...others
 }) {
+  const { Password } = Input;
   return (
     <div className="input-field-container">
-      <Input
-        className={`input-field input-${status}`}
-        style={{ fontSize, width }}
-        onChange={onChange ? event => onChange(event) : null}
-        type={type}
-        value={value}
-        {...others}
-      />
+      {
+        password ? (
+          <Password
+            className={`input-field input-${status}`}
+            style={{ fontSize, width }}
+            onChange={onChange ? event => onChange(event) : null}
+            type={type}
+            value={value}
+            {...others}
+          />
+        ) : (
+          <Input
+            className={`input-field input-${status}`}
+            style={{ fontSize, width }}
+            onChange={onChange ? event => onChange(event) : null}
+            type={type}
+            value={value}
+            {...others}
+          />
+        )
+      }
       { status && <StatusSuffix status={status} /> }
       <StatusMessage
         status={status}

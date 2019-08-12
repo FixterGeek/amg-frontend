@@ -10,37 +10,11 @@ const signupState = {
     birthDate: null,
     placeOfBirth: {
       addressName: null,
-      street: null,
-      outdoorNumber: null,
-      interiorNumber: null,
-      colony: null,
-      zipCode: null,
-      city: null,
       state: null,
-      coordinates: [],
     },
     speciality: null,
-    photoURL: null,
-    phone: null,
-    civilStatus: null,
-    adress: {},
   },
-  spouse: {},
-  fiscalData: {},
-  registrationDate: null,
-  userStatus: null,
-  revisonDate: null,
-  reviwedBy: null,
-  membersWhoRecommend: [],
   membershipStatus: 'Free',
-  workedAtInstitutions: [],
-  consultories: [],
-  studies: [],
-  interships: [],
-  residencies: [],
-  teachingActivities: [],
-  medicalSocieties: [],
-  fetching: false,
 };
 
 
@@ -95,6 +69,7 @@ export const signupUserAction = userData => (dispatch) => {
   dispatch(signUpUser());
   return signup(userData)
     .then((data) => {
+      localStorage.setItem('user', JSON.stringify(data));
       dispatch(signUpUserSuccess(data));
       return data;
     })
