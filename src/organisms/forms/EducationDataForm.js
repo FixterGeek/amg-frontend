@@ -2,27 +2,35 @@ import React from 'react';
 // import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import TextField from '../../molecules/TextFields';
-//import AmgButton from "../../atoms/Button";
-import Label from '../../atoms/data-entry/Label';
-import { createUser } from '../../store/actions';
+import { DatePicker as Picker } from 'antd';
 
+import Label from '../../atoms/data-entry/Label';
+import TextField from '../../molecules/TextFields';
+import SelectField from '../../molecules/SelectField';
 import DatePicker from '../../molecules/DatePicker';
 
-const EducationDataForm = ({ signup }) => {
+const EducationDataForm = ({ studie, setStudie }) => {
+  const { RangePicker } = Picker;
 
   // const handleSubmit = () => {
   //   history.push("laboral");
   // };
 
-  const handleChange = (e) => {
-    const {
-      target: { value, name }
-    } = e;
-    // ok
+  const handleChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
+
+    setStudie({ ...studie, [name]: value });
   };
 
-  console.log(signup);
+  const handleRange = (moments) => {
+    setStudie({
+      startDate: moments[0].toString(),
+      endDate: moments[1].toString(),
+    });
+  };
+
+  console.log(studie);
 
   return (
     <form
@@ -30,36 +38,30 @@ const EducationDataForm = ({ signup }) => {
       style={{ width: '400px' }}
       // onSubmit={handleSubmit}
     >
-      {/* <TextField
+      <SelectField
         name="major"
         label="Carrera"
         onChange={handleChange}
-        value={signup.studies}
-      /> */}
-      <Label>Fecha</Label>
+      />
+      <Label>Periodo de estudio</Label>
       <div className="dates-inline">
-        <DatePicker
-          name="startDate"
-          label="De"
-          width="121px"
-          onChange={handleChange}
-        />
-        <DatePicker
-          name="endDate"
-          label="A"
-          width="121px"
-          onChange={handleChange}
-        />
+        <RangePicker
+          onChange={handleRange}
+          name="dateRange"
+          placeholder="" />
       </div>
-      {/* aqui va el input para la cedula */}
+      <TextField
+        onChange={handleChange}
+        label="Año de recepción profesional"
+        name="receptionDate"
+        value={studie.receptionDate} />
+      <TextField
+        onChange={handleChange}
+        label="Número de cédula profesional"
+        name="professionalLicence"
+        value={studie.professionalLicence} />
     </form>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    signup: state.signup,
-  };
-}
-
-export default connect(mapStateToProps)(EducationDataForm);
+export default EducationDataForm;
