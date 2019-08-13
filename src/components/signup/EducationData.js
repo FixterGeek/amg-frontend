@@ -1,18 +1,24 @@
-import React, { useState } from "react";
-import { Typography } from "antd";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
-import Container from "../../atoms/layout/Container";
-import Gastro from "../../atoms/gastro/Gastro";
-import { palette, size } from "../../styles/theme";
-import EducationDataForm from "../../organisms/forms/EducationDataForm";
-import InternshipDataForm from "../../organisms/forms/InternshipDataForm";
-import CoursesDataForm from "../../organisms/forms/CoursesDataForm";
-import Steper from "../../organisms/Steper";
+import { Typography, Icon } from 'antd';
+
+import { createStudie } from '../../services/studiesServices';
+import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
+import Container from '../../atoms/layout/Container';
+import Gastro from '../../atoms/gastro/Gastro';
+import { palette, size } from '../../styles/theme';
+import EducationDataForm from '../../organisms/forms/EducationDataForm';
+import InternshipDataForm from '../../organisms/forms/InternshipDataForm';
+import CoursesDataForm from '../../organisms/forms/CoursesDataForm';
+import Steper from '../../organisms/Steper';
+import Button from '../../atoms/Button';
+import Spinner from '../../atoms/Spinner';
 
 const EducationData = () => {
   const { Title } = Typography;
 
+  const [loading, setLoading] = useState(false);
   const [education, setEducation] = useState({
     studie: {
       institution: null,
@@ -37,6 +43,19 @@ const EducationData = () => {
     setEducation({ ...education, internship: { ...education.internship, ...payload } });
   };
 
+  const handleSave = () => {
+    setLoading(true);
+    createStudie({ ...education.studie })
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+      })
+      .catch(({ response }) => {
+        console.log(response);
+        setLoading(false);
+      });
+  };
+
   return (
     <FullScreenContainer
       lateralSpace="0px"
@@ -58,8 +77,13 @@ const EducationData = () => {
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
+        { loading && <Spinner tip="Guardando" /> }
+        <Button onClick={handleSave} className="reusable-save-button" line>
+          Guardar
+          <Icon type="save" />
+        </Button>
         <Container flexGrow={1} height="100px">
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Title level={1} style={{ margin: 0 }}>
               Educación
             </Title>
@@ -70,7 +94,7 @@ const EducationData = () => {
         </Container>
         <EducationDataForm studie={education.studie} setStudie={setStudie} />
         <Container flexGrow={1} height="100px">
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Title level={4} style={{ margin: 0 }}>
               Internado de pregrado
             </Title>
@@ -80,13 +104,16 @@ const EducationData = () => {
           internship={education.internship}
           setInternship={setInternship} />
         <Container flexGrow={1} height="100px">
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Title level={4} style={{ margin: 0 }}>
               Cursos de posgrado
             </Title>
           </div>
         </Container>
         {/* <CoursesDataForm /> */}
+        <Button width="100%">
+          <Link to="/signup/laboral">Siguiente</Link>
+        </Button>
       </Container>
     </FullScreenContainer>
   );

@@ -10,8 +10,17 @@ import ProfilePhoto from '../../atoms/ProfilePhoto';
 import Tabs from './reusables/Tabs';
 import PostItem from '../../molecules/PostItem';
 
-function MainProfile({ selfPublications, selfPublicationsAction }) {
+function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   const { Title, Text } = Typography;
+
+  const {
+    basicData = {}, membershipStatus = '', followers = [],
+    following = [],
+  } = user;
+  const {
+    photoURL = '', name = '', dadSurname = '',
+    momSurname = '', speciality = '',
+  } = basicData;
 
 
   useEffect(() => {
@@ -22,7 +31,7 @@ function MainProfile({ selfPublications, selfPublicationsAction }) {
     }
   }, []);
 
-  console.log(selfPublications);
+  console.log(user);
 
   return (
     <div className="dashboard-container component-main-profile">
@@ -32,16 +41,23 @@ function MainProfile({ selfPublications, selfPublicationsAction }) {
           <Icon className="edit" type="edit" />
         </Link>
         <div>
-          <ProfilePhoto />
+          <ProfilePhoto photoURL={photoURL} />
         </div>
-        <div>
-          <Title level={4}>Nombre</Title>
-          <Text>Socio</Text>
-          <Text>Gastro</Text>
-        </div>
+        <Title level={4}>{`${name} ${dadSurname} ${momSurname}`}</Title>
+        <Text>{ membershipStatus }</Text>
+        <Text>{ speciality }</Text>
+
         <div className="follows">
-          <div>Followers</div>
-          <div>Follows</div>
+          <div>
+            Seguidores
+            <span>{ followers.length }</span>
+          </div>
+          <div>
+            Sigues
+            <span>
+              { following.length }
+            </span>
+          </div>
         </div>
       </DashboardContainerItem>
 
@@ -49,7 +65,7 @@ function MainProfile({ selfPublications, selfPublicationsAction }) {
 
       <DashboardContainerItem>
         <div>
-          <Text>Mis publicaciones</Text>
+          <Text strong>Mis publicaciones</Text>
         </div>
         <div>
           {
@@ -64,7 +80,7 @@ function MainProfile({ selfPublications, selfPublicationsAction }) {
 }
 
 function mapStateToProps(state) {
-  return { selfPublications: state.publications.selfArray };
+  return { selfPublications: state.publications.selfArray, user: state.user };
 }
 
 export default connect(mapStateToProps, { selfPublicationsAction })(MainProfile);

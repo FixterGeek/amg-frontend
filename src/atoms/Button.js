@@ -6,7 +6,7 @@ import { Button as Btn } from 'antd';
 import { palette, size } from '../styles/theme';
 
 function Button({
-  children, bgColor, width, marginTop, marginBottom, line, ...others
+  onClick, children, bgColor, width, marginTop, marginBottom, line, className, ...others
 }) {
   const bgColorBtn = !line ? palette[bgColor] : 'transparent';
   const borderColorBtn = palette[bgColor];
@@ -14,7 +14,8 @@ function Button({
 
   return (
     <Btn
-      className="amg-button"
+      className={`amg-button ${className}`}
+      onClick={onClick ? event => onClick(event) : null}
       style={{
         backgroundColor: bgColorBtn,
         borderColor: borderColorBtn,
