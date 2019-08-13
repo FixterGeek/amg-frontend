@@ -40,5 +40,7 @@ const epicMiddleware = createEpicMiddleware();
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, epicMiddleware)));
 epicMiddleware.run(rootEpic);
+// initial search
+store.dispatch({ type: "LOOK_FOR_SAVED_DATA" })
 
 export default store;

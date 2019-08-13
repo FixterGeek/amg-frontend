@@ -14,8 +14,9 @@ import CoursesDataForm from '../../organisms/forms/CoursesDataForm';
 import Steper from '../../organisms/Steper';
 import Button from '../../atoms/Button';
 import Spinner from '../../atoms/Spinner';
+import { connect } from 'react-redux'
 
-const EducationData = () => {
+const EducationData = ({ signup }) => {
   const { Title } = Typography;
 
   const [loading, setLoading] = useState(false);
@@ -45,15 +46,25 @@ const EducationData = () => {
 
   const handleSave = () => {
     setLoading(true);
-    createStudie({ ...education.studie })
-      .then((data) => {
-        console.log(data);
-        setLoading(false);
-      })
-      .catch(({ response }) => {
-        console.log(response);
-        setLoading(false);
-      });
+    localStorage.signup = JSON.stringify(signup)
+    // esto puede cambiar
+    // Promise.all([
+    // createStudie({ ...education.studie }),
+    // createInter({ ...education.studie }),
+    // createPostStudy({ ...education.studie })
+    // ])
+    // .then(([res1,res2,res3])=>{
+    // })
+
+
+    // .then((data) => {
+    //   console.log(data);
+    //   setLoading(false);
+    // })
+    // .catch(({ response }) => {
+    //   console.log(response);
+    //   setLoading(false);
+    // });
   };
 
   return (
@@ -77,7 +88,7 @@ const EducationData = () => {
       </Container>
 
       <Container className="signup-rigth" height="100vh" width="65%">
-        { loading && <Spinner tip="Guardando" /> }
+        {loading && <Spinner tip="Guardando" />}
         <Button onClick={handleSave} className="reusable-save-button" line>
           Guardar
           <Icon type="save" />
@@ -119,4 +130,10 @@ const EducationData = () => {
   );
 };
 
-export default EducationData;
+function mapState({ signup }) {
+  return {
+    signup
+  }
+}
+
+export default connect(mapState)(EducationData)

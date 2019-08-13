@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import { Select } from 'antd';
 
-function SelectField({ options, onChange, status }) {
+function SelectField({ options, onChange, status, value }) {
   const { Option } = Select;
   return (
     <Select
+      value={value}
       className={`select-field select-${status}`}
       onChange={onChange ? (value, event) => onChange(value, event) : null}>
       {
         options.map((option, index) => (
           <Option className="select-field-option" key={option.index || index} value={option.value || option}>
-            { option.text || option }
+            {option.text || option}
           </Option>
         ))
       }
