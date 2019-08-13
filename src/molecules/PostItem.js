@@ -14,7 +14,7 @@ function PostItem({ publication }) {
     imagesURLS, user,
   } = publication;
   const { basicData = {} } = user;
-  const { photoURL = null } = basicData;
+  const { photoURL = null, name = '', dadSurname = '' } = basicData;
   const { Title, Text } = Typography;
 
   const date = moment(updatedAt).local('es');
@@ -33,7 +33,7 @@ function PostItem({ publication }) {
         </div>
         <div>
           <div>
-            <Title level={2}>{ `${basicData.name} ${basicData.dadSurname}` }</Title>
+            <Title level={2}>{ `${name} ${dadSurname}` }</Title>
           </div>
           <Text>{ momentDate }</Text>
         </div>

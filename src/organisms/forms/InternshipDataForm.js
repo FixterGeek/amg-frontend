@@ -1,27 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import TextField from "../../molecules/TextFields";
-import Label from "../../atoms/data-entry/Label";
-import { createUser } from "../../store/actions";
+import TextField from '../../molecules/TextFields';
+import Label from '../../atoms/data-entry/Label';
+import SelectField from '../../molecules/SelectField';
 
-function InternshipDataForm(props) {
-  const { user, dispatch } = props;
+function InternshipDataForm({ internship, setInternship }) {
+  const handleChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
 
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ ...user.internships, [name]: value }));
+    setInternship({ [name]: value });
   };
 
   return (
-    <form className="signup-form" style={{ width: "400px" }}>
-      <TextField
+    <form className="signup-form" style={{ width: '400px' }}>
+      <SelectField
         name="institution"
         label="Hospital"
         onChange={handleChange}
-        value={user.internships.institution}
+        value={internship.institution}
       />
       <Label>Fecha</Label>
       <div>
@@ -44,7 +42,7 @@ function InternshipDataForm(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
   };
 }
 

@@ -22,10 +22,19 @@ const EducationData = () => {
       receptionDate: null,
       professionalLicence: null,
     },
+    internship: {
+      institution: null,
+      startDate: null,
+      endDate: null,
+    },
   });
 
   const setStudie = (payload) => {
-    setEducation({ ...education, studie: { ...payload } });
+    setEducation({ ...education, studie: { ...education.studie, ...payload } });
+  };
+
+  const setInternship = (payload) => {
+    setEducation({ ...education, internship: { ...education.internship, ...payload } });
   };
 
   return (
@@ -67,7 +76,9 @@ const EducationData = () => {
             </Title>
           </div>
         </Container>
-        {/* <InternshipDataForm /> */}
+        <InternshipDataForm
+          internship={education.internship}
+          setInternship={setInternship} />
         <Container flexGrow={1} height="100px">
           <div style={{ textAlign: "center" }}>
             <Title level={4} style={{ margin: 0 }}>
