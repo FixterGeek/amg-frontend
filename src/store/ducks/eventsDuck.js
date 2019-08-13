@@ -21,6 +21,7 @@ let baseURL = "https://amg-api.herokuapp.com/"
 
 const eventState = {
   array: [],
+  events: [],
   fetching: false,
   status: "idle" // idle || success || error || fetching
 };
@@ -101,6 +102,7 @@ export const populateEventsAction = () => (dispatch) => {
   dispatch(populateEvents());
   return getEvents()
     .then((data) => {
+      console.log(data);
       dispatch(populateEventsSuccess(data));
       return data;
     })
@@ -119,11 +121,11 @@ function reducer(state = eventState, action) {
     case GET_ADMIN_EVENTS_ERROR:
       return { ...state, status: "error", fetching: false, error: action.payload }
     case POPULATE_EVENTS_SUCCESS:
-      return { events: [...action.payload], fetching: false };
+      return { ...state, events: [...action.payload], fetching: false };
     case POPULATE_EVENTS_ERROR:
-      return { ...eventState, fetching: false, error: true };
+      return { ...state, fetching: false, error: true };
     case POPULATE_EVENTS:
-      return { ...eventState, fetching: true };
+      return { ...state, fetching: true };
     default:
       return state;
   }

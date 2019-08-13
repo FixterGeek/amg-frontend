@@ -9,7 +9,6 @@ import PostIcons from '../atoms/PostIcons';
 
 
 function PostItem({ publication }) {
-  console.log(publication);
   const {
     text, updatedAt, _id, liked,
     imagesURLS, user,

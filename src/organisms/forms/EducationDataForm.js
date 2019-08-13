@@ -25,6 +25,7 @@ const EducationDataForm = ({ studie, setStudie }) => {
 
   const handleRange = (moments) => {
     setStudie({
+      ...studie,
       startDate: moments[0].toString(),
       endDate: moments[1].toString(),
     });

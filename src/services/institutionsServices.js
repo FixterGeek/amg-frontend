@@ -8,7 +8,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export const getInstitutions = type => axiosInstance.get(`${APIURL}`).then(({ data }) => data);
+export const getInstitutions = type => axiosInstance.get(`${APIURL}?query={"type":${type}}`)
+  .then(({ data }) => data);
 
 
 export const createInstitution = institutionData => axiosInstance.post(`${APIURL}`, institutionData)
