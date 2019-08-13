@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import AdminUsersList from './AdminUsersList';
+import { getUsers } from '../../store/ducks/users'
 
 let good = 1200
 let bad = 616
 
-function AdminUsers({ }) {
+function AdminUsers({
+    getUsers,
+}) {
+
+    useEffect(() => {
+        getUsers()
+    }, [])
+
     return (
         <section>
             <article className="admin-main-header">
@@ -37,4 +45,4 @@ function mapState(state) {
     return {}
 }
 
-export default connect(mapState, {})(AdminUsers)
+export default connect(mapState, { getUsers })(AdminUsers)
