@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,12 +18,18 @@ export default function Upload({
     multiple,
     className,
     hidden,
-    iconStyle
+    iconStyle,
+    preview,
+    onData
 }) {
 
     let inputRef = useRef()
     let [imageURL, setImageURL] = useState(null)
     let [fileName, setFileName] = useState(null)
+
+    useEffect(() => {
+        if (preview) setImageURL(preview)
+    }, [preview])
 
     function handleFile(e) {
         let file = e.target.files[0]
@@ -35,6 +41,7 @@ export default function Upload({
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = () => {
+            onData(reader.result)
             setImageURL(reader.result)
             onChange(file)
         }
@@ -97,6 +104,7 @@ export default function Upload({
 }
 
 Upload.propTypes = {
+    preview: PropTypes.string,
     iconStyle: PropTypes.object,
     hidden: PropTypes.bool,
     className: PropTypes.string,
@@ -108,6 +116,7 @@ Upload.propTypes = {
     accept: PropTypes.string,
     onChange: PropTypes.func,
     value: PropTypes.any,
+    onData: PropTypes.func
 }
 
 let styles = {
@@ -130,6 +139,8 @@ let styles = {
 
 
 Upload.defaultProps = {
+    onData: () => { },
+    preview: null,
     iconStyle: styles.iconStyle,
     hidden: true,
     className: null,

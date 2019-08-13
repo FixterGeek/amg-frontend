@@ -3,12 +3,194 @@
 
 
 
+/* Listado de socios */
+.bar-button-not-active{
+    background-color: #eaf0f7;
+    color:#022047;
+}
+.bar-button-active{
+    background-color: #022047;
+    color:white;
+}
+.admin-list-bar-icon-group i{
+    padding: 20px;
+}
+.admin-list-bar-icon-group{
+    cursor: pointer;
+    position:absolute;
+    right: 0px;
+    top:-54px;
+}
+.admin-users-list-bar-buttons{
+    background-color: transparent;
+    position: relative;
+}
+.admin-users-list-bar{
+    background-color: #022047;
+    padding: 20px 100px;
+    min-height: 80px;
+}
+.admin-users-list-container{
+    margin-right: 30px;
+}
+.admin-number-card-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+.admin-number-card{
+    padding: 10px 20px;
+    color:white;
+    height: 93px;
+    width: 350px;
+    margin-right: 30px;
+}
+.admin-number-card span{
+    display: block;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.admin-number-card span:nth-child(2){
+    display: block;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+/* Listado de socios */
+
+.admin-event-card-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.admin-event-square-card p{
+    font-size: .9rem;
+    margin:0;
+    padding: 0;
+    color:white;
+}
+.admin-event-square-card h3{
+    font-size: 20px;
+    overflow: hidden;
+    margin:0;
+    padding: 0;
+    color:white;
+    margin-bottom: 10px;
+}
+.admin-event-square-card{
+    color:white;
+    width: 350px;
+    height: 315px;
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat; 
+    padding: 200px 0 0 20px;
+    margin: 0 30px 30px 0;
+    cursor: pointer;
+    background-color: grey;
+}
+.admin-main-button:hover{
+    font-size: 1.2rem;
+
+}
+.admin-main-button{
+    width:200px;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border:2px solid black;
+    background: white;
+    font-size: 1rem;
+    transition:all .3s ease;
+    margin:20px;
+    cursor: pointer;
+}
+.admin-main-header h1{
+    font-size: 2rem;  
+}
+.admin-main-header{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.admin-form-speaker i:hover{
+    color: grey;
+}
+.admin-form-speaker i{
+    color:darkgrey;
+    float:right;
+    margin-right:10px; 
+    cursor: pointer;
+}
+.admin-form-speaker{
+    width: 300px;
+    padding: 10px 0px 10px 10px;
+    background: #F8F8F8;
+    margin-bottom:20px;
+}
+.admin-form-button-add::after{
+    content: " +"
+}
+.admin-form-button-add{
+    /* box-sizing: border-box; */
+    float: right;
+    width:220px;
+    height: 40px;
+    background-color:lightgrey;
+    padding: 10px 0;
+    color:white;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
+    outline: none;
+}
+.admin-form-second-column{
+    padding-right: 20px;
+    margin-left:50px;
+}
+.admin-form-two-columns-container{
+    display: flex;
+    justify-content: center;
+}
+.admin-form-header button:hover{
+    font-size: 1.1rem;
+}
+.admin-form-header button{
+    box-sizing: border-box;
+    width:220px;
+    height: 60px;
+    background-color:lightgrey;
+    padding: 16px 0;
+    color:white;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
+    outline: none;
+}
+.admin-form-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin-form-submit-button:hover{
+    font-size: 1.1rem;
+    background-color: #2d364f;
+}
 .admin-form-submit-button{
+    outline: none;
+    box-sizing: border-box;
     width:300px;
+    height: 60px;
     background-color:#1f2536;
     padding: 16px 0;
     color:white;
     margin-bottom: 40px;
+    cursor: pointer;
+    transition:all .3s ease;
+    border:none;
 }
 
 .admin-form-group b{
@@ -23,6 +205,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-right:50px;
 }
 
 .admin-menu-container{
