@@ -20,7 +20,8 @@ export default function Upload({
     hidden,
     iconStyle,
     preview,
-    onData
+    onData,
+    onClick
 }) {
 
     let inputRef = useRef()
@@ -33,7 +34,7 @@ export default function Upload({
 
     function handleFile(e) {
         let file = e.target.files[0]
-        if (file.type === "application/pdf") {
+        if (file && file.type === "application/pdf") {
             setImageURL(file.name)
             onChange(file)
             return
@@ -49,10 +50,10 @@ export default function Upload({
 
     return <>
         {!imageURL ? <div
-            style={style}
-            onClick={() => {
+            style={style || { display: "flex", flexDirection: "column", alignItems: "center" }}
+            onClick={!onClick ? () => {
                 inputRef.current.click()
-            }}
+            } : onClick}
         >
 
             <Icon
@@ -60,12 +61,13 @@ export default function Upload({
             >
                 <FontAwesomeIcon icon={accept === "application/pdf" ? faFilePdf : faFileImage} />
             </Icon>
+            <span>{placeholder}</span>
         </div>
             : accept !== "application/pdf" ?
                 <div
-                    onClick={() => {
+                    onClick={!onClick ? () => {
                         inputRef.current.click()
-                    }}
+                    } : onClick}
                     style={{
                         ...style,
                         backgroundImage: `url('${imageURL}')`,
