@@ -1,12 +1,12 @@
-import React from "react";
-import { Typography } from "antd";
+import React from 'react';
+import { Typography } from 'antd';
 
-import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
-import Container from "../../atoms/layout/Container";
-import Gastro from "../../atoms/gastro/Gastro";
-import { palette, size } from "../../styles/theme";
-import LaboralDataForm from "../../organisms/forms/LaboralDataForm";
-import Steper from "../../organisms/Steper";
+import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
+import Container from '../../atoms/layout/Container';
+import Gastro from '../../atoms/gastro/Gastro';
+import { palette, size } from '../../styles/theme';
+import LaboralDataForm from '../../organisms/forms/LaboralDataForm';
+import Steper from '../../organisms/Steper';
 
 const LaboralData = () => {
   const { Title } = Typography;

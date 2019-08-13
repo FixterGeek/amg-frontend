@@ -1,40 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import TextField from '../../molecules/TextFields';
+import { DatePicker } from 'antd';
+
 import Label from '../../atoms/data-entry/Label';
 import SelectField from '../../molecules/SelectField';
 
 function InternshipDataForm({ internship, setInternship }) {
-  const handleChange = (event) => {
-    const { target } = event;
-    const { name, value } = target;
+  const { RangePicker } = DatePicker;
 
-    setInternship({ [name]: value });
+  const handleDate = (moments) => {
+    setInternship({
+      startDate: moments[0].toString(),
+      endDate: moments[1].toString(),
+    });
   };
+
+  const handleSelect = (value) => {
+    setInternship({ institution: value });
+  };
+
+  console.log(internship);
 
   return (
     <form className="signup-form" style={{ width: '400px' }}>
       <SelectField
         name="institution"
         label="Hospital"
-        onChange={handleChange}
+        onChange={handleSelect}
         value={internship.institution}
       />
       <Label>Fecha</Label>
       <div>
-        <TextField
-          name="startDate"
-          label="De"
-          width="121px"
-          onChange={handleChange}
-        />
-        <TextField
-          name="endDate"
-          label="A"
-          width="121px"
-          onChange={handleChange}
-        />
+        <RangePicker name="rageDate" onChange={handleDate} />
       </div>
     </form>
   );
