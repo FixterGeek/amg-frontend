@@ -41,8 +41,6 @@ function Feed({
       .catch(() => errorAlert());
   }, []);
 
-  console.log(events);
-
   return (
     <div className="dashboard-container">
       <div>

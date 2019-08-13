@@ -102,7 +102,6 @@ export const populateEventsAction = () => (dispatch) => {
   dispatch(populateEvents());
   return getEvents()
     .then((data) => {
-      console.log(data);
       dispatch(populateEventsSuccess(data));
       return data;
     })
