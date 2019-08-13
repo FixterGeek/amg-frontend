@@ -1,0 +1,42 @@
+.reusable-tabs {
+  .ant-tabs-nav-scroll {
+    background-color: $clouds;
+  }
+
+  .ant-tabs-nav{
+    width: 100%;
+    div {
+      width: 100%;
+      display: flex;
+    }
+  }
+
+  .ant-tabs-tab {
+    flex-grow: 1;
+  }
+
+  .ant-tabs-tab-active {
+    background-color: $navy;
+    color: white;
+  }
+
+  .ant-tabs-bar {
+    margin-bottom: 0px;
+  }
+
+  .ant-tabs-ink-bar {
+    display: none!important;
+  }
+
+  .ant-tabs-content {
+    .ant-tabs-tabpane {
+      background-color: $lightBlue;
+      padding: $largePadding $padding;
+      box-sizing: border-box;
+    }
+    .ant-tabs-tabpane-inactive {
+      box-sizing: border-box;
+      padding: $largePadding $padding;
+    }
+  }
+}

@@ -18,12 +18,14 @@
 ** a block comment but with double *
 */
 
+@import "./Unities";
 @import "./Palette.scss";
 @import "./Atoms.scss";
 @import "./Gastro.scss";
 @import "./Molecules.scss";
 @import "./Organisms.scss";
 @import "./Componets.scss";
+@import "./Reusables.scss";
 
 body {
   font-family: "Avenir", "Avenir-Black", sans-serif;
