@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table, Icon, Divider, Tag, Switch, Input } from 'antd';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import {
     faSearch,
     faFilter
 } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux'
 
 let { Search } = Input
 
@@ -42,13 +43,13 @@ const columns = [
     },
     {
         title: 'Especialidad',
-        dataIndex: 'age',
-        key: 'age',
+        dataIndex: 'speciality',
+        key: 'speciality',
     },
     {
         title: 'Rango',
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: 'userType',
+        key: 'userType',
     },
     {
         title: 'Estado membresía',
@@ -82,10 +83,14 @@ const columns = [
         ),
     },
 ];
-export default function AdminUsersList({ list = data }) {
+function AdminUsersList({ list = data, fetching }) {
 
     let [searchButton, setButton] = useState(true)
     let [filtered, setFiltered] = useState(list)
+    useEffect(() => {
+        setFiltered(list)
+    }, [list])
+    //effect
 
     function onSearch(value) {
         let regex = new RegExp(value, 'i')
@@ -125,6 +130,7 @@ export default function AdminUsersList({ list = data }) {
             </div>
             <div>
                 <Table
+                    loading={fetching}
                     // locale={{ emptyText: "Da enter para una busqueda profunda" }}
                     columns={columns} dataSource={filtered} />
             </div>
@@ -132,3 +138,19 @@ export default function AdminUsersList({ list = data }) {
         </section>
     )
 }
+
+function mapState({ users }) {
+    let list = users.array.map(u => {
+        let user = {
+            name: u.basicData.name + " " + u.basicData.dadSurname,
+            speciality: u.basicData.speciality || "Gastroenterología",
+            address: 'Emérito',
+            tags: ['activa'],
+        }
+        user = { ...user, ...u }
+        return user
+    })
+    return { list, fetching: users.fetching }
+}
+
+export default connect(mapState)(AdminUsersList)
