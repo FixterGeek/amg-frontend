@@ -15,7 +15,16 @@ const signupState = {
     speciality: null,
   },
   membershipStatus: 'Free',
+  status: "ide", // success || error || fetching
+  studies: [],
+  interships: [],
+  newStudy: {},
+  newIntership: {}
 };
+
+// 1.- recolectamos info de 1
+//2.- post de eso al endpoint correcto
+//3.- con la respuesta hacemos push al array del reducer
 
 
 const WRITE_SIGNUP = 'WRITE_SIGNUP';
@@ -26,6 +35,16 @@ const SIGNUP_USER = 'SIGNUP_USER';
 const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
 const SIGNUP_USER_ERROR = 'SIGNUP_USER_ERROR';
 
+const WRITE_NEW_STUDY = "WRITE_NEW_STUDY"
+const WRITE_NEW_INTERSHIP = "WRITE_NEW_INTERSHIP"
+
+export function writeNewStudy(data) {
+  return { type: WRITE_NEW_STUDY, payload: data };
+}
+
+export function writeNewIntership(data) {
+  return { type: WRITE_NEW_INTERSHIP, payload: data };
+}
 
 export function writeSignup(payload) {
   return { type: WRITE_SIGNUP, payload };
@@ -56,25 +75,27 @@ export function signUpUser() {
   return { type: SIGNUP_USER };
 }
 
-export function signUpUserSuccess(payload) {
-  return { type: SIGNUP_USER_SUCCESS, payload };
+export function signUpUserSuccess(data) {
+  return { type: SIGNUP_USER_SUCCESS, payload: data };
 }
 
-export function signUpUserError(payload) {
-  return { type: SIGNUP_USER_ERROR, payload };
+export function signUpUserError(error) {
+  return { type: SIGNUP_USER_ERROR, payload: error };
 }
 
 
 export const signupUserAction = userData => (dispatch) => {
   dispatch(signUpUser());
   return signup(userData)
-    .then((data) => {
-      localStorage.setItem('user', JSON.stringify(data));
+    .then(data => {
+      localStorage.user = JSON.stringify(data.user)
+      localStorage.token = JSON.stringify(data.token)
       dispatch(signUpUserSuccess(data));
       return data;
     })
-    .catch((error) => {
-      dispatch(signUpUserError(error));
+    .catch(error => {
+      console.log(error.response.data.message)
+      dispatch(signUpUserError(error.response.data.message));
       return error;
     });
 };
@@ -82,6 +103,14 @@ export const signupUserAction = userData => (dispatch) => {
 
 function reducer(state = signupState, action) {
   switch (action.type) {
+    case "LOOK_FOR_SAVED_DATA":
+      let signup = localStorage.signup
+      if (signup) return { ...JSON.parse(signup) }
+      else return state
+    case WRITE_NEW_INTERSHIP:
+      return { ...state, newIntership: { ...action.payload } }
+    case WRITE_NEW_STUDY:
+      return { ...state, newStudy: { ...action.payload } }
     case WRITE_SIGNUP:
       return { ...state, ...action.payload };
     case WRITE_BASIC_DATA:
@@ -95,11 +124,11 @@ function reducer(state = signupState, action) {
         },
       };
     case SIGNUP_USER:
-      return { ...state, fetching: true };
+      return { ...state, fetching: true, status: "fetching" };
     case SIGNUP_USER_SUCCESS:
-      return { ...state, ...action.payload, fetching: false };
+      return { ...state, ...action.payload, fetching: false, status: "success" };
     case SIGNUP_USER_ERROR:
-      return { ...state, fetching: false, error: true };
+      return { ...state, fetching: false, error: action.payload, status: "error" };
     default:
       return state;
   }

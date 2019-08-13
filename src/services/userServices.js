@@ -19,8 +19,8 @@ const logout = async (history) => {
 };
 
 export const signup = async (userData) => {
-  console.log(userData);
-  return axios.post(`${baseAuthURL}/signup`, { ...userData })
+  //console.log(userData);
+  return axios.post(`${baseAuthURL}/signup`, userData)
     .then(res => res.data);
 };
 

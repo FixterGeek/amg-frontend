@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Radio } from 'antd';
+import { Radio, Spin } from 'antd';
 
 import {
   writeSignupAction, writeBasicDataAction, writePlaceOfBirdAction,
@@ -18,14 +18,22 @@ import states from './estados.json';
 
 function GeneralDataForm({
   history, signup, writeSignupAction,
-  writeBasicDataAction, writePlaceOfBirdAction, signupUserAction
+  writeBasicDataAction, writePlaceOfBirdAction, signupUserAction,
+  fetching,
+  status,
+  error
 }) {
   const { Group } = Radio;
 
 
   const { basicData } = signup;
   // const { signup } = useAmgService();
-
+  useEffect(() => {
+    if (status === "success") {
+      history.push('/signup/education')
+    }
+  }, [status])
+  //effect
   const handleChange = (event) => {
     console.log(event);
     console.log(event);
@@ -49,12 +57,12 @@ function GeneralDataForm({
     event.preventDefault();
     // history.push('education');
     signupUserAction({ ...signup })
-      .then(() => history.push('/dashboard'))
-      .catch(({ response }) => console.log(response));
+    // .then(() => history.push('/dashboard'))
+    // .catch(({ response }) => console.log(response));
   };
 
   console.log(signup);
-
+  if (fetching) return <Spin />
   return (
     <form
       className="signup-form"
@@ -66,6 +74,8 @@ function GeneralDataForm({
         onChange={handleChange}
         name="name"
         label="Nombre"
+        error={status === "error"}
+        errorMessage={error}
       />
 
       <TextField
@@ -149,9 +159,12 @@ function GeneralDataForm({
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ signup }) {
   return {
-    signup: state.signup,
+    signup: signup,
+    status: signup.status,
+    fetching: signup.fetching,
+    error: signup.error
   };
 }
 
