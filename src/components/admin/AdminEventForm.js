@@ -19,6 +19,7 @@ import {
 import { connect } from 'react-redux'
 import { saveDraftEvent, getSingleEvent, updateWorkingOn } from '../../store/ducks/adminDuck'
 import ListAndModal from './reusables/ListAndModal'
+import ImageGalleryPicker from './reusables/ImageGalleryPicker'
 
 let { Option } = Select
 const { Dragger } = Upload;
@@ -306,6 +307,7 @@ function AdminEventForm({
             </div>
 
             {/* modals */}
+            <ImageGalleryPicker />
             {/* {speakerModal && <SpeakerModal
                 onFinish={addSpeaker}
                 onCancel={() => setSpeakerModal(false)}
