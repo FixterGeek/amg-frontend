@@ -20,19 +20,21 @@ function EventsList(props) {
     byMonths: [],
   });
 
+  console.log(events);
+
 
   useEffect(() => {
     const byMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
       month,
       events: events.events.filter(
-        event => moment(event.startDate.replace('/', '-').replace('/', '-')).month() === month,
+        event => moment(event.startDate).month() === month,
       ),
     }));
 
     setState({
       byMonths,
     });
-  }, [events]);
+  }, [events.events]);
 
   useEffect(() => {
     if (events.events.length === 0) {
@@ -40,7 +42,7 @@ function EventsList(props) {
         .then(() => setLoading(false))
         .catch(() => {
           setLoading(false);
-          errorAlert();
+          errorAlert({});
         });
     }
   }, []);
