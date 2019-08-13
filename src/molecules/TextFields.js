@@ -12,6 +12,7 @@ function TextField({
   width, error, success, warning,
   errorMessage, successMessage, warningMessage,
   onChange, value, label,
+  password,
   name,
   type,
   style, ...others
@@ -30,6 +31,7 @@ function TextField({
         {label}
       </Label>
       {type !== "textarea" ? <InputField
+        password={password}
         name={name}
         width="100%"
         type="text"
@@ -77,6 +79,7 @@ TextField.propTypes = {
   label: PropTypes.string,
   style: PropTypes.object,
   type: PropTypes.string,
+  password: PropTypes.bool,
 };
 
 TextField.defaultProps = {
@@ -90,5 +93,6 @@ TextField.defaultProps = {
   onChange: false,
   value: null,
   label: 'Field Name',
-  style: {}
+  style: {},
+  password: false,
 };

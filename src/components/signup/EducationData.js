@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography } from "antd";
 
 import FullScreenContainer from "../../atoms/layout/FullScreenContainer";
@@ -12,6 +12,22 @@ import Steper from "../../organisms/Steper";
 
 const EducationData = () => {
   const { Title } = Typography;
+
+  const [education, setEducation] = useState({
+    studie: {
+      institution: null,
+      major: null,
+      startDate: null,
+      endDate: null,
+      receptionDate: null,
+      professionalLicence: null,
+    },
+  });
+
+  const setStudie = (payload) => {
+    setEducation({ ...education, studie: { ...payload } });
+  };
+
   return (
     <FullScreenContainer
       lateralSpace="0px"
@@ -43,7 +59,7 @@ const EducationData = () => {
             </Title>
           </div>
         </Container>
-        <EducationDataForm />
+        <EducationDataForm studie={education.studie} setStudie={setStudie} />
         <Container flexGrow={1} height="100px">
           <div style={{ textAlign: "center" }}>
             <Title level={4} style={{ margin: 0 }}>
@@ -51,7 +67,7 @@ const EducationData = () => {
             </Title>
           </div>
         </Container>
-        <InternshipDataForm />
+        {/* <InternshipDataForm /> */}
         <Container flexGrow={1} height="100px">
           <div style={{ textAlign: "center" }}>
             <Title level={4} style={{ margin: 0 }}>
@@ -59,7 +75,7 @@ const EducationData = () => {
             </Title>
           </div>
         </Container>
-        <CoursesDataForm />
+        {/* <CoursesDataForm /> */}
       </Container>
     </FullScreenContainer>
   );
