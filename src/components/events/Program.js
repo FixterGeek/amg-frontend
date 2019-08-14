@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import { Typography } from 'antd';
 
+import useSweetAlert from '../../hooks/useSweetAlert';
 import { getSingleEvent } from '../../services/eventsServices';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import EventCover from '../../molecules/EventCover';
@@ -11,10 +12,12 @@ import ActivityItem from '../../molecules/Events/ActivityItem';
 import Spinner from '../../atoms/Spinner';
 
 function Program({ history }) {
+  const { Title } = Typography;
+
+  const { errorAlert } = useSweetAlert();
   const [eventState, setEvent] = useState();
   const [loading, setLoading] = useState(false);
   const { location } = history;
-  const { Title } = Typography;
 
 
   useEffect(() => {
@@ -27,10 +30,11 @@ function Program({ history }) {
         setEvent(data);
         setLoading(false);
       })
-      .catch(({ response }) => console.log(response));
+      .catch(({ response }) => {
+        setLoading(false);
+        errorAlert();
+      });
   }, []);
-
-  console.log(eventState);
 
   return (
     <div className="dashboard-container">
