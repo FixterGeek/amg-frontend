@@ -4,24 +4,24 @@ import { connect } from 'react-redux';
 
 import { DatePicker as Picker, Select, Modal } from 'antd';
 
+import moment from 'moment';
 import Label from '../../atoms/data-entry/Label';
 import TextField from '../../molecules/TextFields';
 import SelectField from '../../molecules/SelectField';
 import DatePicker from '../../molecules/DatePicker';
-import { getStudies, createStudie } from '../../services/studiesServices'
-import { writeNewStudy } from '../../store/ducks/signupDuck'
-import moment from 'moment'
+import { getStudies, createStudie } from '../../services/studiesServices';
+import { writeNewStudy } from '../../store/ducks/signupDuck';
 
-const { Option } = Select
+const { Option } = Select;
 
 const EducationDataForm = ({ studie, setStudie, writeNewStudy, newStudy }) => {
   const { RangePicker } = Picker;
-  let [studies, setStudies] = useState([])
-  let [open, setOpen] = useState(false)
-  let [newStudie, setNewStudie] = useState({})
+  let [studies, setStudies] = useState([]);
+  let [open, setOpen] = useState(false);
+  let [newStudie, setNewStudie] = useState({});
   useEffect(() => {
-    loadStudies()
-  }, [])
+    loadStudies();
+  }, []);
   //effect
   // const handleSubmit = () => {
   //   history.push("laboral");
@@ -34,22 +34,22 @@ const EducationDataForm = ({ studie, setStudie, writeNewStudy, newStudy }) => {
   };
 
   const handleRange = (moments) => {
-    let startDate = moments[0].toString()
-    let endDate = moments[1].toString()
+    let startDate = moments[0].toString();
+    let endDate = moments[1].toString();
     writeNewStudy({ ...newStudy, startDate, endDate });
   };
 
   function loadStudies() {
     getStudies().then(data => {
-      setStudies(data)
-    })
+      setStudies(data);
+    });
   }
 
   function uploadStudie() {
     createStudie(newStudie)
       .then(() => {
-        loadStudies()
-      })
+        loadStudies();
+      });
   }
 
   return (
@@ -122,7 +122,7 @@ const EducationDataForm = ({ studie, setStudie, writeNewStudy, newStudy }) => {
 function mapState({ signup }) {
   return {
     newStudy: signup.newStudy
-  }
+  };
 }
 
 export default connect(mapState, { writeNewStudy })(EducationDataForm);

@@ -43,6 +43,8 @@ function EventDetail(props) {
     }
   }, [getSingleEvent, location.event, location.pathname]);
 
+  console.log(state);
+
   return (
     <div className="dashboard-container event-detail">
       { !state._id && <Spinner tip="Cargando evento..." /> }

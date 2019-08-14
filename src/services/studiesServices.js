@@ -3,7 +3,7 @@ import axios from 'axios';
 const APIURL = `${process.env.REACT_APP_BASE_API_URL}/studies`;
 const token = JSON.parse(localStorage.getItem('token'));
 
-export const getStudies = () => axios.get(`${APIURL}`, { headers: { Authorization: token, } }).then(({ data }) => data);
+export const getStudies = () => axios.get(`${APIURL}`, { headers: { Authorization: token } }).then(({ data }) => data);
 
 export const createStudie = async (studieData) => {
   const user = await JSON.parse(localStorage.getItem('user'));

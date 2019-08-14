@@ -46,7 +46,7 @@ const EducationData = ({ signup }) => {
 
   const handleSave = () => {
     setLoading(true);
-    localStorage.signup = JSON.stringify(signup)
+    localStorage.signup = JSON.stringify(signup);
     // esto puede cambiar
     // Promise.all([
     // createStudie({ ...education.studie }),
@@ -131,9 +131,7 @@ const EducationData = ({ signup }) => {
 };
 
 function mapState({ signup }) {
-  return {
-    signup
-  }
+  return { signup };
 }
 
-export default connect(mapState)(EducationData)
+export default connect(mapState)(EducationData);

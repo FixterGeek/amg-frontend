@@ -14,12 +14,22 @@ const signupState = {
     },
     speciality: null,
   },
+  fiscalData: {
+    address: {},
+  },
   membershipStatus: 'Free',
-  status: "ide", // success || error || fetching
+  status: 'ide', // success || error || fetching
   studies: [],
   interships: [],
   newStudy: {},
-  newIntership: {}
+  newIntership: {},
+  newInstitution: {
+    location: {},
+  },
+  newOwnInstitution: {
+    type: 'Consultorio',
+    location: {},
+  },
 };
 
 // 1.- recolectamos info de 1
@@ -35,8 +45,24 @@ const SIGNUP_USER = 'SIGNUP_USER';
 const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
 const SIGNUP_USER_ERROR = 'SIGNUP_USER_ERROR';
 
-const WRITE_NEW_STUDY = "WRITE_NEW_STUDY"
-const WRITE_NEW_INTERSHIP = "WRITE_NEW_INTERSHIP"
+const WRITE_NEW_STUDY = 'WRITE_NEW_STUDY';
+const WRITE_NEW_INTERSHIP = 'WRITE_NEW_INTERSHIP';
+const WRITE_NEW_INSTITUTION = 'WRITE_NEW_INSTITUTION';
+const WRITE_NEW_OWN_INSTITUTION = 'WRITE_NEW_OWN_INSTITUTION';
+const WRITE_NEW_FISCAL_DATA = 'WRITE_NEW_FISCAL_DATA';
+
+
+export function writeNewFiscalData(data) {
+  return { type: WRITE_NEW_FISCAL_DATA, payload: data };
+}
+
+export function writeNewInstitution(data) {
+  return { type: WRITE_NEW_INSTITUTION, payload: data };
+}
+
+export function writeNewOwnInstitution(data) {
+  return { type: WRITE_NEW_OWN_INSTITUTION, payload: data };
+}
 
 export function writeNewStudy(data) {
   return { type: WRITE_NEW_STUDY, payload: data };
@@ -87,14 +113,13 @@ export function signUpUserError(error) {
 export const signupUserAction = userData => (dispatch) => {
   dispatch(signUpUser());
   return signup(userData)
-    .then(data => {
-      localStorage.user = JSON.stringify(data.user)
-      localStorage.token = JSON.stringify(data.token)
+    .then((data) => {
+      localStorage.user = JSON.stringify(data.user);
+      localStorage.token = JSON.stringify(data.token);
       dispatch(signUpUserSuccess(data));
       return data;
     })
-    .catch(error => {
-      console.log(error.response.data.message)
+    .catch((error) => {
       dispatch(signUpUserError(error.response.data.message));
       return error;
     });
@@ -103,14 +128,20 @@ export const signupUserAction = userData => (dispatch) => {
 
 function reducer(state = signupState, action) {
   switch (action.type) {
-    case "LOOK_FOR_SAVED_DATA":
-      let signup = localStorage.signup
-      if (signup) return { ...JSON.parse(signup) }
-      else return state
+    case 'LOOK_FOR_SAVED_DATA':
+      const signup = localStorage.user;
+      if (signup) return { ...JSON.parse(signup) };
+      else return state;
+    case WRITE_NEW_FISCAL_DATA:
+      return { ...state, fiscalData: { ...state.fiscalData, ...action.payload } };
+    case WRITE_NEW_INSTITUTION:
+      return { ...state, newInstitution: { ...state.newInstitution, ...action.payload } };
+    case WRITE_NEW_OWN_INSTITUTION:
+      return { ...state, newOwnInstitution: { ...state.newOwnInstitution, ...action.payload } };
     case WRITE_NEW_INTERSHIP:
-      return { ...state, newIntership: { ...action.payload } }
+      return { ...state, newIntership: { ...action.payload } };
     case WRITE_NEW_STUDY:
-      return { ...state, newStudy: { ...action.payload } }
+      return { ...state, newStudy: { ...action.payload } };
     case WRITE_SIGNUP:
       return { ...state, ...action.payload };
     case WRITE_BASIC_DATA:
@@ -124,11 +155,11 @@ function reducer(state = signupState, action) {
         },
       };
     case SIGNUP_USER:
-      return { ...state, fetching: true, status: "fetching" };
+      return { ...state, fetching: true, status: 'fetching' };
     case SIGNUP_USER_SUCCESS:
-      return { ...state, ...action.payload, fetching: false, status: "success" };
+      return { ...state, ...action.payload, fetching: false, status: 'success' };
     case SIGNUP_USER_ERROR:
-      return { ...state, fetching: false, error: action.payload, status: "error" };
+      return { ...state, fetching: false, error: action.payload, status: 'error' };
     default:
       return state;
   }

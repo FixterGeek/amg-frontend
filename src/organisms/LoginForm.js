@@ -45,13 +45,13 @@ function LoginForm(props) {
         name="email"
         label="Correo" />
       <TextField
+        password
         width="100%"
         error={error}
         errorMessage={error}
         value={auth.password}
         onChange={handleChange}
         name="password"
-        type="password"
         label="Contraseña"
         marginBottom="0px" />
       <div>
