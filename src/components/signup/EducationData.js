@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 import { Typography, Icon } from 'antd';
 
-import { createStudie } from '../../services/studiesServices';
-import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
 import Container from '../../atoms/layout/Container';
 import Gastro from '../../atoms/gastro/Gastro';
-import { palette, size } from '../../styles/theme';
 import EducationDataForm from '../../organisms/forms/EducationDataForm';
 import InternshipDataForm from '../../organisms/forms/InternshipDataForm';
 import CoursesDataForm from '../../organisms/forms/CoursesDataForm';
 import Steper from '../../organisms/Steper';
 import Button from '../../atoms/Button';
 import Spinner from '../../atoms/Spinner';
-import { connect } from 'react-redux'
+
+import ContainerItem from '../../atoms/DashboardContainerItem';
 
 const EducationData = ({ signup }) => {
   const { Title } = Typography;
@@ -68,49 +67,37 @@ const EducationData = ({ signup }) => {
   };
 
   return (
-    <FullScreenContainer
-      lateralSpace="0px"
-      paddingTop="0px"
-      paddingBottom="0px"
-      flexWrap="nowrap"
-    >
-      <Container
-        alignItems="flex-start"
-        className="signup-left"
-        height="100vh"
-        width="30%"
-        bgColor={palette.secondary}
-        paddingTop={size.largePadding}
-        paddingBottom={size.largePadding}
-      >
+    <div className="signup-container">
+      <div className="signup-container-left">
         <Gastro />
         <Steper />
-      </Container>
+      </div>
 
-      <Container className="signup-rigth" height="100vh" width="65%">
+      <div className="signup-container-rigth">
         {loading && <Spinner tip="Guardando" />}
         <Button onClick={handleSave} className="reusable-save-button" line>
           Guardar
           <Icon type="save" />
         </Button>
-        <Container flexGrow={1} height="100px">
-          <div style={{ textAlign: 'center' }}>
-            <Title level={1} style={{ margin: 0 }}>
-              Educación
-            </Title>
-            <Title level={4} style={{ margin: 0 }}>
-              Educación profesional
-            </Title>
-          </div>
-        </Container>
-        <EducationDataForm studie={education.studie} setStudie={setStudie} />
-        <Container flexGrow={1} height="100px">
-          <div style={{ textAlign: 'center' }}>
-            <Title level={4} style={{ margin: 0 }}>
-              Internado de pregrado
-            </Title>
-          </div>
-        </Container>
+        <ContainerItem>
+          <Title level={1} style={{ margin: 0 }}>
+            Educación
+          </Title>
+          <Title level={4} style={{ margin: 0 }}>
+            Educación profesional
+          </Title>
+        </ContainerItem>
+
+        <ContainerItem>
+          <EducationDataForm studie={education.studie} setStudie={setStudie} />
+        </ContainerItem>
+
+        <ContainerItem>
+          <Title level={4}>
+            Internado de pregrado
+          </Title>
+        </ContainerItem>
+
         <InternshipDataForm
           internship={education.internship}
           setInternship={setInternship} />
@@ -125,8 +112,8 @@ const EducationData = ({ signup }) => {
         <Button width="100%">
           <Link to="/signup/laboral">Siguiente</Link>
         </Button>
-      </Container>
-    </FullScreenContainer>
+      </div>
+    </div>
   );
 };
 

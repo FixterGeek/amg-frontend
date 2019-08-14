@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
@@ -22,6 +23,7 @@ function EventDetail(props) {
   const { getSingleEvent, assistAnEvent } = useAmgService();
   const [state, setState] = useState({
     description: [],
+    permisosURLS: [],
   });
 
 
@@ -37,9 +39,11 @@ function EventDetail(props) {
     if (location.event) {
       setState({ ...location.event });
     } else {
-      const locationSplit = location.pathname.split('/');
-      const id = locationSplit[locationSplit.length - 1];
-      getSingleEvent(id).then(({ data }) => setState({ ...data }));
+      if (!state._id) {
+        const locationSplit = location.pathname.split('/');
+        const id = locationSplit[locationSplit.length - 1];
+        getSingleEvent(id).then(({ data }) => setState({ ...data }));
+      }
     }
   }, [getSingleEvent, location.event, location.pathname]);
 
@@ -72,7 +76,7 @@ function EventDetail(props) {
             to={{ pathname: `/dashboard/events/${state._id}/speakers`, event: state }} />
           <TextNIconButton
             downloadable
-            to={state.permisoURL}
+            to={state.permisosURLS[0]}
             event={state}
             text="Descargar carta permiso"
           />

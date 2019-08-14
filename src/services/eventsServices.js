@@ -3,21 +3,22 @@ import axios from 'axios';
 const APIURL = `${process.env.REACT_APP_BASE_API_URL}/events`;
 
 export const getEvents = async () =>{
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.authToken;
 
   return axios.get(`${APIURL}`, {
     headers: {
-      Authorization: user.token,
+      Authorization: token,
     },
   }).then(({ data }) => data);
 };
 
 
 export const getSingleEvent = (id) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.authToken;
+
   return axios.get(`${APIURL}/${id}`, {
     headers: {
-      Authorization: user.token,
+      Authorization: token,
     },
   }).then(({ data }) => data);
 };
