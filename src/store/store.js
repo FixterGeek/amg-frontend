@@ -10,6 +10,7 @@ import publicationsDuck from './ducks/publicationsDuck';
 import userDuck from './ducks/userDuck';
 import usersReducer from './ducks/users';
 import sigupDuck from './ducks/signupDuck';
+import institutionsDuck from './ducks/institutionsDuck';
 import configReducer from './ducks/configDuck'
 import adminReducer, { saveDraftEventEpic, getSingleEventEpic } from './ducks/adminDuck'
 
@@ -20,7 +21,8 @@ let rootReducer = combineReducers({
     users: usersReducer,
     signup: sigupDuck,
     config: configReducer,
-    admin: adminReducer
+    admin: adminReducer,
+    institutions: institutionsDuck,
 });
 
 

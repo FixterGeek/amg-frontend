@@ -4,10 +4,8 @@ import { Typography, Modal, Checkbox } from 'antd';
 
 import ContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
-import SelectField from '../../../molecules/SelectField';
-import TextField from '../../../molecules/TextFields';
-import Label from '../../../atoms/data-entry/Label';
-import CreateInstitution from '../reusables/CreateInstitution';
+import CreateInstitution from '../reusables/CreateInstitutionModal';
+import LaboralForm from '../reusables/LaboralForm';
 
 function LaboralExperience() {
   const { Title } = Typography;
@@ -16,6 +14,10 @@ function LaboralExperience() {
 
   const handleResult = (error, data) => {
     console.log(error);
+    console.log(data);
+  };
+
+  const handleForm = (data) => {
     console.log(data);
   };
 
@@ -30,10 +32,8 @@ function LaboralExperience() {
         visible={open}
         onCancel={() => setOpen(false)}
       >
-        <SelectField label="Institución" />
+        <LaboralForm onChange={handleForm} />
         <CreateInstitution onResult={handleResult} />
-        <Label>Es una institución propia</Label>
-        <Checkbox />
       </Modal>
     </ContainerItem>
   );

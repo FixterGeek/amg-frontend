@@ -8,6 +8,12 @@ export const getInstitutions = type => axios.get(`${APIURL}?query={"type":${type
   .then(({ data }) => data);
 
 
+export const getAllInstitutions = () => axios.get(`${APIURL}`, {
+  headers: {
+    Authorization: token,
+  },
+}).then(({ data }) => data);
+
 export const createInstitution = institutionData => axios.post(`${APIURL}`, institutionData, {
   headers: {
     Authorization: token,

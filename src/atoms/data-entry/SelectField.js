@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Select } from 'antd';
 
-function SelectField({ options, onChange, status, value }) {
+function SelectField({ options, onChange, status, value, useKeys = ['index', 'value', 'text'] }) {
   const { Option } = Select;
   return (
     <Select
@@ -12,8 +12,11 @@ function SelectField({ options, onChange, status, value }) {
       onChange={onChange ? (value, event) => onChange(value, event) : null}>
       {
         options.map((option, index) => (
-          <Option className="select-field-option" key={option.index || index} value={option.value || option}>
-            {option.text || option}
+          <Option
+            className="select-field-option"
+            key={option[useKeys[0]] || index}
+            value={option[useKeys[1]] || option}>
+            {option[useKeys[2]] || option}
           </Option>
         ))
       }

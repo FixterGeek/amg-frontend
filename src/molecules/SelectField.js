@@ -11,7 +11,7 @@ function SelectField({
   label, onChange, options,
   error, errorMessage, success,
   successMessage, warning, warningMessage,
-  marginTop, marginBottom, value
+  marginTop, marginBottom, value, useKeys,
 }) {
   const status = error
     ? 'error' : success
@@ -29,6 +29,7 @@ function SelectField({
       <Select
         value={value}
         onChange={onChange}
+        useKeys={useKeys}
         options={options}
         status={status} />
       <StatusMessage
