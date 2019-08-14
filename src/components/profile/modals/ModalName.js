@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 import { Modal, Typography, Icon } from 'antd';
 
-import { writeUser } from '../../store/actions';
-import useSweetAlert from '../../hooks/useSweetAlert';
-import useAmgService from '../../hooks/services/useAmgService';
-import TextField from '../../molecules/TextFields';
+import { writeUser } from '../../../store/actions';
+import useSweetAlert from '../../../hooks/useSweetAlert';
+import useAmgService from '../../../hooks/services/useAmgService';
+import TextField from '../../../molecules/TextFields';
 
-function ModalName({ userId, basicData, setLoading, dispatch }) {
+function ModalName({ user, dispatch }) {
   const { Title } = Typography;
 
   const { errorAlert } = useSweetAlert();
   const { updateUser } = useAmgService();
   const [open, setOpen] = useState(false);
+  const { basicData = {} } = user;
   const { name, dadSurname, momSurname } = basicData;
   const [fullName, setFullName] = useState({
     name,
@@ -33,24 +34,20 @@ function ModalName({ userId, basicData, setLoading, dispatch }) {
   };
 
   const handleSave = () => {
-    setLoading(true);
-    setOpen(false);
-    updateUser(userId, { basicData: { ...basicData, ...fullName } })
-      .then((data) => {
-        setLoading(false);
-        dispatch(writeUser({ ...data }));
-      })
-      .catch((error) => {
-        errorAlert();
-        console.log(error);
-      });
+    // setOpen(false);
+    // updateUser(userId, { basicData: { ...basicData, ...fullName } })
+    //   .then((data) => {
+    //     dispatch(writeUser({ ...data }));
+    //   })
+    //   .catch((error) => {
+    //     errorAlert();
+    //     console.log(error);
+    //   });
   };
-
-  console.log('modal');
 
   return (
     <div>
-      <Title>
+      <Title level={4}>
         {`${name} ${dadSurname} ${momSurname}`}
         <Icon className="edit-icon" type="edit" onClick={() => setOpen(true)} />
       </Title>

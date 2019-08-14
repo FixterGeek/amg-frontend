@@ -6,7 +6,7 @@ import { Button as Btn } from 'antd';
 import { palette, size } from '../styles/theme';
 
 function Button({
-  onClick, children, bgColor, width, marginTop, marginBottom, line, className, ...others
+  onClick, children, bgColor, width, marginTop, marginBottom, line, className, style, ...others
 }) {
   const bgColorBtn = !line ? palette[bgColor] : 'transparent';
   const borderColorBtn = palette[bgColor];
@@ -23,6 +23,7 @@ function Button({
         marginTop,
         marginBottom,
         color: textColotBtn,
+        ...style,
       }}
       {...others}>
       { children }

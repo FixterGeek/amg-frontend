@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DashoardContainerItem from '../../atoms/DashboardContainerItem';
-import Button from '../../atoms/Button';
-import TextArea from '../../molecules/TextArea';
+import DashoardContainerItem from '../../../atoms/DashboardContainerItem';
+import Button from '../../../atoms/Button';
+import TextArea from '../../../molecules/TextArea';
 
 function PersonalBio() {
   return (

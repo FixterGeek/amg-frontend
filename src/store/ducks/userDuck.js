@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { signup, login } from '../../services/userServices'
+import { login, updateUser as update } from '../../services/userServices'
 import {
     switchMap,
     map,
@@ -65,8 +65,24 @@ let LOGIN_USER = "LOGIN_USER"
 let LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 let SET_FETCHING_USER = "SET_FETCHING_USER"
 let LOGOUT_USER = "LOGOUT_USER"
+let UPDATE_USER = "UPDATE_USER"
+let UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS"
+let UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
 
 // actionCreators
+export function updateUser() {
+    return { type: UPDATE_USER };
+}
+
+export function updateUserSuccess(userData) {
+    return { type: UPDATE_USER_SUCCESS, payload: userData };
+}
+
+export function updateUserError(error) {
+    return { type: UPDATE_USER_ERROR, payload: error };
+}
+
+
 export function createUser() {
     return {
         type: CREATE_USER
@@ -179,21 +195,22 @@ export const loginUserAction = (auth) => (dispatch) => {
             dispatch(loginUserError(err))
         })
 }
-// signup
-export const createUserAction = ({ name, email, password }) => (dispatch) => {
-    return // there is no signup in the app, but in the admin
-    dispatch(createUser())
-    return signup(name, email, password)
-        .then(data => {
-            dispatch(createUserSuccess(data.user))
-            localStorage.authToken = data.token
-            return data
+
+// update user
+export const updateUserAction = (userData) => (dispatch) => {
+    dispatch(updateUser());
+    return update(userData)
+        .then((data) => {
+            localStorage.user = JSON.stringify(data);
+            dispatch(updateUserSuccess(data));
+            return data;
         })
-        .catch(err => {
-            console.log(err)
-            dispatch(createUserError(err))
+        .catch(({ response }) => {
+            dispatch(updateUserError(response.data));
+            return response;
         })
 }
+
 
 // logout
 export const logoutAction = () => (dispatch) => {
@@ -207,6 +224,12 @@ export const logoutAction = () => (dispatch) => {
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
+        case UPDATE_USER:
+            return { ...state, fetching: true };
+        case UPDATE_USER_SUCCESS:
+            return { ...state, ...action.payload, fetching: false };
+        case UPDATE_USER_ERROR:
+            return { ...state, fetching: false, error: action.payload.message };
         case SET_FETCHING_USER:
             return { ...state, fetching: true }
         case LOGIN_USER_SUCCESS:

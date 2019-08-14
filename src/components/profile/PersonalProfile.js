@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Typography, Icon } from 'antd';
-
+import { updateUserAction } from '../../store/ducks/userDuck';
 import Spinner from '../../atoms/Spinner';
-import ModalName from '../../organisms/profile/ModalName';
-import BasicData from '../../organisms/profile/BasicData';
-import PersonalBio from '../../organisms/profile/PersonalBio';
-import PersonalEducation from '../../organisms/profile/PersonalEducation';
+import BasicData from './editables/BasicData';
+import PersonalBio from './editables/PersonalBio';
+import PersonalEducation from './editables/PersonalEducation';
+import LaboralExperience from './editables/LaboralExperience';
 
-function PersonalProfile({ user, dispatch }) {
-  const [loading, setLoading] = useState(false);
+function PersonalProfile({ user, updateUserAction }) {
   const {
     basicData, membershipStatus, studies, hospitalActivities,
     photo,
@@ -19,27 +17,21 @@ function PersonalProfile({ user, dispatch }) {
 
 
   return (
-    <div className="dashboard-container">
-      { loading && <Spinner /> }
-
-      <ModalName
-        userId={user._id}
-        basicData={basicData}
-        setLoading={setLoading}
-        dispatch={dispatch} />
-
+    <div className="dashboard-container component-main-profile">
+      { user.fetching && <Spinner /> }
       <BasicData
         photoFile={photo}
-        dispatch={dispatch}
+        dispatch={updateUserAction}
         photoURL={photoURL}
-        userId={user._id}
+        user={user}
         membershipStatus={membershipStatus}
-        speciality={speciality}
-        basicData={basicData} />
+        speciality={speciality} />
 
-      <PersonalBio dispatch={dispatch} />
+      <PersonalBio dispatch={updateUserAction} />
 
       <PersonalEducation />
+
+      <LaboralExperience />
     </div>
   );
 }
@@ -48,4 +40,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default connect(mapStateToProps)(PersonalProfile);
+export default connect(mapStateToProps, { updateUserAction })(PersonalProfile);
