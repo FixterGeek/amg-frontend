@@ -8,9 +8,12 @@ import TextField from '../../../molecules/TextFields';
 import SelectField from '../../../molecules/SelectField';
 import states from '../../../organisms/forms/estados.json';
 import Label from '../../../atoms/data-entry/Label';
+import Upload from '../../admin/reusables/Upload'
+import ImageGalleryPicker from '../../admin/reusables/ImageGalleryPicker'
 
 function CreateInstitution({ user, onResult }) {
   const [open, setOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false)
   const [institution, setInstitution] = useState({
     name: null,
     type: null,
@@ -23,6 +26,7 @@ function CreateInstitution({ user, onResult }) {
       city: null,
       state: null,
     },
+    logoURL: null
   });
 
 
@@ -74,6 +78,10 @@ function CreateInstitution({ user, onResult }) {
           value={institution.name}
           label="Nombre institución"
           name="name" />
+        <Upload
+          preview={institution.logoURL}
+          onClick={() => setGalleryOpen(true)}
+        />
         <TextField
           onChange={handleChange}
           value={institution.president}
@@ -106,6 +114,12 @@ function CreateInstitution({ user, onResult }) {
           label="Estado"
           options={states} />
       </Modal>
+      <ImageGalleryPicker
+        refName={"users"}
+        visible={galleryOpen}
+        onChange={link => setInstitution({ ...institution, logoURL: link })}
+        onClose={() => setGalleryOpen(false)}
+      />
     </div>
   );
 }

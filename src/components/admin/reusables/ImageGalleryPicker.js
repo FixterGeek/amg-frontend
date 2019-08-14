@@ -13,7 +13,7 @@ import {
 import Upload from './Upload'
 
 
-export default function ImageGalleryPicker({ onChange, visible, onClose }) {
+export default function ImageGalleryPicker({ refName = "admin", onChange, visible, onClose }) {
     let inputRef = useRef()
     let [imageList, setImageList] = useState([])
     let [loading, setLoading] = useState(true)
@@ -29,7 +29,7 @@ export default function ImageGalleryPicker({ onChange, visible, onClose }) {
 
     function uploadFile(file) {
         setLoading(true)
-        storage.ref('admin').child(file.name).put(file)
+        storage.ref(refName).child(file.name).put(file)
             .then(res => {
                 loadImages()
                 //inputRef.current.value = null
@@ -37,7 +37,7 @@ export default function ImageGalleryPicker({ onChange, visible, onClose }) {
     }
 
     async function getImages() {
-        return storage.ref('admin').listAll()
+        return storage.ref(refName).listAll()
             .then(snap => {
                 return Promise.all(snap.items.map(imRef => {
                     return imRef.getDownloadURL()

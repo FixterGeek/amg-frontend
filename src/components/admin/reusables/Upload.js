@@ -13,15 +13,15 @@ export default function Upload({
     placeholder,
     style,
     accept,
-    onChange,
+    onChange, // file
     value,
     multiple,
     className,
     hidden,
     iconStyle,
     preview,
-    onData,
-    onClick
+    onData, // image 64
+    onClick // abrir modal
 }) {
 
     let inputRef = useRef()
@@ -86,7 +86,7 @@ export default function Upload({
                         ...style
                     }}
                 >
-                    <h2>{imageURL}</h2>
+                    <h2>{imageURL.slice(imageURL.length - 20, imageURL.length)}</h2>
                 </div>
         }
         <input
