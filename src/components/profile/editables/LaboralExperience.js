@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import { Typography, Modal, Checkbox } from 'antd';
+import { Typography, Modal } from 'antd';
 
+import { createActivityAction } from '../../../store/ducks/activitiesDuck';
 import ContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
 import CreateInstitution from '../reusables/CreateInstitutionModal';
 import LaboralForm from '../reusables/LaboralForm';
 
-function LaboralExperience() {
+function LaboralExperience({ createActivityAction }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
+  const [activity, setActivity] = useState();
 
   const handleResult = (error, data) => {
     console.log(error);
@@ -18,7 +21,12 @@ function LaboralExperience() {
   };
 
   const handleForm = (data) => {
-    console.log(data);
+    setActivity(data);
+  };
+
+  const handleSave = () => {
+    createActivityAction(activity);
+    setOpen(false);
   };
 
   return (
@@ -30,6 +38,7 @@ function LaboralExperience() {
 
       <Modal
         visible={open}
+        onOk={handleSave}
         onCancel={() => setOpen(false)}
       >
         <LaboralForm onChange={handleForm} />
@@ -39,4 +48,10 @@ function LaboralExperience() {
   );
 }
 
-export default LaboralExperience;
+function mapStateToProps({ activities }) {
+  return {
+    activities,
+  };
+}
+
+export default connect(mapStateToProps, { createActivityAction })(LaboralExperience);

@@ -13,7 +13,6 @@ function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
 }) {
   const [activity, setActivity] = useState({
-    user: null,
     institution: null,
     type: null,
     startDate: null,
