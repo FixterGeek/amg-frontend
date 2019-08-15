@@ -4,7 +4,7 @@ import TextField from '../../molecules/TextFields'
 import {
     TimePicker,
     Select,
-    // Icon,
+    Modal,
     Skeleton
 } from 'antd'
 import Upload from './reusables/Upload'
@@ -17,9 +17,10 @@ import {
     faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
-import { saveDraftEvent, getSingleEvent, updateWorkingOn } from '../../store/ducks/adminDuck'
+import { saveDraftEvent, getSingleEvent, updateWorkingOn, addModuleAction, removeModuleAction } from '../../store/ducks/adminDuck'
 import ListAndModal from './reusables/ListAndModal'
 import ImageGalleryPicker from './reusables/ImageGalleryPicker'
+import ModuleModal from './reusables/ModuleModal';
 
 let { Option } = Select
 const { Dragger } = Upload;
@@ -31,7 +32,9 @@ function AdminEventForm({
     match,
     state,
     fetching,
-    event
+    event,
+    addModuleAction,
+    removeModuleAction
 }) {
 
     let [imageUrl, setImageUrl] = useState(null)
@@ -43,7 +46,7 @@ function AdminEventForm({
         let { id } = match.params
         if (id) {
             getSingleEvent(id)
-            setHeader("Editar Evento: " + state.title)
+            setHeader("Editar Evento")
         }
     }, [])
 
@@ -150,6 +153,21 @@ function AdminEventForm({
         let pics = getPicturesFilesWithOrder(state.speakers)
         console.log("fotos speakers", pics)
         saveDraftEvent({ body: r, id })
+    }
+
+    function uploadModule(list) {
+        // return
+        let module = list[0]
+        // AGREGA EL MALDITO EVENTO
+        module.event = state._id
+        // AGREGA EL MALDITO EVENTO
+        addModuleAction(module)
+        // subir con un action
+    }
+
+    function removeModule(object) {
+        if (!window.confirm(`¿Estas seguro de borrar el modulo ${object.title}?, se perderán las actividades`)) return
+        removeModuleAction(object)
     }
 
     if (fetching) return (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
@@ -302,9 +320,22 @@ function AdminEventForm({
 
                 </form>
 
-
+                {state._id && <div className="segunda-columna">
+                    <ListAndModal
+                        list={state.modules}
+                        modal={<ModuleModal />}
+                        label="Secciones del evento"
+                        buttonText="Agregar Sección"
+                        keys={["title"]}
+                        onChange={uploadModule} // returns a list
+                        onDelete={removeModule} // returns an index
+                        externalList={true}
+                    />
+                </div>}
 
             </div>
+
+
 
             {/* modals */}
             <ImageGalleryPicker />
@@ -326,4 +357,10 @@ function mapState({ admin }) {
     }
 }
 
-export default connect(mapState, { saveDraftEvent, getSingleEvent, setState: updateWorkingOn })(AdminEventForm)
+export default connect(mapState, {
+    saveDraftEvent,
+    getSingleEvent,
+    setState: updateWorkingOn,
+    addModuleAction,
+    removeModuleAction
+})(AdminEventForm)
