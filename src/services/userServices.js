@@ -4,7 +4,7 @@ import axios from 'axios';
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 const APIURL = process.env.REACT_APP_BASE_API_URL;
 
-export const login = async (auth) => axios.post(
+export const login = async auth => axios.post(
   `${baseAuthURL}/login`, auth,
   {
     headers: {
@@ -18,11 +18,11 @@ const logout = async (history) => {
   history.push('/login');
 };
 
-export const signup = async (name, email, password) => axios.post(`${baseAuthURL}/signup`, {
-  name,
-  email,
-  password,
-}).then(res => res.data);
+export const signup = async (userData) => {
+  //console.log(userData);
+  return axios.post(`${baseAuthURL}/signup`, userData)
+    .then(res => res.data);
+};
 
 export const getSelfUser = async () => {
   const authToken = await localStorage.getItem('authToken');
@@ -33,45 +33,16 @@ export const getSelfUser = async () => {
   }).then(({ data }) => data);
 };
 
-/* Events section */
 
+export const updateUser = (userData) => {
+  const user = JSON.parse(localStorage.user);
+  const token = localStorage.authToken;
 
-/* Activities section */
-
-const getActivitiesForEvent = async (eventId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.get(`${APIURL}/eventActivities?query={"event": "${eventId}"}`, {
+  return axios.patch(`${APIURL}/users/${user._id}`, userData, {
     headers: {
-      Authorization: authToken,
+      Authorization: token,
     },
-  });
-};
-
-const getSingleActivity = async (activityId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.get(`${APIURL}/aventActivities/${activityId}`, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
-};
-
-const getActivitiesForUser = async (userId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.get(`${APIURL}/eventActivities?query={"assistants":{"$in":["${userId}"]}}`, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
-};
-
-const activitySubscribe = async (eventId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.post(`${APIURL}/eventActivities/${eventId}/assist`, null, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
+  }).then(({ data }) => data);
 };
 
 
@@ -84,23 +55,4 @@ export const getPublications = async () => {
       Authorization: authToken,
     },
   }).then(({ data }) => data);
-};
-
-const toPublish = async (data, headers) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.post(`${APIURL}/publications`, data, {
-    headers: {
-      Authorization: authToken,
-      ...headers,
-    },
-  });
-};
-
-const addToFav = async (postId) => {
-  const authToken = await localStorage.getItem('authToken');
-  return axios.post(`${APIURL}/publications/${postId}/like`, null, {
-    headers: {
-      Authorization: authToken,
-    },
-  });
 };

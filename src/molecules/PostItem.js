@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { Typography } from 'antd';
@@ -12,7 +13,8 @@ function PostItem({ publication }) {
     text, updatedAt, _id, liked,
     imagesURLS, user,
   } = publication;
-  const { basicData } = user;
+  const { basicData = {} } = user;
+  const { photoURL = null, name = '', dadSurname = '' } = basicData;
   const { Title, Text } = Typography;
 
   const date = moment(updatedAt).local('es');
@@ -27,11 +29,11 @@ function PostItem({ publication }) {
     <div className="post-item">
       <div className="post-item-info">
         <div className="post-item-photo">
-          <ProfilePhoto photoURL={basicData.photoURL} />
+          <ProfilePhoto photoURL={photoURL} />
         </div>
         <div>
           <div>
-            <Title level={2}>{ `${basicData.name} ${basicData.dadSurname}` }</Title>
+            <Title level={2}>{ `${name} ${dadSurname}` }</Title>
           </div>
           <Text>{ momentDate }</Text>
         </div>
@@ -54,3 +56,24 @@ function PostItem({ publication }) {
 }
 
 export default PostItem;
+
+PostItem.propTypes = {
+  publication: PropTypes.shape({
+    user: PropTypes.shape({
+      photoURL: PropTypes.string,
+    }),
+    urls: PropTypes.arrayOf(PropTypes.string),
+    imagesURLS: PropTypes.arrayOf(PropTypes.string),
+    docsURLS: PropTypes.arrayOf(PropTypes.string),
+    text: PropTypes.string,
+    liked: PropTypes.arrayOf(PropTypes.string),
+  })
+};
+
+PostItem.defaultProps = {
+  publication: {
+    user: {
+      photoURL: '',
+    },
+  },
+};

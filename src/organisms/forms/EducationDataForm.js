@@ -1,75 +1,128 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 // import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import TextField from "../../molecules/TextFields";
-//import AmgButton from "../../atoms/Button";
-import Label from "../../atoms/data-entry/Label";
-import { createUser } from "../../store/actions";
-import Container from "../../atoms/layout/Container";
+import { DatePicker as Picker, Select, Modal } from 'antd';
 
-const EducationDataForm = props => {
-  const { user, dispatch } = props;
+import moment from 'moment';
+import Label from '../../atoms/data-entry/Label';
+import TextField from '../../molecules/TextFields';
+import SelectField from '../../molecules/SelectField';
+import DatePicker from '../../molecules/DatePicker';
+import { getStudies, createStudie } from '../../services/studiesServices';
+import { writeNewStudy } from '../../store/ducks/signupDuck';
 
+const { Option } = Select;
+
+const EducationDataForm = ({ studie, setStudie, writeNewStudy, newStudy }) => {
+  const { RangePicker } = Picker;
+  let [studies, setStudies] = useState([]);
+  let [open, setOpen] = useState(false);
+  let [newStudie, setNewStudie] = useState({});
+  useEffect(() => {
+    loadStudies();
+  }, []);
+  //effect
   // const handleSubmit = () => {
   //   history.push("laboral");
   // };
 
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ ...user.studies, [name]: value }));
+  const handleChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
+    writeNewStudy({ ...newStudy, [name]: value });
   };
 
-  console.log(user);
+  const handleRange = (moments) => {
+    let startDate = moments[0].toString();
+    let endDate = moments[1].toString();
+    writeNewStudy({ ...newStudy, startDate, endDate });
+  };
+
+  function loadStudies() {
+    getStudies().then(data => {
+      setStudies(data);
+    });
+  }
+
+  function uploadStudie() {
+    createStudie(newStudie)
+      .then(() => {
+        loadStudies();
+      });
+  }
 
   return (
-    <form
-      className="signup-form"
-      style={{ width: "400px" }}
+    <div>
+      <form
+        className="signup-form"
+        style={{ width: '400px' }}
       // onSubmit={handleSubmit}
-    >
-      <TextField
-        name="major"
-        label="Carrera"
-        onChange={handleChange}
-        value={user.studies.major}
-      />
-      <Label>Fecha</Label>
-      <div className="dates-inline">
+      >
+
+        <SelectField
+          name="major"
+          label="Carrera"
+          onChange={(value) => handleChange({ target: { value, name: "major" } })}
+          options={!studies.length ? ["Medico", "Cirujano"] : studies}
+          value={newStudy.major}
+        />
+        <div>
+          <a
+            onClick={() => setOpen(true)}
+          >Agregar Carrera</a>
+          <br />
+          <br />
+        </div>
+
+        <Label>Periodo de estudio</Label>
+        <div className="dates-inline">
+          <RangePicker
+            onChange={handleRange}
+            name="dateRange"
+            placeholder=""
+            value={[moment(newStudy.startDate), moment(newStudie.endDate)]}
+          />
+        </div>
         <TextField
-          name="startDate"
-          label="De"
-          width="121px"
           onChange={handleChange}
+          label="Año de recepción profesional"
+          name="receptionDate"
+          value={newStudy.receptionDate} />
+        <TextField
+          onChange={handleChange}
+          label="Número de cédula profesional"
+          name="professionalLicence"
+          value={newStudy.professionalLicence} />
+      </form>
+      <Modal
+        visible={open}
+        onCancel={() => setOpen(false)}
+        onOk={uploadStudie}
+      >
+        <TextField
+          name="name"
+          onChange={({ target: { name, value } }) => setNewStudie({ ...newStudie, [name]: value })}
+          label="Nombre de la carrera"
+          //name="professionalLicence"
+          value={newStudie.name}
         />
         <TextField
-          name="endDate"
-          label="A"
-          width="121px"
-          onChange={handleChange}
+          name="institution"
+          onChange={({ target: { name, value } }) => setNewStudie({ ...newStudie, [name]: value })}
+          label="Nombre de la Institución"
+          //name="professionalLicence"
+          value={newStudie.institution}
         />
-      </div>
-      <TextField
-        name="emailreceptionDate"
-        label="Año de recepción profesional"
-        onChange={handleChange}
-      />
-      <TextField
-        name="professionalLicence"
-        label="No. de cédula profesional"
-        onChange={handleChange}
-      />
-      {/* aqui va el input para la cedula */}
-    </form>
+      </Modal>
+    </div>
   );
 };
 
-function mapStateToProps(state) {
+function mapState({ signup }) {
   return {
-    user: state.user
+    newStudy: signup.newStudy
   };
 }
 
-export default connect(mapStateToProps)(EducationDataForm);
+export default connect(mapState, { writeNewStudy })(EducationDataForm);

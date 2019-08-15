@@ -10,13 +10,15 @@ import ActivityDetail from '../components/events/ActivityDetail';
 import Settings from '../components/settings/Settings';
 import MembershipPayment from '../components/membership/MembershipPayment';
 import PersonalProfile from '../components/profile/PersonalProfile';
+import MainProfile from '../components/profile/MainProfile';
 
 
 function DashBoardRouter() {
   const baseURL = '/dashboard';
   return (
     <Switch>
-      <Route exact path={`${baseURL}/profile`} component={PersonalProfile} />
+      <Route exact path={`${baseURL}/perfil/editar`} component={PersonalProfile} />
+      <Route path="/dashboard/perfil" component={MainProfile} />
       <Route path={`${baseURL}/payment/:membership/:type`} component={MembershipPayment} />
       <Route path={`${baseURL}/payment/:membership`} component={MembershipPayment} />
       <Route path={`${baseURL}/events/:id/program/:id`} component={ActivityDetail} />

@@ -1,15 +1,22 @@
 import axios from 'axios';
 
 const APIURL = `${process.env.REACT_APP_BASE_API_URL}/institutions`;
-const authToken = localStorage.getItem('authToken');
-const axiosInstance = axios.create({
+const user = JSON.parse(localStorage.user);
+const token = localStorage.authToken;
+
+export const getInstitutions = type => axios.get(`${APIURL}?query={"type":${type}}`)
+  .then(({ data }) => data);
+
+
+export const createInstitution = institutionData => axios.post(`${APIURL}`, institutionData, {
   headers: {
-    Authorization: authToken,
+    Authorization: token,
   },
-});
+})
+  .then(({ data }) => data);
 
-export const getInstitutions = type => axiosInstance.get(`${APIURL}`).then(({ data }) => data);
-
-
-export const createInstitution = institutionData => axiosInstance.post(`${APIURL}`, institutionData)
+export const createIntitutionForUser = institutionData => axios.post(`${APIURL}`, {
+  ...institutionData,
+  user: user._id,
+})
   .then(({ data }) => data);

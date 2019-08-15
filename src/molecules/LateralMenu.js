@@ -17,11 +17,12 @@ import {
 
 import { Menu, Icon } from 'antd';
 
+import { logoutAction } from '../store/ducks/userDuck';
 import useSweetAlert from '../hooks/useSweetAlert';
 import useAmgService from '../hooks/services/useAmgService';
 // import { populateUserAction } from '../store/ducks/userDuck';
 
-function LateralMenu({ history, user, populateUserAction }) {
+function LateralMenu({ history, user, populateUserAction, logoutAction }) {
   const { errorAlert } = useSweetAlert();
   const { logout } = useAmgService();
   const [state] = useState({ anchor: createRef() });
@@ -78,8 +79,8 @@ function LateralMenu({ history, user, populateUserAction }) {
         </Icon>
         <span>Educación</span>
       </Item>
-      <Item key={5} onClick={() => link('/dashboard/profile')}>
-        <Icon className={`${currentLocation === 'profile' ? 'menu-item-active' : ''}`}>
+      <Item key={5} onClick={() => link('/dashboard/perfil')}>
+        <Icon className={`${currentLocation === 'perfil' ? 'menu-item-active' : ''}`}>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
         <span>Mi perfil</span>
@@ -90,7 +91,7 @@ function LateralMenu({ history, user, populateUserAction }) {
         </Icon>
         <span>Configuración</span>
       </Item>
-      <Item key={7} onClick={() => logout(history)}>
+      <Item key={7} onClick={() => logoutAction().then(() => history.push('/login'))}>
         <Icon>
           <FontAwesomeIcon icon={faPowerOff} />
         </Icon>
@@ -109,4 +110,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default withRouter(connect(mapStateToProps)(LateralMenu));
+export default withRouter(connect(mapStateToProps, { logoutAction })(LateralMenu));

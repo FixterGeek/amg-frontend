@@ -155,5 +155,88 @@ $eventLeftWidth: 350px;
 
 /* SignupContainer */
   .signup-container {
-    padding-left: 300px
+    display: flex;
   }
+
+
+
+  /*MainProfile*/
+  .component-main-profile, .component-personal-profile {
+    .info {
+      background-color: $clouds;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      padding-top: $largePadding;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .edit {
+      font-size: 1.3rem;
+      position: absolute;
+      right: $padding;
+      top: $padding;
+      cursor: pointer;
+      $color: $textPrimary;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    .follows {
+      display: flex;
+      width: 100%;
+
+      div {
+        width: 50%;
+        box-sizing: border-box;
+        border-top: solid 5px white;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        padding: $padding;
+
+        &:first-child {
+          border-right: 2px solid white;
+        }
+
+        &:last-child {
+          border-left: 2px solid white;
+        }
+      }
+
+      span {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+
+/* SignupContainers */
+.signup-container {
+  display: flex;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  &-left {
+    width: 325px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $secondary;
+    padding: $largePadding $padding;
+    box-sizing: border-box;
+  }
+
+  &-rigth {
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding-left: (325px + $extraPadding);
+    padding-right: $largePadding;
+  }
+}

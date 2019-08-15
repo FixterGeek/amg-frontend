@@ -4,7 +4,8 @@ import TextField from '../../molecules/TextFields'
 import {
     TimePicker,
     Select,
-    Icon,
+    // Icon,
+    Skeleton
 } from 'antd'
 import Upload from './reusables/Upload'
 import estados from './estados.json'
@@ -16,51 +17,43 @@ import {
     faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
-import { saveDraftEvent } from '../../store/ducks/adminDuck'
+import { saveDraftEvent, getSingleEvent, updateWorkingOn } from '../../store/ducks/adminDuck'
 import ListAndModal from './reusables/ListAndModal'
+import ImageGalleryPicker from './reusables/ImageGalleryPicker'
 
 let { Option } = Select
 const { Dragger } = Upload;
 
 function AdminEventForm({
-    saveDraftEvent
+    saveDraftEvent,
+    getSingleEvent,
+    setState,
+    match,
+    state,
+    fetching,
+    event
 }) {
 
     let [imageUrl, setImageUrl] = useState(null)
     let [loading, setLoading] = useState(false)
     let [speakerModal, setSpeakerModal] = useState(true)
-    let [state, setState] = useReducer((state, update) => ({ ...state, ...update }), {
-        mainImages: "file",
-        permisos: "file",
-        speakers: [],
-        modules: ["ids de los modulos"],
-        location: {
-            addressName: "",
-            street: "",
-            outdoorNumber: "",
-            interiorNumber: "",
-            colony: "",
-            zipCode: "",
-            city: "",
-            state: null,
-            coordinates: []
-        },
-        title: 'titulo',
-        startDate: null,
-        startTime: '',
-        endDate: '',
-        description: '',
-        mainImagesURLS: ["https://miro.medium.com/fit/c/256/256/0*jp3IFb08Sy3_k3N_."],
-        permisosURLS: []
-
-    })
+    let [header, setHeader] = useState("Nuevo Evento")
 
     useEffect(() => {
-        console.log(state)
-    }, [state])
+        let { id } = match.params
+        if (id) {
+            getSingleEvent(id)
+            setHeader("Editar Evento: " + state.title)
+        }
+    }, [])
+
 
     function handleChange(e, sub) {
         let { name, value } = e.target
+        if (name === "description") {
+            setState({ [name]: [value] })
+            return
+        }
         if (sub) {
             let object = state[sub]
             object[name] = value
@@ -108,7 +101,8 @@ function AdminEventForm({
         let r = transformToFormData(form, state)
         let pics = getPicturesFilesWithOrder(state.speakers)
         console.log("fotos speakers", pics)
-        saveDraftEvent(r)
+        //saveDraftEvent(r)
+        // savePublishedEvent(r)
     }
 
     function getPicturesFilesWithOrder(array) {
@@ -127,10 +121,10 @@ function AdminEventForm({
         }
         else {
             for (let k in obj) {
-                // if (k === "permisos") {
-                //     formData.append(k, obj[k])
-                //     continue
-                // }
+                if (k === "permisos" || k === "mainImages") {
+                    formData.append(k, obj[k])
+                    continue
+                }
                 if (Array.isArray(obj[k]) || typeof obj[k] === "object") {
                     formData.append(k, JSON.stringify(obj[k]))
                     continue
@@ -142,11 +136,32 @@ function AdminEventForm({
         return formData
     }
 
+    function saveDraft() {
+        //e.preventDefault()
+        //transform to formData
+        let form = new FormData()
+        let st = { ...state }
+        //validations
+        delete st.modules
+        delete st.assistants
+        let id = st._id
+        delete st._id
+        let r = transformToFormData(form, st)
+        let pics = getPicturesFilesWithOrder(state.speakers)
+        console.log("fotos speakers", pics)
+        saveDraftEvent({ body: r, id })
+    }
+
+    if (fetching) return (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => <div style={{ width: 320 }} ><Skeleton active /></div>)}
+
+    </div>)
+
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
-                <h1>Nuevo Evento</h1>
-                <button>Guardar como borrador</button>
+                <h1>{header}</h1>
+                <button onClick={saveDraft} >Guardar como borrador</button>
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -166,7 +181,7 @@ function AdminEventForm({
                     <TextField
                         onChange={handleChange}
                         name="description"
-                        value={state.description}
+                        value={state.description[0]}
                         style={{ width: 300 }}
                         label="Descripción del evento"
                         placeholder="describe el evento"
@@ -292,6 +307,7 @@ function AdminEventForm({
             </div>
 
             {/* modals */}
+            <ImageGalleryPicker />
             {/* {speakerModal && <SpeakerModal
                 onFinish={addSpeaker}
                 onCancel={() => setSpeakerModal(false)}
@@ -302,9 +318,12 @@ function AdminEventForm({
 
 function mapState({ admin }) {
     let events = Object.values(admin.draftEvents)
+    console.log(admin.workingOn)
     return {
-        events
+        events,
+        state: admin.workingOn,
+        fetching: admin.workingOn.fetching
     }
 }
 
-export default connect(mapState, { saveDraftEvent })(AdminEventForm)
+export default connect(mapState, { saveDraftEvent, getSingleEvent, setState: updateWorkingOn })(AdminEventForm)

@@ -1,54 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import momment from 'moment';
 
-import { Checkbox } from 'antd';
-import { writeSignupAction, writeBasicDataAction } from '../../store/ducks/signupDuck';
+import { Radio, Spin } from 'antd';
+
+import {
+  writeSignupAction, writeBasicDataAction, writePlaceOfBirdAction,
+  signupUserAction,
+} from '../../store/ducks/signupDuck';
 import TextField from '../../molecules/TextFields';
 import SelectField from '../../molecules/SelectField';
 import DatePicker from '../../molecules/DatePicker';
 import AmgButton from '../../atoms/Button';
-import { createUser } from '../../store/actions';
 import Label from '../../atoms/data-entry/Label';
 
-function GeneralDataForm(props) {
-  const { history } = props;
-  const [chekedShow, setChekedShow] = useState(false);
-  const [error, setError] = useState({
-    name: false,
-    dadSurname: false,
-    momSurname: false,
-    email: false,
-    birthDate: false,
-    placeOfBirth: false,
-    specialty: false,
-    userStatus: 'Pendiente'
-  });
+import states from './estados.json';
 
-  const { signup, writeSignupAction, writeBasicDataAction } = props;
+function GeneralDataForm({
+  history, signup, writeSignupAction,
+  writeBasicDataAction, writePlaceOfBirdAction, signupUserAction,
+  fetching,
+  status,
+  error
+}) {
+  const { Group } = Radio;
+
+
   const { basicData } = signup;
   // const { signup } = useAmgService();
-
-  function onChangeCheckBox(e) {
-    // const {
-    //   target: { value, name, checked }
-    // } = e;
-    // if (value !== "Otra") {
-    //   dispatch(createUser({ [name]: value }));
-    //   console.log(`checked = ${e.target.checked}`);
-    // } else {
-    //   setChekedShow(checked);
-    //   dispatch(createUser({ [name]: "" }));
-    // }
-  }
-
+  useEffect(() => {
+    if (status === "success") {
+      history.push('/signup/education')
+    }
+  }, [status])
+  //effect
   const handleChange = (event) => {
+    console.log(event);
     console.log(event);
     const { target } = event;
     const { name, value } = target;
 
-    if (name === 'email') writeSignupAction({ email: value });
+    if (name === 'email' || name === 'password') writeSignupAction({ [name]: value });
+    if (name === 'placeOfBirth') writePlaceOfBirdAction({ addressName: value });
     else writeBasicDataAction({ [name]: value });
   };
 
@@ -56,14 +49,20 @@ function GeneralDataForm(props) {
     writeBasicDataAction({ [name]: date.toString() });
   };
 
-  console.log(signup);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    history.push('education');
-    
+  const handleState = (value) => {
+    writePlaceOfBirdAction({ state: value });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // history.push('education');
+    signupUserAction({ ...signup })
+    // .then(() => history.push('/dashboard'))
+    // .catch(({ response }) => console.log(response));
+  };
+
+  console.log(signup);
+  if (fetching) return <Spin />
   return (
     <form
       className="signup-form"
@@ -75,6 +74,8 @@ function GeneralDataForm(props) {
         onChange={handleChange}
         name="name"
         label="Nombre"
+        error={status === "error"}
+        errorMessage={error}
       />
 
       <TextField
@@ -90,15 +91,21 @@ function GeneralDataForm(props) {
         name="momSurname"
         label="Apellido materno"
       />
+
       <TextField
         width="100%"
-        error={error.email}
-        errorMessage="El email no puede estar vacio"
         value={signup.email}
         onChange={handleChange}
         name="email"
         label="Correo"
       />
+
+      <TextField
+        onChange={handleChange}
+        password
+        name="password"
+        label="Contraseña"
+        value={signup.password} />
 
       <DatePicker
         format="LL"
@@ -108,68 +115,41 @@ function GeneralDataForm(props) {
         value={basicData.birthDate} />
 
       <TextField
-        value={signup.birthdate}
         onChange={handleChange}
-        name="birthdate"
-        label="Fecha de nacimiento"
-      />
+        label="Lugar de nacimiento"
+        name="placeOfBirth"
+        value={basicData.placeOfBirth.addressName} />
 
       <SelectField
-        value={signup.placeOfBirth}
-        onChange={handleChange}
-        name="placeOfBirth"
-        label="Lugar de nacimiento"
-        options={[{ value: 'Hidalgo', text: 'Hidalgo' }]}
+        value={basicData.placeOfBirth.state}
+        onChange={handleState}
+        name="state"
+        label="Estado"
+        options={states}
       />
 
       <Label>Especialidad</Label>
       <div className="check-box">
-        <Checkbox
-          onChange={onChangeCheckBox}
-          name="specialty"
-          value="Medicina Interna"
-        >
-          Medicina Interna
-        </Checkbox>
-        <Checkbox
-          onChange={onChangeCheckBox}
-          name="specialty"
-          value="Gastroenterología pediátrica"
-        >
-          Gastroenterología pediátrica
-        </Checkbox>
-        <Checkbox
-          onChange={onChangeCheckBox}
-          name="specialty"
-          value="Cirugía interna"
-        >
-          Cirugía interna
-        </Checkbox>
-        <Checkbox
-          onChange={onChangeCheckBox}
-          name="specialty"
-          value="Gastroenterología"
-        >
-          Gastroenterología
-        </Checkbox>
-        <Checkbox
-          onChange={onChangeCheckBox}
-          name="specialty"
-          value="Endoscopía gastrointestinal"
-        >
-          Endoscopía gastrointestinal
-        </Checkbox>
-        <Checkbox onChange={onChangeCheckBox} name="specialty" value="Otra">
-          Otra
-        </Checkbox>
-        {chekedShow && (
-          <TextField
-            value={signup.specialty}
-            onChange={handleChange}
-            name="specialty"
-            label="Especialidad"
-          />
-        )}
+        <Group name="speciality" onChange={handleChange}>
+          <Radio value="Medicina Interna">
+            Medicina Interna
+          </Radio>
+          <Radio value="Gastroenterología">
+            Gastroenterología
+          </Radio>
+          <Radio value="Cirujano">
+            Cirujano
+          </Radio>
+          <Radio value="Motilidad" >
+            Motilidad
+          </Radio>
+          <Radio value="Endoscopia">
+            Endoscopia
+          </Radio>
+          <Radio value="Otra">
+            Otra
+          </Radio>
+        </Group>
       </div>
 
       <AmgButton width="100%" htmlType="submit">
@@ -179,12 +159,23 @@ function GeneralDataForm(props) {
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ signup }) {
   return {
-    signup: state.signup,
+    signup: signup,
+    status: signup.status,
+    fetching: signup.fetching,
+    error: signup.error
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { writeSignupAction, writeBasicDataAction })(GeneralDataForm),
+  connect(
+    mapStateToProps,
+    {
+      writeSignupAction,
+      writeBasicDataAction,
+      writePlaceOfBirdAction,
+      signupUserAction,
+    },
+  )(GeneralDataForm),
 );

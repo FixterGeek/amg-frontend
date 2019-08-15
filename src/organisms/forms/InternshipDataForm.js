@@ -1,42 +1,38 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import TextField from "../../molecules/TextFields";
-import Label from "../../atoms/data-entry/Label";
-import { createUser } from "../../store/actions";
+import { DatePicker } from 'antd';
 
-function InternshipDataForm(props) {
-  const { user, dispatch } = props;
+import Label from '../../atoms/data-entry/Label';
+import SelectField from '../../molecules/SelectField';
 
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    dispatch(createUser({ ...user.internships, [name]: value }));
+function InternshipDataForm({ internship, setInternship }) {
+  const { RangePicker } = DatePicker;
+
+  const handleDate = (moments) => {
+    setInternship({
+      startDate: moments[0].toString(),
+      endDate: moments[1].toString(),
+    });
   };
 
+  const handleSelect = (value) => {
+    setInternship({ institution: value });
+  };
+
+  console.log(internship);
+
   return (
-    <form className="signup-form" style={{ width: "400px" }}>
-      <TextField
+    <form className="signup-form" style={{ width: '400px' }}>
+      <SelectField
         name="institution"
         label="Hospital"
-        onChange={handleChange}
-        value={user.internships.institution}
+        onChange={handleSelect}
+        value={internship.institution}
       />
       <Label>Fecha</Label>
       <div>
-        <TextField
-          name="startDate"
-          label="De"
-          width="121px"
-          onChange={handleChange}
-        />
-        <TextField
-          name="endDate"
-          label="A"
-          width="121px"
-          onChange={handleChange}
-        />
+        <RangePicker name="rageDate" onChange={handleDate} />
       </div>
     </form>
   );
@@ -44,7 +40,7 @@ function InternshipDataForm(props) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
   };
 }
 

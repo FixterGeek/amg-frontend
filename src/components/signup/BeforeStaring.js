@@ -12,7 +12,7 @@ import AmgButton from "../../atoms/Button";
 const BeforeStaring = () => {
   const { Text, Title } = Typography;
   return (
-    <div className="sinup-container">
+    <div className="signup-container">
       <Container height="100vh" width="50%">
         <Container
           alignItems="flex-start"

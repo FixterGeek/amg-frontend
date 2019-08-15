@@ -11,6 +11,7 @@ import {
     AutoComplete,
 } from 'antd'
 import Upload from './Upload';
+import ImageGalleryPicker from './ImageGalleryPicker'
 
 let users = [{ fullName: "Juanito" },
 { fullName: "Javiersito" },
@@ -38,6 +39,7 @@ export default function SpeakerModal({
     let [search, setSearch] = useState("br")
     let [speaker, setSpeaker] = useState({ photoFile: null })
     let [speakers, setSpeakers] = useState([])
+    let [openModal, setOpenModal] = useState(false)
 
 
     useEffect(() => {
@@ -107,8 +109,14 @@ export default function SpeakerModal({
                 <div className="admin-form-group">
                     <b>Foto:</b>
                     <Upload
-                        onChange={file => setSpeaker({ ...speaker, photoFile: file })}
+                        onClick={() => setOpenModal(true)} // this cancels the feature and make it just a button in order to use ImageGalleryPicker
+                        //onChange={file => setSpeaker({ ...speaker, photoFile: file })}
                         preview={speaker.photoURL}
+                    />
+                    <ImageGalleryPicker
+                        onChange={link => setSpeaker({ ...speaker, photoURL: link })}
+                        visible={openModal}
+                        onClose={() => setOpenModal(false)}
                     />
                 </div>
                 <TextField
