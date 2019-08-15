@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import { Typography, Modal, Checkbox } from 'antd';
+import { Typography, Modal } from 'antd';
 
+import { pushLastInstitution } from '../../../store/ducks/institutionsDuck';
+import { createActivityAction } from '../../../store/ducks/activitiesDuck';
 import ContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
-import SelectField from '../../../molecules/SelectField';
-import TextField from '../../../molecules/TextFields';
-import Label from '../../../atoms/data-entry/Label';
-import CreateInstitution from '../reusables/CreateInstitution';
+import CreateInstitution from '../reusables/CreateInstitutionModal';
+import LaboralForm from '../reusables/LaboralForm';
 
-function LaboralExperience() {
+function LaboralExperience({ createActivityAction, pushLastInstitution }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
+  const [activity, setActivity] = useState();
+  const [lastInstitution, setLastInstitution] = useState();
 
   const handleResult = (error, data) => {
-    console.log(error);
-    console.log(data);
+    if (data) {
+      pushLastInstitution(data);
+      setLastInstitution(data._id);
+    }
+  };
+
+  const handleForm = (data) => {
+    setActivity(data);
+  };
+
+  const handleSave = () => {
+    createActivityAction(activity);
+    setOpen(false);
   };
 
   return (
@@ -28,15 +42,22 @@ function LaboralExperience() {
 
       <Modal
         visible={open}
+        onOk={handleSave}
         onCancel={() => setOpen(false)}
       >
-        <SelectField label="Institución" />
+        <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
         <CreateInstitution onResult={handleResult} />
-        <Label>Es una institución propia</Label>
-        <Checkbox />
       </Modal>
     </ContainerItem>
   );
 }
 
-export default LaboralExperience;
+function mapStateToProps({ activities }) {
+  return {
+    activities,
+  };
+}
+
+export default connect(
+  mapStateToProps, { createActivityAction, pushLastInstitution },
+)(LaboralExperience);

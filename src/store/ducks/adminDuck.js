@@ -194,7 +194,7 @@ export function saveDraftEventEpic(action$, state$) {
 // modules
 export function addModuleAction(item) {
     return function (dispatch) {
-        dispatch(addModule())
+        // dispatch(addModule())
         return axios.post(baseURL + "eventModules", item, { headers: { Authorization: localStorage.authToken } })
             .then(res => {
                 dispatch(addModuleSuccess(res.data))
@@ -212,7 +212,7 @@ export function addModuleAction(item) {
 
 export function removeModuleAction(item) {
     return function (dispatch) {
-        dispatch(removeModule())
+        // dispatch(removeModule())
         return axios.delete(baseURL + "eventModules/" + item._id, { headers: { Authorization: localStorage.authToken } })
             .then(res => {
                 dispatch(removeModuleSuccess(res.data))

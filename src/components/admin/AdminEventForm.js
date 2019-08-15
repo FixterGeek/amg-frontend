@@ -166,7 +166,6 @@ function AdminEventForm({
     }
 
     function removeModule(object) {
-        if (!window.confirm(`¿Estas seguro de borrar el modulo ${object.title}?, se perderán las actividades`)) return
         removeModuleAction(object)
     }
 

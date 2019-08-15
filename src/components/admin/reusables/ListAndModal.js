@@ -37,6 +37,7 @@ export default function ListAndModal({
     }
 
     function removeObject(index, object) {
+        if (!window.confirm(`¿Estas seguro de borrar?`)) return
         let filtered = array.filter((o, i) => i !== index)
         setArray(filtered)
         onDelete(object)
