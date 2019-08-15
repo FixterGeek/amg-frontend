@@ -19,6 +19,7 @@ import {
 import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
+import { allSettled } from 'q';
 
 let baseURL = "https://amg-api.herokuapp.com/"
 
@@ -52,7 +53,18 @@ const REMOVE_ACTIVITY = "REMOVE_ACTIVITY"
 const REMOVE_ACTIVITY_ERROR = "REMOVE_ACTIVITY_ERROR"
 const REMOVE_ACTIVITY_SUCCESS = "REMOVE_ACTIVITY_SUCCESS"
 
+const DELETE_EVENT = "DELETE_EVENT"
+const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS"
+const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR"
+
 //action creators
+// delete
+function deleteEventSuccess() {
+    return { type: DELETE_EVENT_SUCCESS }
+}
+function deleteEventError(error) {
+    return { type: DELETE_EVENT_ERROR, payload: error }
+}
 
 //activities
 function addActivity() {
@@ -196,18 +208,21 @@ export function saveDraftEventEpic(action$, state$) {
                     )
                 )
             }
+            console.log("Es nuevo", action.payload)
             return concat(
                 //of(setFetchingUser()),
-                ajax.post(baseURL + "events", action.payload, { "Authorization": token }).pipe(
+                ajax.post(baseURL + "events", action.payload.body, { "Authorization": token }).pipe(
                     map(resp => {
                         console.log(resp)
                         //localStorage.authToken = resp.response.token
-                        return saveDraftEventSuccess({ ...resp.response })
+                        toastr.success("Nuevo Evento Guardado")
+                        return saveDraftEventSuccess({ ...resp.response, new: true })
                     }),
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),
                     catchError(err => {
                         console.log("ero", err)
+                        toastr.error("Ocurrio un error, vulve a intentar")
                         return of(saveDraftEventError(err))
                     })
                 )
@@ -293,6 +308,24 @@ export function removeActivityAction(item) {
     }
 }
 
+export function deleteEventAction(id) {
+    return function (dispatch) {
+        // dispatch(removeModule())
+        return axios.delete(baseURL + "events/" + id, { headers: { Authorization: localStorage.authToken } })
+            .then(() => {
+                dispatch(deleteEventSuccess())
+                toastr.warning("Evento Elimiado")
+                return
+            })
+            .catch(e => {
+                dispatch(deleteEventError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
 // empty
 export function emptyWorkingOn() {
     return (dispatch) => dispatch({ type: "EMPTY_WORKING_ON" })
@@ -330,12 +363,12 @@ let initialWorkingOn = {
         state: null,
         coordinates: []
     },
-    title: 'titulo',
+    title: '',
     startDate: null,
     startTime: '',
     endDate: '',
     description: [],
-    mainImagesURLS: ["https://miro.medium.com/fit/c/256/256/0*jp3IFb08Sy3_k3N_."],
+    mainImagesURLS: [],
     permisosURLS: [],
     status: "draft",
     fetching: false,
@@ -348,6 +381,11 @@ function workingOn(
     action
 ) {
     switch (action.type) {
+        case DELETE_EVENT_SUCCESS:
+            return { ...initialWorkingOn, fetching: false }
+        case DELETE_EVENT_ERROR:
+            return { ...state, fetching: false, status: "error" }
+
         case ADD_ACTIVITY:
             return { ...state, fetching: true }
         case ADD_ACTIVITY_ERROR:
@@ -385,6 +423,8 @@ function workingOn(
             return { ...state, ...action.payload, fetching: false }
         case SAVE_DRAFT_EVENT_SUCCESS:
             return { ...action.payload, fetching: false }
+        case SAVE_DRAFT_EVENT_ERROR:
+            return { ...state, fetching: false, error: action.payload }
         case GET_SINGLE_EVENT_ERROR:
             return { ...state, fetching: false, error: action.payload }
         case GET_SINGLE_EVENT_SUCCESS:

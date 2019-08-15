@@ -25,12 +25,14 @@ import {
     addModuleAction,
     removeModuleAction,
     addActivityAction,
-    removeActivityAction
+    removeActivityAction,
+    deleteEventAction
 } from '../../store/ducks/adminDuck'
 import ListAndModal from './reusables/ListAndModal'
 import ImageGalleryPicker from './reusables/ImageGalleryPicker'
 import ModuleModal from './reusables/ModuleModal';
 import ActivityModal from './reusables/ActivityModal';
+import Swal from 'sweetalert2'
 
 let { Option } = Select
 const { Dragger } = Upload;
@@ -48,7 +50,9 @@ function AdminEventForm({
     removeModuleAction,
     activities,
     addActivityAction,
-    removeActivityAction
+    removeActivityAction,
+    history,
+    deleteEventAction
 }) {
 
     let [imageUrl, setImageUrl] = useState(null)
@@ -64,6 +68,9 @@ function AdminEventForm({
         }
     }, [])
 
+    useEffect(() => {
+        if (state.new) history.push('/admin/events')
+    }, [state])
 
     function handleChange(e, sub) {
         let { name, value } = e.target
@@ -123,8 +130,7 @@ function AdminEventForm({
         delete st._id
         st.status = "published"
         let r = transformToFormData(form, st)
-        let pics = getPicturesFilesWithOrder(state.speakers)
-        console.log("fotos speakers", pics)
+        //let pics = getPicturesFilesWithOrder(state.speakers)
         saveDraftEvent({ body: r, id })
     }
 
@@ -169,9 +175,9 @@ function AdminEventForm({
         delete st.assistants
         let id = st._id
         delete st._id
+        st.status = "draft"
         let r = transformToFormData(form, st)
         let pics = getPicturesFilesWithOrder(state.speakers)
-        console.log("fotos speakers", pics)
         saveDraftEvent({ body: r, id })
     }
 
@@ -203,6 +209,33 @@ function AdminEventForm({
         removeActivityAction(object)
     }
 
+    function removeEvent() {
+        Swal.fire({
+            title: 'Estas segur@?',
+            text: "Esto no podrá revertirse y se perderá toda la información relacionada al evento",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#2d364f',
+            confirmButtonColor: "#d33",
+            confirmButtonText: 'Si, eliminar evento'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Eliminado!',
+                    'El evento ha sido Eliminado de la base de datos.',
+                    'success'
+                )
+                deleteEventAction(state._id)
+                    .then(() => {
+                        history.goBack()
+                    })
+            }
+        })
+
+    }
+
     // if (fetching) return (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
     //     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => <div style={{ width: 320 }} ><Skeleton active /></div>)}
     // </div>)
@@ -212,7 +245,11 @@ function AdminEventForm({
             <div className="admin-form-header">
                 <h1>{header}</h1>
                 {fetching && <Spin />}
-                <button onClick={saveDraft} >Guardar como borrador</button>
+                <div>
+                    <button onClick={saveDraft} >Guardar como borrador</button>
+                    {state._id && <button style={{ color: "white", background: "red" }} onClick={removeEvent} >Eliminar Evento</button>}
+                </div>
+
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -347,9 +384,9 @@ function AdminEventForm({
                         externalList={true}
                     />
                     {fetching && <Spin />}
-                    <input
+                    {fetching || <input
                         className="admin-form-submit-button"
-                        type="submit" value="Publicar evento" />
+                        type="submit" value="Publicar evento" />}
 
                 </form>
 
@@ -418,5 +455,6 @@ export default connect(mapState, {
     addModuleAction,
     removeModuleAction,
     addActivityAction,
-    removeActivityAction
+    removeActivityAction,
+    deleteEventAction
 })(AdminEventForm)
