@@ -3,21 +3,25 @@ import { connect } from 'react-redux';
 
 import { Typography, Modal } from 'antd';
 
+import { pushLastInstitution } from '../../../store/ducks/institutionsDuck';
 import { createActivityAction } from '../../../store/ducks/activitiesDuck';
 import ContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
 import CreateInstitution from '../reusables/CreateInstitutionModal';
 import LaboralForm from '../reusables/LaboralForm';
 
-function LaboralExperience({ createActivityAction }) {
+function LaboralExperience({ createActivityAction, pushLastInstitution }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
   const [activity, setActivity] = useState();
+  const [lastInstitution, setLastInstitution] = useState();
 
   const handleResult = (error, data) => {
-    console.log(error);
-    console.log(data);
+    if (data) {
+      pushLastInstitution(data);
+      setLastInstitution(data._id);
+    }
   };
 
   const handleForm = (data) => {
@@ -41,7 +45,7 @@ function LaboralExperience({ createActivityAction }) {
         onOk={handleSave}
         onCancel={() => setOpen(false)}
       >
-        <LaboralForm onChange={handleForm} />
+        <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
         <CreateInstitution onResult={handleResult} />
       </Modal>
     </ContainerItem>
@@ -54,4 +58,6 @@ function mapStateToProps({ activities }) {
   };
 }
 
-export default connect(mapStateToProps, { createActivityAction })(LaboralExperience);
+export default connect(
+  mapStateToProps, { createActivityAction, pushLastInstitution },
+)(LaboralExperience);

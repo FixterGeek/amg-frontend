@@ -11,6 +11,7 @@ import Label from '../../../atoms/data-entry/Label';
 
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
+  lastInstitution,
 }) {
   const [activity, setActivity] = useState({
     institution: null,
@@ -31,6 +32,10 @@ function LaboralForm({
   useEffect(() => {
     onChange(activity);
   }, [activity]);
+
+  useEffect(() => {
+    if (lastInstitution) setActivity({ ...activity, institution: lastInstitution });
+  }, [lastInstitution]);
 
 
   const handleChange = ({ target }) => {

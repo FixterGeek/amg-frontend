@@ -9,6 +9,8 @@ const POPULATE_INSTITUTIONS = 'POPULATE_INSTITUTIONS';
 const POPULATE_INSTITUTIONS_SUCCESS = 'POPULATE_INSTITUTIONS_SUCCESS';
 const POPULATE_INSTITUTIONS_ERROR = 'POPULATE_INSTITUTIONS_ERROR';
 
+const PUSH_LAST_INSTITUTION = 'PUSH_NEW_INSTITUTION';
+
 
 // Actions creators
 // Populate
@@ -22,6 +24,12 @@ export function populateInstitutionsSuccess(institutionsArray) {
 
 export function populateInstitutionsError(error) {
   return { type: POPULATE_INSTITUTIONS_ERROR, payload: error };
+}
+
+
+// Push new institution
+export function pushLastInstitution(institution) {
+  return { type: PUSH_LAST_INSTITUTION, payload: institution };
 }
 
 
@@ -49,6 +57,9 @@ export default function reducer(state = institutionsState, action) {
       return { ...state, institutionsArray: action.payload, fetching: false };
     case POPULATE_INSTITUTIONS_ERROR:
       return { ...state, fetching: false, error: action.payload };
+//
+    case PUSH_LAST_INSTITUTION:
+      return { ...state, institutionsArray: [action.payload, ...state.institutionsArray] };
     default:
       return state;
   }
