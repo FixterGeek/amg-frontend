@@ -45,8 +45,34 @@ const REMOVE_MODULE = "REMOVE_MODULE"
 const REMOVE_MODULE_ERROR = "REMOVE_MODULE_ERROR"
 const REMOVE_MODULE_SUCCESS = "REMOVE_MODULE_SUCCESS"
 
+const ADD_ACTIVITY = "ADD_ACTIVITY"
+const ADD_ACTIVITY_ERROR = "ADD_ACTIVITY_ERROR"
+const ADD_ACTIVITY_SUCCESS = "ADD_ACTIVITY_SUCCESS"
+const REMOVE_ACTIVITY = "REMOVE_ACTIVITY"
+const REMOVE_ACTIVITY_ERROR = "REMOVE_ACTIVITY_ERROR"
+const REMOVE_ACTIVITY_SUCCESS = "REMOVE_ACTIVITY_SUCCESS"
+
 //action creators
 
+//activities
+function addActivity() {
+    return { type: ADD_ACTIVITY }
+}
+function addActivitySuccess(payload) {
+    return { payload, type: ADD_ACTIVITY_SUCCESS }
+}
+function addActivityError(payload) {
+    return { payload, type: ADD_ACTIVITY_ERROR }
+}
+function removeActivity() {
+    return { type: REMOVE_ACTIVITY }
+}
+function removeActivityError(payload) {
+    return { payload, type: REMOVE_ACTIVITY_ERROR }
+}
+function removeActivitySuccess(payload) {
+    return { payload, type: REMOVE_ACTIVITY_SUCCESS }
+}
 //mdules
 function addModule() {
     return { type: ADD_MODULE }
@@ -158,6 +184,7 @@ export function saveDraftEventEpic(action$, state$) {
                         map(resp => {
                             console.log(resp)
                             //localStorage.authToken = resp.response.token
+                            toastr.success("Evento Guardado")
                             return saveDraftEventSuccess({ ...resp.response })
                         }),
                         //delay(5000),
@@ -228,7 +255,48 @@ export function removeModuleAction(item) {
     }
 }
 // activities
+export function addActivityAction(item) {
+    return function (dispatch) {
+        // dispatch(addModule())
+        return axios.post(baseURL + "eventActivities", item, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(addActivitySuccess(res.data))
+                dispatch({ type: GET_SINGLE_EVENT, payload: res.data.event })
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(addActivityError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
 
+    }
+}
+
+export function removeActivityAction(item) {
+    return function (dispatch) {
+        // dispatch(removeModule())
+        return axios.delete(baseURL + "eventActivities/" + item._id, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(removeActivitySuccess(res.data))
+                dispatch({ type: GET_SINGLE_EVENT, payload: res.data.event })
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(removeActivityError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
+// empty
+export function emptyWorkingOn() {
+    return (dispatch) => dispatch({ type: "EMPTY_WORKING_ON" })
+}
 
 //reducers
 function draftEvents(
@@ -246,38 +314,56 @@ function draftEvents(
             return state
     }
 }
+let initialWorkingOn = {
+    mainImages: null,
+    permisos: null,
+    speakers: [],
+    // modules: ["ids de los modulos"],
+    location: {
+        addressName: "",
+        street: "",
+        outdoorNumber: "",
+        interiorNumber: "",
+        colony: "",
+        zipCode: "",
+        city: "",
+        state: null,
+        coordinates: []
+    },
+    title: 'titulo',
+    startDate: null,
+    startTime: '',
+    endDate: '',
+    description: [],
+    mainImagesURLS: ["https://miro.medium.com/fit/c/256/256/0*jp3IFb08Sy3_k3N_."],
+    permisosURLS: [],
+    status: "draft",
+    fetching: false,
+    modules: [],
+    activities: []
 
+}
 function workingOn(
-    state = {
-        mainImages: null,
-        permisos: null,
-        speakers: [],
-        // modules: ["ids de los modulos"],
-        location: {
-            addressName: "",
-            street: "",
-            outdoorNumber: "",
-            interiorNumber: "",
-            colony: "",
-            zipCode: "",
-            city: "",
-            state: null,
-            coordinates: []
-        },
-        title: 'titulo',
-        startDate: null,
-        startTime: '',
-        endDate: '',
-        description: [],
-        mainImagesURLS: ["https://miro.medium.com/fit/c/256/256/0*jp3IFb08Sy3_k3N_."],
-        permisosURLS: [],
-        status: "draft",
-        fetching: false
-
-    }, // {}
+    state = initialWorkingOn, // {}
     action
 ) {
     switch (action.type) {
+        case ADD_ACTIVITY:
+            return { ...state, fetching: true }
+        case ADD_ACTIVITY_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case ADD_ACTIVITY_SUCCESS:
+            return { ...state, status: "success", activities: [action.payload, ...state.activities], fetching: false }
+
+
+        case REMOVE_ACTIVITY:
+            return { ...state, fetching: true }
+        case REMOVE_ACTIVITY_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case REMOVE_ACTIVITY_SUCCESS:
+            return { ...state, status: "success", fetching: false }
+
+
         case ADD_MODULE:
             return { ...state, fetching: true }
         case ADD_MODULE_ERROR:
@@ -293,7 +379,8 @@ function workingOn(
         case REMOVE_MODULE_SUCCESS:
             return { ...state, status: "success", modules: [...state.modules.filter(m => m._id !== action.payload._id)], fetching: false }
 
-
+        case "EMPTY_WORKING_ON":
+            return initialWorkingOn
         case UPDATE_WORKING_ON:
             return { ...state, ...action.payload, fetching: false }
         case SAVE_DRAFT_EVENT_SUCCESS:
