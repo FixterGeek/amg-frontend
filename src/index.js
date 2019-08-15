@@ -7,6 +7,7 @@ import './index.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { Provider } from "react-redux";
 import store from "./store/store";
+import 'toastr/build/toastr.css'
 
 const WithRoute = () => (
   <Provider store={store}>
@@ -14,7 +15,7 @@ const WithRoute = () => (
       <App />
     </Router>
   </Provider>
-  
+
 );
 
 ReactDOM.render(<WithRoute />, document.getElementById("root"));
