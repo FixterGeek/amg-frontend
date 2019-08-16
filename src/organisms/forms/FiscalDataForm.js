@@ -5,13 +5,18 @@ import { withRouter } from 'react-router-dom';
 import { Typography } from 'antd';
 
 import { writeNewFiscalData } from '../../store/ducks/signupDuck';
+import { updateUserAction } from '../../store/ducks/userDuck';
 import TextField from '../../molecules/TextFields';
 import SelectField from '../../molecules/SelectField';
 import Button from '../../atoms/Button';
 import ContainerItem from '../../atoms/DashboardContainerItem';
+import Spinner from '../../atoms/Spinner';
 import states from './estados.json';
 
-const FiscalDataForm = ({ history, signup, fiscalData, writeNewFiscalData }) => {
+const FiscalDataForm = ({
+  history, signup, fiscalData, writeNewFiscalData,
+  updateUserAction, userFetching, user
+}) => {
   const { Title } = Typography;
 
   const handleChange = ({ target }) => {
@@ -20,18 +25,22 @@ const FiscalDataForm = ({ history, signup, fiscalData, writeNewFiscalData }) => 
     else writeNewFiscalData({ address: { ...fiscalData.address, [name]: value } });
   };
 
-  const handleSave = () => {
+  const handleSave = (event) => {
+    event.preventDefault();
     localStorage.user = JSON.stringify(signup);
+    updateUserAction({ ...user, fiscalData: { ...signup.fiscalData } })
+      .then((data) => {
+        console.log(data);
+        history.push('/dashboard/')
+      })
   };
 
   return (
-    <form className="signup-form  relative">
+    <form className="signup-form  relative" onSubmit={handleSave}>
+      { userFetching && <Spinner tip="Completamdo registro..." /> }
       <ContainerItem>
         <Title>Datos Fiscales</Title>
       </ContainerItem>
-      <Button onClick={handleSave} className="reusable-save-button" line>
-        Guardar
-      </Button>
       <ContainerItem>
         <TextField
           onChange={handleChange}
@@ -66,20 +75,25 @@ const FiscalDataForm = ({ history, signup, fiscalData, writeNewFiscalData }) => 
           options={states} />
       </ContainerItem>
 
-      <Button width="100%" htmlType="submit">
+      <Button width="100%" htmlType="submit" disabled={!(
+        !fiscalData.rfc || fiscalData.address.street || !fiscalData.address.colony ||
+        !fiscalData.address.zipCode || !fiscalData.address.city || !fiscalData.address.state
+      )}>
         Siguiente
       </Button>
     </form>
   );
 };
 
-function mapStateToProps({ signup }) {
+function mapStateToProps({ signup, user }) {
   return {
+    user,
+    userFetching: user.fetching,
     fiscalData: signup.fiscalData,
     signup,
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { writeNewFiscalData })(FiscalDataForm),
+  connect(mapStateToProps, { writeNewFiscalData, updateUserAction })(FiscalDataForm),
 );

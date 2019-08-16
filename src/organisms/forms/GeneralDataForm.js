@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -25,9 +25,9 @@ function GeneralDataForm({
 }) {
   const { Group } = Radio;
 
-
   const { basicData } = signup;
-  // const { signup } = useAmgService();
+
+
   useEffect(() => {
     if (status === "success") {
       history.push('/signup/education')
