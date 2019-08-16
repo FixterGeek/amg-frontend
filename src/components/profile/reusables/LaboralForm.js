@@ -7,14 +7,17 @@ import { populateInstitutionsAction } from '../../../store/ducks/institutionsDuc
 import SelectField from '../../../molecules/SelectField';
 import RangeDatePicker from './RangeDatePicker';
 import Label from '../../../atoms/data-entry/Label';
+import Spinner from '../../../atoms/Spinner';
 
 
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
-  lastInstitution,
+  lastInstitution, disabledOwn, fetching, activityFetching
 }) {
   const [activity, setActivity] = useState({
+    user: '',
     institution: null,
+    institutionOwner: '',
     type: null,
     startDate: null,
     endDate: null,
@@ -30,6 +33,10 @@ function LaboralForm({
   }, []);
 
   useEffect(() => {
+    setActivity({ ...activity, user })
+  }, [user]);
+
+  useEffect(() => {
     onChange(activity);
   }, [activity]);
 
@@ -39,27 +46,42 @@ function LaboralForm({
 
 
   const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setActivity({ ...activity, [name]: value });
+    const { name, value, event } = target;
+
+    if (name === 'institution') {
+      setActivity({ ...activity, [name]: value, institutionOwner: institutionsArray[event.props.index].owner });
+    } else {
+      setActivity({ ...activity, [name]: value });
+    }
   };
 
   const handleDate = (moments) => {
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
 
+  console.log(activity.institutionOwner, user)
+
+
   return (
-    <form>
+    <form className="relative">
+      { fetching && <Spinner tip="Creando institución..." /> }
+      { activityFetching && <Spinner tip="Creando actividad laboral..." /> }
       <SelectField
-        onChange={value => handleChange({ target: { value, name: 'institution' } })}
+        onChange={(value, event) => handleChange({ target: { value, name: 'institution', event } })}
         useKeys={['_id', '_id', 'name']}
+        returnIndex
         value={activity.institution}
         options={institutionsArray}
         label="intitución" />
       <div>
         <Label>Institución propia</Label>
-        <Checkbox
-          onChange={() => handleChange({ target: { value: user, name: 'user' } })}
-          value={activity.user !== null} />
+        {
+          !disabledOwn && (
+            <Checkbox
+              disabled
+              checked={activity.institutionOwner === user._id} />
+          )
+        }
       </div>
       <SelectField
         onChange={value => handleChange({ target: { value, name: 'type' } })}
@@ -75,10 +97,12 @@ function LaboralForm({
   );
 }
 
-function mapStateToProps({ user, institutions }) {
+function mapStateToProps({ user, institutions, activities }) {
   return {
+    fetching: institutions.fetching,
     institutionsArray: institutions.institutionsArray,
-    user: user._id,
+    user,
+    activityFetching: activities.fetching,
   };
 }
 

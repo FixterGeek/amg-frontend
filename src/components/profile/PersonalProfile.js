@@ -12,7 +12,10 @@ import LaboralExperience from './editables/LaboralExperience';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 import BoxItem from '../../atoms/BoxItem';
 
-function PersonalProfile({ user, activities, updateUserAction, populateActivitiesAction }) {
+function PersonalProfile({
+  user, activities, updateUserAction, populateActivitiesAction,
+  activitiesFetching,
+}) {
   const {
     basicData, membershipStatus, studies, hospitalActivities,
     photo,
@@ -20,12 +23,12 @@ function PersonalProfile({ user, activities, updateUserAction, populateActivitie
   const { photoURL, speciality } = basicData;
 
   useEffect(() => {
-    populateActivitiesAction();
+    if (!activities[0]) populateActivitiesAction();
   }, []);
 
   console.log(activities)
   return (
-    <div className="dashboard-container component-main-profile">
+    <div className="dashboard-container component-main-profile relative">
       { user.fetching && <Spinner /> }
       <BasicData
         photoFile={photo}
@@ -40,11 +43,13 @@ function PersonalProfile({ user, activities, updateUserAction, populateActivitie
       <PersonalEducation />
 
       <LaboralExperience />
-      <ContainerItem>
+      <ContainerItem className="relative">
+        { activitiesFetching && <Spinner tip="Cargando experiencia laboral..." /> }
         {
           activities.map(activity => (
             <BoxItem
-              title={activity.charge || activity.subject}
+              title={activity.charge || activity.subject || activity.institution.name}
+              level1={activity.institution.name}
               level2={
                 `${moment(activity.startDate).format('YYY')} - ${moment(activity.endDate).format('YYYY')}`
             } />
@@ -59,6 +64,7 @@ function mapStateToProps({ user, activities }) {
   return {
     user,
     activities: activities.activitiesArray,
+    activitiesFetching: activities.fetching,
   };
 }
 
