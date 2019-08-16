@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Checkbox } from 'antd';
 
 import { populateInstitutionsAction } from '../../../store/ducks/institutionsDuck';
+import TextField from '../../../molecules/TextFields';
 import SelectField from '../../../molecules/SelectField';
 import RangeDatePicker from './RangeDatePicker';
 import Label from '../../../atoms/data-entry/Label';
@@ -33,7 +34,7 @@ function LaboralForm({
   }, []);
 
   useEffect(() => {
-    setActivity({ ...activity, user })
+    setActivity({ ...activity, user: user._id })
   }, [user]);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ function LaboralForm({
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
 
-  console.log(activity.institutionOwner, user)
+  console.log(activity)
 
 
   return (
@@ -88,6 +89,24 @@ function LaboralForm({
         options={['Hospitalaria', 'Docente', 'Sociedad']}
         value={activity.type}
         label="Tipos de labor" />
+      {
+        activity.type === 'Hospitalaria' || activity.type === 'Docente' ? (
+          <TextField
+            onChange={handleChange}
+            name="charge"
+            value={activity.charge}
+            label="Cargo" />
+        ) : null
+      }
+      {
+        activity.type === 'Docente' && (
+          <TextField
+            onChange={handleChange}
+            name="subject"
+            value={activity.subject}
+            label="Materia" />
+        )
+      }
       <RangeDatePicker
         onChange={handleDate}
         label="Periodo"

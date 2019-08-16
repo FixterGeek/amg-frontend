@@ -216,6 +216,9 @@ export const updateUserAction = (userData) => (dispatch) => {
 export const logoutAction = () => (dispatch) => {
     return new Promise((resolve, reject) => {
         localStorage.removeItem('user');
+        localStorage.removeItem('activities');
+        localStorage.removeItem('education');
+        localStorage.removeItem('authToken');
         dispatch(logoutUser());
         resolve(true);
     });

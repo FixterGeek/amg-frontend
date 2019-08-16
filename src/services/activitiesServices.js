@@ -6,7 +6,7 @@ let user
 if(localStorage.user) user = JSON.parse(localStorage.user);
 const token = localStorage.authToken;
 
-export const getActivitiesForUser = (userId = user._id) => axios.get(`${APIURL}`,{
+export const getActivitiesForUser = (userId = user._id) => axios.get(`${APIURL}?query={"user": "${userId}"}`, {
   headers: {
     Authorization: token,
   },

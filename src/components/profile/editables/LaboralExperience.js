@@ -19,7 +19,6 @@ function LaboralExperience({ user, createActivityAction, pushLastInstitution }) 
 
   const handleResult = (error, data) => {
     if (data) {
-      pushLastInstitution(data);
       setLastInstitution(data._id);
     }
   };

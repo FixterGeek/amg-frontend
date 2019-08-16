@@ -3,18 +3,27 @@ import { connect } from 'react-redux';
 
 import { Typography, Modal } from 'antd';
 
+import { createEducationAction } from '../../../store/ducks/educationDuck';
 import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
 import EducationForm from '../reusables/EducationForm';
 
-function PersonalEducation({ user }) {
+function PersonalEducation({ user, createEducationAction }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
+  const [education, setEducation] = useState();
 
   const handleSave = () => {
-
+    if (education.type === 'Estudios') createEducationAction('studies', education);
+    if (education.type === 'Recidencia') createEducationAction('residences', education);
+    if (education.type === 'Internado') createEducationAction('internships', education);
+    setOpen(false);
   };
+
+  const handleEducationForm = (data) => {
+    setEducation(data);
+  }
 
   return (
     <DashboardContainerItem className="personal-title  relative">
@@ -28,9 +37,7 @@ function PersonalEducation({ user }) {
         onOk={handleSave}
         onCancel={() => setOpen(false)}
       >
-        <EducationForm />
-        {/* <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
-        <CreateInstitution user={user} onResult={handleResult} /> */}
+        <EducationForm user={user} onChange={handleEducationForm} />
       </Modal>
     </DashboardContainerItem>
   );
@@ -40,4 +47,4 @@ function mapStateToProps({ user }) {
   return { user };
 }
 
-export default connect(mapStateToProps)(PersonalEducation);
+export default connect(mapStateToProps, { createEducationAction })(PersonalEducation);

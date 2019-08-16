@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const APIURL = `${process.env.REACT_APP_BASE_API_URL}/studies`;
-const token = JSON.parse(localStorage.getItem('token'));
+const token = JSON.parse(localStorage.authToken);
 
 export const getStudies = () => axios.get(`${APIURL}`, { headers: { Authorization: token } }).then(({ data }) => data);
 

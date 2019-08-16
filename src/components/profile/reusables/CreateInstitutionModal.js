@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { Modal, Checkbox } from 'antd';
 
+import { pushLastInstitution } from '../../../store/ducks/institutionsDuck';
 import { createInstitution } from '../../../services/institutionsServices';
 import Button from '../../../atoms/Button';
 import TextField from '../../../molecules/TextFields';
@@ -12,7 +14,8 @@ import Upload from '../../admin/reusables/Upload'
 import ImageGalleryPicker from '../../admin/reusables/ImageGalleryPicker'
 
 function CreateInstitution({
-  user, onResult, forceOwn = null, disabledOwn, forceType = null
+  user, onResult, forceOwn = null, disabledOwn, forceTypes = null,
+  pushLastInstitution,
 }) {
   const [open, setOpen] = useState(false);
   const [own, setOwn] = useState(false);
@@ -59,7 +62,10 @@ function CreateInstitution({
     event.preventDefault();
     setOpen(false);
     createInstitution(institution)
-      .then(data => onResult(null, data))
+      .then(data => {
+        onResult(null, data);
+        pushLastInstitution(data);
+      })
       .catch(({ response }) => onResult(response.data, null));
   };
 
@@ -96,8 +102,8 @@ function CreateInstitution({
         }
         <SelectField
           onChange={value => handleChange({ target: { value, name: 'type' } })}
-          options={['Hospital', 'Escuela', 'Consultorio', 'Sociedad']}
-          value={forceType || institution.type}
+          options={forceTypes || ['Hospital', 'Escuela', 'Consultorio', 'Sociedad']}
+          value={institution.type}
           label="Tipo de institución" />
         <TextField
           onChange={handleChange}
@@ -150,4 +156,8 @@ function CreateInstitution({
   );
 }
 
-export default CreateInstitution;
+function mapStateToProps({ institutions }) {
+  return { institutions }
+}
+
+export default connect(mapStateToProps, { pushLastInstitution })(CreateInstitution);
