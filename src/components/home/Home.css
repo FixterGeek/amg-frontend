@@ -29,6 +29,7 @@
     border: none;
     border-radius: 2px;
     transition: all 1s ease;
+    margin-bottom: -10px;
 }
 
 .navbar div a:hover .blue{
@@ -43,8 +44,6 @@
     display: flex;
     justify-content: center;
 }
-
-
 
 .app{
     font-family: Avenir !important;

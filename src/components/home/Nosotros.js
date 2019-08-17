@@ -34,15 +34,15 @@ function Nosotros() {
                     <h2 className="titles">Visión</h2>
                     <p>Ser la institución líder y referente en salud digestiva a nivel nacional e internacional.</p>
                     <h2 className="titles">Valores</h2>
-                    <ul>
-                        <li>Ética a nivel institucional y de cada uno de sus miembros
-                        </li>
-                        <li>Calidad en todos los eventos y actividades de la asociación</li>
-                        <li>Fuerte compromiso social con la comunidad</li>
-                        <li>Amistad, unión y colaboración entre sus miembros</li>
-                        <li>Pluralidad y equidad</li>
-                        <li>Amor por la ciencia y la investigación médica en el área</li>
-                    </ul>
+
+                        <p>&bull; Ética a nivel institucional y de cada uno de sus miembros
+                        </p>
+                        <p>&bull; Calidad en todos los eventos y actividades de la asociación</p>
+                        <p>&bull; Fuerte compromiso social con la comunidad</p>
+                        <p>&bull; Amistad, unión y colaboración entre sus miembros</p>
+                        <p>&bull; Pluralidad y equidad</p>
+                        <p>&bull; Amor por la ciencia y la investigación médica en el área</p>
+
                 </div>
 
             </section>
