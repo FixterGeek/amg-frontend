@@ -2,11 +2,10 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import AdminEvents from './AdminEvents'
 import AdminEventForm from './AdminEventForm'
-<<<<<<< HEAD
-import UsersPage from '../users/UsersPage';
-=======
 import AdminUsers from './AdminUsers'
->>>>>>> 34c2b75efedec76f6dc6dbe90aec36dc9098f0db
+import AdminTests from './AdminTests'
+import AdminTestForm from './AdminTestForm';
+import AdminTestQuestionsForm from './AdminTestQuestionsForm';
 
 
 function AdminRouter() {
@@ -16,15 +15,13 @@ function AdminRouter() {
       <Route exact path="/admin/users" component={AdminUsers} />
       {/* Group */}
       <Route path="/admin/events/edit/:id" component={AdminEventForm} />
-<<<<<<< HEAD
-
-      {/* Users List */}
-      <Route exact path="/admin/users" component={UsersPage} />
-      {/* Exams (Ivote) */}
-=======
       <Route exact path="/admin/events/edit/" component={AdminEventForm} />
       <Route exact path="/admin/events" component={AdminEvents} />
->>>>>>> 34c2b75efedec76f6dc6dbe90aec36dc9098f0db
+      {/* Examenes */}
+      <Route exact path="/admin/tests" component={AdminTests} />
+      <Route exact path="/admin/tests/new" component={AdminTestForm} />
+      <Route exact path="/admin/tests/edit/:id" component={AdminTestForm} />
+      <Route exact path="/admin/tests/:id/questions" component={AdminTestQuestionsForm} />  
     </Switch>
   );
 }
