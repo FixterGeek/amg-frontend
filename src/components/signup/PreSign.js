@@ -17,7 +17,7 @@ function PreSign() {
             paddingBottom="0px"
             flexWrap="nowrap"
         >
-            <Container className="login-left" height="110vh" width="50%">
+            <Container className="login-left" height="100vh" width="50%">
                 <div className="padd">
                     <Link to="/">
                         <img src={log} alt="logo-oficial"/>
@@ -39,9 +39,9 @@ function PreSign() {
                         <li>Certficación de especialidad</li>
                     </ul>
                     <br/>
-                    <p>NOTA: La solicitud de ingreso no podrá ser evaluada hasta contar con la  documentación completa. Solamente se registrarán en el Directorio las especialidades que cuenten con documentación que lo avale. </p>
+                    <p className="bt">NOTA: La solicitud de ingreso no podrá ser evaluada hasta contar con la  documentación completa. Solamente se registrarán en el Directorio las especialidades que cuenten con documentación que lo avale. </p>
 
-                    <Link to="/signup/general">
+                    <Link to="/signup/general" >
                         <AmgButton
                             htmlType="submit"
                             width="100%">
@@ -57,8 +57,10 @@ function PreSign() {
                 height="110vh"
                 width="50%"
             >
-                <div className="login-bg">
+                <div className="login-lib">
+                    <div className="cover">
                     <div className="login-logo" />
+                    </div>
                 </div>
             </Container>
         </FullScreenContainer>

@@ -11,15 +11,19 @@ function NavBar() {
             <div>
                 <Link to="/biblioteca">
                     <p>Biblioteca</p>
+                    <hr className="blue"/>
                 </Link>
                 <Link to="/sesion-mensual">
                     <p>Sesión Mensual</p>
+                    <hr className="blue"/>
                 </Link>
                 <Link to="/nosotros">
                     <p>Nosotros</p>
+                    <hr className="blue"/>
                 </Link>
                 <Link to="/contacto">
                     <p>Contacto</p>
+                    <hr className="blue"/>
                 </Link>
                 <Link
                     to="/login"

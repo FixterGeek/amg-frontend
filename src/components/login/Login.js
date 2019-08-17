@@ -59,8 +59,10 @@ function Login() {
         height="100vh"
         width="50%"
       >
-        <div className="login-bg">
-          <div className="login-logo" />
+        <div className="login-lib">
+          <div className="cover">
+            <div className="login-logo" />
+          </div>
         </div>
       </Container>
     </FullScreenContainer>

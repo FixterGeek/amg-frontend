@@ -39,7 +39,11 @@ const GET_ADMIN_EVENTS_ERROR = 'GET_ADMIN_EVENTS_ERROR';
 
 
 
+
+
 // actionCreators
+
+
 export function getAdminEvents() {
   return { type: GET_ADMIN_EVENTS };
 }
@@ -52,7 +56,7 @@ export function getAdminEventsSuccess(events) {
 ////////////////////////////////////////
 
 export function populateEvents() {
-  return { type: POPULATE_EVENTS };
+  return { type: POPULATE_EVENTS }
 }
 
 export function populateEventsSuccess(payload) {
@@ -97,6 +101,8 @@ export function getAdminEventsEpic(action$, state$) {
 }
 
 // Thunks
+
+
 // Populate events
 export const populateEventsAction = () => (dispatch) => {
   dispatch(populateEvents());

@@ -1,5 +1,8 @@
 //imports
 import { combineReducers } from 'redux'
+import toastr from 'toastr'
+import axios from 'axios'
+
 import {
     switchMap,
     map,
@@ -16,6 +19,7 @@ import {
 import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
+import { allSettled } from 'q';
 
 let baseURL = "https://amg-api.herokuapp.com/"
 
@@ -35,7 +39,73 @@ let GET_SINGLE_EVENT_SUCCESS = "GET_SINGLE_EVENT_SUCCESS"
 let GET_SINGLE_EVENT_ERROR = "GET_SINGLE_EVENT_ERROR"
 let UPDATE_WORKING_ON = "UPDATE_WORKING_ON"
 
+const ADD_MODULE = "ADD_MODULE"
+const ADD_MODULE_ERROR = "ADD_MODULE_ERROR"
+const ADD_MODULE_SUCCESS = "ADD_MODULE_SUCCESS"
+const REMOVE_MODULE = "REMOVE_MODULE"
+const REMOVE_MODULE_ERROR = "REMOVE_MODULE_ERROR"
+const REMOVE_MODULE_SUCCESS = "REMOVE_MODULE_SUCCESS"
+
+const ADD_ACTIVITY = "ADD_ACTIVITY"
+const ADD_ACTIVITY_ERROR = "ADD_ACTIVITY_ERROR"
+const ADD_ACTIVITY_SUCCESS = "ADD_ACTIVITY_SUCCESS"
+const REMOVE_ACTIVITY = "REMOVE_ACTIVITY"
+const REMOVE_ACTIVITY_ERROR = "REMOVE_ACTIVITY_ERROR"
+const REMOVE_ACTIVITY_SUCCESS = "REMOVE_ACTIVITY_SUCCESS"
+
+const DELETE_EVENT = "DELETE_EVENT"
+const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS"
+const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR"
+
 //action creators
+// delete
+function deleteEventSuccess() {
+    return { type: DELETE_EVENT_SUCCESS }
+}
+function deleteEventError(error) {
+    return { type: DELETE_EVENT_ERROR, payload: error }
+}
+
+//activities
+function addActivity() {
+    return { type: ADD_ACTIVITY }
+}
+function addActivitySuccess(payload) {
+    return { payload, type: ADD_ACTIVITY_SUCCESS }
+}
+function addActivityError(payload) {
+    return { payload, type: ADD_ACTIVITY_ERROR }
+}
+function removeActivity() {
+    return { type: REMOVE_ACTIVITY }
+}
+function removeActivityError(payload) {
+    return { payload, type: REMOVE_ACTIVITY_ERROR }
+}
+function removeActivitySuccess(payload) {
+    return { payload, type: REMOVE_ACTIVITY_SUCCESS }
+}
+//mdules
+function addModule() {
+    return { type: ADD_MODULE }
+}
+function addModuleSuccess(payload) {
+    return { payload, type: ADD_MODULE_SUCCESS }
+}
+function addModuleError(payload) {
+    return { payload, type: ADD_MODULE_ERROR }
+}
+function removeModule() {
+    return { type: REMOVE_MODULE }
+}
+function removeModuleError(payload) {
+    return { payload, type: REMOVE_MODULE_ERROR }
+}
+function removeModuleSuccess(payload) {
+    return { payload, type: REMOVE_MODULE_SUCCESS }
+}
+
+
 export function saveDraftEvent(event) {
     return {
         type: SAVE_DRAFT_EVENT,
@@ -126,6 +196,7 @@ export function saveDraftEventEpic(action$, state$) {
                         map(resp => {
                             console.log(resp)
                             //localStorage.authToken = resp.response.token
+                            toastr.success("Evento Guardado")
                             return saveDraftEventSuccess({ ...resp.response })
                         }),
                         //delay(5000),
@@ -137,18 +208,21 @@ export function saveDraftEventEpic(action$, state$) {
                     )
                 )
             }
+            console.log("Es nuevo", action.payload)
             return concat(
                 //of(setFetchingUser()),
-                ajax.post(baseURL + "events", action.payload, { "Authorization": token }).pipe(
+                ajax.post(baseURL + "events", action.payload.body, { "Authorization": token }).pipe(
                     map(resp => {
                         console.log(resp)
                         //localStorage.authToken = resp.response.token
-                        return saveDraftEventSuccess({ ...resp.response })
+                        toastr.success("Nuevo Evento Guardado")
+                        return saveDraftEventSuccess({ ...resp.response, new: true })
                     }),
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),
                     catchError(err => {
                         console.log("ero", err)
+                        toastr.error("Ocurrio un error, vulve a intentar")
                         return of(saveDraftEventError(err))
                     })
                 )
@@ -156,6 +230,105 @@ export function saveDraftEventEpic(action$, state$) {
         })
     )
 
+}
+
+//thunks
+// modules
+export function addModuleAction(item) {
+    return function (dispatch) {
+        // dispatch(addModule())
+        return axios.post(baseURL + "eventModules", item, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(addModuleSuccess(res.data))
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(addModuleError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
+export function removeModuleAction(item) {
+    return function (dispatch) {
+        // dispatch(removeModule())
+        return axios.delete(baseURL + "eventModules/" + item._id, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(removeModuleSuccess(res.data))
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(removeModuleError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+// activities
+export function addActivityAction(item) {
+    return function (dispatch) {
+        // dispatch(addModule())
+        return axios.post(baseURL + "eventActivities", item, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(addActivitySuccess(res.data))
+                dispatch({ type: GET_SINGLE_EVENT, payload: res.data.event })
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(addActivityError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
+export function removeActivityAction(item) {
+    return function (dispatch) {
+        // dispatch(removeModule())
+        return axios.delete(baseURL + "eventActivities/" + item._id, { headers: { Authorization: localStorage.authToken } })
+            .then(res => {
+                dispatch(removeActivitySuccess(res.data))
+                dispatch({ type: GET_SINGLE_EVENT, payload: res.data.event })
+                toastr.info("Evento actualizado")
+                return res.data
+            })
+            .catch(e => {
+                dispatch(removeActivityError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
+export function deleteEventAction(id) {
+    return function (dispatch) {
+        // dispatch(removeModule())
+        return axios.delete(baseURL + "events/" + id, { headers: { Authorization: localStorage.authToken } })
+            .then(() => {
+                dispatch(deleteEventSuccess())
+                toastr.warning("Evento Elimiado")
+                return
+            })
+            .catch(e => {
+                dispatch(deleteEventError(e.response.data.message))
+                toastr.error(e.response.data.message)
+                return e
+            })
+
+    }
+}
+
+// empty
+export function emptyWorkingOn() {
+    return (dispatch) => dispatch({ type: "EMPTY_WORKING_ON" })
 }
 
 //reducers
@@ -174,42 +347,84 @@ function draftEvents(
             return state
     }
 }
+let initialWorkingOn = {
+    mainImages: null,
+    permisos: null,
+    speakers: [],
+    // modules: ["ids de los modulos"],
+    location: {
+        addressName: "",
+        street: "",
+        outdoorNumber: "",
+        interiorNumber: "",
+        colony: "",
+        zipCode: "",
+        city: "",
+        state: null,
+        coordinates: []
+    },
+    title: '',
+    startDate: null,
+    startTime: '',
+    endDate: '',
+    description: [],
+    mainImagesURLS: [],
+    permisosURLS: [],
+    status: "draft",
+    fetching: false,
+    modules: [],
+    activities: []
 
+}
 function workingOn(
-    state = {
-        mainImages: null,
-        permisos: null,
-        speakers: [],
-        // modules: ["ids de los modulos"],
-        location: {
-            addressName: "",
-            street: "",
-            outdoorNumber: "",
-            interiorNumber: "",
-            colony: "",
-            zipCode: "",
-            city: "",
-            state: null,
-            coordinates: []
-        },
-        title: 'titulo',
-        startDate: null,
-        startTime: '',
-        endDate: '',
-        description: [],
-        mainImagesURLS: ["https://miro.medium.com/fit/c/256/256/0*jp3IFb08Sy3_k3N_."],
-        permisosURLS: [],
-        status: "draft",
-        fetching: false
-
-    }, // {}
+    state = initialWorkingOn, // {}
     action
 ) {
     switch (action.type) {
+        case DELETE_EVENT_SUCCESS:
+            return { ...initialWorkingOn, fetching: false }
+        case DELETE_EVENT_ERROR:
+            return { ...state, fetching: false, status: "error" }
+
+        case ADD_ACTIVITY:
+            return { ...state, fetching: true }
+        case ADD_ACTIVITY_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case ADD_ACTIVITY_SUCCESS:
+            return { ...state, status: "success", activities: [action.payload, ...state.activities], fetching: false }
+
+
+        case REMOVE_ACTIVITY:
+            return { ...state, fetching: true }
+        case REMOVE_ACTIVITY_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case REMOVE_ACTIVITY_SUCCESS:
+            return { ...state, status: "success", fetching: false }
+
+
+        case ADD_MODULE:
+            return { ...state, fetching: true }
+        case ADD_MODULE_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case ADD_MODULE_SUCCESS:
+            return { ...state, status: "success", modules: [action.payload, ...state.modules], fetching: false }
+
+
+        case REMOVE_MODULE:
+            return { ...state, fetching: true }
+        case REMOVE_MODULE_ERROR:
+            return { ...state, status: "error", error: action.payload, fetching: false }
+        case REMOVE_MODULE_SUCCESS:
+            return { ...state, status: "success", modules: [...state.modules.filter(m => m._id !== action.payload._id)], fetching: false }
+
+        case "EMPTY_WORKING_ON":
+            return initialWorkingOn
         case UPDATE_WORKING_ON:
             return { ...state, ...action.payload, fetching: false }
         case SAVE_DRAFT_EVENT_SUCCESS:
             return { ...action.payload, fetching: false }
+        case SAVE_DRAFT_EVENT_ERROR:
+            return { ...state, fetching: false, error: action.payload }
         case GET_SINGLE_EVENT_ERROR:
             return { ...state, fetching: false, error: action.payload }
         case GET_SINGLE_EVENT_SUCCESS:

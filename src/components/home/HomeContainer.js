@@ -13,6 +13,7 @@ import logo4 from "../../assets/Gastro Asofarma_logo.png"
 
 
 import "./Home.css";
+import Footer from "./Footer";
 
 class HomeContainer extends Component {
   render() {
@@ -166,7 +167,7 @@ class HomeContainer extends Component {
               <img src={logo4} alt="logo-gastro-asofarma"/>
             </div>
           </section>
-
+        <Footer/>
     </div>
 
 

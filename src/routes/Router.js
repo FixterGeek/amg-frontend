@@ -18,12 +18,16 @@ import SeccionMensual from "../components/home/SeccionMensual"
 import Nosotros from "../components/home/Nosotros";
 import Contacto from "../components/home/Contacto";
 import PreSign from "../components/signup/PreSign";
+import Guias from "../components/home/Guias";
+import Publicaciones from "../components/home/Publicaciones";
 
 function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={Home} />
         <Route path="/biblioteca" component={Biblioteca}/>
+        <Route path="/guias" component={Guias}/>
+        <Route path="/publicaciones" component={Publicaciones}/>
         <Route path="/sesion-mensual" component={SeccionMensual}/>
         <Route path="/nosotros" component={Nosotros}/>
         <Route path="/contacto" component={Contacto}/>

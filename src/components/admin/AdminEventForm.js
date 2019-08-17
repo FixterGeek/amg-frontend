@@ -4,8 +4,9 @@ import TextField from '../../molecules/TextFields'
 import {
     TimePicker,
     Select,
-    // Icon,
-    Skeleton
+    Modal,
+    Skeleton,
+    Spin
 } from 'antd'
 import Upload from './reusables/Upload'
 import estados from './estados.json'
@@ -17,13 +18,26 @@ import {
     faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
-import { saveDraftEvent, getSingleEvent, updateWorkingOn } from '../../store/ducks/adminDuck'
+import {
+    saveDraftEvent,
+    getSingleEvent,
+    updateWorkingOn,
+    addModuleAction,
+    removeModuleAction,
+    addActivityAction,
+    removeActivityAction,
+    deleteEventAction
+} from '../../store/ducks/adminDuck'
 import ListAndModal from './reusables/ListAndModal'
 import ImageGalleryPicker from './reusables/ImageGalleryPicker'
+import ModuleModal from './reusables/ModuleModal';
+import ActivityModal from './reusables/ActivityModal';
+import Swal from 'sweetalert2'
 
 let { Option } = Select
 const { Dragger } = Upload;
 
+// COMPONENT
 function AdminEventForm({
     saveDraftEvent,
     getSingleEvent,
@@ -31,7 +45,14 @@ function AdminEventForm({
     match,
     state,
     fetching,
-    event
+    event,
+    addModuleAction,
+    removeModuleAction,
+    activities,
+    addActivityAction,
+    removeActivityAction,
+    history,
+    deleteEventAction
 }) {
 
     let [imageUrl, setImageUrl] = useState(null)
@@ -43,10 +64,13 @@ function AdminEventForm({
         let { id } = match.params
         if (id) {
             getSingleEvent(id)
-            setHeader("Editar Evento: " + state.title)
+            setHeader("Editar Evento")
         }
     }, [])
 
+    useEffect(() => {
+        if (state.new) history.push('/admin/events')
+    }, [state])
 
     function handleChange(e, sub) {
         let { name, value } = e.target
@@ -98,11 +122,16 @@ function AdminEventForm({
         e.preventDefault()
         //transform to formData
         let form = new FormData()
-        let r = transformToFormData(form, state)
-        let pics = getPicturesFilesWithOrder(state.speakers)
-        console.log("fotos speakers", pics)
-        //saveDraftEvent(r)
-        // savePublishedEvent(r)
+        let st = { ...state }
+        //validations
+        delete st.modules
+        delete st.assistants
+        let id = st._id
+        delete st._id
+        st.status = "published"
+        let r = transformToFormData(form, st)
+        //let pics = getPicturesFilesWithOrder(state.speakers)
+        saveDraftEvent({ body: r, id })
     }
 
     function getPicturesFilesWithOrder(array) {
@@ -146,22 +175,81 @@ function AdminEventForm({
         delete st.assistants
         let id = st._id
         delete st._id
+        st.status = "draft"
         let r = transformToFormData(form, st)
         let pics = getPicturesFilesWithOrder(state.speakers)
-        console.log("fotos speakers", pics)
         saveDraftEvent({ body: r, id })
     }
 
-    if (fetching) return (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => <div style={{ width: 320 }} ><Skeleton active /></div>)}
+    function uploadModule(list) {
+        console.log("si", list)
+        // return
+        let module = list[0]
+        // AGREGA EL MALDITO EVENTO
+        module.event = state._id
+        // AGREGA EL MALDITO EVENTO
+        addModuleAction(module)
+        // subir con un action
+    }
 
-    </div>)
+    function removeModule(object) {
+        removeModuleAction(object)
+    }
+    function uploadActivity(list) {
+        // return
+        let activity = list[0]
+        // AGREGA EL MALDITO EVENTO
+        activity.event = state._id
+        // AGREGA EL MALDITO EVENTO
+        addActivityAction(activity)
+        // subir con un action
+    }
+
+    function removeActivity(object) {
+        removeActivityAction(object)
+    }
+
+    function removeEvent() {
+        Swal.fire({
+            title: 'Estas segur@?',
+            text: "Esto no podrá revertirse y se perderá toda la información relacionada al evento",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#2d364f',
+            confirmButtonColor: "#d33",
+            confirmButtonText: 'Si, eliminar evento'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Eliminado!',
+                    'El evento ha sido Eliminado de la base de datos.',
+                    'success'
+                )
+                deleteEventAction(state._id)
+                    .then(() => {
+                        history.goBack()
+                    })
+            }
+        })
+
+    }
+
+    // if (fetching) return (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
+    //     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => <div style={{ width: 320 }} ><Skeleton active /></div>)}
+    // </div>)
 
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
                 <h1>{header}</h1>
-                <button onClick={saveDraft} >Guardar como borrador</button>
+                {fetching && <Spin />}
+                <div>
+                    <button onClick={saveDraft} >Guardar como borrador</button>
+                    {state._id && <button style={{ color: "white", background: "red" }} onClick={removeEvent} >Eliminar Evento</button>}
+                </div>
+
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -287,24 +375,52 @@ function AdminEventForm({
                     </div> */}
 
                     <ListAndModal
+                        list={state.speakers}
                         modal={< SpeakerModal />}
                         label="Ponentes"
                         buttonText="Agregar Ponente"
                         keys={["title", "fullName"]}
-                        onChange={list => handleChange({ target: { name: "speakers", value: list } })}
+                        onChange={list => handleChange({ target: { name: "speakers", value: [...list, ...state.speakers] } })}
+                        externalList={true}
                     />
-
-                    <input
+                    {fetching && <Spin />}
+                    {fetching || <input
                         className="admin-form-submit-button"
-                        type="submit" value="Publicar evento" />
-
-
+                        type="submit" value="Publicar evento" />}
 
                 </form>
 
-
+                {state._id &&
+                    <div>
+                        <div className="segunda-columna">
+                            <ListAndModal
+                                list={state.modules}
+                                modal={<ModuleModal />}
+                                label="Secciones del evento"
+                                buttonText="Agregar Sección"
+                                keys={["title"]}
+                                onChange={uploadModule} // returns a list
+                                onDelete={removeModule} // returns an object
+                                externalList={true}
+                            />
+                        </div>
+                        <div className="segunda-columna">
+                            <ListAndModal
+                                list={activities}
+                                modal={<ActivityModal speakers={state.speakers} modules={state.modules} />}
+                                label="Actividades del Evento"
+                                buttonText="Agregar Actividad"
+                                keys={["activityName"]}
+                                onChange={uploadActivity} // returns a list
+                                onDelete={removeActivity} // returns an object
+                                externalList={true}
+                            />
+                        </div>
+                    </div>}
 
             </div>
+
+
 
             {/* modals */}
             <ImageGalleryPicker />
@@ -318,12 +434,27 @@ function AdminEventForm({
 
 function mapState({ admin }) {
     let events = Object.values(admin.draftEvents)
-    console.log(admin.workingOn)
+    let activities = []
+    admin.workingOn.modules.forEach(module => {
+        module.activities.forEach(activity => {
+            activities.push(activity)
+        })
+    })
     return {
         events,
         state: admin.workingOn,
-        fetching: admin.workingOn.fetching
+        fetching: admin.workingOn.fetching,
+        activities
     }
 }
 
-export default connect(mapState, { saveDraftEvent, getSingleEvent, setState: updateWorkingOn })(AdminEventForm)
+export default connect(mapState, {
+    saveDraftEvent,
+    getSingleEvent,
+    setState: updateWorkingOn,
+    addModuleAction,
+    removeModuleAction,
+    addActivityAction,
+    removeActivityAction,
+    deleteEventAction
+})(AdminEventForm)

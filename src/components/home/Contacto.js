@@ -2,6 +2,7 @@ import React  from 'react';
 import NavBar from "../../organisms/NavBar";
 import TextField from "../../molecules/TextFields";
 import {Select} from "antd";
+import Footer from "./Footer";
 
 const { Option } = Select;
 
@@ -9,7 +10,7 @@ function Contacto() {
     return (
         <section className="app">
             <NavBar />
-            <section className="sesion">
+            <section className="contacto">
                 <div className="cover">
                     <div className="descript">
                         <h1>
@@ -37,7 +38,7 @@ function Contacto() {
                     <button style={{width:"100%"}} className="btn-blue-dark">Enviar</button>
                 </form>
             </section>
-
+            <Footer/>
         </section>
 );
 }
