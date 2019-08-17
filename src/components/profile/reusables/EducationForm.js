@@ -11,7 +11,7 @@ import CreateInstitution from '../reusables/CreateInstitutionModal';
 function EducationForm({ user, institutions, onChange, populateInstitutionsAction }) {
   const [type, setType] = useState('Estudios');
   const [study, setStudy] = useState({
-    user: null,
+    user: '',
     major: null,
     institution: null,
     startDate: null,
@@ -20,7 +20,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     professionalLicence: null,
   })
   const [residence, setResidence] = useState({
-    user: null,
+    user: '',
     speciality: null,
     institution: null,
     startDate: null,
@@ -28,7 +28,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     specialityLicenceCopy: null,
   });
   const [internship, setInternship] = useState({
-    user: null,
+    user: '',
     institution: null,
     startDate: null,
     endDate: null,
@@ -48,6 +48,8 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
         .catch(error => console.log(error));
     }
   }, []);
+
+  console.log(user);
 
 
   const handleStudy = ({ target }) => {
@@ -69,7 +71,6 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
   };
 
   const handleInternship = ({ target }) => {
-    console.log('intership');
     const { name, value, moments } = target;
 
     if (moments) setInternship({ ...internship, startDate: moments[0].toString(), endDate: moments[1].toString() })
@@ -79,13 +80,11 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
   };
 
   const handleCreateInstitutions = ({ data, type }) => {
-    console.log(data, type)
     if (type === 'Estudios') setStudy({ ...study, institution: data._id })
     if (type === 'Recidencia') setResidence({ ...residence, institution: data._id })
     if (type === 'Internado') setInternship({ ...internship, institution: data._id })
   }
 
-  console.log(institutions)
 
 
   return (
@@ -127,7 +126,8 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
               label="Cédula profesional" />
             <CreateInstitution
               onResult={(error, data) => handleCreateInstitutions({ type: 'Estudios', data })}
-              forceTypes={['Escuela']} />
+              forceTypes={['Escuela']}
+              disabledOwn />
           </div>
         )
       }
@@ -153,7 +153,8 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
               label="Periodo de estudios" />
             <CreateInstitution
               onResult={(error, data) => handleCreateInstitutions({ type: 'Recidencia', data })}
-              forceTypes={['Hospital']} />
+              forceTypes={['Hospital']}
+              disabledOwn />
           </div>
         )
       }
@@ -174,7 +175,8 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
               label="Periodo de estudios" />
             <CreateInstitution
               onResult={(error, data) => handleCreateInstitutions({ type: 'Internado', data })}
-              forceTypes={['Hospital']} />
+              forceTypes={['Hospital']}
+              disabledOwn />
           </div>
         )
       }

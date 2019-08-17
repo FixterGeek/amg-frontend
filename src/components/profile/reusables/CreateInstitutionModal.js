@@ -69,7 +69,6 @@ function CreateInstitution({
       .catch(({ response }) => onResult(response.data, null));
   };
 
-  console.log(own, institution.user);
 
   return (
     <div>

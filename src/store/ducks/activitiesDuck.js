@@ -54,8 +54,7 @@ export const createActivityAction = activityData => (dispatch) => {
       return data;
     })
     .catch(({ response }) => {
-      console.log(response);
-      dispatch(createActivityError(response.data.message));
+      dispatch(createActivityError(response));
       return response;
     });
 };

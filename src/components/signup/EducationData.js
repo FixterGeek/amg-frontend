@@ -15,6 +15,7 @@ import PersonalEducation from '../../components/profile/editables/PersonalEducat
 import Spinner from '../../atoms/Spinner';
 
 import ContainerItem from '../../atoms/DashboardContainerItem';
+import { signUpUser } from '../../store/ducks/signupDuck';
 
 const EducationData = ({
   signup, studies, internships, residences, populateEducationAction,
@@ -34,7 +35,7 @@ const EducationData = ({
 
       <div className="signup-container-rigth">
 
-      <PersonalEducation />
+      <PersonalEducation externalUser={signup}/>
       <ContainerItem className="relative">
         <ContainerItem>
           <Title level={3}>Estudios</Title>

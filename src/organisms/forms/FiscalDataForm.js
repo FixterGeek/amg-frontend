@@ -28,7 +28,7 @@ const FiscalDataForm = ({
   const handleSave = (event) => {
     event.preventDefault();
     localStorage.user = JSON.stringify(signup);
-    updateUserAction({ ...user, fiscalData: { ...signup.fiscalData } })
+    updateUserAction({ ...signup })
       .then((data) => {
         console.log(data);
         history.push('/dashboard/')

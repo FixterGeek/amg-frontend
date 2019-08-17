@@ -8,7 +8,7 @@ import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
 import Button from '../../../atoms/Button';
 import EducationForm from '../reusables/EducationForm';
 
-function PersonalEducation({ user, createEducationAction }) {
+function PersonalEducation({ user, externalUser = null, createEducationAction }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
@@ -37,14 +37,16 @@ function PersonalEducation({ user, createEducationAction }) {
         onOk={handleSave}
         onCancel={() => setOpen(false)}
       >
-        <EducationForm user={user} onChange={handleEducationForm} />
+        <EducationForm user={externalUser || user} onChange={handleEducationForm} />
       </Modal>
     </DashboardContainerItem>
   );
 }
 
 function mapStateToProps({ user }) {
-  return { user };
+  return { 
+    user,
+  };
 }
 
 export default connect(mapStateToProps, { createEducationAction })(PersonalEducation);

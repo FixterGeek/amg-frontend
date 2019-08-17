@@ -7,9 +7,10 @@ export const getStudies = () => axios.get(`${APIURL}`, { headers: { Authorizatio
 
 export const createStudie = async (studieData) => {
   const user = await JSON.parse(localStorage.getItem('user'));
+  const { authToken } = localStorage;
   return axios.post(`${APIURL}`, { ...studieData, user: user._id }, {
     headers: {
-      Authorization: user.token,
+      Authorization: authToken,
     },
   })
     .then(({ data }) => data);

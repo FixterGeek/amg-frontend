@@ -116,7 +116,7 @@ export const signupUserAction = userData => (dispatch) => {
     .then((data) => {
       localStorage.user = JSON.stringify(data.user);
       localStorage.authToken = data.token;
-      dispatch(signUpUserSuccess(data));
+      dispatch(signUpUserSuccess(data.user));
       return data;
     })
     .catch((error) => {

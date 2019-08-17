@@ -6,14 +6,23 @@ let user
 if(localStorage.user) user = JSON.parse(localStorage.user);
 const token = localStorage.authToken;
 
-export const getActivitiesForUser = (userId = user._id) => axios.get(`${APIURL}?query={"user": "${userId}"}`, {
-  headers: {
-    Authorization: token,
-  },
-}).then(({ data }) => data);
+export const getActivitiesForUser = async (userId) => {
+  const selfUser = await JSON.parse(localStorage.getItem('user'));
+  const authToken = await localStorage.getItem('authToken');
 
-export const createActivity = activityData => axios.post(`${APIURL}`, activityData, {
-  headers: {
-    Authorization: token,
-  },
-}).then(({ data }) => data);
+  return axios.get(`${APIURL}?query={"user": "${userId || selfUser._id}"}`, {
+    headers: {
+      Authorization: authToken,
+    },
+  }).then(({ data }) => data);
+};
+
+export const createActivity = async (activityData) => {
+  const authToken = await localStorage.getItem('authToken');
+
+  return axios.post(`${APIURL}`, activityData, {
+    headers: {
+      Authorization: authToken,
+    },
+  }).then(({ data }) => data);
+};
