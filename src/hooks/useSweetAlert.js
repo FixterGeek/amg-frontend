@@ -24,9 +24,21 @@ function useSweetAlert() {
     });
   };
 
+  const successAlert = ({
+    title = 'Listo!',
+    text = 'Operación exítosa',
+  }) => {
+    sweet.fire({
+      type: 'success',
+      title,
+      text,
+    });
+  }
+
   return {
     infoAlert,
     errorAlert,
+    successAlert,
   };
 }
 

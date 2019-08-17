@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { login, updateUser as update } from '../../services/userServices'
+import { activitySubscribe } from '../../services/eventsServices';
 import {
     switchMap,
     map,
@@ -34,6 +35,8 @@ const userState = {
     civilStatus: null,
     adress: {},
   },
+  assistedEvents: [],
+  assistedActivities: [],
   spouse: {},
   fiscalData: {},
   registrationDate: null,
@@ -68,6 +71,9 @@ let LOGOUT_USER = "LOGOUT_USER"
 let UPDATE_USER = "UPDATE_USER"
 let UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS"
 let UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
+let SUBSCRIBE_USER_TO_ACTIVITY = "SUBSCRIBE_USER_TO_ACTIVITY"
+let SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS = "SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS"
+let SUBSCRIBE_USER_TO_ACTIVITY_ERROR = "SUBSCRIBE_USER_TO_ACTIVITY_ERROR"
 
 // actionCreators
 export function updateUser() {
@@ -126,6 +132,18 @@ export function loginUserSuccess(userData) {
 
 export function logoutUser() {
     return { type: LOGOUT_USER };
+}
+
+export function subscribeUserToActivity() {
+    return { type: SUBSCRIBE_USER_TO_ACTIVITY }
+}
+
+export function subscribeUserToActivitySuccess(userData) {
+    return { type: SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS, payload: userData };
+}
+
+export function subscribeUserToActivityError(error) {
+    return { type: SUBSCRIBE_USER_TO_ACTIVITY_ERROR, payload: error };
 }
 
 // EPICS
@@ -211,11 +229,32 @@ export const updateUserAction = (userData) => (dispatch) => {
         })
 }
 
+// subscribe user to activity
+export const subscribeUserToActivityAction = (eventId) => (dispatch) => {
+    dispatch(subscribeUserToActivity());
+    return activitySubscribe(eventId)
+        .then((data) => {
+            const currentUser = JSON.parse(localStorage.user);
+            currentUser.assistedActivities = [...currentUser.assistedActivities, data._id]
+            localStorage.user = JSON.stringify(currentUser);
+            dispatch(subscribeUserToActivitySuccess(currentUser));
+            return data;
+        })
+        .catch((error) => {
+            console.log(error)
+            dispatch(subscribeUserToActivityError(error));
+            return error;
+        })
+}
+
 
 // logout
 export const logoutAction = () => (dispatch) => {
     return new Promise((resolve, reject) => {
         localStorage.removeItem('user');
+        localStorage.removeItem('activities');
+        localStorage.removeItem('education');
+        localStorage.removeItem('authToken');
         dispatch(logoutUser());
         resolve(true);
     });
@@ -239,13 +278,19 @@ function reducer(state = userState, action) {
             if (action.payload === "IncorrectPasswordError") error = "Nombre de usuario o contraseña incorrectos"
             return { ...userState, fetching: false, error }
         case CREATE_USER:
-            return { ...userState, fetching: true }
+            return { ...state, fetching: true }
         case CREATE_USER_SUCCESS:
             return { ...action.payload, fetching: false }
         case CREATE_USER_ERROR:
-            return { ...userState, fetching: false, error: true }
+            return { ...state, fetching: false, error: true }
         case LOGOUT_USER:
             return { ...userState };
+        case SUBSCRIBE_USER_TO_ACTIVITY:
+            return { ...state, fetching: true };
+        case SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS:
+            return { ...state, ...action.payload, fetching: false };
+        case SUBSCRIBE_USER_TO_ACTIVITY_ERROR:
+            return { ...state, fetching: false, error: action.payload };
         default:
             return state;
     }

@@ -45,7 +45,7 @@ function EventDetail(props) {
         getSingleEvent(id).then(({ data }) => setState({ ...data }));
       }
     }
-  }, [getSingleEvent, location.event, location.pathname]);
+  }, []);
 
   console.log(state);
 
@@ -63,7 +63,7 @@ function EventDetail(props) {
               location={state.location}
               startDate={state.startDate}
               endDate={state.endDate}
-              image={state.thumbnailImagesURLS[0]}
+              image={state.mainImagesURLS[0]}
             />
           )}
           <TextNIconButton

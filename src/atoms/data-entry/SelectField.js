@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Select } from 'antd';
 
-function SelectField({ options, onChange, status, value, useKeys = ['index', 'value', 'text'] }) {
+function SelectField({
+  options, onChange, status, value, useKeys
+}) {
   const { Option } = Select;
   return (
     <Select
@@ -15,6 +17,7 @@ function SelectField({ options, onChange, status, value, useKeys = ['index', 'va
           <Option
             className="select-field-option"
             key={option[useKeys[0]] || index}
+            index={index}
             value={option[useKeys[1]] || option}>
             {option[useKeys[2]] || option}
           </Option>
@@ -32,9 +35,11 @@ SelectField.propTypes = {
   ),
   onChange: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   status: PropTypes.string.isRequired,
+  useKeys: PropTypes.arrayOf(PropTypes.string),
 };
 
 SelectField.defaultProps = {
   options: [],
   onChange: false,
+  useKeys: ['index', 'value', 'text'],
 };

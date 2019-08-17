@@ -114,6 +114,50 @@
   flex-direction: column;
   justify-content: space-between;
 
+  .files-items {
+    margin-top: $padding;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .ant-carousel {
+    background-color: $secondary;
+    height: 300px;
+    margin-bottom: $smallMargin;
+
+    .ant-modal {
+      .ant-modal-content {
+        width: 85vw;
+        height: 85vh;
+      }
+    }
+
+    .slick-slider {
+      height: 300px;
+    }
+
+    .image-item {
+      height: 300px;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+      cursor: pointer;
+    }
+
+    .slick-dots-bottom {
+      li {
+        button {
+          height: 12px;
+          width: 40px;
+          margin-left: $smallMargin;
+          margin-right: $smallMargin;
+          border: solid 1px $navy;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+
   &-info {
     display: flex;
   }
@@ -312,5 +356,16 @@ $membershipCardWidth: 300px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+  }
+}
+
+.event-cover {
+  position: relative;
+
+  .image-text {
+    position: absolute;
+    bottom: $padding;
+    left: $padding;
+    z-index: 3;
   }
 }

@@ -17,6 +17,8 @@ function Publisher() {
     files: [],
     urls: [],
   });
+
+  console.log(publications);
   const [postText, setPostText] = useState('');
   const [urls, setUrls] = useState([]);
   const { toPublish } = useAmgService();
@@ -61,9 +63,19 @@ function Publisher() {
       <PublicationBox postText={postText} setText={setPostText} />
       <AttachedFiles publications={publications} setPublications={setPublications} />
       <div className="files-preview-container">
-        { files.length > 0 && <FilesToUpload type="files" /> }
+        { files.length > 0 &&
+          <FilesToUpload
+            dispatch={setPublications}
+            publications={publications}
+            type="files" />
+        }
       </div>
-      { imagesVideos.length > 0 && <FilesToUpload type="imagesVideos" /> }
+      { imagesVideos.length > 0 &&
+        <FilesToUpload
+        dispatch={setPublications}
+        publications={publications}
+        type="imagesVideos" />
+      }
       <AmgButton width="200px" onClick={handleClick}>Publicar</AmgButton>
     </div>
   );
