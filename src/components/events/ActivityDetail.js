@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
 
 import { Typography } from 'antd';
 
+import { subscribeUserToActivityAction } from '../../store/ducks/userDuck';
+import useSweet from '../../hooks/useSweetAlert';
 import useAmgService from '../../hooks/services/useAmgService';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
 import AmgButton from '../../atoms/Button';
+import Spinner from '../../atoms/Spinner';
 
-function ActivityDetail({ history, user }) {
-  const { getSingleActivity, activitySubscribe } = useAmgService();
+function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
+  const { Title, Text } = Typography;
+
+  const { errorAlert, successAlert } = useSweet();
+  const { getSingleActivity } = useAmgService();
   const [activity, setActivity] = useState({
     activityType: '',
     activityName: '',
@@ -25,10 +31,11 @@ function ActivityDetail({ history, user }) {
     assistants: [],
     _id: null,
   });
-  const { speaker } = activity;
+  const { speakers = [], limit = false } = activity;
   const { location } = history;
   const { coordinates = [] } = location;
-  const { Title, Text } = Typography;
+  const soulout = limit === 0 ? true : false;
+  const registered = user.assistedActivities.includes(activity._id);
 
 
   useEffect(() => {
@@ -68,33 +75,19 @@ function ActivityDetail({ history, user }) {
 
 
   const subscribeToActivity = (activityId) => {
-    activitySubscribe(activityId).then(({ data }) => {
-      const { assistants } = data;
-      setActivity({ ...data });
-
-      if (assistants.includes(user._id)) {
-        Swal.fire({
-          title: 'Listo',
-          text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.',
-          type: 'success',
-          confirmButtonText: 'Entendido',
-        });
-      } else {
-        Swal.fire({
-          title: 'Calcelado',
-          text: 'Tu asistencia al evento a sido cancelada',
-          type: 'info',
-          confirmButtonText: 'Entendido',
-        });
-      }
-    }).catch(({ response }) => console.log(response));
+    subscribeUserToActivityAction(activityId).then(({ data }) => {
+      successAlert({
+        text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.'
+      })
+    }).catch(({ response }) => errorAlert({}));
   };
 
-  console.log(window);
+  console.log(activity)
 
 
   return (
-    <div className="dashboard-container activity-detail">
+    <div className="dashboard-container activity-detail  relative">
+      { user.fetching && <Spinner /> }
       <DashboardContainerItem>
         <Title>{ activity.activityType }</Title>
       </DashboardContainerItem>
@@ -108,16 +101,22 @@ function ActivityDetail({ history, user }) {
         <div>
           <Title level={3}>Ponente</Title>
         </div>
-        <div className="activity-detail-speaker">
-          <div>
-            <ProfilePhoto photoURL={speaker.photoURL} />
-          </div>
-          <div className="activity-detail-speaker-info">
-            <Text strong>{ speaker.fullName }</Text>
-            <Text>{ speaker.professionalTitle }</Text>
-            <Text>{ speaker.origin }</Text>
-          </div>
-        </div>
+        {
+          speakers.map(speaker => {
+            return (
+              <div className="activity-detail-speaker">
+                <div>
+                  <ProfilePhoto photoURL={speaker.photoURL} />
+                </div>
+                <div className="activity-detail-speaker-info">
+                  <Text strong>{ speaker.fullName }</Text>
+                  <Text>{ speaker.professionalTitle }</Text>
+                  <Text>{ speaker.origin }</Text>
+                </div>
+              </div>
+            );
+          })
+        }
       </DashboardContainerItem>
       <DashboardContainerItem>
         <div id="map" className="component-map" />
@@ -127,9 +126,50 @@ function ActivityDetail({ history, user }) {
         </div>
       </DashboardContainerItem>
       <DashboardContainerItem style={{ textAlign: 'center' }}>
+        { user.membershipStatus === 'Free' && 
+          <AmgButton width="100%">
+            <Link to="/dashboard/settings">Convierte en socio</Link>
+          </AmgButton>
+        }
         {
+          (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva')
+            && (
+              <div>
+                <AmgButton
+                  bgColor={soulout ? 'red' : registered ? 'green' : 'secondary'}
+                  disabled={registered || soulout}
+                  width="100%"
+                  onClick={() => subscribeToActivity(activity._id)}>
+                  { soulout ? 'Actividad agotada' : registered ? 'Inscrito' : 'Inscribirme' }
+                </AmgButton>
+                <div style={{ color: '#f1a153' }}>
+                  { limit ? 'Esta actividad es de cupo limitado*' : '' }
+                </div>
+              </div>
+            ) 
+        }
+        {
+          user.membershipStatus === 'Residente' ? (
+            <div>
+              <AmgButton
+                width="100%"
+                bgColor={soulout ? 'red' : 'secondary'}
+                disabled={soulout}>
+                <Link to={`/dashboard/payment/activity/${activity._id}`}>
+                  { soulout ? 'Actividad agotada' : 'Pagar por esta actividad' }
+                </Link>
+              </AmgButton>
+              <div style={{ color: '#f1a153' }}>
+                { limit ? 'Esta actividad es de cupo limitado*' : '' }
+              </div>
+            </div>
+          ) : null
+        }
+        {/* {
           user.membershipStatus === 'Free' ? (
-            <AmgButton width="100%"> Pagar por esta actividad </AmgButton>
+            <AmgButton width="100%">
+              <Link>Convierte en socio</Link>
+            </AmgButton>
           ) : (
             <AmgButton width="100%" onClick={() => subscribeToActivity(activity._id)}>
               {
@@ -137,14 +177,14 @@ function ActivityDetail({ history, user }) {
               }
             </AmgButton>
           )
-        }
+        } */}
       </DashboardContainerItem>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return { user: state.user };
+function mapStateToProps({ user }) {
+  return { user };
 }
 
-export default connect(mapStateToProps)(ActivityDetail);
+export default connect(mapStateToProps, { subscribeUserToActivityAction })(ActivityDetail);

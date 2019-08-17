@@ -114,6 +114,12 @@
   flex-direction: column;
   justify-content: space-between;
 
+  .files-items {
+    margin-top: $padding;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .ant-carousel {
     background-color: $secondary;
     height: 300px;

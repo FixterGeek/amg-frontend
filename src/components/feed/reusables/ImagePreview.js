@@ -17,7 +17,7 @@ function ImagePreview({ url, className }) {
         visible={open}
         onCancel={() => setOpen(false)}
       >
-        <img style={{ maxWidth: '80%' }} src={url} />
+        <img style={{ maxWidth: '88%', marginTop: '16px' }} src={url} />
       </Modal>
     </div>
   );

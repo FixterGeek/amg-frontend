@@ -7,12 +7,13 @@ import { Typography, Carousel } from 'antd';
 import ProfilePhoto from '../atoms/ProfilePhoto';
 import PostIcons from '../atoms/PostIcons';
 import ImagePreview from '../components/feed/reusables/ImagePreview';
+import FileItem from '../components/feed/reusables/FileItem';
 
 
 function PostItem({ publication }) {
   const {
     text, updatedAt, _id, liked,
-    imagesURLS, user,
+    imagesURLS = [], user, docsURLS = [],
   } = publication;
   const { basicData = {} } = user;
   const { photoURL = null, name = '', dadSurname = '' } = basicData;
@@ -26,7 +27,7 @@ function PostItem({ publication }) {
     sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
   });
 
-  console.log(imagesURLS)
+  console.log(publication)
 
   return (
     <div className="post-item">
@@ -58,6 +59,13 @@ function PostItem({ publication }) {
             </Carousel>
           ) : null
         }
+        <div className="files-items">
+          {
+            docsURLS.map(url => (
+              <FileItem url={url} />
+            ))
+          }
+        </div>
       </div>
       <PostIcons pubId={_id} favs={liked} />
     </div>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const APIURL = `${process.env.REACT_APP_BASE_API_URL}/events`;
+const baseAPI = process.env.REACT_APP_BASE_API_URL;
+const APIURL = `${baseAPI}/events`;
 
 export const getEvents = async () =>{
   const token = localStorage.authToken;
@@ -30,6 +31,15 @@ export const assistAnEvent = (eventId) => {
   return axios.post(`${APIURL}/${eventId}/assist`, null, {
     headers: {
       Authorization: user.token,
+    },
+  }).then(({ data }) => data);
+};
+
+export const activitySubscribe = async (activityId) => {
+  const authToken = await localStorage.getItem('authToken');
+  return axios.post(`${baseAPI}/eventActivities/${activityId}/assist`, null, {
+    headers: {
+      Authorization: authToken,
     },
   }).then(({ data }) => data);
 };

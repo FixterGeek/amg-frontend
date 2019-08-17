@@ -81,3 +81,33 @@
 .bg-green {
   background-color: $green;
 }
+
+/*FileItem*/
+.reusable-file-item {
+  position: relative;
+  max-width: 320px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: $padding;
+  padding-right: $extraPadding;
+  display: inline-block;
+  background-color: $secondary;
+  margin-right: $margin;
+  color: white;
+  margin-bottom: $smallMargin;
+
+  &:last-child {
+    margin-right: 0px;
+  }
+
+  &:after {
+    content: '➲';
+    position: absolute;
+    top: -10px;
+    right: $smallPadding;
+    font-size: 3rem;
+    transform: rotate(90deg);
+    color: $primary;
+  }
+}
