@@ -3,11 +3,12 @@ import React from 'react';
 import EventItem from '../../atoms/events/EventItem';
 
 function ActivityItem({
-  hour, title, level1, level2, to, activity,
+  hour, title, level1, level2, to, activity, className
 }) {
   return (
     <div>
       <EventItem
+        className={`${className}`}
         time={hour}
         title={title}
         level1={level1}

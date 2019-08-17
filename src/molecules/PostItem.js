@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { Typography } from 'antd';
+import { Typography, Carousel } from 'antd';
 
 import ProfilePhoto from '../atoms/ProfilePhoto';
 import PostIcons from '../atoms/PostIcons';
+import ImagePreview from '../components/feed/reusables/ImagePreview';
 
 
 function PostItem({ publication }) {
@@ -25,6 +26,8 @@ function PostItem({ publication }) {
     sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
   });
 
+  console.log(imagesURLS)
+
   return (
     <div className="post-item">
       <div className="post-item-info">
@@ -43,11 +46,17 @@ function PostItem({ publication }) {
           { text }
         </Text>
         {
-          imagesURLS.length > 0 && (
-            <div
-              className="post-item-image"
-              style={{ backgroundImage: `url(${imagesURLS[0]})` }} />
-          )
+          imagesURLS[0] ? (
+            <Carousel>
+              {
+                imagesURLS.map(url => (
+                  <div>
+                    <ImagePreview url={url} className="image-item" />
+                  </div>
+                ))
+              }
+            </Carousel>
+          ) : null
         }
       </div>
       <PostIcons pubId={_id} favs={liked} />

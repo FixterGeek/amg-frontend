@@ -18,10 +18,9 @@ function EventCover({
   if (startDate === endDate) date = `${sDate.date()} de ${sDate.format('MMMM')}`;
 
   return (
-    <div style={{ cursor: 'pointer' }}>
-      <EventImage image={image} size={size}>
-        <ImageText title={title} location={location} date={date} />
-      </EventImage>
+    <div className="event-cover">
+      <EventImage image={image} size={size} />
+      <ImageText title={title} location={location} date={date} />
     </div>
   );
 }

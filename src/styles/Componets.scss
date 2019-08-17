@@ -120,6 +120,10 @@ $eventLeftWidth: 350px;
   &-event {
     position: relative;
     min-height: 415px;
+
+    .event-image-large {
+      filter: blur(2px);
+    }
   }
 
   &-publications {

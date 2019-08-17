@@ -12,12 +12,13 @@ import FilePicker from '../atoms/FilePicker';
 import Spinner from '../atoms/Spinner';
 
 function FilesToUpload({ type, publications, dispatch }) {
+  console.log(publications);
   const { imagesVideos, files } = publications;
   const [state, setState] = useState({});
 
   const handleChange = (event) => {
     const { target: { name, files } } = event;
-    dispatch(updatePublications({ [name]: [...publications[name], ...files] }));
+    dispatch({ ...publications, [name]: [...publications[name], ...files] });
   };
 
   return (
@@ -77,11 +78,7 @@ function FilesToUpload({ type, publications, dispatch }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { publications: state.publications };
-}
-
-export default connect(mapStateToProps)(FilesToUpload);
+export default FilesToUpload;
 
 FilesToUpload.propTypes = {
   type: PropTypes.string,
