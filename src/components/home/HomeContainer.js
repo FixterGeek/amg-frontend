@@ -31,7 +31,7 @@ class HomeContainer extends Component {
                 GASTRO es la plataforma digital de la Asociación Mexicana de
                 Gastroenterología.
               </p>
-              <Link to="/signup">
+              <Link to="/pre-signup">
                 <button className="btn-blue">Quiero ser miembro</button>
               </Link>
             </div>
@@ -84,7 +84,7 @@ class HomeContainer extends Component {
                   </div>
                 </div>
                 <div>
-                  <Link to="/signup">
+                  <Link to="/pre-signup">
                     <button className="btn-dark-blue">
                       Quiero ser miembro
                     </button>
@@ -108,7 +108,7 @@ class HomeContainer extends Component {
                 </div>
 
                 <div>
-                  <Link to="/signup">
+                  <Link to="/pre-signup">
                     <button className="btn-dark-blue">
                       Quiero ser miembro
                     </button>
@@ -132,7 +132,7 @@ class HomeContainer extends Component {
                   </div>
                 </div>
                 <div>
-                  <Link to="/signup">
+                  <Link to="/pre-signup">
                     <button className="btn-dark-blue">
                       Quiero ser miembro
                     </button>
