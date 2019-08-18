@@ -155,6 +155,10 @@ $eventLeftWidth: 350px;
 .component-map {
   width: 100%;
   height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $clouds;
 }
 
 /* SignupContainer */

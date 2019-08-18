@@ -25,6 +25,17 @@ export const getSingleEvent = (id) => {
 };
 
 
+export const getSingleActivity = async (activityId) => {
+  const token = localStorage.authToken;
+
+  return axios.get(`${baseAPI}/eventActivities/${activityId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+
 export const assistAnEvent = (eventId) => {
   const user = JSON.parse(localStorage.getItem('user'));
 

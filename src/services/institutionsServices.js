@@ -5,8 +5,6 @@ let user
 if (localStorage.user) user = JSON.parse(localStorage.user)
 const token = localStorage.authToken;
 
-console.log(token);
-
 export const getInstitutions = type => axios.get(`${APIURL}?query={"type":${type}}`)
   .then(({ data }) => data);
 
