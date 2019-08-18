@@ -101,11 +101,13 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
         }
       </DashboardContainerItem>
       <DashboardContainerItem>
-        <MapLocation coordinates={location.coordinates} />
-        <div>
-          <Text strong>{ location.addressName }</Text>
-          { `${street}, ${colony}, ${zipCode}` }
-        </div>
+        <MapLocation
+          street={location.street}
+          colony={location.colony}
+          city={location.city}
+          zipCode={location.zipCode}
+          coordinates={location.coordinates}
+        />
       </DashboardContainerItem>
       <DashboardContainerItem style={{ textAlign: 'center' }}>
         { user.membershipStatus === 'Free' && 
@@ -122,7 +124,7 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
               <div>
                 <AmgButton
                   bgColor={soulout ? 'red' : registered ? 'green' : 'secondary'}
-                  disabled={registered || soulout}
+                  disabled={registered || soulout || !(user.userStatus === 'Aprobado')}
                   width="100%"
                   onClick={() => subscribeToActivity(activity._id)}>
                   { soulout ? 'Actividad agotada' : registered ? 'Inscrito' : 'Inscribirme' }

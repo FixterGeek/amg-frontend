@@ -52,6 +52,6 @@ MapLocation.propTypes = {
   ),
 };
 
-MapLocation.defaultPtops = {
+MapLocation.defaultProps = {
   coordinates: []
 };
