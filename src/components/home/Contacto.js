@@ -23,8 +23,8 @@ function Contacto() {
             <section className="form-contacto">
                 <h2 className="titles">¿Qué podemos hacer por ti?</h2>
             <form>
-                    <TextField style={{maxWidth:"800px"}} label="¿Cuál es tu correo?" value=""/>
-                    <TextField style={{maxWidth:"800px"}} label="¿Cuál es tu nombre?"/>
+                    <TextField style={{maxWidth:"1500px"}} label="¿Cuál es tu correo?" value=""/>
+                    <TextField style={{maxWidth:"1500px"}} label="¿Cuál es tu nombre?"/>
                     <label style={{color:"#333333", fontWeight: "bold"}} htmlFor="">¿De qué se trata?</label>
                     <br/>
                     <Select   defaultValue="Tema" style={{ width: "100%"}}>

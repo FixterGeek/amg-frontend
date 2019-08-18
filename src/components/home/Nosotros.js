@@ -5,6 +5,8 @@ import abraham from "../../assets/abraham.svg";
 import estatutos from "../../assets/estatutos.png";
 import historia from "../../assets/historia_amg.pdf"
 import Footer from "./Footer";
+import statutos from "../../assets/ESTATUTOS-ACTUALIZADOS-11-JULIO-2018.pdf"
+
 
 function Nosotros() {
     return (
@@ -24,7 +26,7 @@ function Nosotros() {
                 <div className="biblioteca-img left">
                     <img id="logo-amg" src={log} alt="bitmap"/>
                 </div>
-                <div className="biblioteca-text" >
+                <div className="biblioteca-text">
                     <h2 className="titles">Misión</h2>
                     <p>
                         La Asociación Mexicana de Gastroenterología es una institución que agrupa a los profesionales interesados en la salud digestiva, que promueve la educación continua, la investigación, y la difusión en esta materia, para fomentar el desarrollo de la comunidad médica y mejorar la salud de la población
@@ -34,7 +36,6 @@ function Nosotros() {
                     <h2 className="titles">Visión</h2>
                     <p>Ser la institución líder y referente en salud digestiva a nivel nacional e internacional.</p>
                     <h2 className="titles">Valores</h2>
-
                         <p>&bull; Ética a nivel institucional y de cada uno de sus miembros
                         </p>
                         <p>&bull; Calidad en todos los eventos y actividades de la asociación</p>
@@ -42,9 +43,7 @@ function Nosotros() {
                         <p>&bull; Amistad, unión y colaboración entre sus miembros</p>
                         <p>&bull; Pluralidad y equidad</p>
                         <p>&bull; Amor por la ciencia y la investigación médica en el área</p>
-
                 </div>
-
             </section>
 
             <section className="biblioteca-box grey">
@@ -69,9 +68,9 @@ function Nosotros() {
                     <p>Si quieres conocer todos los detalles de nuestro funcionamiento, sólo tienes
                         que leer los estatutos de los que nos hemos dotado. En ellos encontrarás nuestros
                         objetivos y nuestra forma de organizarnos como asociación.</p>
-
+                    <a href={statutos} target="_blank">
                         <button className="btn-blue-dark">Ver estatutos</button>
-
+                    </a>
                 </div>
                 <div className="biblioteca-img">
                     <img src={estatutos} alt="bitmap"/>

@@ -7,7 +7,10 @@ import {Link} from "react-router-dom"
 import Footer from "./Footer";
 
 function Biblioteca() {
+
+
     return (
+
         <section className="app">
         <NavBar />
         <section className="biblioteca">

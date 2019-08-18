@@ -22,6 +22,13 @@
 .navbar div p{
     margin: 0;
 }
+.navbar .mobile{
+    display: none;
+}
+.navbar .bars{
+    width: 24px;
+}
+
 .blue{
     width: 0px;
     background-color: #28abd8;
@@ -358,6 +365,7 @@ Footer*/
             margin: 30px 0;
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
 
                /*Biblioteca*/
@@ -532,6 +540,16 @@ Footer*/
     .form-contacto form{
         width: 80%;
         margin-left: 10%;
+    }
+    .navbar .mobile{
+        display: inherit;
+    }
+    .navbar .web{
+        display: none;
+    }
+    .partners img{
+        width: 40%;
+        margin: 10px 0;
     }
 }
 @media(max-width: 425px){

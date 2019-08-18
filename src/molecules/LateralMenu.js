@@ -77,7 +77,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
         <Icon>
           <FontAwesomeIcon icon={faGraduationCap} />
         </Icon>
-        <span>Educación</span>
+        <span>Recursos</span>
       </Item>
       <Item key={5} onClick={() => link('/dashboard/perfil')}>
         <Icon className={`${currentLocation === 'perfil' ? 'menu-item-active' : ''}`}>
