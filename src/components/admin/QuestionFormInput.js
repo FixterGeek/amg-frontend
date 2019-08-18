@@ -1,12 +1,14 @@
 import React from 'react'
 import {Radio} from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faSave, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 const QuestionFormInput = ({questions=[], handleChange, deleteQuestion, handleCorrectAnswer, handleChangeAnswer}) => {
     return (
         <>
             {questions.map((q, keyQuestion)=>(
                     <div key={keyQuestion} className="test-question-form">
-                        <b>{`Pregunta ${keyQuestion+1}`}</b> <button onClick={()=>deleteQuestion(keyQuestion)}>X</button>
+                        <b>{`Pregunta ${keyQuestion+1}`}</b> <span style={{cursor:'pointer'}} onClick={()=>deleteQuestion(keyQuestion)}> <FontAwesomeIcon icon={faTrash} /></span>
                         <input
                             className="test-input"
                             onChange={(e)=>handleChange(e,keyQuestion)}

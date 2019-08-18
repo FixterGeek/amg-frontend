@@ -1,12 +1,13 @@
 import React from 'react'
 import AdminTestCard from './AdminTestCard';
 
-const AdminTestsList = ({tests}) => {
+const AdminTestsList = ({tests, removeTest}) => {
     return (
-        <div>
+        <div className="admin-event-card-container">
             {tests.map((t, key)=>(
                 <AdminTestCard
                 key={key}
+                removeTest={removeTest}
                 {...t}                
             />
             ))}
