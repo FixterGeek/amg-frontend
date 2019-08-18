@@ -4,72 +4,80 @@ import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
+import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
+import toastr from 'toastr'
 
 
 const { Option } = Select
 
 
-const AdminTestForm = ({history, match, location, events}) => {
-
-    const testMock = {
-        event:'12341234',
-        title:'El test maestro',
-        date:'10/10/10',
-        beginingTime:'10:10:10',
-        endTime:'10:15:00',
-        questions:[{
-            question:'quien se comió la kk del caba?',
-            answers:[
-                'yo',
-                'tu',
-                'lol',
-                'ño'
-            ],
-            correct:'yo'
-        }],
-    }
+const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest}) => {
+    
 
     const [header, setHeader] = useState("Crear Test")
-    const [test, setTest] = useState(testMock)
+    //const [test, setTest] = useState(testMock)
 
-    useEffect(() => {
+    useEffect(() => {        
         getAdminEvents()
-        // let { id } = match.params
-        // if (id) {
-        //     //getSingleEvent(id)
-        //     //setHeader("Editar Test del Evento: " + test.event.title)
-        // }
+        let { id } = match.params
+        if (id) {
+            getSingleTest(id)
+            setHeader("Editar Test " + test.title)
+        }else{
+            resetTest()
+        }
     }, [])
 
-    const saveDraft=()=>{}
-    const handleSubmit=()=>{}
-    const handleChange=()=>{}
-
-    const handleSelect=(a,b,c)=>{
-
+    
+    const handleSubmit=(e, isDraft=false)=> {
+        console.log(e)
+        if(e && !isDraft){
+            e.preventDefault()
+            if(!test._id)return toastr.warning('Guarda primero como Borrador')
+            saveTest(test)
+            history.push(`/admin/tests/${test._id}/questions/`)            
+        }else{
+            saveTest(test)
+        }
+        
+    }    
+    const handleChange=(e)=>{
+        test[e.target.name] = e.target.value
+        writingTest(test)        
     }
 
-    const handleDate=()=>{}
-    const handleTime=()=>{}
-    console.log(events)
+    const handleSelect=(val, name)=>{
+        test[name] = val
+        writingTest(test)
+    }
+
+    const handleDate=(val,name)=>{
+        test[name] = val
+        writingTest(test)
+    }
+    console.log(test) 
+
+    if(fetching)return <p>Loading</p>
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
                 <h1>{header}</h1>
-                <button onClick={saveDraft}>Guardar como borrador</button>
+                <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador</button>
             </div>
             <div className="admin-form-two-columns-container">
 
             <form
+                method="POST"
                 className="admin-flex-column"
                 onSubmit={handleSubmit}>
                 <div className="admin-form-group">
                     <b>Evento al que pertenece</b>
                     <Select
+                        name="event"
                         label="Evento al que pertenece"
-                        onChange={e => handleSelect(e, "state", "location")}                    
+                        onChange={(value)=>handleSelect(value, 'event')}                    
                         style={{ width: 300 }}
-                        defaultValue="Elije un evento">
+                        defaultValue={test.event._id||"Elije un evento"}>
                         {events.map((event, key) => (
                             <Option key={key} value={event._id} >{event.title}</Option>
                         ))}
@@ -77,7 +85,7 @@ const AdminTestForm = ({history, match, location, events}) => {
                 </div>
                 <div>
                     <TextField
-                        onChange={e => handleChange(e, "title")}
+                        onChange={handleChange}
                         name="title"
                         value={test.title}
                         label="Nombre del test"
@@ -116,15 +124,15 @@ const AdminTestForm = ({history, match, location, events}) => {
                 <div className="admin-form-group">
                     <b>Límite de tiempo por pregunta</b>
                     <Select
-                        //onChange={e => handleSelect(e, "state", "questionDuration")}                    
+                        onChange={val => handleSelect(val, "questionDuration")}                    
                         style={{ width: 300 }}
-                        defaultValue="Elije un evento">
-                        {/* {Object.values(estados).map(name => {
-                            return <Option value={name} >{name}</Option>
-                        })} */}
+                        defaultValue={test.questionDuration||"Elije el tiempo"}>
+                        {[1,2,3,4,5].map((n, key) => (
+                            <Option key={key} value={n} >{n}min</Option>
+                        ))}
                     </Select>
                 </div>
-                <input
+                <input                    
                     className="admin-form-submit-button"
                     type="submit" value="Siguiente" />
 
@@ -134,13 +142,14 @@ const AdminTestForm = ({history, match, location, events}) => {
     )
 }
 
-function mapStateToProps({events}) {    
-    const eventsList = events.array
+function mapStateToProps({events, tests}) {    
     return {
-        events:eventsList        
+        test:tests.test,
+        events:events.array,
+        fetching:tests.fetching    
     }
 }
 
 
 
-export default connect(mapStateToProps,{})(AdminTestForm)
+export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest, resetTest})(AdminTestForm)
