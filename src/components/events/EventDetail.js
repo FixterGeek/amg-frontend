@@ -55,6 +55,8 @@ function EventDetail({
     }
   }, []);
 
+  console.log(state)
+
 
   return (
     <div className="dashboard-container event-detail">
@@ -81,7 +83,7 @@ function EventDetail({
           <TextNIconButton
             text="Ver ponentes"
             icon="micro"
-            to={{ pathname: `/dashboard/events/${state._id}/speakers`, event: state }} />
+            to={{ pathname: `/dashboard/events/${state._id}/speakers`, state }} />
           <TextNIconButton
             downloadable
             to={state.permisosURLS[0]}
