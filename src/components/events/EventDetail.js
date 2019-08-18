@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
+import useSweet from '../../hooks/useSweetAlert';
+import { subscribeUserToEventAction } from '../../store/ducks/userDuck';
 import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
 import AmgButton from '../../atoms/Button';
@@ -15,12 +17,14 @@ import MapLocation from './reusables/MapLocation';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
-function EventDetail(props) {
-  const { history } = props;
+function EventDetail({
+  history, subscribeUserToEventAction, userFetching,
+  assistedEvents, userError
+}) {
   const { location } = history;
-
   const { Title } = Typography;
 
+  const { errorAlert } = useSweet();
   const { getSingleEvent, assistAnEvent } = useAmgService();
   const [state, setState] = useState({
     description: [],
@@ -31,12 +35,12 @@ function EventDetail(props) {
   });
 
 
+  useEffect(() => {
+    if (userError !== undefined) errorAlert({});
+  }, [userError]);
+
   const subscribeToEvent = () => {
-    assistAnEvent(state._id).then(({ data }) => {
-      console.log(data);
-    }).catch(({ response }) => {
-      console.log(response);
-    });
+    subscribeUserToEventAction(state._id)
   };
 
   useEffect(() => {
@@ -56,6 +60,7 @@ function EventDetail(props) {
   return (
     <div className="dashboard-container event-detail">
       { !state._id && <Spinner tip="Cargando evento..." /> }
+      { userFetching && <Spinner tip="Inscribiendo..." /> }
       <div className="title">
         <Title>{state.title}</Title>
       </div>
@@ -105,8 +110,12 @@ function EventDetail(props) {
             coordinates={state.location.coordinates} />
 
           <div className="right-button">
-            <AmgButton width="100%" onClick={subscribeToEvent}>
-              Inscribirme
+            <AmgButton
+              width="100%"
+              bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}
+              disabled={assistedEvents.includes(state._id)}
+              onClick={subscribeToEvent} >
+              { assistedEvents.includes(state._id) ? 'Inscrito' : 'Inscribirme'}
             </AmgButton>
           </div>
         </div>
@@ -115,8 +124,13 @@ function EventDetail(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return { events: state.events };
+function mapStateToProps({ events, user }) {
+  return { 
+    events,
+    userFetching: user.fetching,
+    assistedEvents: user.assistedEvents,
+    userError: user.error,
+  };
 }
 
-export default withRouter(connect(mapStateToProps)(EventDetail));
+export default withRouter(connect(mapStateToProps, { subscribeUserToEventAction })(EventDetail));
