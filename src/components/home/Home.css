@@ -349,6 +349,7 @@ Footer*/
     font-family: Avenir;
     padding: 0 10%;
     box-sizing: border-box;
+    margin-bottom: -50px;
 }
 .footer p{
     font-size: 18px;
