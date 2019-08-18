@@ -75,7 +75,7 @@ export const getAllUsersSuccess = (users) => {
   }
 }
 
-export const getUsers = (query) => {
+export const getUsers = (query="") => {
   return {
     type: GET_USERS,
     payload: query

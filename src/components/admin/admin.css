@@ -227,5 +227,24 @@
 
 .admin-page-container{
     padding-left: 150px;
+    padding-right: 50px;
     height: 100%;
+}
+
+.test-input{
+    box-sizing: border-box;
+    height: 50px;
+    padding: 10px 30px;
+    width:100%;
+    border:none;
+    margin-bottom: 10px;
+    background-color:#f5f8f9;
+    outline: none;
+}
+.test-question-form{
+    margin-bottom: 20px
+}
+.test-input.question{}
+.test-input.answer{
+    background-color: #eaf0f7
 }
