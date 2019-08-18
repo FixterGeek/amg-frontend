@@ -9,8 +9,6 @@ import MembershipCards from '../../organisms/membership/MembershipCards';
 function Settings({ user }) {
   const { Title } = Typography;
 
-  console.log(user);
-
   return (
     <div className="dashboard-container">
       <DashboardContainerItem>
@@ -19,7 +17,10 @@ function Settings({ user }) {
       <DashboardContainerItem>
         <Title level={3}>Membresia</Title>
       </DashboardContainerItem>
-      <MembershipCards user={user} />
+      {
+        user.userSatus === 'Aprobado'
+          ? <MembershipCards user={user} /> : 'Tu cuenta aun no a sido aprobada!'
+      }
     </div>
   );
 }
