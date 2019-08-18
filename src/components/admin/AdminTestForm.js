@@ -5,6 +5,7 @@ import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
 import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
+import toastr from 'toastr'
 
 
 const { Option } = Select
@@ -28,14 +29,13 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
     }, [])
 
     
-    const handleSubmit=(e, isDraft=false)=>{
+    const handleSubmit=(e, isDraft=false)=> {
         console.log(e)
         if(e && !isDraft){
             e.preventDefault()
-            if(test.event && test.event._id)test.event = test.event._id
+            if(!test._id)return toastr.warning('Guarda primero como Borrador')
             saveTest(test)
-            if(test._id)history.push(`/admin/tests/${test._id}/questions/`)          
-            else history.push('/admin/tests/questions')
+            history.push(`/admin/tests/${test._id}/questions/`)            
         }else{
             saveTest(test)
         }
@@ -132,7 +132,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         ))}
                     </Select>
                 </div>
-                <input
+                <input                    
                     className="admin-form-submit-button"
                     type="submit" value="Siguiente" />
 

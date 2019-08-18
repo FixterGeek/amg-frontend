@@ -27,28 +27,19 @@ const initialState={
         date:'',
         beginingTime:'',
         endTime:'',
+        questionDuration:1,
         questions:[{
-            question:'quien se comió la kk del caba?',
-            answers:[
-                'yo',
-                'tu',
-                'lol',
-                'ño'
-            ],
-            correct:'yo'
-        },{
-            question:'A qué hora sales por el pan?',
-            answers:[
-                '8 pm',
-                'pan, kheseso?',
-                'no como pan',
-                'cuando quieras bb'
-            ],
-            correct:'cuando quieras bb'
+            question:'',
+            answers:['a', 'b'],
+            correct:'a'
         },{
             question:'',
-            answers:['','','',''],
-            correct:''
+            answers:['a', 'b'],
+            correct:'a'
+        },{
+            question:'',
+            answers:['a', 'b'],
+            correct:'a'
         }],
     },
     tests:[],

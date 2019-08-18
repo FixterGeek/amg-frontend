@@ -1,29 +1,45 @@
 import React, {useState, useEffect} from 'react'
 import TextField from '../../molecules/TextFields'
-import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
+import {Select} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
 import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
+import QuestionFormInput from './QuestionFormInput';
 
 
 const { Option } = Select
 
 
 const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest}) => {
-    
-
-    const [header, setHeader] = useState("Agregar Preguntas")
-    //const [test, setTest] = useState(testMock)
+        
 
     useEffect(() => {        
         getAdminEvents()
         let { id } = match.params
         if (id) {
             getSingleTest(id)
-            setHeader("Preguntas del Test " + test.title)
+            
+        }else{
+            resetTest()
         }
     }, [])
+
+    const addQuestion=()=>{
+        const newQuestion = {
+            question:'',
+            answers:['a', 'b'],
+            correct:'a'
+        }
+        test.questions = [...test.questions, newQuestion]
+        writingTest(test)
+    }
+
+    const deleteQuestion=(idx)=>{
+        console.log('deleting')      
+        test.questions.splice(idx,1)
+        writingTest(test)
+    }
 
     
     const handleSubmit=(e, isDraft=false)=>{
@@ -39,44 +55,45 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
         }
         
     }    
-    const handleChange=(e)=>{
-        test[e.target.name] = e.target.value
+    const handleChange=(e, keyQuestion)=>{
+        console.log(keyQuestion)
+        const question = {...test.questions[keyQuestion]}        
+        question.question = e.target.value
+        test.questions.splice(keyQuestion,1,question)
+        
         writingTest(test)        
+    }  
+
+    const handleChangeAnswer=(e,keyQuestion, keyAnswer)=>{
+        console.log(keyAnswer,keyQuestion)
+        const question = {...test.questions[keyQuestion]}                            
+        question.answers[keyAnswer] = e.target.value           
+        test.questions.splice(keyQuestion,1,question)
+        
+        writingTest(test)  
     }
     
-    console.log(test) 
-
+    const handleCorrectAnswer=(e)=>{        
+        const question = {...test.questions[e.target.name]}
+        question.correct = e.target.value
+        test.questions.splice(e.target.name,1,question)
+        writingTest(test)
+    }
     if(fetching)return <p>Loading</p>
     return (
         <div className="">
             <div className="admin-form-header">
-                <h1>{header}</h1>
+                <h1>Preguntas del test {test.title}</h1>
                 <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador</button>
             </div>
             <div>
-                {test.questions.map((q, key)=>(
-                    <div>
-                        <TextField
-                            onChange={handleChange}
-                            name="question"
-                            value={q.question}
-                            label={`Pregunta ${key+1}`}
-                            placeholder="Texto de la Pregunta"                            
-                        /><br/>
-                        <b>Respuestas</b>
-                        {q.answers.map((a, key)=>(
-                            <div key={key}>
-                                <TextField
-                                onChange={handleChange}
-                                name="answer"
-                                label={``}
-                                value={a}                            
-                                placeholder="Texto de la respuesta"                                
-                            /><br/>
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                <QuestionFormInput 
+                    handleCorrectAnswer={handleCorrectAnswer}
+                    questions={test.questions} 
+                    handleChange={handleChange} 
+                    handleChangeAnswer={handleChangeAnswer}
+                    deleteQuestion={deleteQuestion}/>
+                <button className="admin-main-button" onClick={addQuestion}>Agregar pregunta +</button>
             </div>
         </div>
     )
