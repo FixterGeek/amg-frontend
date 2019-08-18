@@ -30,7 +30,7 @@ function GeneralDataForm({
 
   useEffect(() => {
     if (status === "success") {
-      history.push('/dashboard')
+      history.push('/dashboard/events')
     }
   }, [status])
   //effect

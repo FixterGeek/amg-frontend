@@ -14,15 +14,23 @@ import Publisher from '../../molecules/Publisher';
 import Spinner from '../../atoms/Spinner';
 
 function Feed({
-  events, publications, populateEventsAction, populatePublicationsAction
+  events, publications, populateEventsAction, populatePublicationsAction, user, history
 }) {
   const { Title } = Typography;
 
-  const { errorAlert } = useSweetAlert();
+  const { errorAlert, infoAlert } = useSweetAlert();
   const [loadingPost, setLoadingPost] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
   const { events: eventsList } = events;
   const { publications: pubs } = publications;
+
+
+  useEffect(() => {
+    if (user.membershipStatus === 'Free') {
+      infoAlert({ text: 'No cuentas con los privilegios para acceder al Feed' });
+      history.push('/dashboard/events')
+    }
+  }, [user]);
 
   useEffect(() => {
     setLoadingEvent(true);
