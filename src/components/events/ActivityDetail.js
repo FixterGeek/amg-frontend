@@ -10,6 +10,7 @@ import useAmgService from '../../hooks/services/useAmgService';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
 import AmgButton from '../../atoms/Button';
+import MapLocation from './reusables/MapLocation';
 import Spinner from '../../atoms/Spinner';
 
 function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
@@ -31,47 +32,28 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
     assistants: [],
     _id: null,
   });
-  const { speakers = [], limit = false } = activity;
-  const { location } = history;
-  const { coordinates = [] } = location;
+  const { speakers = [], limit = false, location = {} } = activity;
+  const { colony = '', zipCode = '', street = ''} = location;
   const soulout = limit === 0 ? true : false;
   const registered = user.assistedActivities.includes(activity._id);
 
 
   useEffect(() => {
     const runAsync = async () => {
-      const { pathname } = location;
+      const { pathname } = history.location;
       const id = pathname.split('/')[5];
 
-      if (!location.state) {
+      if (!history.location.state) {
         await getSingleActivity(id).then(({ data }) => {
           setActivity({ ...data });
         }).catch(({ response }) => console.log(response));
       } else {
-        setActivity({ ...location.state });
+        setActivity({ ...history.location.state });
       }
     };
 
     if (!activity._id) runAsync();
-  }, [location, getSingleActivity]);
-
-  useEffect(() => {
-    let script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBAXOLs6pgumFSwvd3R3bqU4y2Cvm8Azj4';
-    document.body.appendChild(script);
-    script.onload = () =>{
-      const map = new window.google.maps.Map(document.getElementById('map'), {
-        center: { lat: 19.4199552, lng: -99.1567872 },
-        zoom: 8,
-      });
-
-      const marker = new window.google.maps.Marker({
-        position: { lat: 19.4199552, lng: -99.1567872 },
-        map,
-        title: 'Here!',
-      });
-    }
-  }, [window.google]);
+  }, []);
 
 
   const subscribeToActivity = (activityId) => {
@@ -119,10 +101,10 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
         }
       </DashboardContainerItem>
       <DashboardContainerItem>
-        <div id="map" className="component-map" />
+        <MapLocation coordinates={location.coordinates} />
         <div>
           <Text strong>{ location.addressName }</Text>
-          { `${location.street}, ${location.colony}, ${location.zipCode}` }
+          { `${street}, ${colony}, ${zipCode}` }
         </div>
       </DashboardContainerItem>
       <DashboardContainerItem style={{ textAlign: 'center' }}>
@@ -132,7 +114,10 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
           </AmgButton>
         }
         {
-          (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva')
+          (
+            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva')
+            || (user.membershipStatus === 'Residente' && activity.isOpen)
+          )
             && (
               <div>
                 <AmgButton
@@ -149,13 +134,16 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
             ) 
         }
         {
-          user.membershipStatus === 'Residente' ? (
+          (user.membershipStatus === 'Residente' && !activity.isOpen) ? (
             <div>
               <AmgButton
                 width="100%"
                 bgColor={soulout ? 'red' : 'secondary'}
                 disabled={soulout}>
-                <Link to={`/dashboard/payment/activity/${activity._id}`}>
+                <Link to={{
+                  pathname: `/dashboard/payment/activity/${activity._id}`,
+                  state: activity,
+                }}>
                   { soulout ? 'Actividad agotada' : 'Pagar por esta actividad' }
                 </Link>
               </AmgButton>
@@ -165,19 +153,6 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
             </div>
           ) : null
         }
-        {/* {
-          user.membershipStatus === 'Free' ? (
-            <AmgButton width="100%">
-              <Link>Convierte en socio</Link>
-            </AmgButton>
-          ) : (
-            <AmgButton width="100%" onClick={() => subscribeToActivity(activity._id)}>
-              {
-                activity.assistants.includes(user._id) ? 'Cancelar inscripción' : 'Inscribirme'
-              }
-            </AmgButton>
-          )
-        } */}
       </DashboardContainerItem>
     </div>
   );
