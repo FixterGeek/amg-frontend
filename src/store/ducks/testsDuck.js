@@ -25,20 +25,20 @@ const initialState={
         event:'',
         title:'',
         date:'',
-        beginingTime:'',
+        startTime:'',
         endTime:'',
         questionDuration:1,
         questions:[{
             question:'',
-            answers:['a', 'b'],
+            answers:['a', 'b', 'c',  'd'],
             correct:'a'
         },{
             question:'',
-            answers:['a', 'b'],
+            answers:['a', 'b', 'c', 'd'],
             correct:'a'
         },{
             question:'',
-            answers:['a', 'b'],
+            answers:['a', 'b', 'c', 'd'],
             correct:'a'
         }],
     },
@@ -99,6 +99,12 @@ function reducer(state = initialState, action) {
         case SAVE_TEST_SUCCESS:            
             return { ...state, test:{...action.payload},tests:[...state.tests,action.payload], status: "success", fetching: false }
         case SAVE_TEST_ERROR:
+            return { ...state, status: "error", fetching: false, error: action.payload }
+        case DELETE_TEST:
+            return { ...state, status: "fetching", fetching: true }
+        case DELETE_TEST_SUCCESS:            
+            return { ...state, tests:[...state.tests.filter(t=>t._id!==action.payload._id)], status: "success", fetching: false }
+        case DELETE_TEST_ERROR:
                 return { ...state, status: "error", fetching: false, error: action.payload }
         default:
             return state;
@@ -176,6 +182,25 @@ export function getSingleTestError(error) {
     }
 }
 
+export function deleteTest(testID){    
+    return {
+        type: DELETE_TEST,
+        payload: testID
+    }
+}
+export function deleteTestSuccess(test) {
+    return {
+        type: DELETE_TEST_SUCCESS,
+        payload: test
+    }
+}
+export function deleteTestError(error) {
+    return {
+        type: DELETE_TEST_SUCCESS,
+        payload: error
+    }
+}
+
 
 //epics
 
@@ -243,7 +268,7 @@ export function saveTestEpic(action$, state$) {
             }            
             return concat(
                 //of(setFetchingUser()),
-                ajax.post(baseURL + "/exams", action.payload, { "Authorization": token, "Content-Type":"application/json" }).pipe(
+                ajax.post(baseURL + "/exams", action.payload._id, { "Authorization": token, "Content-Type":"application/json" }).pipe(
                     map(resp => {                        
                         //localStorage.authToken = resp.response.token
                         toastr.success("Nuevo Evento Guardado")
@@ -260,4 +285,25 @@ export function saveTestEpic(action$, state$) {
         })
     )
 
+}
+
+//delete epic
+export function deleteTestEpic(action$, state$){
+    return action$.pipe(
+        ofType(DELETE_TEST),
+        withLatestFrom(state$.pipe(pluck('user'))),
+        switchMap(([action,{token}])=>{
+            return concat(
+                ajax.delete(`${baseURL}/exams/${action.payload}`,{"Authorization": token }).pipe(
+                    map(resp=>{
+                        toastr.success("Test Eliminado")
+                        return deleteTestSuccess({ ...resp.response })
+                    }),
+                    catchError(err=>{
+                        return of(deleteTestError(err))
+                    })
+                )
+            )
+        })
+    )
 }

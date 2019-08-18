@@ -9,7 +9,8 @@ import {
     faCalendar,
     faBell,
     faUsers,
-    faFileInvoiceDollar
+    faFileInvoiceDollar,
+    faFileAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Menu, Icon } from 'antd';
@@ -81,13 +82,21 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Socios</span>
             </Item>
-            <Item key={4}>
+            <Item key={5}>
                 <Icon
                     className={currentLocation === 'biblioteca' ? 'menu-item-active' : ''}
                 >
                     <FontAwesomeIcon icon={faBell} />
                 </Icon>
                 <span>Biblioteca</span>
+            </Item>
+            <Item key={6} onClick={() => link('/admin/tests')} >
+                <Icon
+                    className={currentLocation === 'tests' ? 'menu-item-active' : ''}
+                >
+                    <FontAwesomeIcon icon={faFileAlt} />
+                </Icon>
+                <span>Tests</span>
             </Item>
             <Item key={7} onClick={() => { }}>
                 <Icon

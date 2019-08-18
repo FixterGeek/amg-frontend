@@ -6,6 +6,8 @@ import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
 import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
 import QuestionFormInput from './QuestionFormInput';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faSave, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 
 const { Option } = Select
@@ -28,7 +30,7 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
     const addQuestion=()=>{
         const newQuestion = {
             question:'',
-            answers:['a', 'b'],
+            answers:['a', 'b', 'c', 'd'],
             correct:'a'
         }
         test.questions = [...test.questions, newQuestion]
@@ -42,14 +44,11 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
     }
 
     
-    const handleSubmit=(e, isDraft=false)=>{
+    const handleSubmit=(e, redirect=false)=>{
         console.log(e)
-        if(e && !isDraft){
-            e.preventDefault()
-            if(test.event && test.event._id)test.event = test.event._id
+        if(redirect){                       
             saveTest(test)
-            if(test._id)history.push(`/admin/tests/${test._id}/questions/`)          
-            else history.push('/admin/tests/questions')
+            history.push('/admin/tests')         
         }else{
             saveTest(test)
         }
@@ -84,7 +83,7 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
         <div className="">
             <div className="admin-form-header">
                 <h1>Preguntas del test {test.title}</h1>
-                <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador</button>
+                <button onClick={(e)=>handleSubmit(e)}>Guardar como borrador </button>
             </div>
             <div>
                 <QuestionFormInput 
@@ -93,7 +92,12 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
                     handleChange={handleChange} 
                     handleChangeAnswer={handleChangeAnswer}
                     deleteQuestion={deleteQuestion}/>
-                <button className="admin-main-button" onClick={addQuestion}>Agregar pregunta +</button>
+                <div className="tests-right-button">
+                    <button className="admin-main-button" onClick={addQuestion}>Agregar pregunta <FontAwesomeIcon icon={faPlus} /></button>
+                </div>                
+                <div className="tests-center-button">
+                    <button className="admin-form-submit-button" onClick={(e)=>handleSubmit(e,true)}>Publicar</button>
+                </div>
             </div>
         </div>
     )

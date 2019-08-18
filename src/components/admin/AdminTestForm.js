@@ -4,14 +4,16 @@ import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
-import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
+import { writingTest, saveTest, getSingleTest, resetTest, deleteTest } from '../../store/ducks/testsDuck'
 import toastr from 'toastr'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faSave} from '@fortawesome/free-solid-svg-icons';
 
 
 const { Option } = Select
 
 
-const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest}) => {
+const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest, deleteTest}) => {
     
 
     const [header, setHeader] = useState("Crear Test")
@@ -29,8 +31,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
     }, [])
 
     
-    const handleSubmit=(e, isDraft=false)=> {
-        console.log(e)
+    const handleSubmit=(e, isDraft=false)=> {        
         if(e && !isDraft){
             e.preventDefault()
             if(!test._id)return toastr.warning('Guarda primero como Borrador')
@@ -55,14 +56,21 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
         test[name] = val
         writingTest(test)
     }
-    console.log(test) 
+
+    const removeTest=()=>{
+        deleteTest(test._id)
+        history.push('/admin/tests')
+    }
 
     if(fetching)return <p>Loading</p>
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
                 <h1>{header}</h1>
-                <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador</button>
+                <div>
+                    <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador <FontAwesomeIcon icon={faSave} /></button>
+                    {test._id && <button style={{ color: "white", background: "red" }} onClick={removeTest} >Eliminar Test</button>}
+                </div>
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -73,11 +81,12 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                 <div className="admin-form-group">
                     <b>Evento al que pertenece</b>
                     <Select
+                        className="test-input"
                         name="event"
                         label="Evento al que pertenece"
                         onChange={(value)=>handleSelect(value, 'event')}                    
                         style={{ width: 300 }}
-                        defaultValue={test.event._id||"Elije un evento"}>
+                        defaultValue={(test.event && test.event._id)||"Elije un evento"}>
                         {events.map((event, key) => (
                             <Option key={key} value={event._id} >{event.title}</Option>
                         ))}
@@ -96,6 +105,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                 <div className="admin-form-group">
                     <b>Fecha</b>
                     <DatePicker
+                        className="test-input"
                         label="Fecha"
                         onChange={m => handleDate(m, "date")}
                         style={{ width: 300 }}
@@ -108,22 +118,25 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                     <b>Horario disponible</b>
                     <span>De</span>
                     <TimePicker
-                        onChange={m => handleDate(m, "beginingTime")}
+                        className="test-input"
+                        onChange={m => handleDate(m, "startTime")}
                         placeholder="Selecciona la hora de inicio"
-                        style={{ width: 300 }}
-                        value={test.beginingTime ? moment(test.beginingTime) : null}
+                        style={{ width: 150 }}
+                        value={test.startTime ? moment(test.startTime) : null}
                     />
                     <span>A</span>        
                     <TimePicker
+                        className="test-input"
                         onChange={m => handleDate(m, "endTime")}
                         placeholder="Selecciona la hora de fin"
-                        style={{ width: 300 }}
+                        style={{ width: 150 }}
                         value={test.endTime ? moment(test.endTime) : null}
                     />
                 </div>
-                <div className="admin-form-group">
+                
                     <b>Límite de tiempo por pregunta</b>
                     <Select
+                        className="test-input"
                         onChange={val => handleSelect(val, "questionDuration")}                    
                         style={{ width: 300 }}
                         defaultValue={test.questionDuration||"Elije el tiempo"}>
@@ -131,7 +144,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                             <Option key={key} value={n} >{n}min</Option>
                         ))}
                     </Select>
-                </div>
+                
                 <input                    
                     className="admin-form-submit-button"
                     type="submit" value="Siguiente" />
@@ -152,4 +165,4 @@ function mapStateToProps({events, tests}) {
 
 
 
-export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest, resetTest})(AdminTestForm)
+export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest, resetTest, deleteTest})(AdminTestForm)
