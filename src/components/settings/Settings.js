@@ -9,8 +9,6 @@ import MembershipCards from '../../organisms/membership/MembershipCards';
 function Settings({ user }) {
   const { Title } = Typography;
 
-  console.log(user)
-
   return (
     <div className="dashboard-container">
       <DashboardContainerItem>
