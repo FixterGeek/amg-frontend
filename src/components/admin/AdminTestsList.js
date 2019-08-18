@@ -1,9 +1,15 @@
 import React from 'react'
+import AdminTestCard from './AdminTestCard';
 
-const AdminTestsList = () => {
+const AdminTestsList = ({tests}) => {
     return (
         <div>
-            lalista
+            {tests.map((t, key)=>(
+                <AdminTestCard
+                key={key}
+                {...t}                
+            />
+            ))}
         </div>
     )
 }

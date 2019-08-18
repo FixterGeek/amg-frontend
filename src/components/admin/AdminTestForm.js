@@ -4,13 +4,13 @@ import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
-import { writingTest, saveTest } from '../../store/ducks/testsDuck'
+import { writingTest, saveTest, getSingleTest } from '../../store/ducks/testsDuck'
 
 
 const { Option } = Select
 
 
-const AdminTestForm = ({history, match, location,test, events, writingTest, getAdminEvents, saveTest}) => {
+const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest}) => {
     
 
     const [header, setHeader] = useState("Crear Test")
@@ -18,17 +18,18 @@ const AdminTestForm = ({history, match, location,test, events, writingTest, getA
 
     useEffect(() => {        
         getAdminEvents()
-        // let { id } = match.params
-        // if (id) {
-        //     //getSingleTest(id)
-        //     //setHeader("Editar Test del Evento: " + test.event.title)
-        // }
+        let { id } = match.params
+        if (id) {
+            getSingleTest(id)
+            setHeader("Editar Test " + test.title)
+        }
     }, [])
 
     
     const handleSubmit=(e)=>{
         e.preventDefault()
-        saveTest(test)            
+        saveTest(test)
+        //history.push('/admin/tests/questions')          
         
     }
     const saveDraft=()=>{
@@ -47,7 +48,10 @@ const AdminTestForm = ({history, match, location,test, events, writingTest, getA
     const handleDate=(val,name)=>{
         test[name] = val
         writingTest(test)
-    }    
+    }
+    console.log(test) 
+
+    if(fetching)return <p>Loading</p>
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
@@ -57,6 +61,7 @@ const AdminTestForm = ({history, match, location,test, events, writingTest, getA
             <div className="admin-form-two-columns-container">
 
             <form
+                method="POST"
                 className="admin-flex-column"
                 onSubmit={handleSubmit}>
                 <div className="admin-form-group">
@@ -132,14 +137,13 @@ const AdminTestForm = ({history, match, location,test, events, writingTest, getA
 }
 
 function mapStateToProps({events, tests}) {    
-    const eventsList = events.array
-    const test = tests.test
     return {
-        test,
-        events:eventsList        
+        test:tests.test,
+        events:events.array,
+        fetching:tests.fetching    
     }
 }
 
 
 
-export default connect(mapStateToProps,{getAdminEvents,writingTest, saveTest})(AdminTestForm)
+export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest})(AdminTestForm)

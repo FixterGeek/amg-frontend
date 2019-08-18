@@ -108,6 +108,7 @@ export function writingTest(test) {
     }
 }
 export function saveTest(test){
+    console.log(test)
     return {
         type: SAVE_TEST,
         payload: test
@@ -125,29 +126,104 @@ export function saveTestError(error) {
         payload: error
     }
 }
+export function getTests(test){
+    return {
+        type: GET_TESTS,
+        payload: test
+    }
+}
+export function getTestsSuccess(tests) {
+    return {
+        type: GET_TESTS_SUCCESS,
+        payload: tests
+    }
+}
+export function getTestsError(error) {
+    return {
+        type: GET_TESTS_SUCCESS,
+        payload: error
+    }
+}
+
+export function getSingleTest(test){
+    return {
+        type: GET_TEST,
+        payload: test
+    }
+}
+export function getSingleTestSuccess(test) {
+    return {
+        type: GET_TEST_SUCCESS,
+        payload: test
+    }
+}
+export function getSingleTestError(error) {
+    return {
+        type: GET_TEST_SUCCESS,
+        payload: error
+    }
+}
 
 
 //epics
 
-export function saveDraftTestEpic(action$, state$) {
+//Get epics
+export function getAllTestsEpic(action$, state$){
+    return action$.pipe(
+        ofType(GET_TESTS),
+        withLatestFrom(state$.pipe(pluck('user'))),
+        switchMap(([action,{token}])=>{
+            return concat(
+                ajax.get(`${baseURL}/exams`,{"Authorization": token }).pipe(
+                    map(resp=>{
+                        return getTestsSuccess([ ...resp.response ])
+                    }),
+                    catchError(err=>{
+                        return of(getTestsError(err))
+                    })
+                )
+            )
+        })
+    )
+}
+
+export function getSingleTestEpic(action$, state$){
+    return action$.pipe(
+        ofType(GET_TEST),
+        withLatestFrom(state$.pipe(pluck('user'))),
+        switchMap(([action,{token}])=>{
+            return concat(
+                ajax.get(`${baseURL}/exams/${action.payload}`,{"Authorization": token }).pipe(
+                    map(resp=>{
+                        return getSingleTestSuccess({...resp.response })
+                    }),
+                    catchError(err=>{
+                        return of(getSingleTestError(err))
+                    })
+                )
+            )
+        })
+    )
+}
+
+//save Epic
+export function saveTestEpic(action$, state$) {
     return action$.pipe(
         ofType(SAVE_TEST),        
         withLatestFrom(state$.pipe(pluck('user'))),
-        switchMap(([action, { token }]) => {
-            if (action.payload._id) {
+        switchMap(([action, { token }]) => {            
+            if (action.payload._id) {                
                 return concat(
                     //of(setFetchingUser()),
-                    ajax.patch(`${baseURL}/exams/${action.payload._id}`, action.payload, { "Authorization": token }).pipe(
-                        map(resp => {
-                            console.log(resp)
+                    ajax.patch(`${baseURL}/exams/${action.payload._id}`, action.payload, { "Authorization": token, "Content-Type":"application/json" }).pipe(
+                        map(resp => {                            
                             //localStorage.authToken = resp.response.token
                             toastr.success("Test Guardado")
                             return saveTestSuccess({ ...resp.response })
                         }),
                         //delay(5000),
                         //takeUntil(action$.pipe(ofType("CANCEL"))),
-                        catchError(err => {
-                            console.log("ero", err)
+                        catchError(err => {                            
                             return of(saveTestError(err))
                         })
                     )
@@ -155,7 +231,7 @@ export function saveDraftTestEpic(action$, state$) {
             }            
             return concat(
                 //of(setFetchingUser()),
-                ajax.post(baseURL + "/exams", action.payload.body, { "Authorization": token }).pipe(
+                ajax.post(baseURL + "/exams", action.payload, { "Authorization": token, "Content-Type":"application/json" }).pipe(
                     map(resp => {                        
                         //localStorage.authToken = resp.response.token
                         toastr.success("Nuevo Evento Guardado")

@@ -18,10 +18,12 @@ function AdminRouter() {
       <Route exact path="/admin/events/edit/" component={AdminEventForm} />
       <Route exact path="/admin/events" component={AdminEvents} />
       {/* Examenes */}
-      <Route exact path="/admin/tests" component={AdminTests} />
+      <Route exact path="/admin/tests" component={AdminTests} />      
       <Route exact path="/admin/tests/new" component={AdminTestForm} />
+      <Route exact path="/admin/tests/questions" component={AdminTestQuestionsForm} />  
       <Route exact path="/admin/tests/edit/:id" component={AdminTestForm} />
       <Route exact path="/admin/tests/:id/questions" component={AdminTestQuestionsForm} />  
+      
     </Switch>
   );
 }
