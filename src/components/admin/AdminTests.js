@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import AdminTestsList from './AdminTestsList';
 import { connect } from 'react-redux';
 import {getTests} from '../../store/ducks/testsDuck'
+import {Link} from 'react-router-dom'
 
 const AdminTests = ({tests=[],fetching, getTests}) => {
 
@@ -14,7 +15,7 @@ const AdminTests = ({tests=[],fetching, getTests}) => {
         <div>
             <div className="admin-form-header">
                 <h1>Mis Tests</h1>
-                <button>Nuevo Test</button>
+                <Link to="/admin/tests/new" className="admin-main-button">Nuevo Test</Link>
             </div>
             <div>
                 <div className="admin-event-card-container">

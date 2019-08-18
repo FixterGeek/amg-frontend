@@ -4,13 +4,13 @@ import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
-import { writingTest, saveTest, getSingleTest } from '../../store/ducks/testsDuck'
+import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
 
 
 const { Option } = Select
 
 
-const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest}) => {
+const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest}) => {
     
 
     const [header, setHeader] = useState("Crear Test")
@@ -22,19 +22,25 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
         if (id) {
             getSingleTest(id)
             setHeader("Editar Test " + test.title)
+        }else{
+            resetTest()
         }
     }, [])
 
     
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        saveTest(test)
-        //history.push('/admin/tests/questions')          
+    const handleSubmit=(e, isDraft=false)=>{
+        console.log(e)
+        if(e && !isDraft){
+            e.preventDefault()
+            if(test.event && test.event._id)test.event = test.event._id
+            saveTest(test)
+            if(test._id)history.push(`/admin/tests/${test._id}/questions/`)          
+            else history.push('/admin/tests/questions')
+        }else{
+            saveTest(test)
+        }
         
-    }
-    const saveDraft=()=>{
-        saveTest(test)
-    }
+    }    
     const handleChange=(e)=>{
         test[e.target.name] = e.target.value
         writingTest(test)        
@@ -56,7 +62,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
         <div className="admin-event-form-container">
             <div className="admin-form-header">
                 <h1>{header}</h1>
-                <button onClick={saveDraft}>Guardar como borrador</button>
+                <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador</button>
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -71,7 +77,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         label="Evento al que pertenece"
                         onChange={(value)=>handleSelect(value, 'event')}                    
                         style={{ width: 300 }}
-                        defaultValue="Elije un evento">
+                        defaultValue={test.event._id||"Elije un evento"}>
                         {events.map((event, key) => (
                             <Option key={key} value={event._id} >{event.title}</Option>
                         ))}
@@ -118,9 +124,9 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                 <div className="admin-form-group">
                     <b>Límite de tiempo por pregunta</b>
                     <Select
-                        //onChange={e => handleSelect(e, "state", "questionDuration")}                    
+                        onChange={val => handleSelect(val, "questionDuration")}                    
                         style={{ width: 300 }}
-                        defaultValue="Elije un evento">
+                        defaultValue={test.questionDuration||"Elije el tiempo"}>
                         {[1,2,3,4,5].map((n, key) => (
                             <Option key={key} value={n} >{n}min</Option>
                         ))}
@@ -146,4 +152,4 @@ function mapStateToProps({events, tests}) {
 
 
 
-export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest})(AdminTestForm)
+export default connect(mapStateToProps,{getAdminEvents, writingTest, saveTest, getSingleTest, resetTest})(AdminTestForm)
