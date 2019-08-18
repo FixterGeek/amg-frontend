@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { login, updateUser as update } from '../../services/userServices'
-import { activitySubscribe } from '../../services/eventsServices';
+import { activitySubscribe, assistAnEvent } from '../../services/eventsServices';
 import {
     switchMap,
     map,
@@ -74,8 +74,24 @@ let UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
 let SUBSCRIBE_USER_TO_ACTIVITY = "SUBSCRIBE_USER_TO_ACTIVITY"
 let SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS = "SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS"
 let SUBSCRIBE_USER_TO_ACTIVITY_ERROR = "SUBSCRIBE_USER_TO_ACTIVITY_ERROR"
+let SUBSCRIBE_USER_TO_EVENT = "SUBSCRIBE_USER_TO_TEVENT";
+let SUBSCRIBE_USER_TO_EVENT_SUCCESS = "SUBSCRIBE_USER_TO_EVENT_SUCCESS"
+let SUBSCRIBE_USER_TO_EVENT_ERROR ="SUBSCRIBE_USER_TO_EVENT_ERROR"
 
 // actionCreators
+export function subscribeUserToEvent() {
+    return { type: SUBSCRIBE_USER_TO_EVENT };
+}
+
+export function subscribeUserToEventSuccess(eventData) {
+    return { type: SUBSCRIBE_USER_TO_EVENT_SUCCESS, payload: eventData };
+}
+
+export function subscribeUserToEventError(error) {
+    return { type: SUBSCRIBE_USER_TO_EVENT_ERROR, payload: error };
+}
+
+
 export function updateUser() {
     return { type: UPDATE_USER };
 }
@@ -247,6 +263,23 @@ export const subscribeUserToActivityAction = (eventId) => (dispatch) => {
         })
 }
 
+export const subscribeUserToEventAction = (eventId) => (dispatch) => {
+    dispatch(subscribeUserToEvent());
+    return assistAnEvent(eventId)
+        .then((data) => {
+            const currentUser = JSON.parse(localStorage.user);
+            currentUser.assistedEvents = [...currentUser.assistedEvents, data._id];
+            localStorage.user = JSON.stringify(currentUser);
+            dispatch(subscribeUserToEventSuccess(currentUser));
+            return data;
+        })
+        .catch((error) => {
+            if (error.response) dispatch(subscribeUserToEventError(error.response.data.message));
+            else dispatch(subscribeUserToEventError(error));
+            return error;
+        });
+}
+
 
 // logout
 export const logoutAction = () => (dispatch) => {
@@ -285,11 +318,19 @@ function reducer(state = userState, action) {
             return { ...state, fetching: false, error: true }
         case LOGOUT_USER:
             return { ...userState };
+        /* Subscribe to activity */
         case SUBSCRIBE_USER_TO_ACTIVITY:
             return { ...state, fetching: true };
         case SUBSCRIBE_USER_TO_ACTIVITY_SUCCESS:
             return { ...state, ...action.payload, fetching: false };
         case SUBSCRIBE_USER_TO_ACTIVITY_ERROR:
+            return { ...state, fetching: false, error: action.payload };
+        /* Subscribe to event */
+        case SUBSCRIBE_USER_TO_EVENT:
+            return { ...state, fetching: true };
+        case SUBSCRIBE_USER_TO_EVENT_SUCCESS:
+            return { ...state, ...action.payload, fetching: false };
+        case SUBSCRIBE_USER_TO_EVENT_ERROR:
             return { ...state, fetching: false, error: action.payload };
         default:
             return state;

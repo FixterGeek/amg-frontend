@@ -110,14 +110,14 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
         />
       </DashboardContainerItem>
       <DashboardContainerItem style={{ textAlign: 'center' }}>
-        { user.membershipStatus === 'Free' && 
+        {/* { user.membershipStatus === 'Free' && 
           <AmgButton width="100%">
             <Link to="/dashboard/settings">Convierte en socio</Link>
           </AmgButton>
-        }
+        } */}
         {
           (
-            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva')
+            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva' || user.membershipStatus === 'Free')
             || (user.membershipStatus === 'Residente' && activity.isOpen)
           )
             && (
