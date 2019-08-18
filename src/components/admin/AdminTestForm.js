@@ -4,54 +4,50 @@ import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
+import { writingTest, saveTest } from '../../store/ducks/testsDuck'
 
 
 const { Option } = Select
 
 
-const AdminTestForm = ({history, match, location, events}) => {
-
-    const testMock = {
-        event:'12341234',
-        title:'El test maestro',
-        date:'10/10/10',
-        beginingTime:'10:10:10',
-        endTime:'10:15:00',
-        questions:[{
-            question:'quien se comió la kk del caba?',
-            answers:[
-                'yo',
-                'tu',
-                'lol',
-                'ño'
-            ],
-            correct:'yo'
-        }],
-    }
+const AdminTestForm = ({history, match, location,test, events, writingTest, getAdminEvents, saveTest}) => {
+    
 
     const [header, setHeader] = useState("Crear Test")
-    const [test, setTest] = useState(testMock)
+    //const [test, setTest] = useState(testMock)
 
-    useEffect(() => {
+    useEffect(() => {        
         getAdminEvents()
         // let { id } = match.params
         // if (id) {
-        //     //getSingleEvent(id)
+        //     //getSingleTest(id)
         //     //setHeader("Editar Test del Evento: " + test.event.title)
         // }
     }, [])
 
-    const saveDraft=()=>{}
-    const handleSubmit=()=>{}
-    const handleChange=()=>{}
-
-    const handleSelect=(a,b,c)=>{
-
+    
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        saveTest(test)            
+        
+    }
+    const saveDraft=()=>{
+        saveTest(test)
+    }
+    const handleChange=(e)=>{
+        test[e.target.name] = e.target.value
+        writingTest(test)        
     }
 
-    const handleDate=()=>{}
-    const handleTime=()=>{}
-    console.log(events)
+    const handleSelect=(val, name)=>{
+        test[name] = val
+        writingTest(test)
+    }
+
+    const handleDate=(val,name)=>{
+        test[name] = val
+        writingTest(test)
+    }    
     return (
         <div className="admin-event-form-container">
             <div className="admin-form-header">
@@ -66,8 +62,9 @@ const AdminTestForm = ({history, match, location, events}) => {
                 <div className="admin-form-group">
                     <b>Evento al que pertenece</b>
                     <Select
+                        name="event"
                         label="Evento al que pertenece"
-                        onChange={e => handleSelect(e, "state", "location")}                    
+                        onChange={(value)=>handleSelect(value, 'event')}                    
                         style={{ width: 300 }}
                         defaultValue="Elije un evento">
                         {events.map((event, key) => (
@@ -77,7 +74,7 @@ const AdminTestForm = ({history, match, location, events}) => {
                 </div>
                 <div>
                     <TextField
-                        onChange={e => handleChange(e, "title")}
+                        onChange={handleChange}
                         name="title"
                         value={test.title}
                         label="Nombre del test"
@@ -119,9 +116,9 @@ const AdminTestForm = ({history, match, location, events}) => {
                         //onChange={e => handleSelect(e, "state", "questionDuration")}                    
                         style={{ width: 300 }}
                         defaultValue="Elije un evento">
-                        {/* {Object.values(estados).map(name => {
-                            return <Option value={name} >{name}</Option>
-                        })} */}
+                        {[1,2,3,4,5].map((n, key) => (
+                            <Option key={key} value={n} >{n}min</Option>
+                        ))}
                     </Select>
                 </div>
                 <input
@@ -134,13 +131,15 @@ const AdminTestForm = ({history, match, location, events}) => {
     )
 }
 
-function mapStateToProps({events}) {    
+function mapStateToProps({events, tests}) {    
     const eventsList = events.array
+    const test = tests.test
     return {
+        test,
         events:eventsList        
     }
 }
 
 
 
-export default connect(mapStateToProps,{})(AdminTestForm)
+export default connect(mapStateToProps,{getAdminEvents,writingTest, saveTest})(AdminTestForm)
