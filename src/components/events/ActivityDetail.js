@@ -117,8 +117,8 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
         } */}
         {
           (
-            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva')
-            || (user.membershipStatus === 'Residente' && activity.isOpen) || user.membershipStatus === 'Free'
+            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva' || user.membershipStatus === 'Free')
+            || (user.membershipStatus === 'Residente' && activity.isOpen)
           )
             && (
               <div>

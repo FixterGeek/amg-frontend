@@ -19,7 +19,7 @@ import useAmgService from '../../hooks/services/useAmgService';
 
 function EventDetail({
   history, subscribeUserToEventAction, userFetching,
-  assistedEvents, userError
+  assistedEvents, userError, user
 }) {
   const { location } = history;
   const { Title } = Typography;
@@ -55,7 +55,6 @@ function EventDetail({
     }
   }, []);
 
-  console.log(state);
 
   return (
     <div className="dashboard-container event-detail">
@@ -113,7 +112,7 @@ function EventDetail({
             <AmgButton
               width="100%"
               bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}
-              disabled={assistedEvents.includes(state._id)}
+              disabled={assistedEvents.includes(state._id) || !(user.userStatus === 'Aprobado')}
               onClick={subscribeToEvent} >
               { assistedEvents.includes(state._id) ? 'Inscrito' : 'Inscribirme'}
             </AmgButton>
@@ -126,6 +125,7 @@ function EventDetail({
 
 function mapStateToProps({ events, user }) {
   return { 
+    user,
     events,
     userFetching: user.fetching,
     assistedEvents: user.assistedEvents,
