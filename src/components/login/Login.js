@@ -18,7 +18,7 @@ function Login() {
       paddingBottom="0px"
       flexWrap="nowrap"
     >
-      <Container className="login-left" height="100vh" width="50%">
+      <Container className="login-left" width="50%">
         <Container
           alignItems="flex-start"
           paddingTop={size.largePadding}
