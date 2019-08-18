@@ -12,4 +12,15 @@ export const getSelfPublications = async () => {
     }
   })
     .then(({ data }) => data);
-}
+};
+
+
+export const toPublish = async (publicationData) => {
+  const authToken = await localStorage.getItem('authToken');
+  return axios.post(`${APIURL}`, publicationData, {
+    headers: {
+      Authorization: authToken,
+      'Content-Type': 'multipart/form-data',
+    },
+  }).then(({ data }) => data);
+};
