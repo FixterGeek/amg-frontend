@@ -13,6 +13,16 @@ $inputHeight: 50px;
   display: flex;
   flex-wrap: wrap;
   position: relative;
+
+  .ant-input-password {
+    padding: 0px;
+    .ant-input {
+      min-height: 50px;
+      border: none;
+      border-radius: 0px;
+      background-color: $clouds;
+    }
+  }
 }
 
 .input-field {
@@ -21,7 +31,7 @@ $inputHeight: 50px;
   background-color: $clouds !important;
   border: none !important;
   height: 50px !important;
-  padding: $padding !important;
+  padding: $padding;
   box-sizing: border-box !important;
   -moz-appearance: none !important;
   -webkit-appearance: none !important;

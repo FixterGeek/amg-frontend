@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { Typography } from 'antd';
+import { Typography, Carousel } from 'antd';
 
 import ProfilePhoto from '../atoms/ProfilePhoto';
 import PostIcons from '../atoms/PostIcons';
+import ImagePreview from '../components/feed/reusables/ImagePreview';
+import FileItem from '../components/feed/reusables/FileItem';
 
 
 function PostItem({ publication }) {
   const {
     text, updatedAt, _id, liked,
-    imagesURLS, user,
+    imagesURLS = [], user, docsURLS = [],
   } = publication;
   const { basicData = {} } = user;
   const { photoURL = null, name = '', dadSurname = '' } = basicData;
@@ -22,7 +24,10 @@ function PostItem({ publication }) {
     sameDay: `[Hoy a las ${date.format('h:mm a')}]`,
     nextDay: `[Ayer a las ${date.format('h:mm a')}]`,
     lastWeek: `[Este ${date.format('dddd')} a las ${date.format('h:mm a')}]`,
-    sameElse: `[${date.format('dddd')} de ${date.format('mmmm')} a las ${date.format('h:mm a')}]`,
+    sameElse:
+      `[
+        ${date.format('dddd')} ${date.format('DD')} de ${date.format('MMMM')} a las ${date.format('h:mm a')}
+      ]`,
   });
 
   return (
@@ -43,12 +48,25 @@ function PostItem({ publication }) {
           { text }
         </Text>
         {
-          imagesURLS.length > 0 && (
-            <div
-              className="post-item-image"
-              style={{ backgroundImage: `url(${imagesURLS[0]})` }} />
-          )
+          imagesURLS[0] ? (
+            <Carousel>
+              {
+                imagesURLS.map(url => (
+                  <div>
+                    <ImagePreview url={url} className="image-item" />
+                  </div>
+                ))
+              }
+            </Carousel>
+          ) : null
         }
+        <div className="files-items">
+          {
+            docsURLS.map(url => (
+              <FileItem url={url} />
+            ))
+          }
+        </div>
       </div>
       <PostIcons pubId={_id} favs={liked} />
     </div>

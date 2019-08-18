@@ -10,7 +10,7 @@ import Button from '../../../atoms/Button';
 import CreateInstitution from '../reusables/CreateInstitutionModal';
 import LaboralForm from '../reusables/LaboralForm';
 
-function LaboralExperience({ createActivityAction, pushLastInstitution }) {
+function LaboralExperience({ user, createActivityAction, pushLastInstitution }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
@@ -19,7 +19,6 @@ function LaboralExperience({ createActivityAction, pushLastInstitution }) {
 
   const handleResult = (error, data) => {
     if (data) {
-      pushLastInstitution(data);
       setLastInstitution(data._id);
     }
   };
@@ -35,9 +34,9 @@ function LaboralExperience({ createActivityAction, pushLastInstitution }) {
 
   return (
     <ContainerItem className="relative">
-      <Title level={2}>Expericncia profesional</Title>
+      <Title>Experiencia profesional</Title>
       <Button onClick={() => setOpen(true)} marginTop="0px" className="reusable-save-button" line>
-        Agregar
+        Agregar ✚
       </Button>
 
       <Modal
@@ -46,15 +45,16 @@ function LaboralExperience({ createActivityAction, pushLastInstitution }) {
         onCancel={() => setOpen(false)}
       >
         <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
-        <CreateInstitution onResult={handleResult} />
+        <CreateInstitution user={user} onResult={handleResult} />
       </Modal>
     </ContainerItem>
   );
 }
 
-function mapStateToProps({ activities }) {
+function mapStateToProps({ activities, user }) {
   return {
     activities,
+    user
   };
 }
 

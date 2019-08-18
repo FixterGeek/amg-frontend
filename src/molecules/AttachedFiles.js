@@ -11,18 +11,18 @@ function AttachedFiles({ publications, setPublications }) {
 
   const handleChange = (event) => {
     const { target: { name, files } } = event;
-    setPublications({ [name]: [...publications[name], ...files] });
+    setPublications({ ...publications, [name]: [...publications[name], ...files] });
   };
 
   return (
     <div className="attached-files">
-      <FilePicker multi name="imagesVideos" onChange={handleChange}>
+      <FilePicker name="imagesVideos" onChange={handleChange}>
         <div>
           <FontAwesomeIcon icon={faImages} />
           <span>Foto/video</span>
         </div>
       </FilePicker>
-      <FilePicker multi name="files" onChange={handleChange} type="forFiles">
+      <FilePicker name="files" onChange={handleChange} type="forFiles">
         <div>
           <FontAwesomeIcon icon={faPaperclip} />
           <span>Archivos</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../assets/logo-gastro.svg"
+import menu from "../assets/bars-solid.png"
 
 function NavBar() {
     return (
@@ -8,7 +9,7 @@ function NavBar() {
             <Link to="/">
                 <img src={logo} alt=""/>
             </Link>
-            <div>
+            <div className="web">
                 <Link to="/biblioteca">
                     <p>Biblioteca</p>
                     <hr className="blue"/>
@@ -31,6 +32,11 @@ function NavBar() {
                     style={{ color: 'white', fontSize: '1.2em' }}>
                     <div className="btn-log"><p>Iniciar sesión</p></div>
                 </Link>
+            </div>
+            <div className="mobile">
+                <img className="bars" src={menu} alt="bar-icon"/>
+
+
             </div>
         </div>
     );

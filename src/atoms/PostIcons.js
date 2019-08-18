@@ -43,9 +43,6 @@ function PostIcons({ pubId, favs, user }) {
           style={state.liked.includes(user._id) ? { color: palette.red } : {}} />
         { state.liked.length }
       </div>
-      <div className="post-icons-item">
-        <FontAwesomeIcon icon={faShareAlt} />
-      </div>
     </div>
   );
 }

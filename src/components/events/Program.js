@@ -11,7 +11,7 @@ import EventCover from '../../molecules/EventCover';
 import ActivityItem from '../../molecules/Events/ActivityItem';
 import Spinner from '../../atoms/Spinner';
 
-function Program({ history }) {
+function Program({ history, events, user }) {
   const { Title } = Typography;
 
   const { errorAlert } = useSweetAlert();
@@ -32,9 +32,11 @@ function Program({ history }) {
       })
       .catch(({ response }) => {
         setLoading(false);
-        errorAlert();
+        errorAlert({});
       });
   }, []);
+
+  console.log(user);
 
   return (
     <div className="dashboard-container">
@@ -63,13 +65,17 @@ function Program({ history }) {
               <div>
                 {
                   modul.activities.map((activity) => {
+                    const speakers = activity.speakers.map(speaker => `${speaker.fullName} `);
                     return (
                       <ActivityItem
+                        className={
+                          user.assistedActivities.includes(activity._id) ? 'bg-green' : ''
+                        }
                         key={activity._id}
                         hour={moment(activity.date).format('hh:mm a')}
                         title={activity.activityName}
-                        level1={activity.speaker.fullName}
-                        level2={activity.location.addressName}
+                        level1={speakers.join()}
+                        level2={activity.address || activity.type}
                         to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
                         activity={activity} />
                     );
@@ -84,8 +90,11 @@ function Program({ history }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { events: state.events };
+function mapStateToProps({ events, user }) {
+  return { 
+    events,
+    user
+  };
 }
 
 export default connect(mapStateToProps)(Program);

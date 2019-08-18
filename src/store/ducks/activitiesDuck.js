@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { createActivity as create, getActivitiesForUser } from '../../services/activitiesServices';
 
 const activitiesState = {
@@ -53,8 +54,7 @@ export const createActivityAction = activityData => (dispatch) => {
       return data;
     })
     .catch(({ response }) => {
-      console.log(response);
-      dispatch(createActivityError(response.data.message));
+      dispatch(createActivityError(response));
       return response;
     });
 };
@@ -63,14 +63,18 @@ export const createActivityAction = activityData => (dispatch) => {
 // Populate activities
 export const populateActivitiesAction = () => (dispatch) => {
   dispatch(populateActivities);
-  return getActivitiesForUser()
-    .then((data) => {
-      dispatch(populateActivitiesSuccess(data));
-      return data;
-    })
-    .catch(({ response }) => {
-      dispatch(populateActivitiesError(response.data.message));
-    });
+
+  if (localStorage.activities) dispatch(populateActivitiesSuccess(JSON.parse(localStorage.activities)));
+  else {
+    return getActivitiesForUser()
+      .then((data) => {
+        dispatch(populateActivitiesSuccess(data));
+        return data;
+      })
+      .catch(({ response }) => {
+        dispatch(populateActivitiesError(response.data.message));
+      });
+  }
 };
 
 
@@ -80,6 +84,8 @@ export default function reducer(state = activitiesState, action) {
     case CREATE_ACTIVITY:
       return { ...state, fetching: true };
     case CREATE_ACTIVITY_SUCCESS:
+      const localActivities = localStorage.activities ? JSON.parse(localStorage.activities) : [];
+      localStorage.activities = JSON.stringify([action.payload, ...localActivities]);
       return {
         ...state,
         activitiesArray: [action.payload, ...state.activitiesArray],
@@ -91,6 +97,7 @@ export default function reducer(state = activitiesState, action) {
     case POPULATE_ACTIVITIES:
       return { ...state, fetching: true };
     case POPULATE_ACTIVITIES_SUCCES:
+      localStorage.activities = JSON.stringify(action.payload);
       return { ...state, activitiesArray: action.payload, fetching: false };
     case POPULATE_ACTIVITIES_ERROR:
       return { ...state, fetching: false, error: action.payload };

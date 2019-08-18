@@ -11,6 +11,7 @@ import Settings from '../components/settings/Settings';
 import MembershipPayment from '../components/membership/MembershipPayment';
 import PersonalProfile from '../components/profile/PersonalProfile';
 import MainProfile from '../components/profile/MainProfile';
+import PaymentActivity from '../components/membership/PaymentActivity';
 
 
 function DashBoardRouter() {
@@ -19,6 +20,7 @@ function DashBoardRouter() {
     <Switch>
       <Route exact path={`${baseURL}/perfil/editar`} component={PersonalProfile} />
       <Route path="/dashboard/perfil" component={MainProfile} />
+      <Route path="/dashboard/payment/activity/:id" component={PaymentActivity} />
       <Route path={`${baseURL}/payment/:membership/:type`} component={MembershipPayment} />
       <Route path={`${baseURL}/payment/:membership`} component={MembershipPayment} />
       <Route path={`${baseURL}/events/:id/program/:id`} component={ActivityDetail} />

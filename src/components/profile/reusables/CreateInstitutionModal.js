@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { Modal, Checkbox } from 'antd';
 
-import { createInstitution, createIntitutionForUser } from '../../../services/institutionsServices';
+import { pushLastInstitution } from '../../../store/ducks/institutionsDuck';
+import { createInstitution } from '../../../services/institutionsServices';
 import Button from '../../../atoms/Button';
 import TextField from '../../../molecules/TextFields';
 import SelectField from '../../../molecules/SelectField';
@@ -11,14 +13,17 @@ import Label from '../../../atoms/data-entry/Label';
 import Upload from '../../admin/reusables/Upload'
 import ImageGalleryPicker from '../../admin/reusables/ImageGalleryPicker'
 
-function CreateInstitution({ user, onResult }) {
+function CreateInstitution({
+  user, onResult, forceOwn = null, disabledOwn, forceTypes = null,
+  pushLastInstitution,
+}) {
   const [open, setOpen] = useState(false);
+  const [own, setOwn] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [institution, setInstitution] = useState({
     name: null,
     type: null,
     president: null,
-    owner: null,
     location: {
       street: null,
       colony: null,
@@ -26,9 +31,13 @@ function CreateInstitution({ user, onResult }) {
       city: null,
       state: null,
     },
-    logoURL: null
+    logoURL: null,
   });
+  
 
+  useEffect(() => {
+    if (forceOwn && !institution.owner) setInstitution({ ...institution, owner: user._id });
+  }, [forceOwn]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -41,13 +50,25 @@ function CreateInstitution({ user, onResult }) {
   };
 
 
+  const handleOwn = ({ target }) => {
+    const { name, value, checked } = target;
+    setOwn(checked);
+    if (checked) setInstitution({ ...institution, owner: value });
+    else setInstitution({ ...institution, owner: '' });
+  };
+
+
   const handleSave = (event) => {
     event.preventDefault();
     setOpen(false);
     createInstitution(institution)
-      .then(data => onResult(null, data))
+      .then(data => {
+        onResult(null, data);
+        pushLastInstitution(data);
+      })
       .catch(({ response }) => onResult(response.data, null));
   };
+
 
   return (
     <div>
@@ -64,13 +85,23 @@ function CreateInstitution({ user, onResult }) {
         onOk={handleSave}
         visible={open}
       >
-        <div>
-          <Label>Institución propia</Label>
-          <Checkbox onChange={() => handleChange({ target: { name: 'owner', value: user._id } })} />
-        </div>
+        {
+          !disabledOwn && (
+            <div>
+              <Label>Institución propia</Label>
+              <Checkbox
+                onChange={() => handleOwn({
+                  target: { name: 'owner', value: user._id, checked: !own } 
+                })}
+                disabled={forceOwn}
+                checked={forceOwn || own}
+              />
+            </div>
+          )
+        }
         <SelectField
           onChange={value => handleChange({ target: { value, name: 'type' } })}
-          options={['Hospital', 'Escuela', 'Consultorio', 'Sociedad']}
+          options={forceTypes || ['Hospital', 'Escuela', 'Consultorio', 'Sociedad']}
           value={institution.type}
           label="Tipo de institución" />
         <TextField
@@ -124,4 +155,8 @@ function CreateInstitution({ user, onResult }) {
   );
 }
 
-export default CreateInstitution;
+function mapStateToProps({ institutions }) {
+  return { institutions }
+}
+
+export default connect(mapStateToProps, { pushLastInstitution })(CreateInstitution);

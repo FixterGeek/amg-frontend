@@ -31,7 +31,6 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
     }
   }, []);
 
-  console.log(user);
 
   return (
     <div className="dashboard-container component-main-profile">

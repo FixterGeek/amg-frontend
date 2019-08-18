@@ -15,7 +15,7 @@ function FilePicker({ children, multi, type, onChange, name, className }) {
 
   const fileTypes = {
     forImages: '.jpg, .jpeg, .gif, .png',
-    forImagesAndVideos: 'jpg, .jpeg, .gif, .png, .mp4, .avi, .mov, .flv, .wmv, .mkv, .qt',
+    forImagesAndVideos: '.jpg, .jpeg, .gif, .png, .mp4, .avi, .mov, .flv, .wmv, .mkv, .qt',
     forFiles: `${ft.text}${ft.data}${ft.spreadshhet}${ft.compress}`,
   };
 

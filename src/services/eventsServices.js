@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const APIURL = `${process.env.REACT_APP_BASE_API_URL}/events`;
+const baseAPI = process.env.REACT_APP_BASE_API_URL;
+const APIURL = `${baseAPI}/events`;
 
 export const getEvents = async () =>{
   const token = localStorage.authToken;
@@ -24,12 +25,32 @@ export const getSingleEvent = (id) => {
 };
 
 
+export const getSingleActivity = async (activityId) => {
+  const token = localStorage.authToken;
+
+  return axios.get(`${baseAPI}/eventActivities/${activityId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+
 export const assistAnEvent = (eventId) => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return axios.post(`${APIURL}/${eventId}/assist`, null, {
     headers: {
       Authorization: user.token,
+    },
+  }).then(({ data }) => data);
+};
+
+export const activitySubscribe = async (activityId) => {
+  const authToken = await localStorage.getItem('authToken');
+  return axios.post(`${baseAPI}/eventActivities/${activityId}/assist`, null, {
+    headers: {
+      Authorization: authToken,
     },
   }).then(({ data }) => data);
 };

@@ -9,18 +9,25 @@ export const getInstitutions = type => axios.get(`${APIURL}?query={"type":${type
   .then(({ data }) => data);
 
 
-export const getAllInstitutions = () => axios.get(`${APIURL}`, {
-  headers: {
-    Authorization: token,
-  },
-}).then(({ data }) => data);
+export const getAllInstitutions = () => {
+  const { authToken } = localStorage;
+  return axios.get(`${APIURL}`, {
+    headers: {
+      Authorization: authToken,
+    },
+  }).then(({ data }) => data);
+};
 
-export const createInstitution = institutionData => axios.post(`${APIURL}`, institutionData, {
-  headers: {
-    Authorization: token,
-  },
-})
-  .then(({ data }) => data);
+export const createInstitution = (institutionData) => {
+  const { authToken } = localStorage;
+
+  return axios.post(`${APIURL}`, institutionData, {
+    headers: {
+      Authorization: authToken,
+    },
+  })
+    .then(({ data }) => data);
+};
 
 export const createIntitutionForUser = institutionData => axios.post(`${APIURL}`, {
   ...institutionData,

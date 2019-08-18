@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
@@ -7,6 +7,8 @@ import MembershipCard from '../../molecules/membership/MembershipCard';
 
 function MembershipCards({ user }) {
   const [checked, setChecked] = useState('Free');
+
+  useEffect(() => { setChecked(user.membershipStatus) }, [user])
 
   const handleMouseOut = () => {
     if (checked !== user.membershipStatus) setChecked(user.membershipStatus);

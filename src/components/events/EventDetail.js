@@ -11,6 +11,7 @@ import TextBlock from '../../atoms/TextBlock';
 import AmgButton from '../../atoms/Button';
 import TextNIconButton from '../../atoms/TextNIconButton';
 import Spinner from '../../atoms/Spinner';
+import MapLocation from './reusables/MapLocation';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -24,6 +25,9 @@ function EventDetail(props) {
   const [state, setState] = useState({
     description: [],
     permisosURLS: [],
+    location: {
+      coordinates: [],
+    },
   });
 
 
@@ -45,7 +49,7 @@ function EventDetail(props) {
         getSingleEvent(id).then(({ data }) => setState({ ...data }));
       }
     }
-  }, [getSingleEvent, location.event, location.pathname]);
+  }, []);
 
   console.log(state);
 
@@ -63,7 +67,7 @@ function EventDetail(props) {
               location={state.location}
               startDate={state.startDate}
               endDate={state.endDate}
-              image={state.thumbnailImagesURLS[0]}
+              image={state.mainImagesURLS[0]}
             />
           )}
           <TextNIconButton
@@ -91,6 +95,14 @@ function EventDetail(props) {
           {state.description[2] && (
             <TextBlock title="Objetivo" text={state.description[2]} />
           )}
+
+          <Title level={2}>Ubicación</Title>
+          <MapLocation
+            street={state.location.street}
+            colony={state.location.colony}
+            city={state.location.city}
+            zipCode={state.location.zipCode}
+            coordinates={state.location.coordinates} />
 
           <div className="right-button">
             <AmgButton width="100%" onClick={subscribeToEvent}>
