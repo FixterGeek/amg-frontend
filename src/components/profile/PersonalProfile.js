@@ -32,6 +32,11 @@ function PersonalProfile({
     populateEducationAction();
   }, []);
 
+  const handleSaveBio = bio => {
+    console.log(bio);
+    updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
+  };
+
 
   return (
     <div className="dashboard-container component-main-profile relative">
@@ -44,7 +49,7 @@ function PersonalProfile({
         membershipStatus={membershipStatus}
         speciality={speciality} />
 
-      <PersonalBio dispatch={updateUserAction} />
+      <PersonalBio onSave={handleSaveBio} value={user.basicData.bio} />
 
       <PersonalEducation />
 
@@ -69,6 +74,7 @@ function PersonalProfile({
         {
           internships.map(internship => (
             <BoxItem
+              key={internship._id}
               title={internship.institution.name}
               level1={internship.institution.name}
               level2={
@@ -83,6 +89,7 @@ function PersonalProfile({
         {
           residences.map(residence => (
             <BoxItem
+              key={residence._id}
               title={residence.speciality || residence.institution.name}
               level1={residence.institution.name}
               level2={
@@ -99,6 +106,7 @@ function PersonalProfile({
         {
           activities.map(activity => (
             <BoxItem
+              key={activity._id}
               title={activity.charge || activity.subject || activity.institution.name}
               level1={activity.institution.name}
               level2={
