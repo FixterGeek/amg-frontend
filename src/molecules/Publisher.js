@@ -22,7 +22,6 @@ function Publisher({ createPublicationAction, fetching, status, added }) {
   };
   const [publications, setPublications] = useState(initialPublications);
 
-  console.log(publications);
   const [postText, setPostText] = useState('');
   const [urls, setUrls] = useState([]);
   const { toPublish } = useAmgService();
