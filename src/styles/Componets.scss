@@ -263,6 +263,7 @@ $eventLeftWidth: 350px;
     justify-content: center;
     align-items: center;
     flex-flow: column;
+    flex-grow: 1;
   }
 
   &-left {
@@ -270,6 +271,7 @@ $eventLeftWidth: 350px;
     @include for-size(tablet-landscape-up) {
       max-width: 50%;
       width: 50%;
+      display: flex;
     }
   }
 
@@ -297,5 +299,6 @@ $eventLeftWidth: 350px;
     display: flex;
     align-items: center;
     flex-flow: column;
+    margin-top: 5%;
   }
 }
