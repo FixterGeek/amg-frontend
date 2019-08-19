@@ -71,6 +71,43 @@ $menuBarWidth: 59px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-flow: column;
+
+  @include for-size(tablet-landscape-up) {
+    flex-flow: row;
+
+    .event-image {
+      width: 228px;
+      height: 205px;
+    }
+
+    .image-text {
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @include for-size(desktop-up) {
+    .event-image {
+      width: 350px;
+      height: 315px;
+    }
+
+    .image-text {
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  .carousel-item {
+    margin-bottom: $margin;
+
+    @include for-size(tablet-landscape-up) {
+      margin-bottom: 0;
+    }
+  }
 }
 
 @keyframes carouselOn {
@@ -125,6 +162,10 @@ $menuBarWidth: 59px;
   font-size: 2em;
   box-sizing: border-box;
   cursor: pointer;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
 }
 
 .carousel-button-left {

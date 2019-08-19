@@ -259,13 +259,18 @@ $eventImageHeight: 315px;
 $eventImageHeightLarge: 415px;
 
 .event-image {
-  width: $eventImageWith;
-  height: $eventImageHeight;
+  width: 298px;
+  height: 268px;
   background-size: cover;
   padding: $padding;
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
+
+  @include for-size(tablet-portrait-up) {
+    width: $eventImageWith;
+    height: $eventImageHeight;
+  }
 }
 
 .event-image-large {
@@ -281,7 +286,13 @@ $eventImageHeightLarge: 415px;
   flex-direction: column;
   h2 {
     color: white;
-    font-weight: normal;
+    font-weight: bold;
+    font-size: 1.1rem;
+
+    @include for-size(tablet-portrait-up) {
+      font-weight: normal;
+      font-size: 1.6rem;
+    }
   }
   span {
     font-size: 1.1em;
@@ -294,10 +305,14 @@ $infoHeight: 90px;
 
 .event-item {
   display: flex;
-  padding-left: ($lateralSpace + $largeMargin);
+  padding-left: $padding;
   box-sizing: border-box;
   align-items: center;
   margin-bottom: $margin;
+
+  @include for-size(tablet-landscape-up) {
+    padding-left: ($lateralSpace + $largeMargin);
+  }
 
   &-day {
     font-size: 1.7em;
@@ -313,6 +328,11 @@ $infoHeight: 90px;
 
     h4 {
       margin-bottom: 0;
+      font-size: 0.9rem;
+
+      @include for-size(tablet-landscape-up) {
+        font-size: 1.6rem;
+      }
     }
   }
 }

@@ -291,11 +291,22 @@ $inputHeight: 72px;
 /* Speaker Item */
 .speaker-item {
   display: flex;
-  padding-left: ($lateralSpace + $largeMargin);
+  padding-left: $smallPadding;
   box-sizing: border-box;
   align-items: center;
   margin-top: $largeMargin;
   margin-bottom: $margin;
+
+  h4 {
+    font-size: 0.9rem;
+    @include for-size(tablet-landscape-up) {
+      font-size: 1.6rem;
+    }
+  }
+
+  @include for-size(tablet-landscape-up) {
+    padding-left: ($lateralSpace + $largeMargin);
+  }
 
   &-info {
     background-color: $lightBlue;
