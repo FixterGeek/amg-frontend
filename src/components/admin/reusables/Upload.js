@@ -33,7 +33,9 @@ export default function Upload({
     }, [preview])
 
     function handleFile(e) {
+
         let file = e.target.files[0]
+        if(!file) return
         if (file && file.type === "application/pdf") {
             setImageURL(file.name)
             onChange(file)

@@ -5,6 +5,7 @@ import {
     Modal,
     Select,
     DatePicker,
+    TimePicker,
 } from 'antd'
 import moment from 'moment'
 import Upload from './Upload';
@@ -26,6 +27,7 @@ export default function ActivityModal({
     }, [item])
 
     function onChange({ target: { name, value } }) {
+        console.log(name,value)
         setItem({ ...item, [name]: value })
     }
 
@@ -128,6 +130,16 @@ export default function ActivityModal({
                         format="LL"
                         value={moment(item.date)}
                         onChange={value => onChange({ target: { name: "date", value: moment(value).toString() } })}
+                    /><br/>
+                    <b>Hora de Inicio</b>
+                    <TimePicker
+                        value={moment(item.startTime)}                                        
+                        onChange={value => onChange({ target: { name: "startTime", value: moment(value).toString() } })}
+                    /><br/>
+                    <b>Hora de Fin</b>
+                    <TimePicker
+                        value={moment(item.endTime)}                                         
+                        onChange={value => onChange({ target: { name: "endTime", value: moment(value).toString() } })}
                     />
 
                 </div>
