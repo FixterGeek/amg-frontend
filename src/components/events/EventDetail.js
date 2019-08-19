@@ -114,7 +114,7 @@ function EventDetail({
             <AmgButton
               width="100%"
               bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}
-              disabled={assistedEvents.includes(state._id) || !(user.userStatus === 'Aprobado')}
+              disabled={assistedEvents.includes(state._id) || (user.userStatus === 'No Aprobado')}
               onClick={subscribeToEvent} >
               { assistedEvents.includes(state._id) ? 'Inscrito' : 'Inscribirme'}
             </AmgButton>
