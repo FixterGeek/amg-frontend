@@ -268,7 +268,7 @@ export function saveTestEpic(action$, state$) {
             }            
             return concat(
                 //of(setFetchingUser()),
-                ajax.post(baseURL + "/exams", action.payload._id, { "Authorization": token, "Content-Type":"application/json" }).pipe(
+                ajax.post(baseURL + "/exams", action.payload, { "Authorization": token, "Content-Type":"application/json" }).pipe(
                     map(resp => {                        
                         //localStorage.authToken = resp.response.token
                         toastr.success("Nuevo Evento Guardado")

@@ -25,8 +25,6 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
         if (id) {
             getSingleTest(id)
             setHeader("Editar Test " + test.title)
-        }else{
-            resetTest()
         }
     }, [])
 
@@ -102,10 +100,10 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         style={{ width: 300 }}
                     />
                 </div>
-                <div className="admin-form-group">
-                    <b>Fecha</b>
+                <div className="admin-form-group">    
+                    <b>Fecha</b>                
                     <DatePicker
-                        className="test-input"
+                        className="test-input"               
                         label="Fecha"
                         onChange={m => handleDate(m, "date")}
                         style={{ width: 300 }}
@@ -120,16 +118,16 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                     <TimePicker
                         className="test-input"
                         onChange={m => handleDate(m, "startTime")}
-                        placeholder="Selecciona la hora de inicio"
-                        style={{ width: 150 }}
+                        placeholder="Inicio"
+                        style={{ width: 130 }}
                         value={test.startTime ? moment(test.startTime) : null}
                     />
                     <span>A</span>        
                     <TimePicker
                         className="test-input"
                         onChange={m => handleDate(m, "endTime")}
-                        placeholder="Selecciona la hora de fin"
-                        style={{ width: 150 }}
+                        placeholder="Final"
+                        style={{ width: 130 }}
                         value={test.endTime ? moment(test.endTime) : null}
                     />
                 </div>
