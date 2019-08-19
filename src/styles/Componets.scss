@@ -376,4 +376,10 @@ $eventLeftWidth: 350px;
     padding-left: $extraPadding;
     padding-right: $extraPadding;
   }
+
+  @include for-size(big-desktop-up) {
+    padding-top: $largePadding;
+    padding-left: ($extraPadding * 2);
+    padding-right: $extraPadding;
+  }
 }
