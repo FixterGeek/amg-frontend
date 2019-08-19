@@ -6,10 +6,10 @@ import LateralMenu from '../organisms/LateralMenu';
 
 function DashBoard() {
   return (
-    <FullScreenContainer alignItems="flex-start">
+    <div className="dashboard-screen">
       <DashBoardRouter />
       <LateralMenu />
-    </FullScreenContainer>
+    </div>
   );
 }
 

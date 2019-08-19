@@ -73,10 +73,12 @@
 
 /* Dashboard */
 .dashboard-container {
-  width: 100%;
-  padding-left: $lateralSpace;
+  flex-grow: 1;
   box-sizing: border-box;
   position: relative;
+  @include for-size(tablet-landscape-up) {
+    padding-left: $lateralSpace;
+  }
 }
 
 .dashboard-container-item {
@@ -95,6 +97,11 @@ $eventLeftWidth: 350px;
 
 .event-details {
   display: flex;
+  flex-flow: column;
+
+  @include for-size(tablet-landscape-up) {
+    flex-flow: row;
+  }
 
   .left {
     width: $eventLeftWidth;
@@ -104,7 +111,11 @@ $eventLeftWidth: 350px;
   .right {
     flex-grow: 1;
     box-sizing: border-box;
-    padding-left: $largePadding;
+    padding-left: 0;
+
+    @include for-size(tablet-landscape-up) {
+      padding-left: $largePadding;
+    }
 
     &-button {
       display: flex;
@@ -160,12 +171,6 @@ $eventLeftWidth: 350px;
   align-items: center;
   background-color: $clouds;
 }
-
-/* SignupContainer */
-  .signup-container {
-    display: flex;
-  }
-
 
 
   /*MainProfile*/
@@ -239,13 +244,22 @@ $eventLeftWidth: 350px;
     background-color: $secondary;
     padding: $largePadding $padding;
     box-sizing: border-box;
+    display: none;
+
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
   }
 
   &-rigth {
     flex-grow: 1;
     box-sizing: border-box;
-    padding-left: (325px + $extraPadding);
+    padding-left: $padding;
     padding-right: $largePadding;
+
+    @include for-size(tablet-landscape-up) {
+      padding-left: (325px + $extraPadding);
+    }
   }
 }
 
@@ -300,5 +314,66 @@ $eventLeftWidth: 350px;
     align-items: center;
     flex-flow: column;
     margin-top: 5%;
+  }
+}
+
+/* LateralMenu */
+.component-lateral-menu {
+  position: fixed;
+  top: 0;
+  left: -81px;
+  bottom: 0;
+  height: 100vh;
+  background-color: $secondary;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+
+  @include for-size(tablet-landscape-up) {
+    left: 0;
+  }
+
+  .ant-menu {
+    background-color: $secondary;
+
+    .ant-menu-item {
+      color: white;
+    }
+
+    .ant-menu-item-selected {
+      background-color: $secondary;
+    }
+  }
+
+  &-icon {
+    position: fixed;
+    top: $padding;
+    left: $largePadding - 5px;
+    font-size: 1.5rem;
+    color: $primary;
+
+    @include for-size(tablet-landscape-up) {
+      display: none;
+    }
+  }
+}
+
+.dashboard-screen {
+  min-height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+  padding: $padding;
+  padding-top: $extraPadding;
+
+  @include for-size(tablet-portrait-up) {
+    padding-top: $extraPadding;
+    padding-left: $largePadding;
+    padding-right: $largePadding;
+  }
+
+  @include for-size(tablet-landscape-up) {
+    padding-top: $largePadding;
+    padding-left: $extraPadding;
+    padding-right: $extraPadding;
   }
 }
