@@ -65,7 +65,10 @@ function Program({ history, events, user }) {
               <div>
                 {
                   modul.activities.map((activity) => {
-                    const speakers = activity.speakers.map(speaker => `${speaker.fullName} `);
+                    let speakers = activity.speakers.map(speaker => {
+                      if (speaker.fullName) return `${speaker.fullName}`;
+                      return ' ';
+                    });
                     return (
                       <ActivityItem
                         className={
