@@ -15,11 +15,11 @@ function Settings({ user }) {
         <Title>Ajustes de la cuenta</Title>
       </DashboardContainerItem>
       <DashboardContainerItem>
-        <Title level={3}>Membresia</Title>
+        <Title level={3}>Membresía</Title>
       </DashboardContainerItem>
       {
         user.userStatus === 'Aprobado'
-          ? <MembershipCards user={user} /> : 'Tu cuenta aun no a sido aprobada!'
+          ? <MembershipCards user={user} /> : '¡Tu cuenta aún no ha sido aprobada!'
       }
     </div>
   );

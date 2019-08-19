@@ -11,11 +11,8 @@ import FileItem from '../components/feed/reusables/FileItem';
 
 
 function PostItem({ publication }) {
-  const {
-    text, updatedAt, _id, liked,
-    imagesURLS = [], user, docsURLS = [],
-  } = publication;
-  const { basicData = {} } = user;
+  const {text, updatedAt, _id, liked,imagesURLS = [], user={}, docsURLS = []} = publication;
+  const { basicData = {} } = user||{};
   const { photoURL = null, name = '', dadSurname = '' } = basicData;
   const { Title, Text } = Typography;
 
