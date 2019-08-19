@@ -75,7 +75,8 @@ function Program({ history, events, user }) {
                           user.assistedActivities.includes(activity._id) ? 'bg-green' : ''
                         }
                         key={activity._id}
-                        hour={moment(activity.date).format('hh:mm a')}
+                        hour={moment(activity.startTime).format('hh:mm a')}
+                        hour2={moment(activity.endTime).format('hh:mm a')}
                         title={activity.activityName}
                         level1={speakers.join()}
                         level2={activity.address || activity.type}
