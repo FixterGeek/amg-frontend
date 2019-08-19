@@ -126,6 +126,11 @@ function GeneralDataForm({
         name="state"
         label="Estado"
         options={states}
+        optionFilterProp="children"
+        showSearch
+        filterOption={(input, option) =>
+          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }
       />
 
       <Label>Especialidad</Label>

@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { Select } from 'antd';
 
 function SelectField({
-  options, onChange, status, value, useKeys
+  options, onChange, status, value, useKeys, ...others
 }) {
   const { Option } = Select;
   return (
     <Select
+      { ...others }
       value={value}
       className={`select-field select-${status}`}
       onChange={onChange ? (value, event) => onChange(value, event) : null}>
