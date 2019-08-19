@@ -227,5 +227,57 @@
 
 .admin-page-container{
     padding-left: 150px;
+    padding-right: 50px;
     height: 100%;
+}
+
+/*tests*/
+
+.test-input{
+    box-sizing: border-box;
+    height: 50px;
+    padding: 10px 30px;
+    width:100%;
+    border:none;
+    margin:10px 5px;
+    background-color:#f5f8f9;
+    outline: none !important;
+}
+.test-input div, .test-input input{
+    background: transparent;    
+    border:none;
+    outline: none !important;
+    width: 100%;
+}
+
+.test-question-form{
+    margin-bottom: 20px
+}
+/* .test-input.question{} */
+.test-input.answer{
+    background-color: #eaf0f7
+}
+
+.test-hover:hover > .buttons{
+    opacity: 1;
+}
+.test-hover{
+    position: relative;
+}
+
+.test-hover > .buttons{    
+    transition: .3s all ease;
+    position: absolute;
+    top:20px;
+    right:20px;
+    opacity: 0;
+    z-index: 5;
+}
+.tests-right-button{
+    display:flex;
+    justify-content: flex-end;
+}
+.tests-center-button{
+    display:flex;
+    justify-content: center;
 }

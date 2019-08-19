@@ -36,12 +36,12 @@ export const getSingleActivity = async (activityId) => {
 };
 
 
-export const assistAnEvent = (eventId) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+export const assistAnEvent = async (eventId) => {
+  const token = await localStorage.getItem('authToken');
 
   return axios.post(`${APIURL}/${eventId}/assist`, null, {
     headers: {
-      Authorization: user.token,
+      Authorization: token,
     },
   }).then(({ data }) => data);
 };

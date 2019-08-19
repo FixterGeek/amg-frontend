@@ -29,7 +29,7 @@ function PersonalEducation({ user, externalUser = null, createEducationAction })
     <DashboardContainerItem className="personal-title  relative">
       <Title>Educación</Title>
       <Button onClick={() => setOpen(true)} marginTop="0px" className="reusable-save-button" line>
-        Agregar
+        Agregar ✚
       </Button>
 
       <Modal

@@ -43,8 +43,7 @@ const GET_ADMIN_EVENTS_ERROR = 'GET_ADMIN_EVENTS_ERROR';
 
 // actionCreators
 
-
-export function getAdminEvents() {
+export function getAdminEvents() {  
   return { type: GET_ADMIN_EVENTS };
 }
 export function getAdminEventsError(err) {
@@ -74,7 +73,7 @@ export function populateEventsError(payload) {
 }
 
 // observable
-export function getAdminEventsEpic(action$, state$) {
+export function getAdminEventsEpic(action$, state$) {  
   return action$.pipe(
     ofType(GET_ADMIN_EVENTS),
     //debounceTime(500),
@@ -84,7 +83,7 @@ export function getAdminEventsEpic(action$, state$) {
       return concat(
         //of(setFetchingUser()),
         ajax.get(`${baseURL}events/`, { "Authorization": token }).pipe(
-          map(resp => {
+          map(resp => {            
             return getAdminEventsSuccess([...resp.response])
           }),
           //delay(5000),

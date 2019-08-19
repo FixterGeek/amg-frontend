@@ -16,7 +16,7 @@ const GeneralData = () => {
     <div className="signup-container">
       <div className="signup-container-left">
         <Gastro />
-        <Steper alignItems="center" />
+        {/* <Steper alignItems="center" /> */}
       </div>
 
       <div className="signup-container-rigth">

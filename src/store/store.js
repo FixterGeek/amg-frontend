@@ -14,6 +14,7 @@ import institutionsDuck from './ducks/institutionsDuck';
 import activitiesDuck from './ducks/activitiesDuck';
 import educationDuck from './ducks/educationDuck';
 import configReducer from './ducks/configDuck'
+import testsDuck,{saveTestEpic, getAllTestsEpic, getSingleTestEpic, deleteTestEpic} from './ducks/testsDuck'
 import adminReducer, { saveDraftEventEpic, getSingleEventEpic } from './ducks/adminDuck'
 
 let rootReducer = combineReducers({
@@ -27,6 +28,7 @@ let rootReducer = combineReducers({
     institutions: institutionsDuck,
     activities: activitiesDuck,
     education: educationDuck,
+    tests:testsDuck
 });
 
 
@@ -39,7 +41,11 @@ const rootEpic = combineEpics(() => of({ type: "EPIC" }),
     getUsersEpic,
     saveDraftEventEpic,
     getSingleEventEpic,
-    getAdminEventsEpic
+    getAdminEventsEpic,
+    saveTestEpic,
+    getAllTestsEpic,
+    getSingleTestEpic,
+    deleteTestEpic
 )
 
 const epicMiddleware = createEpicMiddleware();

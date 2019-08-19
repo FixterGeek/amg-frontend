@@ -36,7 +36,7 @@ function LaboralExperience({ user, createActivityAction, pushLastInstitution }) 
     <ContainerItem className="relative">
       <Title>Experiencia profesional</Title>
       <Button onClick={() => setOpen(true)} marginTop="0px" className="reusable-save-button" line>
-        Agregar
+        Agregar ✚
       </Button>
 
       <Modal

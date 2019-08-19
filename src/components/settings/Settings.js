@@ -18,7 +18,7 @@ function Settings({ user }) {
         <Title level={3}>Membresia</Title>
       </DashboardContainerItem>
       {
-        user.userSatus === 'Aprobado'
+        user.userStatus === 'Aprobado'
           ? <MembershipCards user={user} /> : 'Tu cuenta aun no a sido aprobada!'
       }
     </div>

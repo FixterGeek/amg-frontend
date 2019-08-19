@@ -16,21 +16,20 @@ function MembershipCards({ user }) {
 
   return (
     <DashboardContainerItem className="membership-cards-container">
-      <Link to="/signup">
-        <MembershipCard
-          onMouseOver={() => {
-            if (checked !== 'Free') setChecked('Free');
-          }}
-          onMouseOut={handleMouseOut}
-          checked={checked === 'Free'}
-          name="Free"
-          price="Gratis"
-          points={[
-            'Vista previa de revista',
-            'Vista previa de eventos',
-            'Registro a eventos con pagos de cuotas online',
-          ]} />
-      </Link>
+      <MembershipCard
+        onMouseOver={() => {
+          if (checked !== 'Free') setChecked('Free');
+        }}
+        onMouseOut={handleMouseOut}
+        checked={checked === 'Free'}
+        name="Free"
+        price="Gratis"
+        points={[
+          'Vista previa de revista',
+          'Vista previa de eventos',
+          'Registro a eventos con pagos de cuotas online',
+        ]}
+      />
       <Link to="/dashboard/payment/socio">
         <MembershipCard
           onMouseOver={() => {
