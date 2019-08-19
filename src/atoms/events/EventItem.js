@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
-function EventItem({ time, title, level1, level2, to, state, className }) {
+function EventItem({ time, title, level1, level2, to, state, className ,hour2}) {
   const { Title, Text } = Typography;
 
   return (
     <div className="event-item">
-      <div className="event-item-day">{ time }</div>
+      <div className="event-item-day">{ time } - { hour2 }</div>      
       <div className={`event-item-info ${className}`}>
         <Link to={{ pathname: `${to}`, state }}>
           <div>
