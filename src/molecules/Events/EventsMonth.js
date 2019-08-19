@@ -27,6 +27,7 @@ function EventsMonth({ month, events }) {
                 <EventItem
                   key={event._id}
                   time={moment(event.startDate).format('DD')}
+                  hour2={moment(event.endDate).format('DD')}
                   title={event.title}
                   level1={event.location.addressName}
                   level2={moment(event.startDate).format('dddd DD [de] MMMM')}
