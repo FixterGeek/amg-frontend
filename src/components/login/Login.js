@@ -12,36 +12,22 @@ import log from "../../assets/LOGO-COMPLETO.svg";
 function Login() {
   const { Text, Title } = Typography;
   return (
-    <FullScreenContainer
-      lateralSpace="0px"
-      paddingTop="0px"
-      paddingBottom="0px"
-      flexWrap="nowrap"
-    >
-      <Container className="login-left" width="50%">
-        <Container
-          alignItems="flex-start"
-          paddingTop={size.largePadding}
-          paddingBottom={size.largePadding}
-          style={{
-            maxWidth: '445px',
-            maxHeight: '100vh',
-            flexDirection: 'column',
-          }}
-        >
-          <Link to="/">
+    <div className="component-login">
+      <div className="component-login-left">
+        <div className="component-login-form-container">
+          <Link to="/" className="component-login-logo">
             <img src={log} alt="logo-oficial"/>
           </Link>
-          <Container flexGrow={1} height="100px">
+          <div>
             <div style={{ textAlign: 'center' }}>
               <Title level={2} style={{ margin: 0 }}>
                 Bienvenido
               </Title>
               <Text>Ingresa a tu cuenta</Text>
             </div>
-          </Container>
-          <Container alignItems="flex-start" flexGrow={5} height="auto">
-            <LoginForm />
+          </div>
+          <div className="component-login-form">
+            <LoginForm className="component-login-form" />
             <Text strong>
               ¿No tienes cuenta?
               <Link
@@ -50,22 +36,17 @@ function Login() {
                   creala aquí
               </Link>
             </Text>
-          </Container>
-        </Container>
-      </Container>
-      <Container
-        className="login-right"
-        bgColor={palette.secondary}
-        height="100vh"
-        width="50%"
-      >
+          </div>
+        </div>
+      </div>
+      <div className="component-login-rigth">
         <div className="login-lib">
           <div className="cover">
             <div className="login-logo" />
           </div>
         </div>
-      </Container>
-    </FullScreenContainer>
+      </div>
+    </div>
   );
 }
 

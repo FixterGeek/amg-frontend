@@ -13,7 +13,7 @@ import { loginUser } from '../store/ducks/userDuck'
 
 function LoginForm(props) {
   // eslint-disable-next-line react/prop-types
-  const { history, fetching, isLogged, error } = props;
+  const { history, fetching, isLogged, error, className } = props;
   const [auth, setAuth] = useState({
     email: null,
     password: null,
@@ -34,10 +34,10 @@ function LoginForm(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
+    <form onSubmit={handleSubmit} className={`${className}`}>
       {fetching && <Spinner tip="Iniciando sesión..." />}
       <TextField
-        width="100%"
+        style={{ width: '100%' }}
         // error={error}
         // errorMessage={error}
         value={auth.email}
@@ -46,7 +46,7 @@ function LoginForm(props) {
         label="Correo" />
       <TextField
         password
-        width="100%"
+        style={{ width: '100%' }}
         error={error}
         errorMessage={error}
         value={auth.password}

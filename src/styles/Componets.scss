@@ -248,3 +248,54 @@ $eventLeftWidth: 350px;
     padding-right: $largePadding;
   }
 }
+
+.component-login {
+  min-height: 100vh;
+  min-width: 100vw;
+  box-sizing: border-box;
+
+  @include for-size(tablet-landscape-up) {
+    display: flex;
+  }
+
+  &-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+  }
+
+  &-left {
+    padding: $padding;
+    @include for-size(tablet-landscape-up) {
+      max-width: 50%;
+      width: 50%;
+    }
+  }
+
+  &-rigth {
+    display: none;
+    width: 50%;
+    max-width: 50%;
+    min-height: 100vh;
+    @include for-size(tablet-landscape-up) {
+      display: flex;
+    }
+  }
+
+  &-logo {
+    img {
+      width: 80vw;
+      @include for-size(tablet-landscape-up) {
+        width: auto;
+      }
+    }
+  }
+
+  &-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+  }
+}
