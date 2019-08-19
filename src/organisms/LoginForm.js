@@ -20,7 +20,7 @@ function LoginForm(props) {
   });
 
   useEffect(() => {
-    if (isLogged) history.push("/dashboard")
+    if (isLogged) history.push("/dashboard/events")
   }, [isLogged]);
 
   const handleChange = (event) => {

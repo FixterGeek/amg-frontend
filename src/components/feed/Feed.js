@@ -27,7 +27,7 @@ function Feed({
 
   useEffect(() => {
     if (user.membershipStatus === 'Free') {
-      infoAlert({ text: 'No cuentas con los privilegios para acceder al Feed' });
+      infoAlert({ text: 'La sección de Publicaciones estará disponible en la siguiente versión' });
       history.push('/dashboard/events')
     }
   }, [user]);

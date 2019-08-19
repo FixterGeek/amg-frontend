@@ -124,7 +124,7 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
               <div>
                 <AmgButton
                   bgColor={soulout ? 'red' : registered ? 'green' : 'secondary'}
-                  disabled={registered || soulout || !(user.userStatus === 'Aprobado')}
+                  disabled={registered || soulout || (user.userStatus === 'No Aprobado')}
                   width="100%"
                   onClick={() => subscribeToActivity(activity._id)}>
                   { soulout ? 'Actividad agotada' : registered ? 'Inscrito' : 'Inscribirme' }
