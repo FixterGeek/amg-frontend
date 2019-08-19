@@ -27,6 +27,20 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
         }
     }, [])
 
+    
+    const handleImage=(img,keyQuestion)=>{        
+        const question = {...test.questions[keyQuestion]}        
+        question.imageURL = img
+        test.questions.splice(keyQuestion,1,question)        
+        writingTest(test) 
+    }
+    const handleOpen=(open,keyQuestion)=>{
+        const question = {...test.questions[keyQuestion]}        
+        question.open = open
+        test.questions.splice(keyQuestion,1,question)        
+        writingTest(test)
+    }
+
     const addQuestion=()=>{
         const newQuestion = {
             question:'',
@@ -37,15 +51,13 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
         writingTest(test)
     }
 
-    const deleteQuestion=(idx)=>{
-        console.log('deleting')      
+    const deleteQuestion=(idx)=>{        
         test.questions.splice(idx,1)
         writingTest(test)
     }
 
     
-    const handleSubmit=(e, redirect=false)=>{
-        console.log(e)
+    const handleSubmit=(e, redirect=false)=>{        
         if(redirect){                       
             saveTest(test)
             history.push('/admin/tests')         
@@ -86,7 +98,10 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
                 <button onClick={(e)=>handleSubmit(e)}>Guardar como borrador </button>
             </div>
             <div>
-                <QuestionFormInput 
+                <QuestionFormInput
+                    {...test}                    
+                    handleOpen={handleOpen}
+                    handleImage={handleImage}
                     handleCorrectAnswer={handleCorrectAnswer}
                     questions={test.questions} 
                     handleChange={handleChange} 

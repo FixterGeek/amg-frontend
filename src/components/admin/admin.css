@@ -235,7 +235,7 @@
 
 .test-input{
     box-sizing: border-box;
-    height: 50px;
+    min-height: 50px;
     padding: 10px 30px;
     width:100%;
     border:none;
@@ -280,4 +280,13 @@
 .tests-center-button{
     display:flex;
     justify-content: center;
+}
+
+.center-image-upload{
+    box-sizing: border-box;
+    display:flex;
+    justify-content: center;
+    background-color:#f5f8f9;    
+    padding: 10px 30px;
+    margin:10px 5px;
 }
