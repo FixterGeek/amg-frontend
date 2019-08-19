@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Radio} from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSave, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import Upload from './reusables/Upload'
+import ImageGalleryPicker from './reusables/ImageGalleryPicker'
 
-const QuestionFormInput = ({questions=[], handleChange, deleteQuestion, handleCorrectAnswer, handleChangeAnswer}) => {
+const QuestionFormInput = ({_id,questions=[], handleChange, deleteQuestion, handleCorrectAnswer, handleChangeAnswer, handleImage, handleOpen}) => {
+
+
     return (
         <>
             {questions.map((q, keyQuestion)=>(
@@ -16,6 +20,15 @@ const QuestionFormInput = ({questions=[], handleChange, deleteQuestion, handleCo
                             value={q.question}                            
                             placeholder="Texto de la Pregunta"                            
                         /><br/>
+                        <div className="center-image-upload">
+                            <b>Imágen</b>
+                            <Upload onClick={()=>handleOpen(true,keyQuestion)} preview={q.imageURL?q.imageURL:null}/>
+                            <ImageGalleryPicker                        
+                            visible={q.open}
+                            refName={`tests/${_id}}`}
+                            onClose={()=>handleOpen(false,keyQuestion)} 
+                            onChange={(img)=>handleImage(img,keyQuestion)}/>
+                        </div>
                         <b>Respuestas</b>
                         <Radio.Group onChange={handleCorrectAnswer} name={keyQuestion} defaultValue={q.correct} style={{width:'100%'}}>
                         {q.answers.map((a, keyAnswer)=>(
