@@ -10,8 +10,6 @@ import logo1 from "../../assets/Logo_Faes_CVS.png"
 import logo2 from "../../assets/Logo Liomont 2017.png"
 import logo3 from "../../assets/logo takeda.png"
 import logo4 from "../../assets/Gastro Asofarma_logo.png"
-import master from '../../assets/master.mp4'
-import Mask from '../../assets/Mask.png'
 
 
 import "./Home.css";
@@ -24,8 +22,8 @@ class HomeContainer extends Component {
         <NavBar />
         <section className="welcome">
           <div className="video-bg">
-            <video autoPlay loop>
-              <source src={master} />
+            <video autoPlay loop name="media">
+              <source src="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/master.mp4?alt=media&token=5ed271b5-3321-4daa-8a78-99d6497e45d9" />
             </video>
           </div>
           <div className="cover">
