@@ -9,6 +9,7 @@ import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
 import Tabs from './reusables/Tabs';
 import PostItem from '../../molecules/PostItem';
+import BasicInformationUser from './reusables/BasicInformationUser';
 
 function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   const { Title, Text } = Typography;
@@ -35,30 +36,7 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   return (
     <div className="dashboard-container component-main-profile">
       <Title>Perfil</Title>
-      <DashboardContainerItem className="info">
-        <Link to="/dashboard/perfil/editar">
-          <Icon className="edit" type="edit" />
-        </Link>
-        <div>
-          <ProfilePhoto photoURL={photoURL} />
-        </div>
-        <Title level={4}>{`${name} ${dadSurname} ${momSurname}`}</Title>
-        <Text>{ membershipStatus }</Text>
-        <Text>{ speciality }</Text>
-
-        <div className="follows">
-          <div>
-            Seguidores
-            <span>{ followers.length }</span>
-          </div>
-          <div>
-            Sigues
-            <span>
-              { following.length }
-            </span>
-          </div>
-        </div>
-      </DashboardContainerItem>
+      <BasicInformationUser user={user} editableLink />
 
       <Tabs headers={['Mis Pagos', 'Mis constancias']} />
 
