@@ -24,7 +24,7 @@ class HomeContainer extends Component {
         <NavBar />
         <section className="welcome">
           <div className="video-bg">
-            <video autoPlay loop poster={Mask}>
+            <video autoPlay loop>
               <source src={master} />
             </video>
           </div>
