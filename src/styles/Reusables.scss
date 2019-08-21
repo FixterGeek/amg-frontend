@@ -126,4 +126,11 @@
   background-image: url('../assets/Mask.png');
   background-size: cover;
   background-position: center;
+
+  @media (min-width: 1440px) {
+    background-image: url('../assets/bg4k.png');
+    video {
+      display: none;
+    }
+  }
 }
