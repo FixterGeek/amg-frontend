@@ -595,11 +595,12 @@ Footer*/
 
 @media(max-width: 768px){
     .desk {
-        display: block;
+        display: none;
     }
 
     .mobile {
-        display: none;
+        display: block;
+        min-height: 100vh;
     }
 
 
