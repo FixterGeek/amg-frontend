@@ -539,14 +539,47 @@ Footer*/
     background-size: cover;
 }
 
+.video-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-image: url("../../assets/bg4k.png");
+    background-size: cover;
+    background-position: center;
+}
 
-@media(min-width: 1450px) {
+.desk {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+
+
+@media(min-width: 1440px) {
     .login-left img{
         margin-bottom: 100px;
     }
     .bt{
         margin-bottom: 100px;
     }
+    .desk{
+        display: none;
+    }
+   /* .video-bg{
+        background-image: url('../../assets/bg4k.png');
+    }*/
+    /*.desk, .mobile {
+           display: none;
+       }*/
 }
 @media(max-width: 1024px){
     .cover h1 {
@@ -555,9 +588,21 @@ Footer*/
     .about .people {
         margin-bottom: 32px;
     }
+  /*  .video-bg{
+         background-image: url('../../assets/Mask.png');
+     }*/
 }
 
 @media(max-width: 768px){
+    .desk {
+        display: block;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+
     .cover h1 {
         font-family: Avenir-black;
         color: white;
@@ -677,6 +722,8 @@ Footer*/
     .left{
         margin-right: 0px;
     }
+
+
 
 
 }
