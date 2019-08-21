@@ -127,9 +127,28 @@
   background-size: cover;
   background-position: center;
 
+  .desk {
+    display: none;
+  }
+
+  .mobile {
+    min-height: 100vh;
+  }
+
+  @include for-size(tablet-landscape-up) {
+    background-image: url('../assets/Mask.png');
+    .desk {
+      display: block;
+    }
+
+    .mobile {
+      display: none;
+    }
+  }
+
   @media (min-width: 1440px) {
     background-image: url('../assets/bg4k.png');
-    video {
+    .desk, .mobile {
       display: none;
     }
   }
