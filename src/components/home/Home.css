@@ -549,16 +549,17 @@ Footer*/
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    background-image: url('../../assets/Mask.png');
+    background-image: url("../../assets/bg4k.png");
     background-size: cover;
     background-position: center;
 }
+
 .desk {
-    display: none;
+    display: block;
 }
 
 .mobile {
-    min-height: 100vh;
+    display: none;
 }
 
 
@@ -570,12 +571,15 @@ Footer*/
     .bt{
         margin-bottom: 100px;
     }
-    .video-bg{
-        background-image: url('../../assets/bg4k.png');
+    .desk{
+        display: none;
     }
-    .desk, .mobile {
+   /* .video-bg{
+        background-image: url('../../assets/bg4k.png');
+    }*/
+    /*.desk, .mobile {
            display: none;
-       }
+       }*/
 }
 @media(max-width: 1024px){
     .cover h1 {
@@ -584,6 +588,9 @@ Footer*/
     .about .people {
         margin-bottom: 32px;
     }
+  /*  .video-bg{
+         background-image: url('../../assets/Mask.png');
+     }*/
 }
 
 @media(max-width: 768px){
@@ -594,9 +601,7 @@ Footer*/
     .mobile {
         display: none;
     }
-    .video-bg{
-        background-image: url('../../assets/Mask.png');
-}
+
 
     .cover h1 {
         font-family: Avenir-black;
@@ -717,6 +722,8 @@ Footer*/
     .left{
         margin-right: 0px;
     }
+
+
 
 
 }
