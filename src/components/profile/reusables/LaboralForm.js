@@ -60,6 +60,7 @@ function LaboralForm({
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
 
+
   console.log(activity)
 
 
@@ -73,7 +74,7 @@ function LaboralForm({
         returnIndex
         value={activity.institution}
         options={institutionsArray}
-        label="intitución" />
+        label="Instituciones" />
       <div>
         <Label>Institución propia</Label>
         {
@@ -109,6 +110,8 @@ function LaboralForm({
       }
       <RangeDatePicker
         onChange={handleDate}
+        format="MM/YYYY"
+        onlyMonth
         label="Periodo"
         dateOne={activity.startDate}
         dateTwo={activity.endDate} />

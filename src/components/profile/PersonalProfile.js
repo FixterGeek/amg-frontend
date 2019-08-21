@@ -33,7 +33,6 @@ function PersonalProfile({
   }, []);
 
   const handleSaveBio = bio => {
-    console.log(bio);
     updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
   };
 
@@ -61,10 +60,13 @@ function PersonalProfile({
           studies.map(study => (
             <BoxItem
               title={study.major || study.institution.name}
-              level1={study.institution.name}
+              level1={study.institution.name || ' '}
               level2={
-                `${moment(study.startDate).format('YYY')} - ${moment(study.endDate).format('YYYY')}`
-            } />
+                `${moment(study.startDate).format('MMMM[ de ]YYYY')}
+                  -
+                ${study.endDate === 'Actualidad' ? 'Actualidad' : moment(study.endDate).format('MMMM[ de ]YYYY')}`
+              }
+            />
           ))
         }
 
@@ -76,10 +78,13 @@ function PersonalProfile({
             <BoxItem
               key={internship._id}
               title={internship.institution.name}
-              level1={internship.institution.name}
+              level1={internship.institution.name || ' '}
               level2={
-                `${moment(internship.startDate).format('YYY')} - ${moment(internship.endDate).format('YYYY')}`
-            } />
+                `${moment(internship.startDate).format('MMMM[ de ]YYYY')}
+                  -
+                ${internship.endDate === 'Actualidad' ? 'Actualidad' : moment(internship.endDate).format('MMMM[ de ]YYYY')}`
+              }
+            />
           ))
         }
 
@@ -91,10 +96,13 @@ function PersonalProfile({
             <BoxItem
               key={residence._id}
               title={residence.speciality || residence.institution.name}
-              level1={residence.institution.name}
+              level1={residence.institution.name || ' '}
               level2={
-                `${moment(residence.startDate).format('YYY')} - ${moment(residence.endDate).format('YYYY')}`
-            } />
+                `${moment(residence.startDate).format('MMMM[ de ]YYYY')}
+                  -
+                ${residence.endDate === 'Actualidad' ? 'Actualidad' : moment(residence.endDate).format('MMMM[ de ]YYYY')}`
+              }
+            />
           ))
         }
       </ContainerItem>
@@ -108,10 +116,13 @@ function PersonalProfile({
             <BoxItem
               key={activity._id}
               title={activity.charge || activity.subject || activity.institution.name}
-              level1={activity.institution.name}
+              level1={activity.institution.name || ' '}
               level2={
-                `${moment(activity.startDate).format('YYY')} - ${moment(activity.endDate).format('YYYY')}`
-            } />
+                `${moment(activity.startDate).format('MMMM[ de ]YYYY')}
+                  -
+                ${activity.endDate === 'Actualidad' ? 'Actualidad' : moment(activity.endDate).format('MMMM[ de ]YYYY')}`
+              }
+            />
           ))
         }
       </ContainerItem>

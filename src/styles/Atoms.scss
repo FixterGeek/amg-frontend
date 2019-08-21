@@ -222,6 +222,27 @@ $inputHeight: 50px;
   height: 50px;
   max-width: 445px !important;
   border: 2px solid;
+
+  &-secondary {
+    background-color: $secondary;
+    border-color: $secondary;
+  }
+
+  &-primary {
+    background-color: $primary;
+    border-color: $primary;
+  }
+
+  &-danger {
+    background-color: $red;
+    border-color: $red;
+  }
+
+  &-outline-secondary {
+    background-color: white;
+    border-color: $secondary;
+    color: $secondary;
+  }
 }
 
 /* Layout */
@@ -414,7 +435,7 @@ $profilePhotoSize: 120px;
 .text-n-icon-button {
   margin-top: $largeMargin;
   margin-bottom: $largeMargin;
-  padding-right: $largePadding;
+  padding-right: $smallPadding;
   box-sizing: border-box;
 
   a {

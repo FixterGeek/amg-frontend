@@ -33,16 +33,22 @@ function LaboralExperience({ user, createActivityAction, pushLastInstitution }) 
   };
 
   return (
-    <ContainerItem className="relative">
-      <Title>Experiencia profesional</Title>
-      <Button onClick={() => setOpen(true)} marginTop="0px" className="reusable-save-button" line>
-        Agregar ✚
-      </Button>
+    <ContainerItem className="component-profile-laboral-experience">
+      <div className="component-profile-laboral-experience-header">
+        <Title>Experiencia profesional</Title>
+        <Button onClick={() => setOpen(true)} marginTop="0px" width="180px" line>
+          Agregar ✚
+        </Button>
+      </div>
 
       <Modal
         visible={open}
         onOk={handleSave}
         onCancel={() => setOpen(false)}
+        okButtonProps={{ className: 'amg-button amg-button-secondary' }}
+        cancelButtonProps={{ className: 'amg-button amg-button-outline-secondary' }}
+        okText="Aceptar"
+        cancelText="Cancelar"
       >
         <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
         <CreateInstitution user={user} onResult={handleResult} />

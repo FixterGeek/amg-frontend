@@ -84,6 +84,10 @@ function CreateInstitution({
         onCancel={() => setOpen(false)}
         onOk={handleSave}
         visible={open}
+        okButtonProps={{ className: 'amg-button amg-button-secondary' }}
+        cancelButtonProps={{ className: 'amg-button amg-button-outline-secondary' }}
+        okText="Aceptar"
+        cancelText="Cancelar"
       >
         {
           !disabledOwn && (

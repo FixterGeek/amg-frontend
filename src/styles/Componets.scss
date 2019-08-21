@@ -383,3 +383,12 @@ $eventLeftWidth: 350px;
     padding-right: $extraPadding;
   }
 }
+
+/* LaboralExperience */
+/* PersonalEducation */
+.component-profile-laboral-experience, .component-profile-personal-education {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
