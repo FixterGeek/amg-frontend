@@ -21,6 +21,14 @@ class HomeContainer extends Component {
       <div className="app">
         <NavBar />
         <section className="welcome">
+          <div className="video-bg">
+            <video autoPlay loop name="media" className="desk">
+              <source type="video/mp4" src="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/master.mp4?alt=media&token=5ed271b5-3321-4daa-8a78-99d6497e45d9" />
+            </video>
+            <video autoPlay loop name="media" className="mobile">
+              <source type="video/mp4" src="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/Dwngrade.mov?alt=media&token=ffea4411-fe87-4c5c-8e34-0aafce39ec30" />
+            </video>
+          </div>
           <div className="cover">
             <div className="descript">
               <h1>

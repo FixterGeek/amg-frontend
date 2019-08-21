@@ -85,6 +85,7 @@ function EventDetail({
             icon="micro"
             to={{ pathname: `/dashboard/events/${state._id}/speakers`, state }} />
           <TextNIconButton
+            iconStyle={{ marginRight: '6px' }}
             downloadable
             to={state.permisosURLS[0]}
             event={state}

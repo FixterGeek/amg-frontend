@@ -311,11 +311,11 @@ $infoHeight: 90px;
   margin-bottom: $margin;
 
   @include for-size(tablet-landscape-up) {
-    padding-left: ($lateralSpace + $largeMargin);
+    padding-left: ($lateralSpace);
   }
 
   &-day {
-    font-size: 1.7em;
+    font-size: 1.2rem;
     margin-right: $margin;
   }
 
@@ -325,13 +325,14 @@ $infoHeight: 90px;
     box-sizing: border-box;
     padding: $smallPadding;
     min-height: $infoHeight;
+    max-width: 920px;
 
     h4 {
       margin-bottom: 0;
       font-size: 0.9rem;
 
       @include for-size(tablet-landscape-up) {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       }
     }
   }
