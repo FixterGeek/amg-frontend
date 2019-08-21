@@ -23,7 +23,7 @@ class HomeContainer extends Component {
         <section className="welcome">
           <div className="video-bg">
             <video autoPlay loop name="media">
-              <source src="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/master.mp4?alt=media&token=5ed271b5-3321-4daa-8a78-99d6497e45d9" />
+              <source type="video/mp4" src="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/master.mp4?alt=media&token=5ed271b5-3321-4daa-8a78-99d6497e45d9" />
             </video>
           </div>
           <div className="cover">
