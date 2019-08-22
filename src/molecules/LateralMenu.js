@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPowerOff,
-  faUser,
   faCog,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,13 +14,8 @@ import {
   HomeIcon, EventIcon, MagazineIcon, SourcesIcon, ProfileIcon
 } from '../components/feed/reusables/Icons';
 import { logoutAction } from '../store/ducks/userDuck';
-import useSweetAlert from '../hooks/useSweetAlert';
-import useAmgService from '../hooks/services/useAmgService';
-// import { populateUserAction } from '../store/ducks/userDuck';
 
 function LateralMenu({ history, user, populateUserAction, logoutAction }) {
-  const { errorAlert } = useSweetAlert();
-  const { logout } = useAmgService();
   const [state] = useState({ anchor: createRef() });
   const { Item } = Menu;
   // eslint-disable-next-line react/prop-types

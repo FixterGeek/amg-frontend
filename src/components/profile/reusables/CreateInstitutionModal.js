@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Modal, Checkbox } from 'antd';
+import { Modal, Checkbox, Button as AntButton } from 'antd';
 
 import { pushLastInstitution } from '../../../store/ducks/institutionsDuck';
 import { createInstitution } from '../../../services/institutionsServices';
@@ -72,14 +72,14 @@ function CreateInstitution({
 
   return (
     <div>
-      <Button
+      <AntButton
         onClick={() => setOpen(true)}
-        className="reusable-modal-create-intitution"
-        bgColor="primary"
-        line
+        type="link"
+        htmlType="button"
+        style={{ paddingLeft: '0' }}
       >
         Crear nueva institución
-      </Button>
+      </AntButton>
       <Modal
         onCancel={() => setOpen(false)}
         onOk={handleSave}
