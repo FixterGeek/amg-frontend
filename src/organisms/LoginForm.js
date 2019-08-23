@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { Button } from 'antd';
 
@@ -11,9 +11,11 @@ import Spinner from '../atoms/Spinner';
 import { connect } from 'react-redux';
 import { loginUser } from '../store/ducks/userDuck'
 
-function LoginForm(props) {
+function LoginForm({
+  resetPassword = false , setResetPassword, history,
+  fetching, isLogged, error, className, loginUser
+}) {
   // eslint-disable-next-line react/prop-types
-  const { history, fetching, isLogged, error, className } = props;
   const [auth, setAuth] = useState({
     email: null,
     password: null,
@@ -30,7 +32,7 @@ function LoginForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.loginUser(auth)
+    loginUser(auth)
   };
 
   return (
@@ -55,14 +57,14 @@ function LoginForm(props) {
         label="Contraseña"
         marginBottom="0px" />
       <div>
-        <Button type="link" style={{ padding: 0 }}>
-          ¿Olvidaste tu contraseña?
-        </Button>
+        <Link to={!resetPassword ? '/login/reset' : '/login'}>
+          { resetPassword ? 'Ir al login' : '¿Olvidaste tu contraseña' }
+        </Link>
       </div>
       <AmgButton
         htmlType="submit"
         width="100%">
-        Iniciar sesión
+        { resetPassword ? 'Restablecer' : 'Ingresa a tu correo para restaurar tu cuenta' }
       </AmgButton>
     </form>
   );

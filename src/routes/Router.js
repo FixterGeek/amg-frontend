@@ -32,6 +32,7 @@ function AppRouter() {
         <Route path="/nosotros" component={Nosotros}/>
         <Route path="/contacto" component={Contacto}/>
         <Route path="/pre-signup" component={PreSign}/>
+      <Route path="/login/reset" exact component={Login} />
       <Route path="/login" exact component={Login} />
       <Route path="/signup/general" exact component={General} />
       <Route path="/signup/education" exact component={Education} />

@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
 import LoginForm from '../../organisms/LoginForm';
-import FullScreenContainer from '../../atoms/layout/FullScreenContainer';
-import Container from '../../atoms/layout/Container';
-import { palette, size } from '../../styles/theme';
+import { size } from '../../styles/theme';
 import log from "../../assets/LOGO-COMPLETO.svg";
 
-function Login() {
+function Login({ history }) {
   const { Text, Title } = Typography;
+  const { location } = history;
+
+  const [resetPassword, setResetPassword] = useState(false)
+
+
+  useEffect(() => {
+    if (location.pathname.split('/')[2] === 'reset') setResetPassword(true)
+  }, []);
+
   return (
     <div className="component-login">
       <div className="component-login-left">
@@ -21,21 +28,31 @@ function Login() {
           <div>
             <div style={{ textAlign: 'center' }}>
               <Title level={2} style={{ margin: 0 }}>
-                Bienvenido
+                { resetPassword ? 'Recuperar contraseña' : 'Bienvenido' }
               </Title>
-              <Text>Ingresa a tu cuenta</Text>
+              <Text>
+                { resetPassword ? 'Ingresa a tu correo para restaurar tu cuenta' : 'Ingresa a tu cuenta' }
+              </Text>
             </div>
           </div>
           <div className="component-login-form">
-            <LoginForm className="component-login-form" />
-            <Text strong>
-              ¿No tienes cuenta?
-              <Link
-                style={{ paddingLeft: size.smallPadding, fontWeight: 'bold' }}
-                to="/pre-signup">
-                  creala aquí
-              </Link>
-            </Text>
+            <LoginForm
+              resetPassword={resetPassword}
+              setResetPassword={setResetPassword}
+              className="component-login-form" />
+            
+            {
+              !resetPassword && (
+                <Text strong>
+                  ¿No tienes cuenta?
+                  <Link
+                    style={{ paddingLeft: size.smallPadding, fontWeight: 'bold' }}
+                    to="/pre-signup">
+                      creala aquí
+                  </Link>
+              </Text>
+              )
+            }
           </div>
         </div>
       </div>
