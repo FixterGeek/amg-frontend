@@ -60,7 +60,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
         <Icon component={MagazineIcon} />
         <span>Revista</span>
       </Item>
-      <Item key={4}>
+      <Item key={4} onClick={() => link('/dashboard/recursos')}>
         <Icon component={SourcesIcon} />
         <span>Recursos</span>
       </Item>

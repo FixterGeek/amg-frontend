@@ -159,4 +159,73 @@
   }
 }
 
+/* ResourceItem */
+.reusables-component-resource-item {
+  max-width: 400px;
+  min-height: 521px;
+  margin-left: $largeMargin;
 
+  &:first-child {
+    margin-left: 0px;
+  }
+
+  .ant-typography {
+    display: block;
+    background-color: $clouds;
+    height: 56px;
+    line-height: 56px;
+    padding-left: $smallPadding;
+    font-size: 1.1rem;
+    font-weight: lighter;
+  }
+
+  &-preview {
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+      max-width: 500px;
+    }
+  }
+}
+
+/* RosourceRecord */
+.reusables-component-resources-resource-records {
+  display: flex;
+  max-width: 1200px;
+
+  &-preview {
+    min-width: 107px;
+    max-width: 107px;
+    max-height: 120px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-width: 107px;
+    }
+  }
+
+  &-info {
+    padding-left: $padding;
+    display: flex;
+    flex-flow: column;
+
+    h4 {
+      font-weight: normal;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* ResourcesTable */
+.reusables-resources-table {
+  tr {
+    background-color: $clouds;
+  }
+}

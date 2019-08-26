@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
-import LoginForm from '../../organisms/LoginForm';
+import LoginForm from './LoginForm';
 import { size } from '../../styles/theme';
 import log from "../../assets/LOGO-COMPLETO.svg";
 

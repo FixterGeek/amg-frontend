@@ -12,6 +12,9 @@ import MembershipPayment from '../components/membership/MembershipPayment';
 import PersonalProfile from '../components/profile/PersonalProfile';
 import MainProfile from '../components/profile/MainProfile';
 import PaymentActivity from '../components/membership/PaymentActivity';
+import Resources from '../components/resources/Resources';
+import Guides from '../components/resources/Guides';
+import Posts from '../components/resources/Posts';
 
 
 function DashBoardRouter() {
@@ -27,6 +30,9 @@ function DashBoardRouter() {
       <Route path={`${baseURL}/events/:id/program`} component={Program} />
       <Route path={`${baseURL}/events/:id/speakers`} component={Speakers} />
       <Route path={`${baseURL}/events/:id`} component={EventDetail} />
+      <Route path={`${baseURL}/recursos/guias`} component={Guides} />
+      <Route path={`${baseURL}/recursos/publicaciones`} component={Posts} />
+      <Route excat path={`${baseURL}/recursos`} component={Resources} />
       <Route exact path={`${baseURL}/settings/`} component={Settings} />
       <Route exact path={`${baseURL}/events`} component={EventsList} />
       <Route exact path={`${baseURL}`} component={Feed} />

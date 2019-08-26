@@ -401,3 +401,13 @@ $eventLeftWidth: 350px;
     }
   }
 }
+
+/* Resources */
+.component-resources {
+  max-width: 1200px;
+  &-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
