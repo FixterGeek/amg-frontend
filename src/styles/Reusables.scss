@@ -69,11 +69,58 @@
 
 /* RangeDatePicker */
 .reusable-component-range-picker{
-  .ant-calendar-picker-input {
-    background-color: $clouds;
-    height: 50px;
-    border-radius: 0px;
-    border: none;
+  &-container {
+    display: flex;
+    align-items: center;
+    margin-top: $smallMargin;
+
+    .ant-calendar-picker-input, .ant-input {
+      background-color: $clouds;
+      height: 50px;
+      border-radius: 0px;
+      border: none;
+      max-width: 211px;
+    }
+
+    .ant-input-affix-wrapper {
+      .ant-input-suffix {
+        color: rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .input-current {
+      .ant-input {
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAMFBMVEUAAADfUFDiTEziTU3dRETiTEziTEzjS0vjTEzjTEzjR0fhTEzjTEzhTU3iTEwAAACHgq0yAAAADnRSTlMAEMdqD8n+bWXOEsZsbm8rJywAAAABYktHRACIBR1IAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4wgVFxMsQe23ZAAAAGlJREFUCNdjYFRmAAIjAQbXZwUMDBx5sxj03iUzMJi9e83Q9u5ZAUfeuxwG5rx3udfePTNgAAoBQQ4DSOG7d88OgLTee/fuOQOU8ZYBJgU0C6I4nQGhHWjgAaBsOsM+mBWuIDNAlsKcAQDWTDkhZE86awAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wOC0yMVQyMToxOTo0NCswMjowMHyICpwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDgtMjFUMjE6MTk6NDQrMDI6MDAN1bIgAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAABJRU5ErkJggg=='), auto;
+      }
+    }
+
+    .ant-input {
+      &:disabled {
+        color: $textPrimary;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-start-date {
+    margin-right: $smallMargin;
+  }
+
+  &-end-date {
+    margin-left: $smallMargin;
+  }
+
+  &-current-button {
+    display: flex;
+    justify-content: center;
+    margin-top: $smallMargin;
+    margin-bottom: $smallMargin;
+
+    .ant-btn {
+      background-color: $secondary;
+      border-color: $secondary;
+      border-radius: 0px;
+    }
   }
 }
 

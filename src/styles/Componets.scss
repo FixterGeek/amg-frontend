@@ -76,6 +76,7 @@
   flex-grow: 1;
   box-sizing: border-box;
   position: relative;
+  max-width: 100vw;
   @include for-size(tablet-landscape-up) {
     padding-left: $lateralSpace;
   }
@@ -381,5 +382,22 @@ $eventLeftWidth: 350px;
     padding-top: $largePadding;
     padding-left: ($extraPadding * 2);
     padding-right: $extraPadding;
+  }
+}
+
+/* LaboralExperience */
+/* PersonalEducation */
+.component-profile-laboral-experience, .component-profile-personal-education {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    
+    h1 {
+      font-size: 1.3rem;
+
+      @include for-size(tablet-landscape-up) {
+        font-size: 2rem;
+      }
+    }
   }
 }

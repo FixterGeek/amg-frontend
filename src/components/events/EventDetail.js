@@ -100,9 +100,15 @@ function EventDetail({
             <TextBlock title="Valor curricular" text={state.description[1]} />
           )}
           {state.description[2] && (
-            <TextBlock title="Objetivo" text={state.description[2]} />
+              <TextBlock title="Objetivo" text={state.description[2]} ></TextBlock>
           )}
-
+          <div style={{fontSize:"1.8em"}}>
+          <h3>Objetivos</h3>
+          <p>1. Confrontar las opiniones de expertos en campos controversiales de la gastroenterología, exponiendo la evidencia actual a favor y en contra de cada posición.
+            <br/>
+            <br/>
+            2. Complementar la información expuesta con casos clínicos que serán discutidos por los profesores y los asistentes en general.</p>
+        </div>
           <Title level={2}>Ubicación</Title>
           <MapLocation
             street={state.location.street}

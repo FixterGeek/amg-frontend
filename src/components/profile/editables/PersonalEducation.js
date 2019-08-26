@@ -25,17 +25,24 @@ function PersonalEducation({ user, externalUser = null, createEducationAction })
     setEducation(data);
   }
 
+
   return (
-    <DashboardContainerItem className="personal-title  relative">
-      <Title>Educación</Title>
-      <Button onClick={() => setOpen(true)} marginTop="0px" className="reusable-save-button" line>
-        Agregar ✚
-      </Button>
+    <DashboardContainerItem className="component-profile-personal-education">
+      <div className="component-profile-personal-education-header">
+        <Title>Educación</Title>
+        <Button onClick={() => setOpen(true)} marginTop="0px" width="180px" line>
+          Agregar ✚
+        </Button>
+      </div>
 
       <Modal
         visible={open}
         onOk={handleSave}
         onCancel={() => setOpen(false)}
+        okButtonProps={{ className: 'amg-button amg-button-secondary' }}
+        cancelButtonProps={{ className: 'amg-button amg-button-outline-secondary' }}
+        okText="Aceptar"
+        cancelText="Cancelar"
       >
         <EducationForm user={externalUser || user} onChange={handleEducationForm} />
       </Modal>

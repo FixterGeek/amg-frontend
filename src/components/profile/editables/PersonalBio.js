@@ -24,7 +24,7 @@ function PersonalBio({ onChange, onSave, value }) {
 
   return (
     <DashoardContainerItem className="personal-bio">
-      <Button onClick={handleSave} line>
+      <Button onClick={handleSave} width="180px" line>
         Guardar Biografia
         <Icon type="save" />
       </Button>
