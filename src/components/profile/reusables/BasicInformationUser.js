@@ -34,12 +34,12 @@ function BasicInformationUser({ editableLink, user, nonOwn }) {
           <div className="follows">
             <div>
               Seguidores
-              <span>{ followers.length }</span>
+              <span>{ followers && followers.length }</span>
             </div>
             <div>
               Sigues
               <span>
-                { following.length }
+                { following && following.length }
               </span>
             </div>
           </div>

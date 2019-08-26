@@ -13,7 +13,7 @@ export const login = async auth => axios.post(
   },
 ).then(res => res.data);
 
-const logout = async (history) => {
+export const logout = async (history) => {
   await localStorage.removeItem('authToken');
   history.push('/login');
 };
