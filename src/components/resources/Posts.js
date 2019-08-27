@@ -14,7 +14,7 @@ function Posts() {
 
   return (
     <div className="dashboard-container">
-      <Title>Guías y consensos</Title>
+      <Title>Publicaciones</Title>
       <ContainerItem>
         <ResourcesTable onSearch={handleSearch} />
       </ContainerItem>

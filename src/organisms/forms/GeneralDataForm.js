@@ -4,15 +4,18 @@ import { connect } from 'react-redux';
 
 import { Radio, Spin } from 'antd';
 
+import { storage } from '../../firebase';
 import {
   writeSignupAction, writeBasicDataAction, writePlaceOfBirdAction,
   signupUserAction,
 } from '../../store/ducks/signupDuck';
+import { createUserAction } from '../../store/ducks/userDuck';
 import TextField from '../../molecules/TextFields';
 import SelectField from '../../molecules/SelectField';
 import DatePicker from '../../molecules/DatePicker';
 import AmgButton from '../../atoms/Button';
 import Label from '../../atoms/data-entry/Label';
+import UploadPhoto from '../../components/profile/reusables/UploadProfilePhoto';
 
 import states from './estados.json';
 
@@ -21,12 +24,13 @@ function GeneralDataForm({
   writeBasicDataAction, writePlaceOfBirdAction, signupUserAction,
   fetching,
   status,
-  error
+  error,
+  createUserAction,
 }) {
   const { Group } = Radio;
-
   const { basicData } = signup;
 
+  const [photoFile, setPhotoFile] = useState()
 
   useEffect(() => {
     if (status === "success") {
@@ -35,8 +39,6 @@ function GeneralDataForm({
   }, [status])
   //effect
   const handleChange = (event) => {
-    console.log(event);
-    console.log(event);
     const { target } = event;
     const { name, value } = target;
 
@@ -55,13 +57,16 @@ function GeneralDataForm({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // history.push('education');
-    signupUserAction({ ...signup })
-    // .then(() => history.push('/dashboard'))
-    // .catch(({ response }) => console.log(response));
+    if (photoFile) {
+      storage.ref('general-users').child(photoFile.name).put(photoFile)
+        .then(snap => snap.ref.getDownloadURL())
+        .then(url => {
+          createUserAction({ ...signup, basicData: { ...signup.basicData, photoURL: url } })
+        })
+    } else createUserAction({ ...signup })
   };
 
-  console.log(signup);
+
   if (fetching) return <Spin />
   return (
     <form
@@ -69,13 +74,13 @@ function GeneralDataForm({
       style={{ width: '400px' }}
       onSubmit={handleSubmit}
     >
+      <UploadPhoto onFile={file => setPhotoFile(file)}/>
+
       <TextField
         value={basicData.name}
         onChange={handleChange}
         name="name"
         label="Nombre"
-        error={status === "error"}
-        errorMessage={error}
       />
 
       <TextField
@@ -164,12 +169,12 @@ function GeneralDataForm({
   );
 }
 
-function mapStateToProps({ signup }) {
+function mapStateToProps({ signup, user }) {
   return {
     signup: signup,
-    status: signup.status,
-    fetching: signup.fetching,
-    error: signup.error
+    status: user.status,
+    fetching: user.fetching,
+    error: user.error
   };
 }
 
@@ -181,6 +186,7 @@ export default withRouter(
       writeBasicDataAction,
       writePlaceOfBirdAction,
       signupUserAction,
+      createUserAction,
     },
   )(GeneralDataForm),
 );

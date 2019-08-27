@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { login, updateUser as update } from '../../services/userServices'
+import { login, updateUser as update, signup } from '../../services/userServices'
 import { activitySubscribe, assistAnEvent } from '../../services/eventsServices';
 import {
     switchMap,
@@ -56,6 +56,7 @@ const userState = {
   _id: null,
   fetching: false,
   isLogged: false,
+  status: null,
 };
 
 
@@ -293,6 +294,21 @@ export const logoutAction = () => (dispatch) => {
     });
 };
 
+export const createUserAction = (userData) => (dispatch) => {
+    dispatch(createUser())
+    return signup(userData)
+        .then((data) => {
+            localStorage.authToken = data.token;
+            localStorage.user = JSON.stringify(data.user);
+            dispatch(createUserSuccess(data.user))
+            return data
+        })
+        .catch((error) => {
+            dispatch(createUser(error))
+            return error
+        })
+}
+
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
@@ -313,7 +329,7 @@ function reducer(state = userState, action) {
         case CREATE_USER:
             return { ...state, fetching: true }
         case CREATE_USER_SUCCESS:
-            return { ...action.payload, fetching: false }
+            return { ...action.payload, fetching: false, status: 'success', isLogged: true }
         case CREATE_USER_ERROR:
             return { ...state, fetching: false, error: true }
         case LOGOUT_USER:

@@ -1,7 +1,9 @@
 import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-function FilePicker({ children, multi, type, onChange, name, className }) {
+import fileToUrl from '../tools/fileToURL'
+
+function FilePicker({ children, multi, type, onChange, onBase64, name, className }) {
   const [state] = useState({
     inputFile: createRef(),
   });
@@ -24,12 +26,18 @@ function FilePicker({ children, multi, type, onChange, name, className }) {
     inputFile.current.click();
   };
 
+  const handleChange = (event) => {
+    const { target } = event
+    if (onChange) onChange(event)
+    if (onBase64) fileToUrl(target.files[0]).then(base64Url => onBase64(base64Url))
+  }
+
   return (
     <div className={className}>
       <input
         name={name}
         className="file-picker-input"
-        onChange={event => onChange(event)}
+        onChange={handleChange}
         ref={state.inputFile}
         type="file"
         multiple={multi}
