@@ -16,6 +16,7 @@ import {
 import { Menu, Icon } from 'antd';
 
 import useSweetAlert from '../../hooks/useSweetAlert';
+import { logout } from '../../services/userServices';
 // import { populateUserAction } from '../store/ducks/userDuck';
 
 function LateralMenu({ history, user, populateUserAction }) {
@@ -98,7 +99,7 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Tests</span>
             </Item>
-            <Item key={7} onClick={() => { }}>
+            <Item key={7} onClick={() => logout(history)}>
                 <Icon
                     className={
                         currentLocation === 'logout' ? 'menu-item-active' : ''

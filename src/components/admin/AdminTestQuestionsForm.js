@@ -8,6 +8,7 @@ import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/duc
 import QuestionFormInput from './QuestionFormInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSave, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {Link} from 'react-router-dom'
 
 
 const { Option } = Select
@@ -92,9 +93,12 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
     }
     if(fetching)return <p>Loading</p>
     return (
-        <div className="">
+        <div className="admin-event-form-container">
+            <Link to={`/admin/tests/edit/${test._id}`}>
+                    Volver                
+                </Link>
             <div className="admin-form-header">
-                <h1>Preguntas del test {test.title}</h1>
+                <h1>Preguntas del test {test.title}</h1>                
                 <button onClick={(e)=>handleSubmit(e)}>Guardar como borrador </button>
             </div>
             <div>
@@ -108,7 +112,7 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
                     handleChangeAnswer={handleChangeAnswer}
                     deleteQuestion={deleteQuestion}/>
                 <div className="tests-right-button">
-                    <button className="admin-main-button" onClick={addQuestion}>Agregar pregunta <FontAwesomeIcon icon={faPlus} /></button>
+                    <button className="admin-main-button" style={{width:250}} onClick={addQuestion}>Nueva pregunta <FontAwesomeIcon icon={faPlus} /></button>
                 </div>                
                 <div className="tests-center-button">
                     <button className="admin-form-submit-button" onClick={(e)=>handleSubmit(e,true)}>Publicar</button>

@@ -67,7 +67,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                 <h1>{header}</h1>
                 <div>
                     <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador <FontAwesomeIcon icon={faSave} /></button>
-                    {test._id && <button style={{ color: "white", background: "red" }} onClick={removeTest} >Eliminar Test</button>}
+                    {/* {test._id && <button disabled style={{ color: "white", background: "red" }} onClick={removeTest} >Eliminar Test</button>} */}
                 </div>
             </div>
             <div className="admin-form-two-columns-container">
@@ -83,70 +83,77 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         name="event"
                         label="Evento al que pertenece"
                         onChange={(value)=>handleSelect(value, 'event')}                    
-                        style={{ width: 300 }}
-                        defaultValue={(test.event && test.event._id)||"Elije un evento"}>
+                        style={{ width: 400 }}
+                        defaultValue={(test.event && test.event._id)? test.event._id:test.event? test.event:'Elige un evento'}>
                         {events.map((event, key) => (
                             <Option key={key} value={event._id} >{event.title}</Option>
                         ))}
                     </Select>
                 </div>
-                <div>
+                <div className="admin-form-group">
                     <TextField
                         onChange={handleChange}
                         name="title"
                         value={test.title}
                         label="Nombre del test"
                         placeholder="Test 001"
-                        style={{ width: 300 }}
+                        style={{ width: 400 }}
                     />
                 </div>
-                <div className="admin-form-group">    
+                {/* <div className="admin-form-group">    
                     <b>Fecha</b>                
                     <DatePicker
                         className="test-input"               
                         label="Fecha"
                         onChange={m => handleDate(m, "date")}
-                        style={{ width: 300 }}
+                        style={{ width: 400 }}
                         format="LL"
                         placeholder="Selecciona la fecha"
                         value={test.date ? moment(test.date) : null}
                     />
-                </div>
-                <div className="admin-form-group">
+                </div> */}
+                <div className="admin-form-group">    
                     <b>Horario disponible</b>
-                    <span>De</span>
-                    <TimePicker
+                    <b>De</b>
+                    <DatePicker
                         className="test-input"
                         onChange={m => handleDate(m, "startTime")}
                         placeholder="Inicio"
-                        style={{ width: 130 }}
+                        format="LLLL"
+                        style={{ width: 400 }}
                         value={test.startTime ? moment(test.startTime) : null}
                     />
-                    <span>A</span>        
-                    <TimePicker
+                    <b>A</b>        
+                    <DatePicker
                         className="test-input"
                         onChange={m => handleDate(m, "endTime")}
                         placeholder="Final"
-                        style={{ width: 130 }}
+                        format="LLLL"
+                        style={{ width: 400 }}
                         value={test.endTime ? moment(test.endTime) : null}
                     />
-                </div>
+                    </div>
                 
+                    <div className="admin-form-group">    
                     <b>Límite de tiempo por pregunta</b>
                     <Select
                         className="test-input"
                         onChange={val => handleSelect(val, "questionDuration")}                    
-                        style={{ width: 300 }}
+                        style={{ width: 400 }}
                         defaultValue={test.questionDuration||"Elije el tiempo"}>
                         {[1,2,3,4,5].map((n, key) => (
                             <Option key={key} value={n} >{n}min</Option>
                         ))}
                     </Select>
-                
-                <input                    
-                    className="admin-form-submit-button"
-                    type="submit" value="Siguiente" />
+                    </div>
 
+                    <div className="admin-form-group">    
+                
+                        <input      
+                            style={{ width: 400 }}              
+                            className="admin-form-submit-button"
+                            type="submit" value="Siguiente" />
+                    </div>
             </form>
             </div>
         </div>
