@@ -1,7 +1,7 @@
 import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-import fileToUrl from '../tools/fileToURL'
+import fileToUrl from '../../tools/fileToURL';
 
 function FilePicker({ children, multi, type, onChange, onBase64, name, className }) {
   const [state] = useState({
@@ -33,17 +33,16 @@ function FilePicker({ children, multi, type, onChange, onBase64, name, className
   }
 
   return (
-    <div className={className}>
+    <div className={`reusables-file-picker ${className}`}>
       <input
         name={name}
-        className="file-picker-input"
         onChange={handleChange}
         ref={state.inputFile}
         type="file"
         multiple={multi}
         accept={fileTypes[type]} />
       <div
-        className="file-picker-button"
+        className="reusables-file-picker-button-container"
         onClick={handleClick}>
         { children }
       </div>
@@ -65,5 +64,5 @@ FilePicker.propTypes = {
 FilePicker.defaultProps = {
   multi: false,
   type: 'forImagesAndVideos',
-  className: 'file-picker',
+  className: '',
 };

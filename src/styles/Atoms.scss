@@ -492,53 +492,10 @@ $profilePhotoSize: 120px;
 
 /* File Picker */
 .file-picker, .file-picker-like-item {
+  display: inline-block;
+  cursor: pointer;
   &-input {
     display: none;
-  }
-
-  button {
-    border: none;
-    display: block;
-    width: auto;
-    height: auto;
-    background-color: transparent;
-    margin-top: $margin;
-    margin-right: $margin;
-    margin-bottom: $margin;
-    margin-left: 0px;
-    cursor: pointer;
-    font-size: 1.6em;
-    appearance: none;
-    border: solid 1px transparent;
-    background-color: $lightBlue;
-    border-radius: 4px;
-    padding-top: $smallPadding;
-    padding-bottom: $smallPadding;
-    padding-right: $padding;
-    padding-left: $padding;
-
-    div {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    &:focus {
-      appearance: none;
-      border: solid 1px transparent;
-    }
-
-    svg {
-      margin-right: $smallMargin;
-    }
-
-    span {
-      font-size: 0.7em;
-    }
-
-    &:hover {
-      color: $primary;
-    }
   }
 }
 

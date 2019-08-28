@@ -229,3 +229,74 @@
     background-color: $clouds;
   }
 }
+
+/* DocuementField */
+.reusables-document-field {
+  label {
+    font-weight: bold;
+  }
+
+  .ant-input {
+    height: 50px;
+    background-color: $clouds;
+    border-radius: 0px;
+    border-color: $clouds;
+  }
+
+  .ant-form-item-children {
+    max-width: 445px;
+    display: flex;
+  }
+}
+
+/* FilePicker */
+.reusables-file-picker {
+  input {
+    display: none!important;
+  }
+
+  &-button-container {
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+/* ImagePreview */
+.reusables-image-preview {
+  width: 140px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: solid 2px #ccc;
+  border-style: dashed;
+  font-size: 1.3rem;
+  overflow: hidden;
+
+  img {
+    max-width: 160px;
+    max-height: 200px;
+  }
+}
+
+/* Style ImagePicker */
+.reusables-image-picker {
+  label {
+    font-weight: bold;
+  }
+}
+
+/* Style TextField */
+.reusables-text-field {
+  max-width: 445px;
+  label {
+    font-weight: bold;
+  }
+  .ant-input {
+    height: 50px;
+    background-color: $clouds;
+    border-radius: 0px;
+    border-color: $clouds;
+  }
+}

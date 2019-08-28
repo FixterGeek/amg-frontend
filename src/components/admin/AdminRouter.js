@@ -6,11 +6,16 @@ import AdminUsers from './AdminUsers'
 import AdminTests from './AdminTests'
 import AdminTestForm from './AdminTestForm';
 import AdminTestQuestionsForm from './AdminTestQuestionsForm';
+import AdminResources from './AdminResources';
+import AdminResourcesForm from './AdminResourcesForm';
 
 
 function AdminRouter() {
   return (
     <Switch>
+      {/*Resources */}
+      <Route exact path="/admin/resources/edit" component={AdminResourcesForm} />
+      <Route exact path="/admin/resources" component={AdminResources} />
       {/* Group */}
       <Route exact path="/admin/users" component={AdminUsers} />
       {/* Group */}
