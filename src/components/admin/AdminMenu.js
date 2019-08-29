@@ -104,7 +104,10 @@ function LateralMenu({ history, user, populateUserAction }) {
                 <Icon component={SourcesIcon} />
                 <span>Recursos</span>
             </Item>
-            <Item key={8} onClick={() => logout(history)}>
+            <Item
+                key={8}
+                onClick={() => logout(history)}
+                style={{ position: 'absolute', bottom: '16px' }}>
                 <Icon
                     className={
                         currentLocation === 'logout' ? 'menu-item-active' : ''
