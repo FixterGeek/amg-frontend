@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Form } from 'antd';
@@ -6,10 +6,14 @@ import { Form } from 'antd';
 import FilePicker from './FilePicker';
 import ImagePreview from './ImagePreview';
 
-function ImagePicker({ label, onChange, onBase64 }) {
+function ImagePicker({ label, onChange, onBase64, file }) {
   const { Item } = Form;
 
   const [imageUrl, setImageUrl] = useState();
+
+  useEffect(() => {
+    if (!file)  setImageUrl(null)
+  }, [file]);
 
   const handleChange = ({ target }) => {
     if (onChange) onChange(target.files[0])

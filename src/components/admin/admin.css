@@ -239,10 +239,9 @@
 
 .admin-page-menu-container .ant-menu .ant-menu-item-selected {
     background-color: #1f2536;
-    color: #28abd8;
 }
 
-.admin-page-menu-container .ant-menu .ant-menu-item-selected .anticon, span {
+.admin-page-menu-container .ant-menu .ant-menu-item-selected .anticon {
     color: #28abd8;
 }
 

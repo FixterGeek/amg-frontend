@@ -13,6 +13,8 @@ const resourceState = {
 };
 
 /* Constants */
+// Reset status
+const RESET_RESOURCE_STATUS = 'CREATE_RESOURCE_STATUS';
 // Populate resources
 const POPULATE_RESOURCES = 'POPULATE_RESOURCES';
 const POPULATE_RESOURCES_SUCCESS = 'POPULATE_RESOURCES_SUCCESS';
@@ -25,6 +27,11 @@ const CREATE_RESOURCE_ERROR = 'CREATE_RESOURCE_ERROR';
 
 
 /* Action creators */
+// Reset status
+export function resetStatus() {
+  return { type: RESET_RESOURCE_STATUS };
+}
+
 // Populate resources
 export function populateResources() {
   return { type: POPULATE_RESOURCES };
@@ -94,6 +101,10 @@ export const createResourceAction = resourceData => (dispatch) => {
 /* Reducer */
 export default function reducer(state = resourceState, action) {
   switch (action.type) {
+    /* Reset status */
+    case RESET_RESOURCE_STATUS:
+      return { ...state, status: null };
+    /* Populate resources */
     case POPULATE_RESOURCES:
       return {...state, fetching: true };
     case POPULATE_RESOURCES_SUCCESS:
@@ -102,6 +113,13 @@ export default function reducer(state = resourceState, action) {
       return {
         ...state, fetching: false, status: 'error', error: action.payload,
       };
+    /* Create resources */
+    case CREATE_RESOURCE:
+      return { ...state, fetching: true };
+    case CREATE_RESOURCE_SUCCESS:
+      return { ...state, fetching: false, status: 'success' };
+    case CREATE_RESOURCE_ERROR:
+      return { ...state, fetching: false, status: 'error', error: action.payload };
     default:
       return state;
   }

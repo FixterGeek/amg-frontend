@@ -3,7 +3,7 @@
   position: relative;
 }
 
-/* Tabs */
+/* Style Tabs */
 
 .reusable-tabs {
   .ant-tabs-nav-scroll {
@@ -57,7 +57,7 @@
 }
 
 
-/* CreateIntitution */
+/* Style CreateIntitution */
 .reusable-modal-create-intitution {
   padding: 0px;
   height: auto;
@@ -67,7 +67,7 @@
 }
 
 
-/* RangeDatePicker */
+/* Style RangeDatePicker */
 .reusable-component-range-picker{
   &-container {
     display: flex;
@@ -129,7 +129,7 @@
   background-color: $green;
 }
 
-/*FileItem*/
+/* Style FileItem */
 .reusable-file-item {
   position: relative;
   max-width: 320px;
@@ -159,7 +159,7 @@
   }
 }
 
-/* ResourceItem */
+/* Style ResourceItem */
 .reusables-component-resource-item {
   max-width: 400px;
   min-height: 521px;
@@ -192,7 +192,7 @@
   }
 }
 
-/* RosourceRecord */
+/* Style RosourceRecord */
 .reusables-component-resources-resource-records {
   display: flex;
   max-width: 1200px;
@@ -223,14 +223,14 @@
   }
 }
 
-/* ResourcesTable */
+/* Style ResourcesTable */
 .reusables-resources-table {
   tr {
     background-color: $clouds;
   }
 }
 
-/* DocuementField */
+/* Style DocuementField */
 .reusables-document-field {
   label {
     font-weight: bold;
@@ -249,7 +249,7 @@
   }
 }
 
-/* FilePicker */
+/* Style FilePicker */
 .reusables-file-picker {
   input {
     display: none!important;
@@ -261,7 +261,7 @@
   }
 }
 
-/* ImagePreview */
+/* Style ImagePreview */
 .reusables-image-preview {
   width: 140px;
   height: 180px;
@@ -298,5 +298,40 @@
     background-color: $clouds;
     border-radius: 0px;
     border-color: $clouds;
+  }
+}
+
+/* Style Spinner */
+.reusables-spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+/* Style SelectField */
+.reusables-select-field {
+  max-width: 445px;
+  label {
+    font-weight: bold;
+  }
+
+  .ant-select-selection {
+    height: 50px;
+    background-color: $clouds;
+    border-radius: 0px;
+    border-color: $clouds;
+    border-bottom: 2px;
+  }
+
+  .ant-select-selection-selected-value {
+    height: 50px;
+    line-height: 46px;
   }
 }

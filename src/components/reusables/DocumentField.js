@@ -5,7 +5,7 @@ import { Form, Input } from 'antd';
 import Button from './Button';
 import FilePicker from './FilePicker';
 
-function DocumentField({ label, buttonText, name, value, placeholder, onFile }) {
+function DocumentField({ label, buttonText, name, value, placeholder, onFile, document }) {
   const { Item } = Form;
 
   const [file, setFile] = useState({ name: null });
@@ -13,6 +13,10 @@ function DocumentField({ label, buttonText, name, value, placeholder, onFile }) 
   useEffect(() => {
     if (value) setFile({ name: value })
   }, [value])
+
+  useEffect(() => {
+    if (!document) setFile({ name: null })
+  }, [document]);
 
   const handleFile = ({ target }) => {
     if (onFile) onFile(target.files[0])
