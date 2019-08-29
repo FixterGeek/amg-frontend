@@ -225,6 +225,27 @@
     margin-right:100px;
 }
 
+.admin-page-menu-container .ant-menu {
+    background-color: #1f2536;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.admin-page-menu-container .ant-menu .ant-menu-item {
+    color: white;
+}
+
+.admin-page-menu-container .ant-menu .ant-menu-item-selected {
+    background-color: #1f2536;
+    color: #28abd8;
+}
+
+.admin-page-menu-container .ant-menu .ant-menu-item-selected .anticon, span {
+    color: #28abd8;
+}
+
 .admin-page-container{
     padding-left: 150px;
     padding-right: 50px;

@@ -1,4 +1,9 @@
-import { getResources } from '../../services/resourcesServices';
+/* eslint-disable no-param-reassign */
+import {
+  getResources,
+  createResource as newResource,
+} from '../../services/resourcesServices';
+import { uploadFile } from '../../tools/firebaseTools';
 
 const resourceState = {
   guides: [],
@@ -8,12 +13,19 @@ const resourceState = {
 };
 
 /* Constants */
+// Populate resources
 const POPULATE_RESOURCES = 'POPULATE_RESOURCES';
 const POPULATE_RESOURCES_SUCCESS = 'POPULATE_RESOURCES_SUCCESS';
 const POPULATE_RESOURCES_ERROR = 'POPULATE_RESOURCES_ERROR';
 
+// Create resource
+const CREATE_RESOURCE = 'CREATE_RESOURCE';
+const CREATE_RESOURCE_SUCCESS = 'CREATE_RESOURCE_SUCCESS';
+const CREATE_RESOURCE_ERROR = 'CREATE_RESOURCE_ERROR';
+
 
 /* Action creators */
+// Populate resources
 export function populateResources() {
   return { type: POPULATE_RESOURCES };
 }
@@ -26,8 +38,22 @@ export function populateResourcesError(error) {
   return { type: POPULATE_RESOURCES_ERROR, payload: error };
 }
 
+// Create resource
+export function createResource() {
+  return { type: CREATE_RESOURCE };
+}
+
+export function createResourceSuccess(resourceData) {
+  return { type: CREATE_RESOURCE_SUCCESS, payload: resourceData };
+}
+
+export function createResourceError(error) {
+  return { type: CREATE_RESOURCE_ERROR, payload: error };
+}
+
 
 /* Thunks */
+// Populate resources
 export const populateResourcesAction = () => (dispatch) => {
   dispatch(populateResources());
   return getResources()
@@ -37,6 +63,29 @@ export const populateResourcesAction = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(populateResourcesError(error));
+      return error;
+    });
+};
+
+// Create resource
+export const createResourceAction = resourceData => (dispatch) => {
+  dispatch(createResource());
+  const { preview, document } = resourceData;
+  uploadFile('resources/covers', preview)
+    .then((url) => {
+      resourceData.url = url;
+      return uploadFile('resources/documents', document);
+    })
+    .then((url) => {
+      resourceData.docsURLS = [url];
+      return newResource(resourceData);
+    })
+    .then((data) => {
+      dispatch(createResourceSuccess(data));
+      return data;
+    })
+    .catch((error) => {
+      dispatch(createResourceError(error));
       return error;
     });
 };

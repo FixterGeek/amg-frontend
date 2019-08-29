@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
@@ -30,4 +31,4 @@ function AdminResources() {
   );
 }
 
-export default AdminResources;
+export default connect()(AdminResources);

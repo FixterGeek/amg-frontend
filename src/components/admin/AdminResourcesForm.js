@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Typography, Form } from 'antd';
 
+import { createResourceAction } from '../../store/ducks/resourceDuck';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 import Button from '../../atoms/Button';
 import TextField from '../reusables/TextField';
@@ -72,4 +74,14 @@ function ResourcesForm({ createResourceAction }) {
   )
 }
 
-export default ResourcesForm;
+function mapStateToProps({ resources }) {
+  return {
+    resources,
+  }
+}
+
+export default connect(
+  mapStateToProps, {
+    createResourceAction,
+  }
+)(ResourcesForm);
