@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Table, Icon, Input, Button, Popconfirm } from 'antd';
 
 import ResourceRecord from './ResourceRecord';
 
-function ResourcesTable({ onSearch, data, admin, dispatchDelete }) {
+function ResourcesTable({ onSearch, data, admin, dispatchDelete, emptyText }) {
   const { Search } = Input;
 
   const columns = [
@@ -62,9 +63,30 @@ function ResourcesTable({ onSearch, data, admin, dispatchDelete }) {
 
   return (
     <div className="reusables-resources-table">
-      <Table columns={columns} dataSource={data} rowKey="_id" />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey="_id"
+        locale={{ emptyText }}
+      />
     </div>
   )
 }
 
 export default ResourcesTable;
+
+ResourcesTable.propTypes = {
+  onSearch: PropTypes.func,
+  data: PropTypes.array,
+  admin: PropTypes.bool,
+  dispatchDelete: PropTypes.func,
+  emptyText: PropTypes.string,
+};
+
+ResourcesTable.defaultProps = {
+  onSearch: null,
+  data: [],
+  admin: false,
+  dispatchDelete: null,
+  emptyText: 'No hay datos',
+}

@@ -11,7 +11,7 @@ import {
 } from '../../store/ducks/resourceDuck';
 import useSweet from '../../hooks/useSweetAlert';
 import ContainerItem from '../../atoms/DashboardContainerItem';
-import ResourcesTable from '../resources/reusables/ResourcesTable';
+import ResourcesTable from '../resources/reusables/ResourcesTable'; // From public section components
 import Button from '../../atoms/Button';
 import Spinner from '../reusables/Spinner';
 
@@ -52,14 +52,22 @@ function AdminResources({
         {/*Tabs for types */}
         <Tabs type="card" className={`${baseClassName}-tabs`}>
           <TabPane tab="Guías y consensos" key="1">
+            {/* For guides library */}
             <ResourcesTable
               admin
               data={guides}
               dispatchDelete={deleteResourceAction}
+              emptyText="No hay guías y consensos"
             />
           </TabPane>
           <TabPane tab="Publicaciones" key="2">
-            ok
+            {/* For publications library */}
+            <ResourcesTable
+              admin
+              data={publications}
+              dispatchDelete={deleteResourceAction}
+              emptyText="No hay publicaciones"
+            />
           </TabPane>
         </Tabs>
       </ContainerItem>
