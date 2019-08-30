@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Typography } from 'antd';
+import { Typography, Tabs } from 'antd';
 
 import {
   populateResourcesAction,
@@ -20,6 +20,7 @@ function AdminResources({
   status, resetStatus, deleteResourceAction, fetching,
 }) {
   const { Title } = Typography;
+  const { TabPane } = Tabs;
   const baseClassName = 'admin-resources'
 
   const { errorAlert } = useSweet();
@@ -48,11 +49,19 @@ function AdminResources({
       </ContainerItem>
       <ContainerItem style={{ position: 'relative' }}>
         { fetching && <Spinner /> }
-        <ResourcesTable
-          admin
-          data={guides}
-          dispatchDelete={deleteResourceAction}
-        />
+        {/*Tabs for types */}
+        <Tabs type="card" className={`${baseClassName}-tabs`}>
+          <TabPane tab="Guías y consensos" key="1">
+            <ResourcesTable
+              admin
+              data={guides}
+              dispatchDelete={deleteResourceAction}
+            />
+          </TabPane>
+          <TabPane tab="Publicaciones" key="2">
+            ok
+          </TabPane>
+        </Tabs>
       </ContainerItem>
     </section>
   );
