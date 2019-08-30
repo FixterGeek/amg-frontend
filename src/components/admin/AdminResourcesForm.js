@@ -20,7 +20,7 @@ import Spinner from '../reusables/Spinner';
 
 function ResourcesForm({
   fetching, status, createResourceAction, resetStatus, match,
-  history, updateResourceAction, updated,
+  history, updateResourceAction, updated, populateResourcesAction,
 }) {
   const { Title } = Typography;
 
@@ -56,19 +56,22 @@ function ResourcesForm({
     } else if (status === 'success' && update) {
       successAlert({
         title: 'Recurso actualizado',
-        text: `${updated.title}`,
+        text: 'Los datos se actualizaron con exito',
       })
       populateResourcesAction();
       resetStatus();
+      history.push('/admin/resources')
     }
 
     if (status === 'error' ) errorAlert({})
   }, [fetching])
 
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setResource({ ...resource, [name]: value })
   }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();

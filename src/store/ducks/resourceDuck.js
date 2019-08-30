@@ -154,8 +154,15 @@ export const deleteResourceAction = resourceId => (dispatch) => {
 };
 
 // Update resource
-export const updateResourceAction = (resourceId, resourceData) => (dispatch) => {
+export const updateResourceAction = (resourceId, resourceData) => async (dispatch) => {
   dispatch(updateResource());
+
+  if (resourceData.preview) {
+    resourceData.url = await uploadFile('resources/covers', resourceData.preview).then(url => url);
+  }
+  if (resourceData.document) {
+    resourceData.docsURLS[0] = await uploadFile('', resourceData.document).then(url => url);
+  }
   return patchResource(resourceId, resourceData)
     .then((data) => {
       dispatch(updateResourceSuccess(data));
