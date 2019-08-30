@@ -32,7 +32,7 @@ function ResourcesTable({ onSearch, data, admin, dispatchDelete }) {
             admin && (
               <div>
                 <Popconfirm
-                  onConfirm={() => handleDelete(record._id)}
+                  onConfirm={() => handleDelete(record._id, record.docsURLS[0], record.url)}
                   title="¿Deseas borrar este recurso?"
                   cancelText="NO"
                   okText="SI">
@@ -56,8 +56,8 @@ function ResourcesTable({ onSearch, data, admin, dispatchDelete }) {
     },
   ]
 
-  const handleDelete = (resourceId) => {
-    if (dispatchDelete) dispatchDelete(resourceId)
+  const handleDelete = (resourceId, fileUrl, previewUrl) => {
+    if (dispatchDelete) dispatchDelete(resourceId, fileUrl, previewUrl);
   }
 
   return (

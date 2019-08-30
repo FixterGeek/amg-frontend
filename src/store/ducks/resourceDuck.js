@@ -5,7 +5,7 @@ import {
   deleteResource as removeResource,
   updateResource as patchResource,
 } from '../../services/resourcesServices';
-import { uploadFile } from '../../tools/firebaseTools';
+import { uploadFile, deleteFile } from '../../tools/firebaseTools';
 
 const resourceState = {
   array: [],
@@ -140,8 +140,16 @@ export const createResourceAction = resourceData => (dispatch) => {
 };
 
 // Delete resource
-export const deleteResourceAction = resourceId => (dispatch) => {
+export const deleteResourceAction = (resourceId, fileUrl, previewUrl) => async (dispatch) => {
   dispatch(deleteResource());
+  const deletedFile = await deleteFile(fileUrl);
+  const deletedPreview = await deleteFile(previewUrl);
+
+  if (deletedFile === 'error' || deletedPreview === 'error') {
+    dispatch(deleteResourceError('File not found in Firebase storage'));
+    return 'File not found in Firebase storage';
+  }
+
   return removeResource(resourceId)
     .then((data) => {
       dispatch(deleteResourceSuccess({ array: data, id: resourceId }));
@@ -161,7 +169,7 @@ export const updateResourceAction = (resourceId, resourceData) => async (dispatc
     resourceData.url = await uploadFile('resources/covers', resourceData.preview).then(url => url);
   }
   if (resourceData.document) {
-    resourceData.docsURLS[0] = await uploadFile('', resourceData.document).then(url => url);
+    resourceData.docsURLS[0] = await uploadFile('resources/documents', resourceData.document).then(url => url);
   }
   return patchResource(resourceId, resourceData)
     .then((data) => {
