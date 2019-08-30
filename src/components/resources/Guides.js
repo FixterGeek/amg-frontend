@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
+import { populateResourcesAction } from '../../store/ducks/resourceDuck';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 import ResourcesTable from './reusables/ResourcesTable'
+import Spinner from '../reusables/Spinner';
 
-function Guides() {
+function Guides({
+  guides, array, populateResourcesAction,
+  fetching, status,
+}) {
   const { Title } = Typography;
+
+  useEffect(() => {
+    if (!array[0]) populateResourcesAction();
+  }, [])
 
   const handleSearch = (value) => {
     console.log(value)
@@ -15,11 +25,28 @@ function Guides() {
   return (
     <div className="dashboard-container">
       <Title>Guías y consensos</Title>
-      <ContainerItem>
-        <ResourcesTable onSearch={handleSearch} />
+      <ContainerItem style={{ position: 'relative' }}>
+        { fetching && <Spinner /> }
+        <ResourcesTable
+          onSearch={handleSearch}
+          data={guides}
+        />
       </ContainerItem>
     </div>
   )
 }
 
-export default Guides;
+function mapSateToProps({ resources }) {
+  return {
+    guides: resources.guides,
+    array: resources.array,
+    fetching: resources.fetching,
+    status: resources.status,
+  }
+}
+
+export default connect(
+  mapSateToProps, {
+    populateResourcesAction,
+  }
+)(Guides);
