@@ -11,6 +11,7 @@ const resourceState = {
   array: [],
   guides: [],
   publications: [],
+  noData: false,
   updated: null,
   fetching: false,
   status: null,
@@ -200,6 +201,7 @@ export default function reducer(state = resourceState, action) {
         array: action.payload.array,
         guides: action.payload.guides,
         publications: action.payload.publications,
+        noData: action.payload.array.length === 0,
       };
     case POPULATE_RESOURCES_ERROR:
       return {
