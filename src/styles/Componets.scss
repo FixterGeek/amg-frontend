@@ -411,3 +411,11 @@ $eventLeftWidth: 350px;
     justify-content: space-between;
   }
 }
+
+/* Style AdminResources */
+.admin-resources {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}

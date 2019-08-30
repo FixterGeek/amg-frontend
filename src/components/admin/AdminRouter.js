@@ -14,6 +14,7 @@ function AdminRouter() {
   return (
     <Switch>
       {/*Resources */}
+      <Route path="/admin/resources/edit/:id" component={AdminResourcesForm} />
       <Route exact path="/admin/resources/edit" component={AdminResourcesForm} />
       <Route exact path="/admin/resources" component={AdminResources} />
       {/* Group */}

@@ -6,14 +6,15 @@ import { Form } from 'antd';
 import FilePicker from './FilePicker';
 import ImagePreview from './ImagePreview';
 
-function ImagePicker({ label, onChange, onBase64, file }) {
+function ImagePicker({ label, onChange, onBase64, file, url }) {
   const { Item } = Form;
 
   const [imageUrl, setImageUrl] = useState();
 
   useEffect(() => {
     if (!file)  setImageUrl(null)
-  }, [file]);
+    if (url) setImageUrl(url)
+  }, [file, url]);
 
   const handleChange = ({ target }) => {
     if (onChange) onChange(target.files[0])

@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 
 import { Typography, Form, message } from 'antd';
 
-import { createResourceAction, resetStatus } from '../../store/ducks/resourceDuck';
+import {
+  createResourceAction,
+  resetStatus,
+  updateResourceAction,
+  populateResourcesAction,
+} from '../../store/ducks/resourceDuck';
 import useSweet from '../../hooks/useSweetAlert';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 import Button from '../../atoms/Button';
@@ -13,7 +18,10 @@ import ImagePicker from '../reusables/ImagePicker';
 import SelectField, { OptionSelect } from '../reusables/SelectField';
 import Spinner from '../reusables/Spinner';
 
-function ResourcesForm({ fetching, status, createResourceAction, resetStatus }) {
+function ResourcesForm({
+  fetching, status, createResourceAction, resetStatus, match,
+  history, updateResourceAction, updated,
+}) {
   const { Title } = Typography;
 
   const initialState = {
@@ -24,15 +32,33 @@ function ResourcesForm({ fetching, status, createResourceAction, resetStatus }) 
     authors: null,
     volume: null,
     publishedAt: null,
+    url: null,
+    docsURLS: [],
   };
 
   const { successAlert, errorAlert } = useSweet();
   const [resource, setResource] = useState(initialState);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    if (status === 'success') {
+    const { id } = match.params;
+    const { state } = history.location;
+
+    if (id) setUpdate(true);
+    if (state) setResource(state);
+  }, [])
+
+  useEffect(() => {
+    if (status === 'success' && !update) {
       successAlert({ text: 'Recurso guardado' })
       setResource(initialState)
+      resetStatus();
+    } else if (status === 'success' && update) {
+      successAlert({
+        title: 'Recurso actualizado',
+        text: `${updated.title}`,
+      })
+      populateResourcesAction();
       resetStatus();
     }
 
@@ -46,13 +72,17 @@ function ResourcesForm({ fetching, status, createResourceAction, resetStatus }) 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createResourceAction(resource)
+    if (update) updateResourceAction(resource._id, resource);
+    else createResourceAction(resource);
   }
+
 
   return (
     <section>
       <ContainerItem>
-        <Title>Subir Recurso</Title>
+        <Title>
+          { update ? 'Actualizar Recurso' : 'Subir Recurso' }
+        </Title>
       </ContainerItem>
       <ContainerItem>
         <Form onSubmit={handleSubmit} style={{ position: 'relative' }}>
@@ -99,13 +129,15 @@ function ResourcesForm({ fetching, status, createResourceAction, resetStatus }) 
 
           <ImagePicker
             onChange={file => handleChange({ target: { name: 'preview', value: file } })}
-            label="Portada"
+            label="Portada miniatura"
             file={resource.preview}
+            url={resource.url}
           />
 
           <DocumentField
             onFile={file => handleChange({ target: { name: 'document', value: file }})}
             document={resource.document}
+            url={resource.docsURLS[0]}
             label="Archivo"
             buttonText="Agregar"
           />
@@ -124,6 +156,7 @@ function mapStateToProps({ resources }) {
     resources,
     fetching: resources.fetching,
     status: resources.status,
+    updated: resources.updated,
   }
 }
 
@@ -131,5 +164,7 @@ export default connect(
   mapStateToProps, {
     createResourceAction,
     resetStatus,
+    updateResourceAction,
+    populateResourcesAction,
   }
 )(ResourcesForm);
