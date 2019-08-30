@@ -8,6 +8,7 @@ function useSweetAlert() {
       title,
       text,
       footer,
+      confirmButtonText: 'Aceptar',
     });
   };
 
@@ -21,6 +22,7 @@ function useSweetAlert() {
       title,
       text,
       footer,
+      confirmButtonText: 'Aceptar',
     });
   };
 
@@ -32,6 +34,7 @@ function useSweetAlert() {
       type: 'success',
       title,
       text,
+      confirmButtonText: 'Aceptar',
     });
   }
 

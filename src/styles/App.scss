@@ -33,3 +33,17 @@ body {
   font-size: 14px;
   color: $textPrimary;
 }
+
+/* Override SweetAlert */
+.swal2-actions {
+  .swal2-confirm {
+    background-color: $secondary;
+    height: 50px;
+    padding-right: $padding;
+    padding-left: $padding;
+    font-weight: normal;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0px;
+  }
+}

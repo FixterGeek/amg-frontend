@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Typography } from 'antd';
 
 import { populateResourcesAction } from '../../store/ducks/resourceDuck';
+import useSweet from '../../hooks/useSweetAlert';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 import ResourcesTable from './reusables/ResourcesTable'
 import Spinner from '../reusables/Spinner';
@@ -13,6 +14,12 @@ function Guides({
   fetching, status,
 }) {
   const { Title } = Typography;
+
+  const { errorAlert } = useSweet();
+
+  useEffect(() => {
+    if (status === 'error') errorAlert({});
+  }, [status])
 
   useEffect(() => {
     if (!array[0]) populateResourcesAction();
