@@ -17,7 +17,7 @@ import Spinner from '../reusables/Spinner';
 
 function AdminResources({
   allResources, guides, publications, populateResourcesAction,
-  status, resetStatus, deleteResourceAction, fetching,
+  status, resetStatus, deleteResourceAction, fetching, noData
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -31,7 +31,7 @@ function AdminResources({
   }, [status]);
 
   useEffect(() => {
-    if (!allResources[0]) populateResourcesAction();
+    if (!allResources[0] && !noData) populateResourcesAction();
   }, [])
 
   return (
@@ -82,7 +82,8 @@ function mapSateToProps({ resources }) {
     publications: resources.publications,
     status: resources.status,
     fetching: resources.fetching,
-  }
+    noData: resources.noData,
+  };
 }
 
 export default connect(

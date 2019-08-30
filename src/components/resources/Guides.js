@@ -11,7 +11,7 @@ import Spinner from '../reusables/Spinner';
 
 function Guides({
   guides, array, populateResourcesAction,
-  fetching, status,
+  fetching, status, noData,
 }) {
   const { Title } = Typography;
 
@@ -22,7 +22,7 @@ function Guides({
   }, [status])
 
   useEffect(() => {
-    if (!array[0]) populateResourcesAction();
+    if (!array[0] && !noData) populateResourcesAction();
   }, [])
 
   const handleSearch = (value) => {
@@ -49,6 +49,7 @@ function mapSateToProps({ resources }) {
     array: resources.array,
     fetching: resources.fetching,
     status: resources.status,
+    noData: resources.noData,
   }
 }
 
