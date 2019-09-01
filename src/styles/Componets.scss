@@ -452,7 +452,9 @@ $eventLeftWidth: 350px;
   }
 
   &-controls-attachs {
+    display: flex;
     button {
+      margin-right: $smallMargin;
       appearance: none;
       outline: none;
       border: solid 1px white;
@@ -483,5 +485,9 @@ $eventLeftWidth: 350px;
         max-height: 130px;
       }
     }
+  }
+
+  &-files {
+    display: flex;
   }
 }

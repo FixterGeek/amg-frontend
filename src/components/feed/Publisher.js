@@ -16,8 +16,7 @@ import FilePicker from '../reusables/FilePicker';
 import ImagePreview from '../reusables/ImagePreview';
 import MediaGallery from './reusables/MediaGallery';
 import FullMediaModal from '../reusables/FullMediaModal';
-// import AttachedFiles from './AttachedFiles';
-// import FilesToUpload from './FilesToUpload';
+import AttachFileItem from '../reusables/AttachFileItem';
 
 function Publisher({
   createPublicationAction, fetching, status, added, user
@@ -74,10 +73,18 @@ function Publisher({
   const handleAttachs = async ({ target }, type) => {
     if (target.files.length > 0) {
       setLoading(true)
-      generateArray(target.files).then(result => {
-        setPublication({ ...publication, [type]: [...publication[type], ...result] })
+      if (type === 'imagesVideos') {
+        generateArray(target.files).then(result => {
+          setPublication({ ...publication, [type]: [...publication[type], ...result] })
+          setLoading(false);
+        });
+      } else if (type === 'files') {
+        const filesArray = Object.keys(target.files).map(key => {
+          return target.files[Number(key)]
+        })
+        setPublication({ ...publication, [type]: [...publication[type], ...filesArray] });
         setLoading(false);
-      });
+      }
     }
   }
 
@@ -89,10 +96,12 @@ function Publisher({
     formData.append('text', publication.text);
     urls.map(url => formData.append('urls', url));
     imagesVideos.map(item => formData.append('images', item.file));
-    files.map(item => formData.append('docs', item.file));
+    files.map(item => formData.append('docs', item));
 
     createPublicationAction(formData).then(() => setPublication(initialPublications));
   };
+
+  console.log(publication);
 
   return (
     <ContainerItem className="feed-publisher" style={{ position: 'relative' }}>
@@ -112,6 +121,16 @@ function Publisher({
             <button>
               Imagen/Video
               <Icon type="picture" />
+            </button>
+          </FilePicker>
+          <FilePicker
+            name="imagesVideos"
+            type="forFiles"
+            onChange={(event) => handleAttachs(event, 'files')}
+            multi >
+            <button>
+              Archivo
+              <Icon type="paper-clip" />
             </button>
           </FilePicker>
         </div>
@@ -160,13 +179,17 @@ function Publisher({
           ): null
         }
       </div>
-      { imagesVideos.length > 0 &&
-        // <FilesToUpload
-        // dispatch={setPublications}
-        // publications={publications}
-        // type="imagesVideos" />
-        null
-      }
+
+      <div className="feed-publisher-files">
+        {
+          files.map(file => {
+            return (
+              <AttachFileItem name={file.name} />
+            )
+          })
+        }
+      </div>
+      
     </ContainerItem>
   );
 }

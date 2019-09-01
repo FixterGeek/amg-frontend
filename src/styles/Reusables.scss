@@ -382,6 +382,27 @@
   //
 }
 
+/* Style AttachFileItem */
+.reusables-attach-file-item {
+  display: flex;
+  background-color: $secondary;
+  max-width: 220px;
+  color: white;
+  margin: $smallMargin;
+  padding: $smallPadding;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    &:first-child {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-right: $smallMargin;
+    }
+  }
+}
+
 
 // Feed ===>
 /* Style Feed->PublicationBox */

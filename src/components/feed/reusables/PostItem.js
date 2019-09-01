@@ -6,7 +6,7 @@ import { Typography } from 'antd';
 
 import ImagePreview from '../../reusables/ImagePreview';
 import PostIcons from '../../../atoms/PostIcons';
-import FileItem from './FileItem';
+import AttacFileItem from '../../reusables/AttachFileItem';
 import PublicationGallery from './PublicationGallery';
 
 
@@ -57,7 +57,7 @@ function PostItem({ publication }) {
         <div className="files-items">
           {
             docsURLS.map(url => (
-              <FileItem url={url} />
+              <AttacFileItem url={url} link />
             ))
           }
         </div>
