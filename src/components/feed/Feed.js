@@ -9,8 +9,8 @@ import useSweetAlert from '../../hooks/useSweetAlert';
 import { populateEventsAction } from '../../store/ducks/eventsDuck';
 import { populatePublicationsAction } from '../../store/ducks/publicationsDuck';
 import EventCover from '../../molecules/EventCover';
-import PostItem from '../../molecules/PostItem';
-import Publisher from '../../molecules/Publisher';
+import PostItem from './reusables/PostItem';
+import Publisher from './Publisher';
 import Spinner from '../../atoms/Spinner';
 
 function Feed({

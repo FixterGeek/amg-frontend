@@ -8,7 +8,7 @@ import { selfPublicationsAction } from '../../store/ducks/publicationsDuck';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
 import Tabs from './reusables/Tabs';
-import PostItem from '../../molecules/PostItem';
+import PostItem from '../feed/reusables/PostItem';
 import BasicInformationUser from './reusables/BasicInformationUser';
 
 function MainProfile({ user, selfPublications, selfPublicationsAction }) {

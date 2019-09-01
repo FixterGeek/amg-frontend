@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { Typography, Carousel } from 'antd';
+import { Typography } from 'antd';
 
-import ProfilePhoto from '../atoms/ProfilePhoto';
-import PostIcons from '../atoms/PostIcons';
-import ImagePreview from '../components/feed/reusables/ImagePreview';
-import FileItem from '../components/feed/reusables/FileItem';
+import ImagePreview from '../../reusables/ImagePreview';
+import PostIcons from '../../../atoms/PostIcons';
+import FileItem from './FileItem';
+import PublicationGallery from './PublicationGallery';
 
 
 function PostItem({ publication }) {
@@ -31,7 +31,14 @@ function PostItem({ publication }) {
     <div className="post-item">
       <div className="post-item-info">
         <div className="post-item-photo">
-          <ProfilePhoto photoURL={photoURL} />
+          <ImagePreview
+            url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'}
+            containerStyle={{
+              maxWidth: '80px', maxHeight: '80px', borderStyle: 'none',
+              backgroundColor: '#1f2536'
+            }}
+            imageStyle={{ maxWidth: '120px', maxHeight: '120px' }}
+            alt={`${basicData.name} ${basicData.dadSurname}`} />
         </div>
         <div>
           <div>
@@ -44,19 +51,9 @@ function PostItem({ publication }) {
         <Text>
           { text }
         </Text>
-        {
-          imagesURLS[0] ? (
-            <Carousel>
-              {
-                imagesURLS.map(url => (
-                  <div>
-                    <ImagePreview url={url} className="image-item" />
-                  </div>
-                ))
-              }
-            </Carousel>
-          ) : null
-        }
+        <div>
+          { imagesURLS[0] && <PublicationGallery urlArray={imagesURLS} /> }
+        </div>
         <div className="files-items">
           {
             docsURLS.map(url => (
