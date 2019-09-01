@@ -83,8 +83,6 @@ function Publisher({
 
   /* ============================ */
 
-  console.log(publication);
-
   const handleClick = () => {
     const formData = new FormData();
 

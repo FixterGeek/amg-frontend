@@ -24,7 +24,6 @@ function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeK
           <div className="feed-reusables-media-gallery-medias">
             {
               dataSource.map(media => {
-                console.log(media)
                 return (
                   <FullMediaModal type={media[typeKey]} url={media[sourceKey]}>
                     <ImagePreview
