@@ -33,6 +33,7 @@ function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeK
                       }}
                       imageStyle={{ maxWidth: '310px', maxHeight: '210px' }}
                       url={media[sourceKey] || media}
+                      isVideo={media[typeKey] === 'video'}
                     />
                   </FullMediaModal>
                 )

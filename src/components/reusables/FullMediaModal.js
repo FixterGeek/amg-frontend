@@ -21,6 +21,11 @@ function FullMediaModal({ children, url, type }) {
               <img src={url} style={{ maxWidth: '100%' }} />
             )
           }
+          {
+            type === 'video' && (
+              <video src={url} style={{ maxWidth: '100%' }} controls autoPlay />
+            )
+          }
       </Modal>
     </div>
   )

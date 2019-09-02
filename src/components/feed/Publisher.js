@@ -134,11 +134,18 @@ function Publisher({
             </button>
           </FilePicker>
         </div>
-        <Button width="200px" onClick={handleClick}>Publicar</Button>
+        <Button
+          width="200px"
+          marginTop="16px"
+          marginBottom="16px"
+          onClick={handleClick} >
+            Publicar
+        </Button>
       </div>
       <div className="feed-publisher-previews">
         { 
           imagesVideos.slice(0, 5).map((item, index) => {
+            console.log(item);
             if (imagesVideos.length > 5 && index === 4) {
               return (
                 <MediaGallery
@@ -153,7 +160,9 @@ function Publisher({
                     url={item.base64}
                     containerStyle={{ borderStyle: 'none', cursor: 'pointer' }}
                     imageStyle={{ filter: 'blur(4px)' }}
+                    videoStyle={{ filter: 'blur(4px)' }}
                     activeCenterText={`+ ${imagesVideos.length - 5}`}
+                    isVideo={item.type === 'video'}
                   />
                 </MediaGallery>
               )
@@ -163,6 +172,7 @@ function Publisher({
                 <ImagePreview
                   url={item.base64}
                   containerStyle={{ borderStyle: 'none', cursor: 'pointer' }}
+                  isVideo={item.type === 'video'}
                 />
               </FullMediaModal>
             )

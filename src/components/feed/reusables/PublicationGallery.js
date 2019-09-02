@@ -35,8 +35,10 @@ function PublicationGallery({ urlArray }) {
                       <ImagePreview
                         url={media.base64}
                         imageStyle={{ filter: 'blur(4px)' }}
+                        videoStyle={{ filter: 'blur(4px)' }}
                         activeCenterText={`+ ${medias.length - 4}`}
-                      / >
+                        isVideo={media.type === 'video'}
+                      />
                     </MediaGallery>
                   )
                 }
@@ -45,6 +47,7 @@ function PublicationGallery({ urlArray }) {
                   <FullMediaModal url={media.base64} type={media.type} >
                     <ImagePreview
                         url={media.base64}
+                        isVideo={media.type === 'video'}
                     / >
                   </FullMediaModal>
                 )

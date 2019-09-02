@@ -5,11 +5,23 @@ import { Icon } from 'antd';
 
 function ImagePreview({
   url, alt, activeCenterText, containerStyle, imageStyle, onClick,
-  blur
+  isVideo, videoStyle, autoPlay
 }) {
   const handleClick = (event) => {
     if (onClick) onClick(event);
   }
+
+  const MediaCreator = () => {
+    if (isVideo) return (
+      <video src={url} alt={alt} style={videoStyle} controls={false} autoPlay={autoPlay} />
+    )
+
+    return (
+      <img src={url} alt={alt} style={imageStyle} />
+    )
+  }
+
+  console.log(isVideo)
 
   return (
     <div
@@ -17,7 +29,7 @@ function ImagePreview({
       onClick={handleClick}
       style={{ ...containerStyle }}>
       { 
-        url ? <img src={url} alt={alt} style={imageStyle} />
+        url ? <MediaCreator />
           : <Icon type="plus" />
       }
       {
@@ -38,6 +50,7 @@ ImagePreview.propTypes = {
   imageStyle: PropTypes.object,
   centerText: PropTypes.node,
   onClick: PropTypes.func,
+  autoPlay: PropTypes.bool,
 };
 
 ImagePreview.defaultProps = {
@@ -47,4 +60,5 @@ ImagePreview.defaultProps = {
   imageStyle: {},
   centerText: null,
   onClick: null,
+  autoPlay: false,
 };
