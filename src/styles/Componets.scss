@@ -18,21 +18,6 @@
   }
 }
 
-.signup-right {
-  padding: $padding !important;
-}
-
-.signup-left {
-  display: none;
-  padding-left: 32px !important;
-  position: fixed;
-  left: 0;
-
-  @include for-size(tablet-landscape-up) {
-    display: flex;
-  }
-}
-
 .login-bg {
   background-image: url("../assets/login-bg.png");
   width: 100%;
@@ -41,21 +26,6 @@
 }
 
 .login-logo {
-  width: 100%;
-  height: 100%;
-  background-image: url("../assets/gastro@2x.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 70%;
-}
-
-.signup-bg {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-}
-
-.signup-logo {
   width: 100%;
   height: 100%;
   background-image: url("../assets/gastro@2x.png");
@@ -228,41 +198,6 @@ $eventLeftWidth: 350px;
       }
     }
   }
-
-
-/* SignupContainers */
-.signup-container {
-  display: flex;
-  min-height: 100vh;
-  box-sizing: border-box;
-
-  &-left {
-    width: 325px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: $secondary;
-    padding: $largePadding $padding;
-    box-sizing: border-box;
-    display: none;
-
-    @include for-size(tablet-landscape-up) {
-      display: flex;
-    }
-  }
-
-  &-rigth {
-    flex-grow: 1;
-    box-sizing: border-box;
-    padding-left: $padding;
-    padding-right: $largePadding;
-
-    @include for-size(tablet-landscape-up) {
-      padding-left: (325px + $extraPadding);
-    }
-  }
-}
 
 .component-login {
   min-height: 100vh;
@@ -489,5 +424,90 @@ $eventLeftWidth: 350px;
 
   &-files {
     display: flex;
+  }
+}
+
+
+// Admin ===>
+.admin-invoices {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+// Signup ===>
+.signup {
+  padding-left: 325px; // same width like stepper
+  &-form-container {
+    padding: 0px $largePadding $largePadding $largePadding;
+  }
+}
+
+.signup-stepper {
+  position: fixed;
+  background-color: $secondary;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 325px;
+
+  &-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: $largePadding $padding;
+  }
+
+  &-logo {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5vh;
+
+    img {
+      max-height: 30px;
+    }
+  }
+
+  .ant-steps-item-process {
+    .ant-steps-item-icon {
+      background-color: white;
+      border-color: transparent;
+      .ant-steps-icon {
+        color: $primary;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .ant-steps-item-wait {
+    .ant-steps-item-icon {
+      background-color: $silver;
+      border-color: transparent;
+      .ant-steps-icon {
+        color: $darkSilver;
+        font-size: 0.9rem;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .ant-steps-item {
+    &-tail {
+      padding: 32px 1px;
+      &:after {
+        background: $silver;
+        opacity: 0.8;
+      }
+    }
+
+    &-content {
+      .ant-steps-item-title {
+        font-weight: normal;
+      }
+    }
   }
 }

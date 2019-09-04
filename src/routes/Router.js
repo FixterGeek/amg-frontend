@@ -5,7 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import WithoutLoginRoute from './WithoutLoginRoute';
 import Home from '../components/home/HomeContainer';
 import Login from '../components/login/Login';
-import Signup from '../components/signup/BeforeStaring';
+import BeforeStarting from '../components/signup/BeforeStaring';
 import General from '../components/signup/GeneralData';
 import Education from '../components/signup/EducationData';
 import Laboral from '../components/signup/LaboralData';
@@ -18,6 +18,7 @@ import SeccionMensual from "../components/home/SeccionMensual"
 import Nosotros from "../components/home/Nosotros";
 import Contacto from "../components/home/Contacto";
 import PreSign from "../components/signup/PreSign";
+import Signup from '../components/signup/Signup';
 import Guias from "../components/home/Guias";
 import Publicaciones from "../components/home/Publicaciones";
 
@@ -34,7 +35,7 @@ function AppRouter() {
         <Route path="/pre-signup" component={PreSign}/>
       <Route path="/login/reset" exact component={Login} />
       <Route path="/login" exact component={Login} />
-      <Route path="/signup/general" exact component={General} />
+      <Route path="/signup/general" exact component={Signup} />
       <Route path="/signup/education" exact component={Education} />
       <Route path="/signup/laboral" exact component={Laboral} />
       <Route path="/signup/fiscal" exact component={Fiscal} />
