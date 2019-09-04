@@ -36,7 +36,8 @@ function AppRouter() {
       <Route path="/login/reset" exact component={Login} />
       <Route path="/login" exact component={Login} />
       <Route path="/signup/general" exact component={Signup} />
-      <Route path="/signup/education" exact component={Education} />
+      <Route path="/signup/educacion" exact component={Signup} />
+      <Route path="/signup/docentes" exact component={Signup} />
       <Route path="/signup/laboral" exact component={Laboral} />
       <Route path="/signup/fiscal" exact component={Fiscal} />
       <Route path="/signup/confirm" exact component={Confirm} />      

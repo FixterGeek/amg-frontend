@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Form, Typography } from 'antd';
 
@@ -12,9 +12,12 @@ import CheckboxField from '../../reusables/CheckboxField';
 import PasswordField from '../../reusables/PasswordField';
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
+import Spinner from '../../reusables/Spinner';
 import estados from '../../admin/estados.json';
 
-function SignupGeneralDataForm({ user, dispatch }) {
+function SignupGeneralDataForm({
+  user, dispatch, loading, status, history
+}) {
   const { Title } = Typography;
 
   const { errorAlert } = useSweet();
@@ -45,6 +48,15 @@ function SignupGeneralDataForm({ user, dispatch }) {
 
   const [generals, setGeneral] = useState(generalsState);
 
+  useEffect(() => {
+    if (status === 'error') errorAlert({});
+    if (status === 'success') history.push('/signup/educacion')
+  }, [status]);
+
+  useEffect(() => {
+    if (user._id) setGeneral({ ...user });
+  }, [user]);
+
   const handleChange = ({ target }) => {
     const { value, name } = target;
 
@@ -67,23 +79,27 @@ function SignupGeneralDataForm({ user, dispatch }) {
   }
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    uploadFile('generic/users', generals.photoProfile)
-      .then(url => {
-        const userData = generals;
-        userData.basicData.photoURL = url;
-        dispatch(userData);
-      })
+    if (!user._id) {
+      const url = await uploadFile('generic/users', generals.photoProfile)
+      .then(url => url)
       .catch((error) => {
         errorAlert({});
-      });
+        return;
+      })
+
+      const userData = generals;
+      userData.basicData.photoURL = url;
+      dispatch(userData);
+    } else history.push('/signup/educacion')
   }
 
-  console.log(generals);
+  console.log(history);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} style={{ position: 'relative' }}>
+      { loading && <Spinner /> }
       <ContainerItem>
         <Title>Datos generales</Title>
       </ContainerItem>

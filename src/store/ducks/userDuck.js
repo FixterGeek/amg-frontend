@@ -61,6 +61,7 @@ const userState = {
 
 
 // Constants
+let RESET_USER_STATUS = 'RESET_USER_STATUS';
 let CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS"
 let CREATE_USER = "CREATE_USER"
 let CREATE_USER_ERROR = "CREATE_USER_ERROR"
@@ -80,6 +81,10 @@ let SUBSCRIBE_USER_TO_EVENT_SUCCESS = "SUBSCRIBE_USER_TO_EVENT_SUCCESS"
 let SUBSCRIBE_USER_TO_EVENT_ERROR ="SUBSCRIBE_USER_TO_EVENT_ERROR"
 
 // actionCreators
+export function resetUserStatus() {
+    return { type: RESET_USER_STATUS };
+}
+
 export function subscribeUserToEvent() {
     return { type: SUBSCRIBE_USER_TO_EVENT };
 }
@@ -312,6 +317,8 @@ export const createUserAction = (userData) => (dispatch) => {
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
+        case RESET_USER_STATUS:
+            return { ...state, status: null }
         case UPDATE_USER:
             return { ...state, fetching: true };
         case UPDATE_USER_SUCCESS:
