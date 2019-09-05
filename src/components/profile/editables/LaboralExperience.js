@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { Typography, Modal } from 'antd';
 
@@ -10,7 +11,10 @@ import Button from '../../../atoms/Button';
 import CreateInstitution from '../reusables/CreateInstitutionModal';
 import LaboralForm from '../reusables/LaboralForm';
 
-function LaboralExperience({ user, createActivityAction, pushLastInstitution }) {
+function LaboralExperience({
+  user, createActivityAction, pushLastInstitution,
+  title,
+}) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
@@ -35,7 +39,7 @@ function LaboralExperience({ user, createActivityAction, pushLastInstitution }) 
   return (
     <ContainerItem className="component-profile-laboral-experience">
       <div className="component-profile-laboral-experience-header">
-        <Title>Experiencia profesional</Title>
+        <Title>{ title }</Title>
         <Button onClick={() => setOpen(true)} marginTop="0px" width="180px" line>
           Agregar ✚
         </Button>
@@ -67,3 +71,11 @@ function mapStateToProps({ activities, user }) {
 export default connect(
   mapStateToProps, { createActivityAction, pushLastInstitution },
 )(LaboralExperience);
+
+LaboralExperience.propTypes = {
+  title: PropTypes.string,
+};
+
+LaboralExperience.defaultProps = {
+  title: 'Experiencia profesional',
+};

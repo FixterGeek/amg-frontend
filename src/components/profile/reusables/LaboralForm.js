@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { Checkbox } from 'antd';
 
@@ -8,12 +9,13 @@ import TextField from '../../../molecules/TextFields';
 import SelectField from '../../../molecules/SelectField';
 import RangeDatePicker from './RangeDatePicker';
 import Label from '../../../atoms/data-entry/Label';
-import Spinner from '../../../atoms/Spinner';
+import Spinner from '../../reusables/Spinner';
 
 
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
-  lastInstitution, disabledOwn, fetching, activityFetching
+  lastInstitution, disabledOwn, fetching, activityFetching,
+  activitiesOptions,
 }) {
   const [activity, setActivity] = useState({
     user: '',
@@ -38,7 +40,7 @@ function LaboralForm({
   }, [user]);
 
   useEffect(() => {
-    onChange(activity);
+    if (onChange) onChange(activity);
   }, [activity]);
 
   useEffect(() => {
@@ -61,12 +63,9 @@ function LaboralForm({
   };
 
 
-  console.log(activity)
-
-
   return (
     <form className="relative">
-      { fetching && <Spinner tip="Creando institución..." /> }
+      { fetching && <Spinner /> }
       { activityFetching && <Spinner tip="Creando actividad laboral..." /> }
       <SelectField
         onChange={(value, event) => handleChange({ target: { value, name: 'institution', event } })}
@@ -87,9 +86,9 @@ function LaboralForm({
       </div>
       <SelectField
         onChange={value => handleChange({ target: { value, name: 'type' } })}
-        options={['Hospitalaria', 'Docente', 'Sociedad']}
+        options={activitiesOptions}
         value={activity.type}
-        label="Tipos de labor" />
+        label="Tipo de actividad" />
       {
         activity.type === 'Hospitalaria' || activity.type === 'Docente' ? (
           <TextField
@@ -129,3 +128,11 @@ function mapStateToProps({ user, institutions, activities }) {
 }
 
 export default connect(mapStateToProps, { populateInstitutionsAction })(LaboralForm);
+
+LaboralForm.propTypes = {
+  activitiesOptions: PropTypes.arrayOf(PropTypes.string),
+};
+
+LaboralForm.defaultProps = {
+  activitiesOptions: ['Hospitalaria', 'Docente', 'Sociedad'],
+}
