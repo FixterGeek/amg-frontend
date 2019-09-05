@@ -442,6 +442,11 @@ $eventLeftWidth: 350px;
   padding-left: 325px; // same width like stepper
   &-form-container {
     padding: 0px $largePadding $largePadding $largePadding;
+    div {
+      &:first-child {
+        padding-top: 0.1px;
+      }
+    }
   }
 }
 
