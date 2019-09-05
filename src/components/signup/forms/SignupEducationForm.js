@@ -32,17 +32,18 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
         loading && <Spinner />
       }
       <PersonalEducation externalUser={user} />
-      {
-        allIsEmpty && (
-          <BoxItem
-            subtitle="Agrega tus datos de educacionales"
-            noLeft
-          />
-        )
-      }
+
       <ContainerItem>
         <Title level={3}>Educación profesional</Title>
         <ContainerItem>
+          {
+            studies.length === 0 && (
+              <BoxItem
+                subtitle="Agrega tus datos de educación profesional"
+                noLeft
+              />
+            )
+          }
           {
             studies.map(study => {
               const { major = null, institution = {}, startDate = null, endDate = null  } = study;
@@ -67,6 +68,14 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
         <Title level={3}>Internado de pregrado</Title>
         <ContainerItem>
           {
+            internships.length === 0 && (
+              <BoxItem
+                subtitle="Agrega tus datos de internado de pregrado"
+                noLeft
+              />
+            )
+          }
+          {
             internships.map(inter => {
               const { institution = {}, startDate = null, endDate = null  } = inter;
               const { name = null } = institution;
@@ -88,6 +97,14 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
       <ContainerItem>
         <Title level={3}>Curso de posgrado</Title>
         <ContainerItem>
+          {
+            residences.length === 0 && (
+              <BoxItem
+                subtitle="Agrega tus datos de residencia"
+                noLeft
+              />
+            )
+          }
           {
             residences.map(resid => {
               const { institution = {}, startDate = null, endDate = null, speciality = null  } = resid;

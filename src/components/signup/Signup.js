@@ -6,22 +6,27 @@ import {
   resetUserStatus,
 } from '../../store/ducks/userDuck';
 import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
+import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
 import Stepper from './SignupStepper';
 import GeneralDataForm from './forms/SignupGeneralDataForm';
 import EducationForm from './forms/SignupEducationForm';
+import SignupTeachingForm from './forms/SignupTeachingForm';
 
 function Signup({
   user, createUserAction, resetUserStatus,
   fetching, status, history, match,
-  education = { studies: [], internships: [], recidences: [] },
-  populateEducationAction, resetEducationStatus,
+  education, populateEducationAction, resetEducationStatus,
+  activities, populateActivitiesAction, resetActivitiesStatus
 }) {
 
   const currents = { general: 0, educacion: 1, docentes: 2 };
   const currentLocation = match.path.split('/').pop();
 
   useEffect(() => {
-    populateEducationAction();
+    if (user._id) {
+      populateEducationAction();
+      populateActivitiesAction();
+    }
   }, [])
 
   return (
@@ -49,17 +54,23 @@ function Signup({
             />
           )
         }
+        {
+          currentLocation === 'docentes' && (
+            <SignupTeachingForm activities={activities} resetStatus={resetActivitiesStatus} />
+          )
+        }
       </div>
     </div>
   );
 }
 
-function mapStateToProps({ user, education }) {
+function mapStateToProps({ user, education, activities }) {
   return {
     user,
     fetching: user.fetching,
     status: user.status,
     education,
+    activities,
   }
 }
 
@@ -69,5 +80,7 @@ export default connect(
     resetUserStatus,
     populateEducationAction,
     resetEducationStatus,
+    populateActivitiesAction,
+    resetActivitiesStatus,
   }
 )(Signup);
