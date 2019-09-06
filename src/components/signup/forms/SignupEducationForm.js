@@ -24,6 +24,7 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
       errorAlert({});
       resetStatus();
     }
+    if (status === 'success') resetStatus();
   }, [status]);
 
   return (

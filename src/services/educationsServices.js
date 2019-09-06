@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 const APIURL = `${process.env.REACT_APP_BASE_API_URL}`;
+const STUDIES_API = `${APIURL}/studies`;
 
 
 export const createEducation = async (type, educationData) => {
@@ -16,4 +17,15 @@ export const createEducation = async (type, educationData) => {
     data.educationType = type;
     return data;
   });
+};
+
+export const getStudiesForUser = async (userId) => {
+  const selfUser = await JSON.parse(localStorage.getItem('user'));
+  const authToken = await localStorage.getItem('authToken');
+
+  return axios.get(`${STUDIES_API}?query={"user": "${userId || selfUser._id}"}`, {
+    headers: {
+      Authorization: authToken,
+    },
+  }).then(({ data }) => data);
 };

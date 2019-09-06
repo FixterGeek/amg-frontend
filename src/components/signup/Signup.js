@@ -21,6 +21,7 @@ function Signup({
   education, populateEducationAction, resetEducationStatus,
   activities, populateActivitiesAction, resetActivitiesStatus,
   activitiesFetching, activitiesStatus, updateUserAction,
+  educationFetching, educationStatus,
 }) {
 
   const currents = {
@@ -57,19 +58,25 @@ function Signup({
               user={user}
               education={education}
               resetStatus={resetEducationStatus}
+              loading={educationFetching}
+              status={educationStatus}
             />
           )
         }
         {
           currentLocation === 'docentes' && (
-            <SignupTeachingForm activities={activities} resetStatus={resetActivitiesStatus} />
+            <SignupTeachingForm
+              activities={activities}
+              resetStatus={resetActivitiesStatus}
+              loading={activitiesFetching}
+              status={activitiesStatus}
+            />
           )
         }
         {
           currentLocation === 'laborales' && (
             <SignupLaboralForm
               jobActivities={activities.jobs}
-              resetStaus={resetActivitiesStatus}
               loading={activitiesFetching}
               status={activitiesStatus}
               resetStatus={resetActivitiesStatus}
@@ -102,6 +109,8 @@ function mapStateToProps({ user, education, activities }) {
     activities,
     activitiesFetching: activities.fetching,
     activitiesStatus: activities.status,
+    educationFetching: education.fetching,
+    educationStatus: education.status,
   }
 }
 

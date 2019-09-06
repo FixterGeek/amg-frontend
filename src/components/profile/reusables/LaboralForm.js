@@ -6,10 +6,10 @@ import { Checkbox } from 'antd';
 
 import { populateInstitutionsAction } from '../../../store/ducks/institutionsDuck';
 import TextField from '../../../molecules/TextFields';
-import SelectField from '../../../molecules/SelectField';
 import RangeDatePicker from './RangeDatePicker';
 import Label from '../../../atoms/data-entry/Label';
 import Spinner from '../../reusables/Spinner';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
 
 
 function LaboralForm({
@@ -62,20 +62,24 @@ function LaboralForm({
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
 
-  console.log(activity);
+  console.log(institutionsArray);
 
 
   return (
     <form className="relative">
-      { fetching && <Spinner /> }
-      { activityFetching && <Spinner tip="Creando actividad laboral..." /> }
+      { activityFetching || fetching ?  <Spinner /> : null }
       <SelectField
-        onChange={(value, event) => handleChange({ target: { value, name: 'institution', event } })}
-        useKeys={['_id', '_id', 'name']}
-        returnIndex
-        value={activity.institution}
-        options={institutionsArray}
-        label="Instituciones" />
+        label="Institución"
+        onChange={(value, event) => handleChange({ target: { name: 'institution', value, event } })}>
+        {
+          institutionsArray.map((institution, index) => (
+            <OptionSelect key={institution._id} value={institution._id} index={index}>
+              { institution.name }
+            </OptionSelect>
+          ))
+        }
+      </SelectField>
+
       <div>
         <Label>Institución propia</Label>
         {

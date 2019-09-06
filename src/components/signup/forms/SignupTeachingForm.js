@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
+import useSweet from '../../../hooks/useSweetAlert';
 import LaboralExperience from '../../profile/editables/LaboralExperience';
 import ContainerItem from '../../reusables/ContainerItem';
 import BoxItem from '../../reusables/BoxItem';
 import Button from '../../reusables/Button';
+import Spinner from '../../reusables/Spinner';
 
-function SignupTeachingForm({ activities }) {
+
+function SignupTeachingForm({ activities, loading, status, resetStatus }) {
   const { Title } = Typography;
 
+  const { errorAlert } = useSweet();
   const {teachingActivities, hospitalActivities, medicalSocieties} = activities;
   const allIsEmpty = teachingActivities.length === 0 && hospitalActivities.length === 0 && medicalSocieties.length === 0;
+
+  useEffect(() => {
+    if (status === 'error') {
+      errorAlert({});
+      resetStatus();
+    }
+    if (status === 'success') resetStatus();
+  }, [status])
 
   const RenderActivity = ({activity}) => {
     const {
@@ -33,7 +45,9 @@ function SignupTeachingForm({ activities }) {
   };
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+      { loading && <Spinner /> }
+
       <LaboralExperience
         title="Actividades docentes"
       />
@@ -45,7 +59,7 @@ function SignupTeachingForm({ activities }) {
               <BoxItem noLeft subtitle="Si has participado en actividades docentes agregalas" />
             )
           }
-          { teachingActivities.map(activity => <RenderActivity activity={activity} />) }
+          { teachingActivities.map(activity => <RenderActivity key={activity._id} activity={activity} />) }
         </ContainerItem>
       </ContainerItem>
 
@@ -59,7 +73,7 @@ function SignupTeachingForm({ activities }) {
               />
             )
           }
-          { hospitalActivities.map(activity => <RenderActivity activity={activity} />) }
+          { hospitalActivities.map(activity => <RenderActivity key={activity._id} activity={activity} />) }
         </ContainerItem>
       </ContainerItem>
 
@@ -73,7 +87,7 @@ function SignupTeachingForm({ activities }) {
               />
             )
           }
-          { medicalSocieties.map(activity => <RenderActivity activity={activity} />) }
+          { medicalSocieties.map(activity => <RenderActivity key={activity._id} activity={activity} />) }
         </ContainerItem>
       </ContainerItem>
       <Button 
