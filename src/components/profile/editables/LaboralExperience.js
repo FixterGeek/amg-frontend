@@ -88,7 +88,7 @@ LaboralExperience.propTypes = {
 
 LaboralExperience.defaultProps = {
   title: 'Experiencia profesional',
-  activitiesOptions: null,
+  activitiesOptions: ['Hospitalaria', 'Docente', 'Sociedad'],
   defaultType: null,
   hiddenType: false,
 };

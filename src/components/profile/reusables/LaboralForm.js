@@ -15,7 +15,7 @@ import SelectField, { OptionSelect } from '../../reusables/SelectField';
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
   lastInstitution, disabledOwn, fetching, activityFetching,
-  activitiesOptions, defaultType, hiddenType
+  activitiesOptions = [], defaultType, hiddenType
 }) {
   const [activity, setActivity] = useState({
     user: '',
@@ -62,7 +62,7 @@ function LaboralForm({
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
 
-  console.log(institutionsArray);
+  console.log(activitiesOptions);
 
 
   return (
@@ -70,6 +70,7 @@ function LaboralForm({
       { activityFetching || fetching ?  <Spinner /> : null }
       <SelectField
         label="Institución"
+        value={activity.institution}
         onChange={(value, event) => handleChange({ target: { name: 'institution', value, event } })}>
         {
           institutionsArray.map((institution, index) => (
@@ -94,9 +95,16 @@ function LaboralForm({
         !hiddenType && (
           <SelectField
             onChange={value => handleChange({ target: { value, name: 'type' } })}
-            options={activitiesOptions}
             value={activity.type}
-            label="Tipo de actividad" />
+            label="Tipo de actividad" >
+              {
+                activitiesOptions.map((option, index) => (
+                  <OptionSelect key={index} value={option.value || option}>
+                    { option.label || option }
+                  </OptionSelect>
+                ))
+              }
+          </SelectField>
         )
       }
       {
