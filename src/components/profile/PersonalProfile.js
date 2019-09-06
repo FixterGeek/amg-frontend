@@ -17,7 +17,7 @@ import BoxItem from '../../atoms/BoxItem';
 
 function PersonalProfile({
   user, activities, updateUserAction, populateActivitiesAction,
-  activitiesFetching, studies, internships, residences, populateEducationAction
+  activitiesFetching, studies, internships, residencies, populateEducationAction
 }) {
   const { Title } = Typography;
 
@@ -35,6 +35,8 @@ function PersonalProfile({
   const handleSaveBio = bio => {
     updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
   };
+
+  console.log(residencies);
 
 
   return (
@@ -92,7 +94,7 @@ function PersonalProfile({
           <Title level={3}>Residencias</Title>
         </ContainerItem>
         {
-          residences.map(residence => (
+          residencies.map(residence => (
             <BoxItem
               key={residence._id}
               title={residence.speciality || residence.institution.name}
@@ -135,7 +137,7 @@ function mapStateToProps({ user, activities, education }) {
     user,
     studies: education.studies,
     internships: education.internships,
-    residences: education.residences,
+    residencies: education.residencies,
     activities: activities.activitiesArray,
     activitiesFetching: activities.fetching,
   };

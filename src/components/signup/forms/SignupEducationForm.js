@@ -16,8 +16,8 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
   const { Title } = Typography;
 
   const { errorAlert } = useSweet();
-  const { studies, internships , residences } = education;
-  const allIsEmpty = (studies.length === 0 && internships.length === 0 && residences.length === 0);
+  const { studies, internships , residencies } = education;
+  const allIsEmpty = (studies.length === 0 && internships.length === 0 && residencies.length === 0);
 
   useEffect(() => {
     if (status === 'error') {
@@ -99,7 +99,7 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
         <Title level={3}>Curso de posgrado</Title>
         <ContainerItem>
           {
-            residences.length === 0 && (
+            residencies.length === 0 && (
               <BoxItem
                 subtitle="Agrega tus datos de residencia"
                 noLeft
@@ -107,7 +107,7 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
             )
           }
           {
-            residences.map(resid => {
+            residencies.map(resid => {
               const { institution = {}, startDate = null, endDate = null, speciality = null  } = resid;
               const { name = null } = institution;
               const end = endDate === 'Actualidad' ? endDate : moment(endDate).format('MMMM[ de ]YYYY');

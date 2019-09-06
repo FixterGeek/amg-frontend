@@ -1,10 +1,11 @@
 /* eslint-disable nonblock-statement-body-position */
 import { createEducation as create } from '../../services/educationsServices';
+import { getSelfUser } from '../../services/userServices';
 
 const educationState = {
   studies: [],
   internships: [],
-  residences: [],
+  residencies: [],
   fetching: false,
   status: null,
 };
@@ -62,6 +63,9 @@ export const createEducationAction = (type, educationData) => (dispatch) => {
   dispatch(createEducation());
   return create(type, educationData)
     .then((data) => {
+      const { type } = data;
+
+
       dispatch(createEducationSuccess(data));
       return data;
     })
@@ -74,7 +78,30 @@ export const createEducationAction = (type, educationData) => (dispatch) => {
 
 // Populate education
 export const populateEducationAction = () => (dispatch) => {
-  if (localStorage.education) dispatch(populateEducationSuccess(JSON.parse(localStorage.education)));
+  dispatch(populateEducation());
+  if (localStorage.education) {
+    const localEducation = JSON.parse(localStorage.education);
+
+    dispatch(populateEducationSuccess({
+      studies: localEducation.studies,
+      internships: localEducation.internships,
+      residencies: localEducation.residencies,
+    }));
+    return localEducation;
+  }
+
+  return getSelfUser()
+    .then((data) => {
+      const { studies = [], residencies = [], internships = [] } = data;
+
+      localStorage.education = JSON.stringify({ studies, residencies, internships });
+      dispatch(populateEducationSuccess({ studies, residencies, internships }));
+      return data;
+    })
+    .catch((error) => {
+      dispatch(populateEducationError(error));
+      return error;
+    });
 };
 
 
@@ -107,7 +134,14 @@ export default function reducer(state = educationState, action) {
     case POPULATE_EDUCATION:
       return { ...state, fetching: true };
     case POPULATE_EDUCATION_SUCCESS:
-      return { ...state, fetching: false, ...action.payload, status: 'success' };
+      return {
+        ...state,
+        fetching: false,
+        status: 'success',
+        studies: action.payload.studies,
+        residencies: action.payload.residencies,
+        internships: action.payload.internships,
+      };
     case POPULATE_EDUCATION_ERROR:
       return { ...state, fetching: false, error: action.payload, status: 'error' };
     default:

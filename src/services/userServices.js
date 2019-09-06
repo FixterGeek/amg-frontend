@@ -49,7 +49,6 @@ export const updateUser = (userData) => {
 export const resetPassword = ({ email }) => axios.post(`${baseAuthURL}/forgot`, { email })
   .then(({ data }) => data);
 
-
 /* Publications section */
 
 export const getPublications = async () => {
