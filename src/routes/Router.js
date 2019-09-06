@@ -5,12 +5,6 @@ import PrivateRoute from './PrivateRoute';
 import WithoutLoginRoute from './WithoutLoginRoute';
 import Home from '../components/home/HomeContainer';
 import Login from '../components/login/Login';
-import BeforeStarting from '../components/signup/BeforeStaring';
-import General from '../components/signup/GeneralData';
-import Education from '../components/signup/EducationData';
-import Laboral from '../components/signup/LaboralData';
-import Fiscal from '../components/signup/FiscalData';
-import Confirm from '../components/signup/Confirm';
 import DashBoard from '../pages/DashBoard';
 import AdminPage from '../components/admin/AdminPage';
 import Biblioteca from "../components/home/Biblioteca";
@@ -40,7 +34,6 @@ function AppRouter() {
       <Route path="/signup/docentes" exact component={Signup} />
       <Route path="/signup/laborales" exact component={Signup} />
       <Route path="/signup/fiscales" exact component={Signup} />
-      <Route path="/signup/confirm" exact component={Confirm} />      
       <PrivateRoute path="/dashboard" component={DashBoard} />
       {/* Admin Section */}
       <PrivateRoute path="/admin" component={AdminPage} />

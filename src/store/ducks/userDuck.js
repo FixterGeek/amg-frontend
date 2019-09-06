@@ -322,9 +322,9 @@ function reducer(state = userState, action) {
         case UPDATE_USER:
             return { ...state, fetching: true };
         case UPDATE_USER_SUCCESS:
-            return { ...state, ...action.payload, fetching: false };
+            return { ...state, ...action.payload, fetching: false, status: 'success' };
         case UPDATE_USER_ERROR:
-            return { ...state, fetching: false, error: action.payload.message };
+            return { ...state, fetching: false, error: action.payload.message, status: 'error' };
         case SET_FETCHING_USER:
             return { ...state, fetching: true }
         case LOGIN_USER_SUCCESS:

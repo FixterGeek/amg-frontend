@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   createUserAction,
   resetUserStatus,
+  updateUserAction,
 } from '../../store/ducks/userDuck';
 import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
 import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
@@ -19,7 +20,7 @@ function Signup({
   fetching, status, history, match,
   education, populateEducationAction, resetEducationStatus,
   activities, populateActivitiesAction, resetActivitiesStatus,
-  activitiesFetching, activitiesStatus,
+  activitiesFetching, activitiesStatus, updateUserAction,
 }) {
 
   const currents = {
@@ -77,7 +78,14 @@ function Signup({
         }
         {
           currentLocation === 'fiscales' && (
-            <SignupFiscalForm />
+            <SignupFiscalForm
+              user={user}
+              dispatch={updateUserAction}
+              loading={fetching}
+              status={status}
+              resetStatus={resetUserStatus}
+              history={history}
+            />
           )
         }
       </div>
@@ -105,5 +113,6 @@ export default connect(
     resetEducationStatus,
     populateActivitiesAction,
     resetActivitiesStatus,
+    updateUserAction,
   }
 )(Signup);
