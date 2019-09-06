@@ -441,8 +441,8 @@ $eventLeftWidth: 350px;
 .signup {
   padding-left: 325px; // same width like stepper
   &-form-container {
-    padding: 0px $largePadding $largePadding $largePadding;
-    div {
+    padding: 0px $extraPadding $largePadding $extraPadding;
+    div, form {
       &:first-child {
         padding-top: 0.1px;
       }
@@ -459,11 +459,29 @@ $eventLeftWidth: 350px;
   left: 0;
   max-width: 325px;
 
+  &:after {
+    content: '';
+    position: absolute;
+    top: 200px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/amg-logo@blue-large.png');
+    background-repeat: no-repeat;
+    background-position: 190%;
+    opacity: 0.2;
+  }
+
   &-container {
     display: flex;
     flex-flow: column;
     align-items: center;
     padding: $largePadding $padding;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 3;
   }
 
   &-logo {
@@ -513,6 +531,42 @@ $eventLeftWidth: 350px;
       .ant-steps-item-title {
         font-weight: normal;
       }
+    }
+  }
+}
+
+.terms-and-conditions {
+  &-modal {
+    h4 {
+      text-align: center;
+    }
+
+    textarea {
+      background-color: $clouds;
+      border-radius: 0px;
+      border-color: $clouds;
+      font-size: 0.98rem;
+    }
+  }
+
+  &-check {
+    margin-top: $largeMargin;
+
+    .ant-checkbox-inner {
+      width: 22px;
+      height: 22px;
+      &:after {
+        left: 30%;
+      }
+    }
+
+    &-text {
+      margin-top: -5px;
+      display: inline-block;
+    }
+
+    .ant-checkbox-wrapper {
+      display: flex;
     }
   }
 }
