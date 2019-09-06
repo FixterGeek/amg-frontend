@@ -15,7 +15,7 @@ import Spinner from '../../reusables/Spinner';
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
   lastInstitution, disabledOwn, fetching, activityFetching,
-  activitiesOptions,
+  activitiesOptions, defaultType, hiddenType
 }) {
   const [activity, setActivity] = useState({
     user: '',
@@ -36,8 +36,9 @@ function LaboralForm({
   }, []);
 
   useEffect(() => {
-    setActivity({ ...activity, user: user._id })
-  }, [user]);
+    if (defaultType) setActivity({ ...activity, type: defaultType, user: user._id });
+    else setActivity({ ...activity, user: user._id })
+  }, [user, defaultType]);
 
   useEffect(() => {
     if (onChange) onChange(activity);
@@ -46,7 +47,6 @@ function LaboralForm({
   useEffect(() => {
     if (lastInstitution) setActivity({ ...activity, institution: lastInstitution });
   }, [lastInstitution]);
-
 
   const handleChange = ({ target }) => {
     const { name, value, event } = target;
@@ -61,6 +61,8 @@ function LaboralForm({
   const handleDate = (moments) => {
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
+
+  console.log(activity);
 
 
   return (
@@ -84,13 +86,17 @@ function LaboralForm({
           )
         }
       </div>
-      <SelectField
-        onChange={value => handleChange({ target: { value, name: 'type' } })}
-        options={activitiesOptions}
-        value={activity.type}
-        label="Tipo de actividad" />
       {
-        activity.type === 'Hospitalaria' || activity.type === 'Docente' ? (
+        !hiddenType && (
+          <SelectField
+            onChange={value => handleChange({ target: { value, name: 'type' } })}
+            options={activitiesOptions}
+            value={activity.type}
+            label="Tipo de actividad" />
+        )
+      }
+      {
+        activity.type === 'Hospitalaria' || activity.type === 'Docente' || activity.type === 'Laboral' ? (
           <TextField
             onChange={handleChange}
             name="charge"
@@ -131,8 +137,12 @@ export default connect(mapStateToProps, { populateInstitutionsAction })(LaboralF
 
 LaboralForm.propTypes = {
   activitiesOptions: PropTypes.arrayOf(PropTypes.string),
+  defaultType: PropTypes.string,
+  hiddenType: PropTypes.bool,
 };
 
 LaboralForm.defaultProps = {
   activitiesOptions: ['Hospitalaria', 'Docente', 'Sociedad'],
+  defaultType: null,
+  hiddenType: false,
 }

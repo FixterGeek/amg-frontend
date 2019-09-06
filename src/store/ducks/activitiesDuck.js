@@ -62,10 +62,10 @@ export const createActivityAction = activityData => (dispatch) => {
   return create(activityData)
     .then((data) => {
       const localActivities = localStorage.activities ? JSON.parse(localStorage.activities) : [];
-      const teachingActivity = data.type === 'Docente' ? data : null;
-      const hospitalActivity = data.type === 'Hospitalaria' ? data : null;
-      const medicalSociety = data.type === 'Sociedad' ? data : null;
-      const job = data.type === 'Laboral' ? data : null;
+      const teachingActivity = data.type === 'Docente' ? [data] : [];
+      const hospitalActivity = data.type === 'Hospitalaria' ? [data] : [];
+      const medicalSociety = data.type === 'Sociedad' ? [data] : [];
+      const job = data.type === 'Laboral' ? [data] : [];
 
       localStorage.activities = JSON.stringify([data, ...localActivities]);
       dispatch(createActivitySuccess({
@@ -127,10 +127,10 @@ export default function reducer(state = activitiesState, action) {
       return {
         ...state,
         activitiesArray: [action.payload.data, ...state.activitiesArray],
-        teachingActivities: [action.payload.teachingActivity, ...state.teachingActivities],
-        hospitalActivities: [action.payload.hospitalActivity, ...state.hospitalActivities],
-        medicalSocieties: [action.payload.medicalSociety, ...state.medicalSocieties],
-        jobs: [action.payload.job, ...state.jobs],
+        teachingActivities: [...action.payload.teachingActivity, ...state.teachingActivities],
+        hospitalActivities: [...action.payload.hospitalActivity, ...state.hospitalActivities],
+        medicalSocieties: [...action.payload.medicalSociety, ...state.medicalSocieties],
+        jobs: [...action.payload.job, ...state.jobs],
         fetching: false,
         status: 'success',
       };

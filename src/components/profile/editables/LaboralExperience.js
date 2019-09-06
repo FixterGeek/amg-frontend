@@ -13,7 +13,8 @@ import LaboralForm from '../reusables/LaboralForm';
 
 function LaboralExperience({
   user, createActivityAction, pushLastInstitution,
-  title,
+  title, activitiesOptions, defaultType,
+  hiddenType
 }) {
   const { Title } = Typography;
 
@@ -54,7 +55,13 @@ function LaboralExperience({
         okText="Aceptar"
         cancelText="Cancelar"
       >
-        <LaboralForm lastInstitution={lastInstitution} onChange={handleForm} />
+        <LaboralForm
+          lastInstitution={lastInstitution}
+          onChange={handleForm}
+          activitiesOptions={activitiesOptions}
+          defaultType={defaultType}
+          hiddenType={hiddenType}
+        />
         <CreateInstitution user={user} onResult={handleResult} />
       </Modal>
     </ContainerItem>
@@ -74,8 +81,14 @@ export default connect(
 
 LaboralExperience.propTypes = {
   title: PropTypes.string,
+  activitiesOptions: PropTypes.arrayOf(PropTypes.string),
+  defaultType: PropTypes.string,
+  hiddenType: PropTypes.bool,
 };
 
 LaboralExperience.defaultProps = {
   title: 'Experiencia profesional',
+  activitiesOptions: null,
+  defaultType: null,
+  hiddenType: false,
 };

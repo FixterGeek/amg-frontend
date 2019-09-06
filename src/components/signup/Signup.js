@@ -11,15 +11,20 @@ import Stepper from './SignupStepper';
 import GeneralDataForm from './forms/SignupGeneralDataForm';
 import EducationForm from './forms/SignupEducationForm';
 import SignupTeachingForm from './forms/SignupTeachingForm';
+import SignupLaboralForm from './forms/SignupLaboralForm';
+import SignupFiscalForm from './forms/SignupFiscalForm';
 
 function Signup({
   user, createUserAction, resetUserStatus,
   fetching, status, history, match,
   education, populateEducationAction, resetEducationStatus,
-  activities, populateActivitiesAction, resetActivitiesStatus
+  activities, populateActivitiesAction, resetActivitiesStatus,
+  activitiesFetching, activitiesStatus,
 }) {
 
-  const currents = { general: 0, educacion: 1, docentes: 2 };
+  const currents = {
+    general: 0, educacion: 1, docentes: 2, laborales: 3, fiscales: 4,
+  };
   const currentLocation = match.path.split('/').pop();
 
   useEffect(() => {
@@ -59,6 +64,22 @@ function Signup({
             <SignupTeachingForm activities={activities} resetStatus={resetActivitiesStatus} />
           )
         }
+        {
+          currentLocation === 'laborales' && (
+            <SignupLaboralForm
+              jobActivities={activities.jobs}
+              resetStaus={resetActivitiesStatus}
+              loading={activitiesFetching}
+              status={activitiesStatus}
+              resetStatus={resetActivitiesStatus}
+            />
+          )
+        }
+        {
+          currentLocation === 'fiscales' && (
+            <SignupFiscalForm />
+          )
+        }
       </div>
     </div>
   );
@@ -71,6 +92,8 @@ function mapStateToProps({ user, education, activities }) {
     status: user.status,
     education,
     activities,
+    activitiesFetching: activities.fetching,
+    activitiesStatus: activities.status,
   }
 }
 

@@ -38,8 +38,8 @@ function AppRouter() {
       <Route path="/signup/general" exact component={Signup} />
       <Route path="/signup/educacion" exact component={Signup} />
       <Route path="/signup/docentes" exact component={Signup} />
-      <Route path="/signup/laboral" exact component={Laboral} />
-      <Route path="/signup/fiscal" exact component={Fiscal} />
+      <Route path="/signup/laborales" exact component={Signup} />
+      <Route path="/signup/fiscales" exact component={Signup} />
       <Route path="/signup/confirm" exact component={Confirm} />      
       <PrivateRoute path="/dashboard" component={DashBoard} />
       {/* Admin Section */}
