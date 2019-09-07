@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { Form, Input, Button as AntButton } from 'antd';
 
 import Button from './Button';
 import FilePicker from './FilePicker';
 
-function DocumentField({ label, buttonText, name, value, placeholder, onFile, document, url }) {
+function DocumentField({
+  label, buttonText, name,
+  value, placeholder, onFile,
+  document, url, fileTypes,
+}) {
   const { Item } = Form;
 
   const [file, setFile] = useState({ name: null });
@@ -35,7 +40,7 @@ function DocumentField({ label, buttonText, name, value, placeholder, onFile, do
           <FilePicker
             name="file"
             onChange={handleFile}
-            type="forFiles"
+            type={fileTypes}
           >
             <Button marginTop="0px" marginBottom="0px">
               { buttonText }
@@ -59,3 +64,13 @@ function DocumentField({ label, buttonText, name, value, placeholder, onFile, do
 }
 
 export default DocumentField;
+
+DocumentField.propTypes = {
+  buttonText: PropTypes.string,
+  fileTypes: PropTypes.string,
+};
+
+DocumentField.defaultProps = {
+  buttonText: 'Archivo',
+  fileTypes: 'forFiles'
+};

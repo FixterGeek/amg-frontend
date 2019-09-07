@@ -1,6 +1,8 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable nonblock-statement-body-position */
 import { createEducation as create } from '../../services/educationsServices';
 import { getSelfUser } from '../../services/userServices';
+import { uploadFile } from '../../tools/firebaseTools';
 
 const educationState = {
   studies: [],
@@ -59,14 +61,43 @@ export function populateEducationError(error) {
 // Thunks
 // Create education
 
-export const createEducationAction = (type, educationData) => (dispatch) => {
+export const createEducationAction = (type, educationData) => async (dispatch) => {
   dispatch(createEducation());
+  const { user, titleFile, ceduleFile } = educationData;
+
+  if (type === 'studies') {
+    if (titleFile) {
+      const titleUrl = await uploadFile(`users/${user}/docs`, titleFile)
+        .then((url) => {
+          educationData.cedulaURLS = [url];
+          return url;
+        });
+    }
+    if (ceduleFile) {
+      const ceduleUrl = await uploadFile(`users/${user}/docs`, ceduleFile)
+        .then((url) => {
+          educationData.tituloURLS = [url];
+          return url;
+        });
+    }
+  }
+
   return create(type, educationData)
     .then((data) => {
-      const { type } = data;
+      const localEducation = localStorage.education ? JSON.parse(localStorage.education) : {
+        studies: [],
+        internships: [],
+        residencies: [],
+      };
+      let education = null;
 
+      if (type === 'studies') education = { studies: [data, ...localEducation.studies] };
+      if (type === 'residences') education = { residencies: [data, ...localEducation.residencies] };
+      if (type === 'internships') education = { internships: [data, ...localEducation.internships] };
 
-      dispatch(createEducationSuccess(data));
+      localStorage.education = JSON.stringify({ ...localEducation, ...education });
+
+      dispatch(createEducationSuccess(education));
       return data;
     })
     .catch(({ response }) => {
@@ -115,19 +146,7 @@ export default function reducer(state = educationState, action) {
     case CREATE_EDUCATION:
       return { ...state, fetching: true };
     case CREATE_EDUCATION_SUCCESS:
-      const localEducation = localStorage.education ? JSON.parse(localStorage.education) : [];
-      const {payload} = action
-      let type = {};
-
-      if (payload.educationType === 'studies')
-        type = { ...state, fetching: false, studies: [payload, ...state.studies], status: 'success' };
-      if (payload.educationType === 'residences')
-        type = { ...state, fetching: false, residences: [payload, ...state.residences], status: 'success' };
-      if (payload.educationType === 'internships')
-        type = { ...state, fetching: false, internships: [payload, ...state.internships], status: 'success' };
-
-      localStorage.education = JSON.stringify(type);
-      return type;
+      return { ...state, fetching: false, status: 'success', ...action.payload };
     case CREATE_EDUCATION_ERROR:
       return { ...state, fetching: false, error: action.payload, status: 'error' };
     /* Populate education */

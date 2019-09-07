@@ -4,28 +4,47 @@ import moment from 'moment';
 
 import { Typography } from 'antd';
 
-import { updateUserAction } from '../../store/ducks/userDuck';
-import { populateActivitiesAction } from '../../store/ducks/activitiesDuck';
-import { populateEducationAction } from '../../store/ducks/educationDuck';
-import Spinner from '../../atoms/Spinner';
+import useSweet from '../../hooks/useSweetAlert';
+import { updateUserAction, resetUserStatus } from '../../store/ducks/userDuck';
+import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
+import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
+import Spinner from '../reusables/Spinner';
 import BasicData from './editables/BasicData';
 import PersonalBio from './editables/PersonalBio';
 import PersonalEducation from './editables/PersonalEducation';
 import LaboralExperience from './editables/LaboralExperience';
-import ContainerItem from '../../atoms/DashboardContainerItem';
-import BoxItem from '../../atoms/BoxItem';
+import ContainerItem from '../reusables/ContainerItem';
+import BoxItem from '../reusables/BoxItem';
 
 function PersonalProfile({
   user, activities, updateUserAction, populateActivitiesAction,
-  activitiesFetching, studies, internships, residencies, populateEducationAction
+  studies, internships, residencies,
+  populateEducationAction,
+  /* For fetchings and ststus */
+  studiesFetching, studiesStatus, userFetching,
+  userStatus, activitiesFetching, activitiesStatus,
+  /* For resets status */
+  resetActivitiesStatus, resetEducationStatus, resetUserStatus,
 }) {
   const { Title } = Typography;
 
-  const {
-    basicData, membershipStatus, photo,
-  } = user;
-  const { photoURL, speciality } = basicData;
+  const { errorAlert } = useSweet();
+  const { basicData = {}, membershipStatus = null, photo = null } = user;
+  const { photoURL = null, speciality = null } = basicData;
 
+  useEffect(() => {
+    if (userStatus === 'error' || studiesStatus === 'error' || activitiesStatus === 'error') {
+      errorAlert({ title: 'Error al actualizar.' });
+      resetActivitiesStatus();
+      resetUserStatus();
+      resetEducationStatus();
+    } 
+    if (userStatus === 'success' || studiesStatus === 'success' || activitiesStatus === 'success') {
+      resetActivitiesStatus();
+      resetUserStatus();
+      resetEducationStatus();
+    }
+  }, [userStatus, studiesStatus, activitiesStatus])
 
   useEffect(() => {
     if (!activities[0]) populateActivitiesAction();
@@ -36,12 +55,10 @@ function PersonalProfile({
     updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
   };
 
-  console.log(residencies);
-
 
   return (
     <div className="dashboard-container component-main-profile relative">
-      { user.fetching && <Spinner /> }
+      { userFetching && <Spinner /> }
       <BasicData
         photoFile={photo}
         dispatch={updateUserAction}
@@ -55,15 +72,18 @@ function PersonalProfile({
       <PersonalEducation />
 
       <ContainerItem className="relative">
+        { studiesFetching && <Spinner /> }
         <ContainerItem>
           <Title level={3}>Estudios</Title>
         </ContainerItem>
         {
           studies.map(study => (
             <BoxItem
+              noLeft
+              key={study._id}
               title={study.major || study.institution.name}
-              level1={study.institution.name || ' '}
-              level2={
+              subtitle={study.institution.name || ' '}
+              footer={
                 `${moment(study.startDate).format('MMMM[ de ]YYYY')}
                   -
                 ${study.endDate === 'Actualidad' ? 'Actualidad' : moment(study.endDate).format('MMMM[ de ]YYYY')}`
@@ -78,10 +98,11 @@ function PersonalProfile({
         {
           internships.map(internship => (
             <BoxItem
+              noLeft
               key={internship._id}
               title={internship.institution.name}
-              level1={internship.institution.name || ' '}
-              level2={
+              subtitle={internship.institution.name || ' '}
+              footer={
                 `${moment(internship.startDate).format('MMMM[ de ]YYYY')}
                   -
                 ${internship.endDate === 'Actualidad' ? 'Actualidad' : moment(internship.endDate).format('MMMM[ de ]YYYY')}`
@@ -96,10 +117,11 @@ function PersonalProfile({
         {
           residencies.map(residence => (
             <BoxItem
+              noLeft
               key={residence._id}
               title={residence.speciality || residence.institution.name}
-              level1={residence.institution.name || ' '}
-              level2={
+              subtitle={residence.institution.name || ' '}
+              footer={
                 `${moment(residence.startDate).format('MMMM[ de ]YYYY')}
                   -
                 ${residence.endDate === 'Actualidad' ? 'Actualidad' : moment(residence.endDate).format('MMMM[ de ]YYYY')}`
@@ -112,14 +134,15 @@ function PersonalProfile({
       <LaboralExperience />
 
       <ContainerItem className="relative">
-        { activitiesFetching && <Spinner tip="Cargando experiencia laboral..." /> }
+        { activitiesFetching && <Spinner /> }
         {
           activities.map(activity => (
             <BoxItem
+              noLeft
               key={activity._id}
               title={activity.charge || activity.subject || activity.institution.name}
-              level1={activity.institution.name || ' '}
-              level2={
+              subtitle={activity.institution.name || ' '}
+              footer={
                 `${moment(activity.startDate).format('MMMM[ de ]YYYY')}
                   -
                 ${activity.endDate === 'Actualidad' ? 'Actualidad' : moment(activity.endDate).format('MMMM[ de ]YYYY')}`
@@ -135,11 +158,16 @@ function PersonalProfile({
 function mapStateToProps({ user, activities, education }) {
   return {
     user,
+    userFetching: user.fetching,
+    userStatus: user.status,
     studies: education.studies,
     internships: education.internships,
     residencies: education.residencies,
     activities: activities.activitiesArray,
     activitiesFetching: activities.fetching,
+    activitiesStatus: activities.status,
+    studiesFetching: education.fetching,
+    studiesStatus: education.status,
   };
 }
 
@@ -148,5 +176,8 @@ export default connect(
     updateUserAction,
     populateActivitiesAction,
     populateEducationAction,
+    resetActivitiesStatus,
+    resetEducationStatus,
+    resetUserStatus,
   },
 )(PersonalProfile);
