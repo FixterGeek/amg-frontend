@@ -230,6 +230,41 @@
   tr {
     background-color: $clouds;
   }
+
+  .ant-table-header-column {
+    width: 100%;
+  }
+
+  &-finder {
+    width: 100%;
+    .ant-input-search {
+      .ant-input {
+        border-radius: 0px;
+        min-height: 50px;
+        background-color: #eaf0f7;
+        border-color: #eaf0f7;
+        color: $darkSilver;
+
+        &:hover {
+          border-color: #eaf0f7;
+        }
+        &:active {
+          box-shadow: #eaf0f7;
+        }
+        &:focus {
+          box-shadow: #eaf0f7;
+        }
+      }
+    }
+  }
+
+  .ant-table-thead {
+    th {
+      padding-top: 2px;
+      padding-bottom: 2px;
+      background-color: #eaf0f7;
+    }
+  }
 }
 
 
