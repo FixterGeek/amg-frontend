@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable curly */
 /* eslint-disable object-curly-newline */
 /* eslint-disable nonblock-statement-body-position */
 import { createEducation as create } from '../../services/educationsServices';
@@ -63,23 +65,26 @@ export function populateEducationError(error) {
 
 export const createEducationAction = (type, educationData) => async (dispatch) => {
   dispatch(createEducation());
-  const { user, titleFile, ceduleFile } = educationData;
+  const { user, titleFile, ceduleFile, certificateFile } = educationData;
+  console.log(type)
 
-  if (type === 'studies') {
-    if (titleFile) {
-      const titleUrl = await uploadFile(`users/${user}/docs`, titleFile)
-        .then((url) => {
-          educationData.cedulaURLS = [url];
-          return url;
-        });
-    }
-    if (ceduleFile) {
-      const ceduleUrl = await uploadFile(`users/${user}/docs`, ceduleFile)
-        .then((url) => {
-          educationData.tituloURLS = [url];
-          return url;
-        });
-    }
+  if (type === 'studies' || type === 'residences') {
+    if (titleFile) await uploadFile(`users/${user}/docs`, titleFile)
+      .then((url) => {
+        educationData.cedulaURLS = [url];
+        return url;
+      });
+
+    if (ceduleFile) await uploadFile(`users/${user}/docs`, ceduleFile)
+      .then((url) => {
+        educationData.tituloURLS = [url];
+        return url;
+      });
+    if (certificateFile) await uploadFile(`users/${user}/docs`, certificateFile)
+      .then((url) => {
+        educationData.certificadoURLS = [url];
+        return url;
+      });
   }
 
   return create(type, educationData)

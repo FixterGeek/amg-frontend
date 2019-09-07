@@ -29,6 +29,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     startDate: null,
     endDate: null,
     specialityLicenceCopy: null,
+    certificateFile: null,
   });
   const [internship, setInternship] = useState({
     user: '',
@@ -53,8 +54,6 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
   useEffect(() => {
     if (!institutions[0]) {
       populateInstitutionsAction()
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
     }
   }, []);
 
@@ -82,8 +81,6 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     if (moments) setInternship({ ...internship, startDate: moments[0].toString(), endDate: moments[1].toString() })
     else setInternship({ ...internship, [name]: value })
   };
-
-  console.log(residence)
 
   const handleCreateInstitutions = ({ data, type }) => {
     if (type === 'Estudios') setStudy({ ...study, institution: data._id })
@@ -210,6 +207,12 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
               dateOne={residence.startDate}
               dateTwo={residence.endDate}
               label="Periodo de estudios"
+            />
+            <DocumentField
+              label="Copia de certificado"
+              fileTypes="forDocsAndImages"
+              document={residence.certificateFile}
+              onFile={file => setResidence({ ...residence, certificateFile: file })}
             />
           </div>
         )
