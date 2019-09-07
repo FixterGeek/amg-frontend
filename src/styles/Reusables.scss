@@ -453,6 +453,10 @@
   margin-left: $largeMargin;
   margin-bottom: $margin;
 
+  @include for-size(tablet-landscape-up) {
+    margin-left: $extraMargin;
+  }
+
   &-left {
     display: flex;
     justify-content: center;
