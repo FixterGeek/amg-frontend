@@ -106,9 +106,9 @@ export const populateResourcesAction = () => (dispatch) => {
   dispatch(populateResources());
   return getResources()
     .then((data) => {
-      const guides = data.filter(resource => resource.tipo === 'Guías y consensos');
-      const publications = data.filter(resource => resource.tipo === 'Publicaciones');
-      dispatch(populateResourcesSuccess({ array: data, guides, publications }));
+      const guides = data.data.filter(resource => resource.tipo === 'Guías y consensos');
+      const publications = data.data.filter(resource => resource.tipo === 'Publicaciones');
+      dispatch(populateResourcesSuccess({ array: data.data, guides, publications }));
       return data;
     })
     .catch((error) => {
