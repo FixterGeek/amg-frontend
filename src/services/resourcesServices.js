@@ -39,3 +39,13 @@ export const updateResource = (resourceId, resourceData) => {
     },
   }).then(({ data }) => data);
 };
+
+
+export const searchResource = (text, type = 'Publicaciones') => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}?search=${text}&query={"tipo": "${type}"}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};

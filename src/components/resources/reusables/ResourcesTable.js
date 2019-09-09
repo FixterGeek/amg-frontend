@@ -4,10 +4,28 @@ import PropTypes from 'prop-types';
 
 import { Table, Icon, Input, Button, Popconfirm } from 'antd';
 
+import useSweet from '../../../hooks/useSweetAlert';
+import { searchResource } from '../../../services/resourcesServices';
 import ResourceRecord from './ResourceRecord';
 
-function ResourcesTable({ onSearch, data, admin, dispatchDelete, emptyText }) {
+function ResourcesTable({
+  onSearch, data, admin,
+  dispatchDelete, emptyText, onSearchResults,
+  resourceType,
+}) {
   const { Search } = Input;
+
+  const { errorAlert } = useSweet();
+
+  const handleSearch = (value) => {
+    if (onSearch) onSearch(value)
+    searchResource(value, resourceType)
+      .then(data => {
+        if (onSearchResults) onSearchResults(data);
+        return data;
+      })
+      .catch(error => errorAlert({}));
+  }
 
   const columns = [
     {
@@ -15,7 +33,7 @@ function ResourcesTable({ onSearch, data, admin, dispatchDelete, emptyText }) {
       title: (
         <div className="reusables-resources-table-finder">
           <Search
-            onSearch={onSearch ? value => onSearch(value) : null }
+            onSearch={handleSearch}
             placeholder="¿Buscas algo?"
           />
         </div>
@@ -81,6 +99,7 @@ ResourcesTable.propTypes = {
   admin: PropTypes.bool,
   dispatchDelete: PropTypes.func,
   emptyText: PropTypes.string,
+  resourceType: PropTypes.string,
 };
 
 ResourcesTable.defaultProps = {
@@ -89,4 +108,5 @@ ResourcesTable.defaultProps = {
   admin: false,
   dispatchDelete: null,
   emptyText: 'No hay datos',
+  resourceType: 'Publicaciones',
 }

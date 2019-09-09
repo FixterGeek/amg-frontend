@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
@@ -14,8 +14,12 @@ function Guides({
   fetching, status, noData,
 }) {
   const { Title } = Typography;
-
   const { errorAlert } = useSweet();
+
+
+  const [searchGuides, setSearchGuides] = useState();
+  const [localLoading, setLocalLoading] = useState(false)
+
 
   useEffect(() => {
     if (status === 'error') errorAlert({});
@@ -25,18 +29,21 @@ function Guides({
     if (!array[0] && !noData) populateResourcesAction();
   }, [])
 
-  const handleSearch = (value) => {
-    console.log(value)
+  const handleSearchResults = ({ data }) => {
+    if (data) setSearchGuides(data);
+    setLocalLoading(false);
   };
 
   return (
     <div className="dashboard-container">
       <Title>Guías y consensos</Title>
       <ContainerItem style={{ position: 'relative' }}>
-        { fetching && <Spinner /> }
+        { fetching || localLoading ? <Spinner /> : null }
         <ResourcesTable
-          onSearch={handleSearch}
-          data={guides}
+          onSearchResults={handleSearchResults}
+          onSearch={() => setLocalLoading(true)}
+          data={searchGuides || guides}
+          resourceType="Guías y consensos"
         />
       </ContainerItem>
     </div>
