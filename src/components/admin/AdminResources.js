@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -22,8 +22,11 @@ function AdminResources({
   const { Title } = Typography;
   const { TabPane } = Tabs;
   const baseClassName = 'admin-resources'
-
   const { errorAlert } = useSweet();
+
+  const [localLoading, setLocalLoading] = useState(false);
+  const [searchGuides, setSearchGuides] = useState();
+  const [searchPosts, setSearchPosts] = useState();
 
   useEffect(() => {
     if (status === 'success') resetStatus();
@@ -33,6 +36,17 @@ function AdminResources({
   useEffect(() => {
     if (!allResources[0] && !noData) populateResourcesAction();
   }, [])
+
+
+  const handleSearchGuides = ({ data }) => {
+    if (data) setSearchGuides(data);
+    setLocalLoading(false);
+  }
+
+  const handleSearchPosts = ({ data }) => {
+    if (data) setSearchPosts(data);
+    setLocalLoading(false);
+  }
 
   return (
     <section className={baseClassName}>
@@ -48,25 +62,31 @@ function AdminResources({
           <Title level={3}>Ultimos recursos</Title>
       </ContainerItem>
       <ContainerItem style={{ position: 'relative' }}>
-        { fetching && <Spinner /> }
+        { fetching || localLoading ? <Spinner /> : null }
         {/*Tabs for types */}
         <Tabs type="card" className={`${baseClassName}-tabs`}>
           <TabPane tab="Guías y consensos" key="1">
             {/* For guides library */}
             <ResourcesTable
               admin
-              data={guides}
+              onSearch={() => setLocalLoading(true)}
+              onSearchResults={handleSearchGuides}
+              data={searchGuides || guides}
               dispatchDelete={deleteResourceAction}
               emptyText="No hay guías y consensos"
+              resourceType="Guías y consensos"
             />
           </TabPane>
           <TabPane tab="Publicaciones" key="2">
             {/* For publications library */}
             <ResourcesTable
               admin
-              data={publications}
+              onSearch={() => setLocalLoading(true)}
+              onSearchResults={handleSearchPosts}
+              data={searchPosts || publications}
               dispatchDelete={deleteResourceAction}
               emptyText="No hay publicaciones"
+              resourceType="Publicaciones"
             />
           </TabPane>
         </Tabs>

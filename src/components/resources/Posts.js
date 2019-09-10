@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Typography } from 'antd'
@@ -15,23 +15,29 @@ function Posts({
 }) {
   const { Title } = Typography;
 
+  const [localLoading, setLocalLoading] = useState(false);
+  const [searchPosts, setSearchPosts] = useState();
+
   useEffect(() => {
     if (!array[0] && !noData) populateResourcesAction()
   }, [])
 
-  const handleSearch = (value) => {
-    console.log(value)
+  const handleSearchResults = ({ data }) => {
+    if (data) setSearchPosts(data);
+    setLocalLoading(false);
   }
 
   return (
     <div className="dashboard-container">
       <Title>Publicaciones</Title>
       <ContainerItem style={{ position: 'relative' }} >
-        { fetching && <Spinner /> }
+        { fetching || localLoading ? <Spinner /> : null }
         <ResourcesTable
-          onSearch={handleSearch}
-          data={publications}
+          onSearch={() => setLocalLoading(true)}
+          onSearchResults={handleSearchResults}
+          data={searchPosts || publications}
           emptyText="No hay publicaciones disponibles"
+          resourceType="Publicaciones"
         />
       </ContainerItem>
     </div>
