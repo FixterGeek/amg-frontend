@@ -7,7 +7,7 @@ function EventCover({ imageUrl, linkeable, to, eventObject }) {
   const { title = 'Gastro', location = {}, startDate = null, endDate = null } = eventObject;
   const { city = 'Lugar no definido', state = null } = location;
 
-  const LinkDelivery = () => {
+  const LinkDelivery = ({ children }) => {
     if (linkeable) return (
       <Link
         to={{
@@ -15,27 +15,27 @@ function EventCover({ imageUrl, linkeable, to, eventObject }) {
           state: eventObject,
         }}
       >
-        <img src={imageUrl} />
+        { children }
       </Link>
-    )
+    );
 
-    return (
-      <img src={imageUrl} />
-    )
+    return children;
   }
 
   return (
     <div className="events-reusables-event-cover">
-      <LinkDelivery />
-      <div className="events-reusables-event-cover-info">
-        <span className="title">{ title }</span>
-        {
-          city || state ? (
-            <span className="place">{`${city}, ${state}`}</span>
-          ) : null
-        }
-        { startDate &&  <span className="date">{ eventStringDate(startDate, endDate) }</span> }
-      </div>
+      <LinkDelivery>
+        <div className="events-reusables-event-cover-image" style={{ backgroundImage: `url(${imageUrl})` }} />
+        <div className="events-reusables-event-cover-info">
+          <span className="title">{ title }</span>
+          {
+            city || state ? (
+              <span className="place">{`${city}, ${state}`}</span>
+            ) : null
+          }
+          { startDate &&  <span className="date">{ eventStringDate(startDate, endDate) }</span> }
+        </div>
+      </LinkDelivery>
     </div>
   );
 }

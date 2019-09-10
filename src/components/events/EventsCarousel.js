@@ -13,7 +13,6 @@ function EventsCarousel({ events }) {
     let coversArray = [];
 
     events.map((event) => {
-      console.log(event)
       coversArray = [
         ...coversArray,
         <EventCover
@@ -27,8 +26,6 @@ function EventsCarousel({ events }) {
 
     setCovers(coversArray);
   }, [events])
-
-  console.log(covers)
 
   return (
     <BaseCarousel itemsArray={covers} />

@@ -13,8 +13,6 @@ function Carousel({
     );
   };
 
-  console.log(itemIndex);
-
   return (
     <div className="reusables-base-carousel">
       {

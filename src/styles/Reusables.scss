@@ -723,12 +723,30 @@
   justify-content: center;
   align-items: center;
 
+  a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &-info {
     position: absolute;
     z-index: 3;
+    top: 0;
     right: 0;
-    bottom: $smallPadding;
+    bottom: 0;
     left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding-bottom: $smallPadding;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
 
     span {
       display: block;
@@ -745,59 +763,37 @@
       font-size: 1.05rem;
     }
   }
-  
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba($color: #000000, $alpha: 0.2)
-  }
 
-  img {
+  &-image {
     height: 235px;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
   }
 
   @include for-size(normal-phone) {
     width: 315px;
     height: 290px;
-    img {
-      height: 290px;
-    }
   }
 
   @include for-size(tablet-portrait-up) {
     width: 635px;
     height: 290px;
-    img {
-      width: 635px;
-    }
   }
 
   @include for-size(tablet-landscape-up) {
     width: 255px;
     height: 225px;
-    img {
-      height: 225px;
-    }
   }
 
   @include for-size(desktop-up) {
     width: 300px;
     height: 275px;
-    img {
-      height: 275px;
-    }
   }
 
   @include for-size(big-desktop-up) {
     width: 355px;
     height: 315px;
-    img {
-      height: 315px;
-    }
   }
 }

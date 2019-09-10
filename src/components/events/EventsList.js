@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import uniqid from 'uniqid';
+
+import { Typography } from 'antd'
 
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { populateEventsAction } from '../../store/ducks/eventsDuck';
 import Spinner from '../../atoms/Spinner';
-import Covers from '../../organisms/events/Covers';
 import EventsMonth from '../../molecules/Events/EventsMonth';
 import EventsCarousel from './EventsCarousel';
 
 function EventsList(props) {
-  // eslint-disable-next-line react/prop-types
+  const { Title } = Typography;
   const { errorAlert } = useSweetAlert();
   const { events, populateEventsAction } = props;
   const [loading, setLoading] = useState(false);
@@ -50,12 +50,12 @@ function EventsList(props) {
   return (
     <div className="dashboard-container">
       { loading && <Spinner tip="Cargando eventos..." /> }
+      <Title>Eventos</Title>
       <EventsCarousel events={events.events} />
-      {/* <Covers events={events.events} /> */}
       <div>
         {
-          state.byMonths.map(month => (
-            <EventsMonth key={uniqid()} month={month.month} events={month.events} />
+          state.byMonths.map((month, index) => (
+            <EventsMonth key={index} month={month.month} events={month.events} />
           ))
         }
       </div>
