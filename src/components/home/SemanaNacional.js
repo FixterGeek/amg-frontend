@@ -66,7 +66,7 @@ function SemanaNacional() {
                     </Link>
                 </div>
                 <div className="biblioteca-img">
-                    <img style={{width:"355px"}} src={imgPonentes} alt="Ponentes"/>
+                    <img style={{width:"335px"}} src={imgPonentes} alt="Ponentes"/>
                 </div>
             </section>
             <section className="biblioteca-box">
