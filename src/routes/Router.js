@@ -15,11 +15,13 @@ import PreSign from "../components/signup/PreSign";
 import Signup from '../components/signup/Signup';
 import Guias from "../components/home/Guias";
 import Publicaciones from "../components/home/Publicaciones";
+import SemanaNacional from '../components/home/SemanaNacional';
 
 function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={Home} />
+        <Route path="/semana-nacional" component={SemanaNacional}/>
         <Route path="/biblioteca" component={Biblioteca}/>
         <Route path="/guias" component={Guias}/>
         <Route path="/publicaciones" component={Publicaciones}/>

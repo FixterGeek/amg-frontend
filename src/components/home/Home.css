@@ -91,8 +91,8 @@
 }
 
 .app{
-    font-family: Avenir !important;
-    font-family: Avenir, Avenir-black;
+    font-family: Avenir, sans-serif;
+    font-family: Avenir, Avenir-black, sans-serif;
     position: relative;
 }
 
@@ -154,6 +154,13 @@
     color: white;
     font-size: 110px;
     margin-bottom: 45px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.semana-title {
+    font-family: Avenir-black;
+
 }
 .cover h1 span {
     font-family: Avenir-black;
@@ -167,6 +174,26 @@
     width: 60%;
     padding-top: 3%;
 }
+
+.descript .subtitle {
+    font-size: 1.3rem;
+    color: white;
+    padding-right: 16px;
+    margin-top: -20px;
+}
+
+.descript .semana-btn {
+    appearance: none;
+    border: solid 1px #28abd8;
+    width: 180px;
+    height: 50px;
+    background-color: #28abd8;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 64px;
+}
+
 .btn-blue {
     width: 180px;
     height: 50px;
@@ -740,4 +767,14 @@ Footer*/
         margin-bottom: 32px;
     }
 
+}
+
+/* Semana */
+.semana {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../assets/bg-semana.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }

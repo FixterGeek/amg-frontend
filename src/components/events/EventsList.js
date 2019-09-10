@@ -9,6 +9,7 @@ import { populateEventsAction } from '../../store/ducks/eventsDuck';
 import Spinner from '../../atoms/Spinner';
 import Covers from '../../organisms/events/Covers';
 import EventsMonth from '../../molecules/Events/EventsMonth';
+import EventsCarousel from './EventsCarousel';
 
 function EventsList(props) {
   // eslint-disable-next-line react/prop-types
@@ -49,6 +50,7 @@ function EventsList(props) {
   return (
     <div className="dashboard-container">
       { loading && <Spinner tip="Cargando eventos..." /> }
+      {/* <EventsCarousel events={events.events} /> */}
       <Covers events={events.events} />
       <div>
         {
