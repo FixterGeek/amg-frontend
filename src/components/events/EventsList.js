@@ -50,8 +50,8 @@ function EventsList(props) {
   return (
     <div className="dashboard-container">
       { loading && <Spinner tip="Cargando eventos..." /> }
-      {/* <EventsCarousel events={events.events} /> */}
-      <Covers events={events.events} />
+      <EventsCarousel events={events.events} />
+      {/* <Covers events={events.events} /> */}
       <div>
         {
           state.byMonths.map(month => (

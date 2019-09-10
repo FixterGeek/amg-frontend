@@ -5,38 +5,60 @@ function Carousel({
 }) {
   const [itemIndex, setItemIndex] = useState(0);
 
-  const CarouselItem = ({ component }) => {
+  const CarouselItem = ({ element }) => {
     return (
       <div>
-        ok
+        { element }
       </div>
     );
   };
 
+  console.log(itemIndex);
+
   return (
-    <div>
-      <button>‹</button>
-      <div>
+    <div className="reusables-base-carousel">
+      {
+        itemsArray.length > 1 && (
+          <button
+            className="reusables-base-carousel-button"
+            onClick={() => setItemIndex((itemIndex + itemsArray.length - 1) % itemsArray.length)}
+          >
+            ‹
+          </button>
+        )
+      }
+
+      <div className="reusables-base-carousel-items">
         { itemsArray.length > 1 && (
             <CarouselItem
-              component={itemsArray[(itemIndex + itemsArray.length - 1) % itemsArray.length]}
+              element={itemsArray[(itemIndex + itemsArray.length - 1) % itemsArray.length]}
             />
           ) 
         }
 
         <CarouselItem
-          component={itemsArray[itemIndex]}
+          element={itemsArray[itemIndex]}
         />
 
         { 
           itemsArray.length > 2 && (
             <CarouselItem
-              component={itemsArray[(itemIndex + 1) % itemsArray.length]}
+              element={itemsArray[(itemIndex + 1) % itemsArray.length]}
             />
           ) 
         }
       </div>
-      <button>›</button>
+
+      {
+        itemsArray.length > 1 && (
+          <button
+            className="reusables-base-carousel-button"
+            onClick={() => setItemIndex((itemIndex + 1) % itemsArray.length)}
+          >
+            ›
+          </button>
+        )
+      }
     </div>
   );
 }
