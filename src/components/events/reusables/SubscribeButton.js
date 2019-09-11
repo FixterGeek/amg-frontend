@@ -13,11 +13,15 @@ function SubscribeButton({
   subscribeUserToActivityAction, subscribeUserToEventAction,
   assistedEvents, activityObject = {}, assistedActivities
 }) {
-  const { membershipStatus = 'Veterano', useStatus } = user;
+  const { membershipStatus = 'Veterano', userStatus } = user;
   const userPays = membershipStatus === 'Socio' || membershipStatus === 'Veterano' ?
     false : membershipStatus === 'Free' || membershipStatus === 'Residente'
 
-  console.log(userPays)
+  if (userStatus !== 'Aprobado') return (
+    <Button disabled width="100%">
+        Disponible para usuarios aprobados
+    </Button>
+  )
 
   if (assistedEvents.includes(eventObject._id) || assistedActivities.includes(activityObject._id)) {
     return (
