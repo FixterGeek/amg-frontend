@@ -13,24 +13,23 @@ function SubscribeButton({
 
   const userPays = true;
 
-  const payableText = userPays ? 'Pagar por este evento' : 'Inscribirme'
-
   console.log(userPays)
 
   if (payable && userPays) return (
     <Link
+      className="events-reusables-subscribe-link"
       to={{
         pathname: `/dashboard/payment/event/${eventObject._id}`,
         state: eventObject,
       }}
     >
-      Pagar
+      Pagar por este evento
     </Link>
   )
 
   if (payable && !userPays) return (
     <Button>
-      { payableText }
+      Inscribirme
     </Button>
   );
 }

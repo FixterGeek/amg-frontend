@@ -797,3 +797,16 @@
     height: 315px;
   }
 }
+
+.events-reusables-subscribe-link {
+  margin-top: $largeMargin;
+  max-width: 445px;
+  width: 100%;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+  background-color: $secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

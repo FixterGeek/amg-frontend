@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { makePaymentAction } from '../../store/ducks/paymentsDuck';
+import { subscribeUserToEventAction } from '../../store/ducks/userDuck';
 import useSweet from '../../hooks/useSweetAlert';
 import PaymentCardForm from './reusables/PaymentCardForm';
-import ContainerItem from '../../atoms/DashboardContainerItem';
+import ContainerItem from '../reusables/ContainerItem';
+import Spinner from '../reusables/Spinner';
 
 function PaymentEvent({
   history, user, makePaymentAction,
+  userFetching, userStatus,
+  paymentFetching, paymentStatus, subscribeUserToEventAction,
 }) {
   const { infoAlert, errorAlert } = useSweet();
   const { location } = history;
@@ -16,6 +20,24 @@ function PaymentEvent({
     cost: 100,
     title: null,
   });
+
+  useEffect(() => {
+    if (paymentStatus === 'error') {
+      errorAlert({ text: 'No fue posible completar el pago' });
+    }
+    if (paymentStatus === 'success') {
+      subscribeUserToEventAction(event._id)
+    }
+  }, [paymentStatus]);
+
+  useEffect(() => {
+    if (userStatus === 'error') {
+      errorAlert({ title: 'No fue posible realizar la inscripción al evento.' })
+    }
+    if (userStatus === 'success') {
+      history.push('/dashboard/perfil');
+    }
+  }, [userStatus])
 
   useEffect(() => {
     if (user.userStatus !== 'Aprobado') {
@@ -35,15 +57,13 @@ function PaymentEvent({
   }
 
   const handleSubmit = (data) => {
-    // console.log(data);
     makePaymentAction({ ...data, user: user._id, eventId: event._id });
   };
 
-  console.log(event)
-
   return (
     <div className="dashboard-container">
-      <ContainerItem>
+      <ContainerItem style={{ position: 'relative' }}>
+        { userFetching || paymentFetching ? <Spinner /> : null }
         <PaymentCardForm
           onChange={handleChange}
           onSubmit={handleSubmit}
@@ -55,14 +75,19 @@ function PaymentEvent({
   );
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps({ user, payment }) {
   return {
     user,
+    userFetching: user.fetching,
+    useStatus: user.status,
+    paymentFetching: payment.fetching,
+    paymentStatus: payment.status,
   }
 }
 
 export default connect(
   mapStateToProps, {
     makePaymentAction,
+    subscribeUserToEventAction,
   }
 )(PaymentEvent);

@@ -120,13 +120,13 @@ function EventDetail({
 
           <div className="right-button">
             <SubscribeButton user={user} payable eventObject={state} />
-            <AmgButton
+            {/* <AmgButton
               width="100%"
               bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}
               disabled={assistedEvents.includes(state._id) || (user.userStatus === 'No Aprobado')}
               onClick={subscribeToEvent} >
               { assistedEvents.includes(state._id) ? 'Inscrito' : 'Inscribirme'}
-            </AmgButton>
+            </AmgButton> */}
           </div>
         </div>
       </div>
