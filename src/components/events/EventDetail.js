@@ -14,6 +14,7 @@ import AmgButton from '../../atoms/Button';
 import TextNIconButton from '../../atoms/TextNIconButton';
 import Spinner from '../../atoms/Spinner';
 import MapLocation from './reusables/MapLocation';
+import SubscribeButton from './reusables/SubscribeButton';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -44,8 +45,8 @@ function EventDetail({
   };
 
   useEffect(() => {
-    if (location.event) {
-      setState({ ...location.event });
+    if (location.state) {
+      setState({ ...location.state });
     } else {
       if (!state._id) {
         const locationSplit = location.pathname.split('/');
@@ -118,6 +119,7 @@ function EventDetail({
             coordinates={state.location.coordinates} />
 
           <div className="right-button">
+            <SubscribeButton user={user} payable eventObject={state} />
             <AmgButton
               width="100%"
               bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}

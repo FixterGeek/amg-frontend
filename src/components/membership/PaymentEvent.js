@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import useService from '../../hooks/services/useAmgService';
+import { makePaymentAction } from '../../store/ducks/paymentsDuck';
 import useSweet from '../../hooks/useSweetAlert';
 import PaymentCardForm from './reusables/PaymentCardForm';
 import ContainerItem from '../../atoms/DashboardContainerItem';
 
-function PaymentActivity({ history, user }) {
+function PaymentEvent({
+  history, user, makePaymentAction,
+}) {
   const { infoAlert, errorAlert } = useSweet();
   const { location } = history;
 
-  const [activity, setActivity] = useState({
-    activityType: '',
-    activityName: '',
-    description: '',
-    speaker: {},
-    amgSpeaker: {},
-    location: {
-      street: '',
-      colony: '',
-      zipCode: '',
-    },
-    assistants: [],
+  const [event, setEvent] = useState({
+    cost: 100,
+    title: null,
   });
 
   useEffect(() => {
@@ -34,18 +27,19 @@ function PaymentActivity({ history, user }) {
   }, [user]);
 
   useEffect(() => {
-    setActivity({ ...location.state })
+    setEvent({ ...event, ...location.state })
   }, [location]);
 
   const handleChange = (data) => {
-    console.log(data);
+    //console.log(data);
   }
 
   const handleSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    makePaymentAction({ ...data, user: user._id, eventId: event._id });
   };
 
-  console.log(activity)
+  console.log(event)
 
   return (
     <div className="dashboard-container">
@@ -53,8 +47,8 @@ function PaymentActivity({ history, user }) {
         <PaymentCardForm
           onChange={handleChange}
           onSubmit={handleSubmit}
-          amount={activity.cost}
-          concept={`${activity.activityType} - ${activity.activityName}`}
+          amount={event.cost}
+          concept={`Evento - ${event.title}`}
         />
       </ContainerItem>
     </div>
@@ -67,4 +61,8 @@ function mapStateToProps({ user }) {
   }
 }
 
-export default connect(mapStateToProps)(PaymentActivity);
+export default connect(
+  mapStateToProps, {
+    makePaymentAction,
+  }
+)(PaymentEvent);

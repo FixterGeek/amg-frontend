@@ -15,6 +15,7 @@ import activitiesDuck from './ducks/activitiesDuck';
 import educationDuck from './ducks/educationDuck';
 import resourceDuck from './ducks/resourceDuck';
 import configReducer from './ducks/configDuck';
+import paymentDuck from './ducks/paymentsDuck';
 import testsDuck,{saveTestEpic, getAllTestsEpic, getSingleTestEpic, deleteTestEpic} from './ducks/testsDuck'
 import adminReducer, { saveDraftEventEpic, getSingleEventEpic } from './ducks/adminDuck'
 
@@ -31,6 +32,7 @@ let rootReducer = combineReducers({
     education: educationDuck,
     tests: testsDuck,
     resources: resourceDuck,
+    payment: paymentDuck,
 });
 
 

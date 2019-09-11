@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 
 import { Typography } from 'antd';
 
-import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
+import useSweet from '../../../hooks/useSweetAlert';
+import DashboardContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../../molecules/TextFields';
-import Button from '../../../atoms/Button';
+import Button from '../../reusables/Button';
+import Spinner from '../../reusables/Spinner';
 
 function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
   const { Title } = Typography;
+  const { errorAlert } = useSweet();
 
   const initialMessages = {
     name: '',
@@ -28,7 +31,16 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
   const [card, setCard] = useState({ ...initialMessages });
   const [loading, setLoading] = useState(false);
 
-  const { Conekta } = window;
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.conekta.io/js/latest/conekta.js';
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      const { Conekta } = window;
+      Conekta.setPublicKey('key_FGFhHyz9UV5786QGdKmTcEw')
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -40,6 +52,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
     let e = { ...errors };
     let w = { ...warnings };
     let s = { ...success };
+    const { Conekta } = window;
 
     switch (name) {
       case 'number':
@@ -120,7 +133,33 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    if (onSubmit) onSubmit({ concept, amount, card, isValid });
+    const { Conekta } = window;
+    const tokenParams = {
+      card: {
+        number: card.number,
+        name: card.name,
+        exp_year: card.expiration.slice(2, 4),
+        exp_month: card.expiration.slice(0, 2),
+        cvc: card.ccv,
+      }
+    };
+
+    setLoading(true);
+
+    const handleSucces = (token) => {
+      setLoading(false);
+      if (onSubmit) onSubmit({ concept, amount, card, isValid, conektaToken: token });
+    }
+
+    const handleError = (error) => {
+      setLoading(false);
+      errorAlert({
+        title: error.message_to_purchaser,
+        text: 'Verificá tus datos e intenta de nuevo',
+      });
+    }
+
+    Conekta.Token.create(tokenParams, handleSucces, handleError);
   }
 
   return (
@@ -129,7 +168,8 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
         <Title level={3}>Tarjeta debito/crédito</Title>
       </div>
       <DashboardContainerItem>
-        <form onSubmit={handleSubmit} className="payment-card-form">
+        <form onSubmit={handleSubmit} className="payment-card-form" style={{ position: 'relative' }}>
+          { loading && <Spinner /> }
           <div>
             <TextField
               onChange={handleCard}
