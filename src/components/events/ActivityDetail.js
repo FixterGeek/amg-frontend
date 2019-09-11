@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
@@ -7,13 +6,16 @@ import { Typography } from 'antd';
 import { subscribeUserToActivityAction } from '../../store/ducks/userDuck';
 import useSweet from '../../hooks/useSweetAlert';
 import useAmgService from '../../hooks/services/useAmgService';
-import DashboardContainerItem from '../../atoms/DashboardContainerItem';
+import ContainerItem from '../reusables/ContainerItem';
 import ProfilePhoto from '../../atoms/ProfilePhoto';
-import AmgButton from '../../atoms/Button';
 import MapLocation from './reusables/MapLocation';
-import Spinner from '../../atoms/Spinner';
+import Spinner from '../reusables/Spinner';
+import SubscribeButton from './reusables/SubscribeButton'
 
-function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
+function ActivityDetail({
+  history, user, subscribeUserToActivityAction,
+  userFetching, userStatus,
+}) {
   const { Title, Text } = Typography;
 
   const { errorAlert, successAlert } = useSweet();
@@ -32,11 +34,15 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
     assistants: [],
     _id: null,
   });
-  const { speakers = [], limit = false, location = {} } = activity;
-  const { colony = '', zipCode = '', street = ''} = location;
-  const soulout = limit === 0 ? true : false;
-  const registered = user.assistedActivities.includes(activity._id);
 
+  const { speakers = [], location = {} } = activity;
+
+
+  useEffect(() => {
+    if (userStatus === 'error') {
+      errorAlert({ text: 'No fue posible completar la inscripción' });
+    }
+  }, [userStatus])
 
   useEffect(() => {
     const runAsync = async () => {
@@ -56,30 +62,19 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
   }, []);
 
 
-  const subscribeToActivity = (activityId) => {
-    subscribeUserToActivityAction(activityId).then(({ data }) => {
-      successAlert({
-        text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.'
-      })
-    }).catch(({ response }) => errorAlert({}));
-  };
-
-  console.log(activity)
-
-
   return (
     <div className="dashboard-container activity-detail  relative">
-      { user.fetching && <Spinner /> }
-      <DashboardContainerItem>
+      { userFetching && <Spinner /> }
+      <ContainerItem>
         <Title>{ activity.activityType }</Title>
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         <Title level={3}>{ activity.activityName }</Title>
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         <Text>{ activity.description }</Text>
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         <div>
           <Title level={3}>Ponente</Title>
         </div>
@@ -99,8 +94,8 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
             );
           })
         }
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         <MapLocation
           street={location.street}
           colony={location.colony}
@@ -108,60 +103,20 @@ function ActivityDetail({ history, user, subscribeUserToActivityAction }) {
           zipCode={location.zipCode}
           coordinates={location.coordinates}
         />
-      </DashboardContainerItem>
-      <DashboardContainerItem style={{ textAlign: 'center' }}>
-        {/* { user.membershipStatus === 'Free' && 
-          <AmgButton width="100%">
-            <Link to="/dashboard/settings">Convierte en socio</Link>
-          </AmgButton>
-        } */}
-        {
-          (
-            (user.membershipStatus === 'Socio' || user.membershipStatus === 'Mesa Directiva' || user.membershipStatus === 'Free')
-            || (user.membershipStatus === 'Residente' && activity.isOpen)
-          )
-            && (
-              <div>
-                <AmgButton
-                  bgColor={soulout ? 'red' : registered ? 'green' : 'secondary'}
-                  disabled={registered || soulout || (user.userStatus === 'No Aprobado')}
-                  width="100%"
-                  onClick={() => subscribeToActivity(activity._id)}>
-                  { soulout ? 'Actividad agotada' : registered ? 'Inscrito' : 'Inscribirme' }
-                </AmgButton>
-                <div style={{ color: '#f1a153' }}>
-                  { limit ? 'Esta actividad es de cupo limitado*' : '' }
-                </div>
-              </div>
-            ) 
-        }
-        {
-          (user.membershipStatus === 'Residente' && !activity.isOpen) ? (
-            <div>
-              <AmgButton
-                width="100%"
-                bgColor={soulout ? 'red' : 'secondary'}
-                disabled={soulout}>
-                <Link to={{
-                  pathname: `/dashboard/payment/activity/${activity._id}`,
-                  state: activity,
-                }}>
-                  { soulout ? 'Actividad agotada' : 'Pagar por esta actividad' }
-                </Link>
-              </AmgButton>
-              <div style={{ color: '#f1a153' }}>
-                { limit ? 'Esta actividad es de cupo limitado*' : '' }
-              </div>
-            </div>
-          ) : null
-        }
-      </DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem style={{ textAlign: 'center' }}>
+        { activity._id && <SubscribeButton activityObject={activity} />}
+      </ContainerItem>
     </div>
   );
 }
 
 function mapStateToProps({ user }) {
-  return { user };
+  return {
+    user,
+    userStatus: user.status,
+    userFetching: user.fetching,
+  };
 }
 
 export default connect(mapStateToProps, { subscribeUserToActivityAction })(ActivityDetail);

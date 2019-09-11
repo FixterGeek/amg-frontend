@@ -10,23 +10,22 @@ import useSweet from '../../hooks/useSweetAlert';
 import { subscribeUserToEventAction } from '../../store/ducks/userDuck';
 import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
-import AmgButton from '../../atoms/Button';
 import TextNIconButton from '../../atoms/TextNIconButton';
-import Spinner from '../../atoms/Spinner';
+import Spinner from '../reusables/Spinner';
 import MapLocation from './reusables/MapLocation';
 import SubscribeButton from './reusables/SubscribeButton';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
 function EventDetail({
-  history, subscribeUserToEventAction, userFetching,
-  assistedEvents, userError, user
+  history, userFetching, userError,
+  userStatus
 }) {
   const { location } = history;
   const { Title } = Typography;
 
-  const { errorAlert } = useSweet();
-  const { getSingleEvent, assistAnEvent } = useAmgService();
+  const { errorAlert, successAlert } = useSweet();
+  const { getSingleEvent } = useAmgService();
   const [state, setState] = useState({
     description: [],
     permisosURLS: [],
@@ -40,10 +39,6 @@ function EventDetail({
     if (userError !== undefined) errorAlert({});
   }, [userError]);
 
-  const subscribeToEvent = () => {
-    subscribeUserToEventAction(state._id)
-  };
-
   useEffect(() => {
     if (location.state) {
       setState({ ...location.state });
@@ -56,13 +51,19 @@ function EventDetail({
     }
   }, []);
 
-  console.log(state)
+  useEffect(() => {
+    if (userStatus === 'success') {
+      successAlert({
+        text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.'
+      });
+    } 
+  })
 
 
   return (
     <div className="dashboard-container event-detail">
-      { !state._id && <Spinner tip="Cargando evento..." /> }
-      { userFetching && <Spinner tip="Inscribiendo..." /> }
+      { !state._id && <Spinner /> }
+      { userFetching && <Spinner /> }
       <div className="title">
         <Title>{state.title}</Title>
       </div>
@@ -119,14 +120,7 @@ function EventDetail({
             coordinates={state.location.coordinates} />
 
           <div className="right-button">
-            <SubscribeButton user={user} payable eventObject={state} />
-            {/* <AmgButton
-              width="100%"
-              bgColor={assistedEvents.includes(state._id) ? 'green' : 'secondary'}
-              disabled={assistedEvents.includes(state._id) || (user.userStatus === 'No Aprobado')}
-              onClick={subscribeToEvent} >
-              { assistedEvents.includes(state._id) ? 'Inscrito' : 'Inscribirme'}
-            </AmgButton> */}
+            <SubscribeButton payable eventObject={state} />
           </div>
         </div>
       </div>
@@ -141,6 +135,7 @@ function mapStateToProps({ events, user }) {
     userFetching: user.fetching,
     assistedEvents: user.assistedEvents,
     userError: user.error,
+    userStatus: user.status,
   };
 }
 
