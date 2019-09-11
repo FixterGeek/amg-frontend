@@ -18,7 +18,9 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
     number: '',
     expiration: '',
     ccv: '',
+    phone: null,
   }
+
   const [isValid, setIsValid] = useState(false);
   const [errors, setErrors] = useState({
     name: '',
@@ -148,7 +150,14 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
 
     const handleSucces = (token) => {
       setLoading(false);
-      if (onSubmit) onSubmit({ concept, amount, card, isValid, conektaToken: token });
+      if (onSubmit) onSubmit({
+        concept,
+        amount,
+        card,
+        isValid,
+        conektaToken: token,
+        phone: card.phone,
+      });
     }
 
     const handleError = (error) => {
@@ -192,7 +201,6 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
               label="Nombre del titular de la tarjeta"
               error={errors.name}
               errorMessage={errors.name}
-
             />
           </div>
           <div className="payment-card-container">
@@ -215,6 +223,13 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
               warningMessage={warnings.ccv}
             />
           </div>
+          <TextField
+            value={card.phone}
+            onChange={handleCard}
+            label="Número telefonico"
+            width="100%"
+            name="phone"
+          />
           <TextField
             value={amount}
             label="Monto a pagar (MXN)"
