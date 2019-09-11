@@ -1,4 +1,4 @@
-import { paymentEvent } from '../../services/paymentServices';
+import { payment } from '../../services/paymentServices';
 
 const paymetState = {
   array: [],
@@ -34,22 +34,37 @@ export function makePaymentError(error) {
 // Make payment
 export const makePaymentAction = (paymentData, paymentType = 'event') => (dispatch) => {
   dispatch(makePayment());
-  if (paymentType === 'event') {
-    return paymentEvent(paymentData)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        dispatch(makePaymentError(error));
-        return error;
-      });
-  }
+  return payment(paymentData, paymentType)
+    .then((data) => {
+      dispatch(makePaymentSuccess(data));
+      return data;
+    })
+    .catch((error) => {
+      dispatch(makePaymentError(error));
+      return error;
+    });
 };
 
 
 /* reducer */
 export default function reducer(state = paymetState, action) {
   switch (action.type) {
+    case MAKE_PAYMENT:
+      return { ...state, fetching: true };
+    case MAKE_PAYMENT_SUCCESS:
+      return {
+        ...state,
+        fetching: false,
+        array: [...state.array, action.payload],
+        status: 'success',
+      };
+    case MAKE_PAYMENT_ERROR:
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload,
+        status: 'error',
+      };
     default:
       return state;
   }

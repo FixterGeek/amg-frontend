@@ -4,19 +4,9 @@ const BASE_API = `${process.env.REACT_APP_BASE_API_URL}`;
 const APIURL = `${BASE_API}/payments`;
 
 
-export const paymentEvent = (paymentData) => {
+export const payment = (paymentData, paymentType) => {
   const token = localStorage.authToken;
-  return axios.post(`${APIURL}/event`, paymentData, {
-    headers: {
-      Authorization: token,
-    },
-  }).then(({ data }) => data);
-};
-
-
-export const paymentSubscription = (paymentData) => {
-  const token = localStorage.authToken;
-  return axios.post(`${APIURL}/subscription`, paymentData, {
+  return axios.post(`${APIURL}/${paymentType}`, paymentData, {
     headers: {
       Authorization: token,
     },
