@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'fslightbox-react';
 
-function ImagesLightBox({imagesArray, children}) {
+function ImagesLightBox({imagesArray, children, itemKey}) {
   const [openBox, setOpenBox] = useState(false);
   console.log(openBox)
 
@@ -17,6 +17,7 @@ function ImagesLightBox({imagesArray, children}) {
       <Lightbox
         toggler={openBox}
         sources={[...imagesArray]}
+        key={itemKey}
       />
     </div>
   );

@@ -45,7 +45,7 @@ function PublicationGallery({ urlArray }) {
                 }
 
                 return (
-                  <ImagesLightbox imagesArray={[media.base64]}>
+                  <ImagesLightbox imagesArray={[media.base64]} itemKey={index}>
                     <ImagePreview
                       url={media.base64}
                       isVideo={media.type === 'video'}
@@ -58,8 +58,8 @@ function PublicationGallery({ urlArray }) {
         ) : (
           <div className="feed-reusables-publication-gallery-medias-one">
             {
-              medias.map(media => (
-                <ImagesLightbox imagesArray={[media.base64]}>
+              medias.map((media, index) => (
+                <ImagesLightbox imagesArray={[media.base64]} itemKey={index}>
                   <ImagePreview
                       url={media.base64}
                   />

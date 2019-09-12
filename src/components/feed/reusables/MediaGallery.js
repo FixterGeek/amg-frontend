@@ -24,9 +24,9 @@ function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeK
 
           <div className="feed-reusables-media-gallery-medias">
             {
-              dataSource.map(media => {
+              dataSource.map((media, index) => {
                 return (
-                  <ImagesLightbox imagesArray={[media[sourceKey] || media]}>
+                  <ImagesLightbox imagesArray={[media[sourceKey] || media]} itemKey={index}>
                     <ImagePreview
                       containerStyle={{
                         maxWidth: '150px', maxHeight: '150px', borderStyle: 'none',
