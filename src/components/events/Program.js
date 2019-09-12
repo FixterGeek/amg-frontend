@@ -40,7 +40,7 @@ function Program({ history, events, user }) {
   console.log(user);
 
   return (
-    <div className="dashboard-container">
+    <div className="events-program dashboard-container">
       { loading && <Spinner tip="Cargando programa..." /> }
       <ContainerItem>
         <Title>Programa</Title>
@@ -72,6 +72,7 @@ function Program({ history, events, user }) {
                     });
                     return (
                       <BoxItem
+                        className="event-program-box-item"
                         title={activity.activityName}
                         subtitle={speakers.join()}
                         footer={activity.address || activity.type}

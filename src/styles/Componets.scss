@@ -58,7 +58,10 @@
   margin-top: $largeMargin;
 }
 
-/* Event Detail */
+
+// Events ===>
+
+/* Style EventDetail */
 $eventLeftWidth: 350px;
 
 .event-detail {
@@ -92,6 +95,22 @@ $eventLeftWidth: 350px;
     &-button {
       display: flex;
       justify-content: flex-end;
+    }
+  }
+}
+
+/* Style Program */
+.event-program {
+  &-box-item {
+    flex-flow: column;
+    @include for-size(desktop-up) {
+      flex-flow: row;
+    }
+    .reusables-box-item-left {
+      justify-content: flex-start;
+      @include for-size(desktop-up) {
+        justify-content: center;
+      }
     }
   }
 }

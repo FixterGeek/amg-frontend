@@ -9,7 +9,8 @@ import ImagePreview from './ImagePreview';
 function BoxItem({
   title, subtitle, footer,
   noLeft, leftContent, leftIsImage,
-  leftStyle, infoStyle, to, linkState
+  leftStyle, infoStyle, to,
+  linkState, className,
 }) {
   const { Title, Text } = Typography;
 
@@ -36,7 +37,7 @@ function BoxItem({
   };
 
   return (
-    <div className="reusables-box-item">
+    <div className={`reusables-box-item  ${className}`}>
       {
         !noLeft && (
           <div className="reusables-box-item-left" style={leftStyle}>
