@@ -4,7 +4,8 @@ import Lightbox from 'fslightbox-react';
 
 function ImagesLightBox({imagesArray, children, itemKey}) {
   const [openBox, setOpenBox] = useState(false);
-  console.log(openBox)
+  
+  localStorage.removeItem('fslightbox-types');
 
   return (
     <div className="reusables-images-lightbox">
