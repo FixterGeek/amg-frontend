@@ -579,6 +579,21 @@
   }
 }
 
+/* Style ImagesLightbox */
+.reusables-images-lightbox{
+  &-open-button {
+    appearance: none;
+    outline: none;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: $smallMargin;
+    padding: 0px;
+    background-color: transparent;
+  }
+}
+
 
 // Feed ===>
 /* Style Feed->PublicationBox */
@@ -809,4 +824,67 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+// Membership ===>
+.membership-reusables-membership-card {
+  background-color: white;
+  display: flex;
+  width: 296px;
+  height: 521px;
+  padding: $padding;
+  flex-flow: column;
+  justify-content: space-between;
+  border-top: solid 2px white;
+  margin: $smallMargin;
+
+  &-active {
+    border-top: solid 2px $navy;
+  }
+
+  span {
+    display: block;
+    text-align: center;
+    padding-top: $smallMargin;
+    padding-bottom: $smallPadding;
+  }
+
+  .type {
+    font-size: 1.4rem;
+  }
+
+  .cost {
+    font-size: 2.4rem;
+    color: $navy;
+  }
+
+  .currency {
+    min-height: 80px;
+    div {
+      span {
+        font-size: 1rem;
+        margin-bottom: 0px;
+        &:last-child {
+          margin-top: -8px;
+          padding-top: 0px;
+          font-size: 0.8rem;
+          font-weight: bold;
+          color: $darkSilver;
+        }
+      }
+    }
+  }
+
+  .description {
+    border-top: 2px solid $silver;
+    padding-top: $smallPadding;
+    padding-left: $smallPadding;
+    flex-grow: 1;
+
+    li {
+      margin-left: $smallMargin;
+      color: $darkSilver;
+    }
+  }
 }

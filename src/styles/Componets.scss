@@ -535,6 +535,15 @@ $eventLeftWidth: 350px;
   }
 }
 
+// Settings
+/* Style SettingsMembership */
+.settings-membership {
+  padding: $largePadding;
+  background-color: $clouds;
+  display: flex;
+  justify-content: center;
+}
+
 .terms-and-conditions {
   &-modal {
     h4 {

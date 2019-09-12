@@ -3,20 +3,25 @@ import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
-import DashboardContainerItem from '../../atoms/DashboardContainerItem';
+import ContainerItem from '../reusables/ContainerItem';
 import MembershipCards from '../../organisms/membership/MembershipCards';
+import SettingsMembership from './SettingsMembership';
 
 function Settings({ user }) {
   const { Title } = Typography;
 
   return (
     <div className="dashboard-container">
-      <DashboardContainerItem>
+      <ContainerItem>
         <Title>Ajustes de la cuenta</Title>
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         <Title level={3}>Membresía</Title>
-      </DashboardContainerItem>
+      </ContainerItem>
+        <SettingsMembership
+          membershipStatus={user.membershipStatus}
+          userStatus={user.userStatus}
+        />
       {
         user.userStatus === 'Aprobado'
           ? <MembershipCards user={user} /> : '¡Tu cuenta aún no ha sido aprobada!'
@@ -25,8 +30,10 @@ function Settings({ user }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { user: state.user };
+function mapStateToProps({ user }) {
+  return {
+    user
+  };
 }
 
 export default connect(mapStateToProps)(Settings);

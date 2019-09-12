@@ -9,6 +9,7 @@ import Speakers from '../components/events/Speakers';
 import ActivityDetail from '../components/events/ActivityDetail';
 import Settings from '../components/settings/Settings';
 import MembershipPayment from '../components/membership/MembershipPayment';
+import MembershipPaymentCard from '../components/membership/MembersipPaymentCard';
 import PersonalProfile from '../components/profile/PersonalProfile';
 import MainProfile from '../components/profile/MainProfile';
 import PaymentEvent from '../components/membership/PaymentEvent';
@@ -24,7 +25,7 @@ function DashBoardRouter() {
       <Route exact path={`${baseURL}/perfil/editar`} component={PersonalProfile} />
       <Route path="/dashboard/perfil" component={MainProfile} />
       <Route path="/dashboard/payment/event/:id" component={PaymentEvent} />
-      <Route path={`${baseURL}/payment/:membership/:type`} component={MembershipPayment} />
+      <Route path={`${baseURL}/payment/membership/:type`} component={MembershipPaymentCard} />
       <Route path={`${baseURL}/payment/:membership`} component={MembershipPayment} />
       <Route path={`${baseURL}/events/:id/program/:id`} component={ActivityDetail} />
       <Route path={`${baseURL}/events/:id/program`} component={Program} />

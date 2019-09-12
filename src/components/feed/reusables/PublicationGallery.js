@@ -7,6 +7,7 @@ import { getFromUrls } from '../../../tools/fileToURL';
 import ImagePreview from '../../reusables/ImagePreview';
 import FullMediaModal from '../../reusables/FullMediaModal';
 import MediaGallery from './MediaGallery';
+import ImagesLightbox from '../../reusables/ImagesLightbox';
 
 function PublicationGallery({ urlArray }) {
   const [loading, setLoading] = useState(true);
@@ -44,12 +45,12 @@ function PublicationGallery({ urlArray }) {
                 }
 
                 return (
-                  <FullMediaModal url={media.base64} type={media.type} >
+                  <ImagesLightbox imagesArray={[media.base64]}>
                     <ImagePreview
-                        url={media.base64}
-                        isVideo={media.type === 'video'}
+                      url={media.base64}
+                      isVideo={media.type === 'video'}
                     / >
-                  </FullMediaModal>
+                  </ImagesLightbox>
                 )
               })
             }
@@ -58,11 +59,11 @@ function PublicationGallery({ urlArray }) {
           <div className="feed-reusables-publication-gallery-medias-one">
             {
               medias.map(media => (
-                <FullMediaModal url={media.base64} type={media.type} >
+                <ImagesLightbox imagesArray={[media.base64]}>
                   <ImagePreview
                       url={media.base64}
-                  / >
-                </FullMediaModal>
+                  />
+                </ImagesLightbox>
               ))
               }
           </div>

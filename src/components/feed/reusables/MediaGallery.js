@@ -5,6 +5,7 @@ import { Modal } from 'antd'
 
 import ImagePreview from '../../reusables/ImagePreview';
 import FullMediaModal from '../../reusables/FullMediaModal';
+import ImagesLightbox from '../../reusables/ImagesLightbox';
 
 function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeKey }) {
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,7 @@ function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeK
             {
               dataSource.map(media => {
                 return (
-                  <FullMediaModal type={media[typeKey]} url={media[sourceKey]}>
+                  <ImagesLightbox imagesArray={[media[sourceKey] || media]}>
                     <ImagePreview
                       containerStyle={{
                         maxWidth: '150px', maxHeight: '150px', borderStyle: 'none',
@@ -35,7 +36,7 @@ function MediaGallery({ children, text, modalTitle, dataSource, sourceKey, typeK
                       url={media[sourceKey] || media}
                       isVideo={media[typeKey] === 'video'}
                     />
-                  </FullMediaModal>
+                  </ImagesLightbox>
                 )
               })
             }

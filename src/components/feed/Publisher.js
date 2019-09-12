@@ -17,6 +17,7 @@ import ImagePreview from '../reusables/ImagePreview';
 import MediaGallery from './reusables/MediaGallery';
 import FullMediaModal from '../reusables/FullMediaModal';
 import AttachFileItem from '../reusables/AttachFileItem';
+import ImagesLightbox from '../reusables/ImagesLightbox';
 
 function Publisher({
   createPublicationAction, fetching, status, added, user
@@ -168,13 +169,13 @@ function Publisher({
               )
             }
             return (
-              <FullMediaModal type={item.type} url={item.base64}                   key={index}>
+              <ImagesLightbox imagesArray={[item.base64]}>
                 <ImagePreview
                   url={item.base64}
                   containerStyle={{ borderStyle: 'none', cursor: 'pointer' }}
                   isVideo={item.type === 'video'}
                 />
-              </FullMediaModal>
+              </ImagesLightbox>
             )
           })
         }

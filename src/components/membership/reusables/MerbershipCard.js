@@ -1,0 +1,71 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import Button from '../../reusables/Button';
+
+function MembershipCard({
+  points, hiddenButton, hiddenCurrency,
+  membershipType, membershipCostDisplay,
+  membershipCurrency, period, membershipCost
+}) {
+  return (
+    <div className="membership-reusables-membership-card">
+      {/* Classes inside the component only work inside component */}
+      <span className="type">{ membershipType }</span>
+      <span className="cost">{ membershipCostDisplay }</span>
+      <span className="currency">
+        { !hiddenCurrency ? (
+          <div>
+            <span>{ membershipCurrency }</span>
+            <span>{ period }</span>
+          </div>
+        ) : null }
+      </span>
+      <ul className="description">
+        {
+          points.map(point => (
+            <li>{ point }</li>
+          ))
+        }
+      </ul>
+      <div style={{ textAlign: 'center' }}>
+        {
+          !hiddenButton && (
+            <Link
+              to={{
+                pathname: `/payment/membership/${membershipType.toLowerCase()}`,
+                state: {
+                  amout: membershipCost
+                }
+              }}
+            >
+              Quiero ser miembro
+            </Link>
+          )
+        }
+      </div>
+    </div>
+  );
+}
+
+export default MembershipCard;
+
+MembershipCard.propTypes = {
+  points: PropTypes.arrayOf(PropTypes.string),
+  membershipType: PropTypes.string,
+  membershipCostDisplay: PropTypes.string,
+  membershipCurrency: PropTypes.string,
+  membershipCost: PropTypes.number,
+  membershipCurrency: PropTypes.string,
+  perios: PropTypes.string,
+};
+
+MembershipCard.defaultProps = {
+  points: [],
+  membershipType: 'Free',
+  membershipCostDisplay: 'Gratis' ,
+  membershipCost: 0,
+  membershipCurrency: 'MXN',
+  period: 'anual'
+};
