@@ -6,10 +6,11 @@ import { Typography } from 'antd';
 
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { getSingleEvent } from '../../services/eventsServices';
-import DashboardContainerItem from '../../atoms/DashboardContainerItem';
+import ContainerItem from '../reusables/ContainerItem';
 import EventCover from '../../molecules/EventCover';
 import ActivityItem from '../../molecules/Events/ActivityItem';
 import Spinner from '../../atoms/Spinner';
+import BoxItem from '../reusables/BoxItem';
 
 function Program({ history, events, user }) {
   const { Title } = Typography;
@@ -41,10 +42,10 @@ function Program({ history, events, user }) {
   return (
     <div className="dashboard-container">
       { loading && <Spinner tip="Cargando programa..." /> }
-      <DashboardContainerItem>
+      <ContainerItem>
         <Title>Programa</Title>
-      </DashboardContainerItem>
-      <DashboardContainerItem>
+      </ContainerItem>
+      <ContainerItem>
         { eventState && (
         <EventCover
           title={eventState.title}
@@ -54,15 +55,15 @@ function Program({ history, events, user }) {
           image={eventState.mainImagesURLS[0]} />
         )
         }
-      </DashboardContainerItem>
+      </ContainerItem>
       {
         eventState && eventState.modules.map((modul) => {
           return (
-            <DashboardContainerItem>
+            <ContainerItem>
               <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
                 { modul.title }
               </Title>
-              <div>
+              <ContainerItem>
                 {
                   modul.activities.map((activity) => {
                     let speakers = activity.speakers.map(speaker => {
@@ -70,23 +71,34 @@ function Program({ history, events, user }) {
                       return ' ';
                     });
                     return (
-                      <ActivityItem
-                        className={
-                          user.assistedActivities.includes(activity._id) ? 'bg-green' : ''
-                        }
-                        key={activity._id}
-                        hour={moment(activity.startTime).format('hh:mm a')}
-                        hour2={moment(activity.endTime).format('hh:mm a')}
+                      <BoxItem
                         title={activity.activityName}
-                        level1={speakers.join()}
-                        level2={activity.address || activity.type}
+                        subtitle={speakers.join()}
+                        footer={activity.address || activity.type}
+                        leftContent={
+                          `${moment(activity.startTime).format('hh:mm a')} - ${moment(activity.endTime).format('hh:mm a')}`
+                        }
+                        leftStyle={{ paddingRight: '16px', flexShrink: 0 }}
                         to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
-                        activity={activity} />
+                        linkState={activity}
+                      />
+                        // <ActivityItem
+                        // className={
+                        //   user.assistedActivities.includes(activity._id) ? 'bg-green' : ''
+                        // }
+                        // key={activity._id}
+                        // hour={moment(activity.startTime).format('hh:mm a')}
+                        // hour2={moment(activity.endTime).format('hh:mm a')}
+                        // title={activity.activityName}
+                        // level1={speakers.join()}
+                        // level2={activity.address || activity.type}
+                        // to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
+                        // activity={activity} />
                     );
                   })
                 }
-              </div>
-            </DashboardContainerItem>
+              </ContainerItem>
+            </ContainerItem>
           );
         })
       }
