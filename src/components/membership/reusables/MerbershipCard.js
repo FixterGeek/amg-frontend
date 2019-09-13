@@ -34,10 +34,8 @@ function MembershipCard({
           !hiddenButton && (
             <Link
               to={{
-                pathname: `/payment/membership/${membershipType.toLowerCase()}`,
-                state: {
-                  amout: membershipCost
-                }
+                pathname: `/dashboard/payment/membership/${membershipType.toLowerCase()}`,
+                state: { amount: membershipCost },
               }}
             >
               Quiero ser miembro

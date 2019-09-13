@@ -4,6 +4,7 @@ const paymetState = {
   array: [],
   fetching: false,
   status: null,
+  errorMessage: null,
 };
 
 
@@ -16,6 +17,11 @@ const MAKE_PAYMENT_ERROR = 'MAKE_PAYMENT_ERROR';
 
 
 /* Action creators */
+// Reset payment status
+export function resetPaymentStatus() {
+  return { type: RESET_PAYMENT_STATUS };
+}
+
 // Make payment
 export function makePayment() {
   return { type: MAKE_PAYMENT };
@@ -49,6 +55,9 @@ export const makePaymentAction = (paymentData, paymentType = 'event') => (dispat
 /* reducer */
 export default function reducer(state = paymetState, action) {
   switch (action.type) {
+    case RESET_PAYMENT_STATUS:
+      return { ...state, status: null };
+    /* Make payment */
     case MAKE_PAYMENT:
       return { ...state, fetching: true };
     case MAKE_PAYMENT_SUCCESS:

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -8,11 +9,10 @@ import useSweetAlert from '../../hooks/useSweetAlert';
 import { getSingleEvent } from '../../services/eventsServices';
 import ContainerItem from '../reusables/ContainerItem';
 import EventCover from '../../molecules/EventCover';
-import ActivityItem from '../../molecules/Events/ActivityItem';
-import Spinner from '../../atoms/Spinner';
+import Spinner from '../reusables/Spinner';
 import BoxItem from '../reusables/BoxItem';
 
-function Program({ history, events, user }) {
+function Program({ history, user }) {
   const { Title } = Typography;
 
   const { errorAlert } = useSweetAlert();
@@ -31,7 +31,7 @@ function Program({ history, events, user }) {
         setEvent(data);
         setLoading(false);
       })
-      .catch(({ response }) => {
+      .catch(() => {
         setLoading(false);
         errorAlert({});
       });
@@ -57,16 +57,15 @@ function Program({ history, events, user }) {
         }
       </ContainerItem>
       {
-        eventState && eventState.modules.map((modul) => {
-          return (
+        eventState && eventState.modules.map(modul => (
+          <ContainerItem>
+            <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
+              { modul.title }
+            </Title>
             <ContainerItem>
-              <Title level={3} style={{ marginTop: '32px', marginBottom: '32px' }}>
-                { modul.title }
-              </Title>
-              <ContainerItem>
-                {
+              {
                   modul.activities.map((activity) => {
-                    let speakers = activity.speakers.map(speaker => {
+                    const speakers = activity.speakers.map((speaker) => {
                       if (speaker.fullName) return `${speaker.fullName}`;
                       return ' ';
                     });
@@ -83,35 +82,19 @@ function Program({ history, events, user }) {
                         to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
                         linkState={activity}
                       />
-                        // <ActivityItem
-                        // className={
-                        //   user.assistedActivities.includes(activity._id) ? 'bg-green' : ''
-                        // }
-                        // key={activity._id}
-                        // hour={moment(activity.startTime).format('hh:mm a')}
-                        // hour2={moment(activity.endTime).format('hh:mm a')}
-                        // title={activity.activityName}
-                        // level1={speakers.join()}
-                        // level2={activity.address || activity.type}
-                        // to={`/dashboard/events/${eventState._id}/program/${activity._id}`}
-                        // activity={activity} />
                     );
                   })
                 }
-              </ContainerItem>
             </ContainerItem>
-          );
-        })
+          </ContainerItem>
+        ))
       }
     </div>
   );
 }
 
 function mapStateToProps({ events, user }) {
-  return { 
-    events,
-    user
-  };
+  return { events, user };
 }
 
 export default connect(mapStateToProps)(Program);
