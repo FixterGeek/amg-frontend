@@ -1,20 +1,25 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { Typography, Icon } from 'antd'
+import { Typography, Icon } from 'antd';
 
-import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
+import ContainerItem from '../../reusables/ContainerItem';
 import ProfilePhoto from '../../../atoms/ProfilePhoto';
+import Button from '../../reusables/Button';
 
-function BasicInformationUser({ editableLink, user, nonOwn }) {
-  const { Title, Text } = Typography
+function BasicInformationUser({
+  editableLink, user, nonOwn,
+  followDispatch, follow, showBio
+}) {
+  const { Title, Text } = Typography;
 
   const { basicData = {}, followers, following, membershipStatus } = user;
   const { photoURL, name, dadSurname, momSurname, speciality } = basicData;
 
 
   return (
-    <DashboardContainerItem className="info">
+    <ContainerItem className="profile-reusables-basic-information-user">
       {
         editableLink && (
           <Link to="/dashboard/perfil/editar">
@@ -22,15 +27,15 @@ function BasicInformationUser({ editableLink, user, nonOwn }) {
           </Link>
         )
       }
-      <div>
+      <div className="photo-container">
         <ProfilePhoto photoURL={photoURL} />
       </div>
       <Title level={4}>{`${name} ${dadSurname} ${momSurname}`}</Title>
-      <Text>{ membershipStatus }</Text>
-      <Text>{ speciality }</Text>
+      <Text className="info-item">{ membershipStatus }</Text>
+      <Text className="info-item">{ speciality }</Text>
 
       {
-        !nonOwn && (
+        !nonOwn ? (
           <div className="follows">
             <div>
               Seguidores
@@ -43,10 +48,31 @@ function BasicInformationUser({ editableLink, user, nonOwn }) {
               </span>
             </div>
           </div>
+        ) : (
+          <Button width="180px" onClick={() => followDispatch(user._id)}>
+            { follow ? 'Dejar de seguir' : 'Seguir' }
+          </Button>
         )
       }
-    </DashboardContainerItem>
+      {
+        showBio && (
+          <div className="bio">
+            { basicData.bio || null }
+          </div>
+        )
+      }
+    </ContainerItem>
   );
 }
 
 export default BasicInformationUser;
+
+BasicInformationUser.propTypes = {
+  follow: PropTypes.bool,
+  showBio: PropTypes.bool,
+};
+
+BasicInformationUser.defaultProps = {
+  follow: false,
+  showBio: false,
+};

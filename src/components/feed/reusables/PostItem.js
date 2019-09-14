@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { Typography } from 'antd';
@@ -11,8 +12,10 @@ import PublicationGallery from './PublicationGallery';
 
 
 function PostItem({ publication }) {
-  const {text, updatedAt, _id, liked,imagesURLS = [], user={}, docsURLS = []} = publication;
-  const { basicData = {} } = user||{};
+  const {
+    text, updatedAt, _id, liked, imagesURLS = [], user = {}, docsURLS = [],
+  } = publication;
+  const { basicData = {} } = user || {};
   const { photoURL = null, name = '', dadSurname = '' } = basicData;
   const { Title, Text } = Typography;
 
@@ -31,14 +34,17 @@ function PostItem({ publication }) {
     <div className="post-item">
       <div className="post-item-info">
         <div className="post-item-photo">
-          <ImagePreview
-            url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'}
-            containerStyle={{
-              maxWidth: '80px', maxHeight: '80px', borderStyle: 'none',
-              backgroundColor: '#1f2536'
-            }}
-            imageStyle={{ maxWidth: '120px', maxHeight: '120px' }}
-            alt={`${basicData.name} ${basicData.dadSurname}`} />
+          <Link to={`/dashboard/perfil/publico/${user.email}`}>
+            <ImagePreview
+              url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'}
+              containerStyle={{
+                maxWidth: '80px', maxHeight: '80px', borderStyle: 'none',
+                backgroundColor: '#1f2536'
+              }}
+              imageStyle={{ maxWidth: '120px', maxHeight: '120px' }}
+              alt={`${basicData.name} ${basicData.dadSurname}`}
+            />
+          </Link>
         </div>
         <div>
           <div>

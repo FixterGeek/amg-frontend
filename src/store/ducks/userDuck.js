@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux';
-import { login, updateUser as update, signup } from '../../services/userServices'
+import {
+    login, updateUser as update, signup,
+    followUser as follow,
+} from '../../services/userServices'
 import { activitySubscribe, assistAnEvent } from '../../services/eventsServices';
 import {
     switchMap,
@@ -35,6 +38,8 @@ const userState = {
     civilStatus: null,
     adress: {},
   },
+  following: [],
+  followers: [],
   assistedEvents: [],
   assistedActivities: [],
   spouse: {},
@@ -79,6 +84,9 @@ let SUBSCRIBE_USER_TO_ACTIVITY_ERROR = "SUBSCRIBE_USER_TO_ACTIVITY_ERROR"
 let SUBSCRIBE_USER_TO_EVENT = "SUBSCRIBE_USER_TO_TEVENT";
 let SUBSCRIBE_USER_TO_EVENT_SUCCESS = "SUBSCRIBE_USER_TO_EVENT_SUCCESS"
 let SUBSCRIBE_USER_TO_EVENT_ERROR ="SUBSCRIBE_USER_TO_EVENT_ERROR"
+let FOLLOW_USER = 'FOLLOW_USER'
+let FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS'
+let FOLLOW_USER_ERROR = 'FOLLOW_USER_ERROR'
 
 // actionCreators
 export function resetUserStatus() {
@@ -166,6 +174,19 @@ export function subscribeUserToActivitySuccess(userData) {
 
 export function subscribeUserToActivityError(error) {
     return { type: SUBSCRIBE_USER_TO_ACTIVITY_ERROR, payload: error };
+}
+
+/* Follow user actions creators */
+export function followUser() {
+    return { type: FOLLOW_USER };
+}
+
+export function followUserSuccess(followData) {
+    return { type: FOLLOW_USER_SUCCESS, payload: followData };
+}
+
+export function followUserError(error) {
+    return { type: FOLLOW_USER_ERROR, payload: error };
 }
 
 // EPICS
@@ -314,6 +335,19 @@ export const createUserAction = (userData) => (dispatch) => {
         })
 }
 
+export const followUserAction = (userId, follow) => (dispatch) => {
+    dispatch(followUser());
+    return follow(userId)
+        .then((data) => {
+            dispatch(followUserSuccess(data.followin));
+            return data;
+        })
+        .catch((error) => {
+            dispatch(followUserError(error));
+            return error;
+        })
+}
+
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
@@ -332,7 +366,6 @@ function reducer(state = userState, action) {
         case LOGIN_USER_ERROR:
             let error
             if (action.payload === "IncorrectPasswordError") error = "Nombre de usuario o contraseña incorrectos"
-            return { ...userState, fetching: false, error }
         case CREATE_USER:
             return { ...state, fetching: true }
         case CREATE_USER_SUCCESS:
@@ -355,6 +388,18 @@ function reducer(state = userState, action) {
             return { ...state, ...action.payload, fetching: false };
         case SUBSCRIBE_USER_TO_EVENT_ERROR:
             return { ...state, fetching: false, error: action.payload };
+        /* Follow user */
+        case FOLLOW_USER:
+            return { ...state, fetching: true };
+        case FOLLOW_USER_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                status: 'success',
+                followin: [action.payload, ...state.followin],
+            }
+        case FOLLOW_USER_ERROR:
+            return { ...state, fetching: false, status: 'error', error: action.payload };
         default:
             return state;
     }

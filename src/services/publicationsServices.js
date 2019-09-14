@@ -15,6 +15,16 @@ export const getSelfPublications = async () => {
 };
 
 
+export const getPublicationsForUser = (userId) => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}?query={"user": "${userId}"}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+
 export const toPublish = async (publicationData) => {
   const authToken = await localStorage.getItem('authToken');
   return axios.post(`${APIURL}`, publicationData, {

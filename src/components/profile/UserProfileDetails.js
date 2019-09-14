@@ -1,11 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
-const Profile = () => {
+import useSweet from '../../hooks/useSweetAlert';
+import { getUserBySlug } from '../../services/userServices';
+import { getPublicationsForUser } from '../../services/publicationsServices';
+import { followUserAction } from '../../store/ducks/userDuck';
+import BasicInformationUser from './reusables/BasicInformationUser';
+import ContainerItem from '../reusables/ContainerItem';
+import PostItem from '../feed/reusables/PostItem';
+import Spinner from '../reusables/Spinner';
+
+function UserProfileDetails({
+  history, match = {}, user,
+  followUserAction, userFetching, userStatus
+}) {
+  const { errorAlert } = useSweet();
+
+  const [loading, setLoading] = useState(true);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [userData, setUserData] = useState({
+    _id: null,
+  });
+  const [posts, setPosts] = useState([]);
+
+
+  useEffect(() => {
+    const { params } = match;
+    const { slug } = params;
+    if (slug) {
+      getUserBySlug(slug)
+        .then((data) => {
+          setUserData(data[0]);
+          setLoading(false);
+          setLoadingPosts(true);
+          return getPublicationsForUser(data[0]._id);
+        })
+        .then((data) => {
+          setPosts(data);
+          setLoadingPosts(false);
+        })
+        .catch(() => {
+          setLoading(false);
+          setLoadingPosts(false);
+          errorAlert({});
+        });
+    }
+  }, []);
+
+  console.log(posts);
+
   return (
-    <div>
-      <h1>Hola soy el profile</h1>
+    <div className="dashboard-container  relative">
+      { loading || userFetching ? <Spinner /> : null }
+      { userData._id && (
+        <BasicInformationUser
+          user={userData}
+          nonOwn={user._id !== userData._id}
+          followDispatch={followUserAction}
+          showBio
+        />
+      )}
+      <ContainerItem style={{ position: 'relative' }}>
+        { loadingPosts && <Spinner /> }
+        {
+          posts.map(post => (
+            <PostItem publication={post} />
+          ))
+        }
+      </ContainerItem>
     </div>
   );
-};
+}
 
-export default Profile;
+function mapSateToProps({ user }) {
+  return {
+    user,
+    userFetching: user.fetching,
+    userStatus: user.status,
+  };
+}
+
+export default connect(
+  mapSateToProps, {
+    followUserAction,
+  },
+)(UserProfileDetails);

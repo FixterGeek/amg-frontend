@@ -19,10 +19,10 @@ export const logout = async (history) => {
 };
 
 export const signup = async (userData) => {
-  //console.log(userData);
   return axios.post(`${baseAuthURL}/signup`, userData)
     .then(res => res.data);
 };
+
 
 export const getSelfUser = async () => {
   const authToken = await localStorage.getItem('authToken');
@@ -34,11 +34,31 @@ export const getSelfUser = async () => {
 };
 
 
+export const getUserBySlug = async (slug) => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}/users?query={"email": "${slug}"}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+
 export const updateUser = (userData) => {
   const user = JSON.parse(localStorage.user);
   const token = localStorage.authToken;
 
   return axios.patch(`${APIURL}/users/${user._id}`, userData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+
+export const followUser = (userId) => {
+  const token = localStorage.authToken;
+  return axios.post(`${APIURL}/users/${userId}/follow`, null, {
     headers: {
       Authorization: token,
     },

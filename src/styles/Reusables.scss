@@ -888,3 +888,51 @@
     }
   }
 }
+
+
+// Profile ===>
+.profile-reusables-basic-information-user {
+  background-color: $clouds;
+  text-align: center;
+
+  .photo-container {
+    display: flex;
+    justify-content: center;
+    padding-top: $largePadding;
+    padding-bottom: $smallPadding;
+  }
+
+  h4 {
+    margin-bottom: 0px;
+  }
+
+  .info-item {
+    display: block;
+    font-size: 1.1rem;
+  }
+
+  .follows {
+    margin-top: $margin;
+    border-top: solid 8px white;
+    display: flex;
+
+    div {
+      width: 50%;
+      padding: $smallPadding;
+      display: flex;
+      flex-flow: column;
+
+      span {
+        font-size: 1.5rem;
+      }
+
+      &:first-child {
+        border-right: solid 4px white;
+      }
+    }
+  }
+
+  .bio {
+    padding-bottom: $padding;
+  }
+}

@@ -12,6 +12,7 @@ import MembershipPayment from '../components/membership/MembershipPayment';
 import MembershipPaymentCard from '../components/membership/MembersipPaymentCard';
 import PersonalProfile from '../components/profile/PersonalProfile';
 import MainProfile from '../components/profile/MainProfile';
+import UserProfilFollow from '../components/profile/UserProfileDetails';
 import PaymentEvent from '../components/membership/PaymentEvent';
 import Resources from '../components/resources/Resources';
 import Guides from '../components/resources/Guides';
@@ -22,6 +23,7 @@ function DashBoardRouter() {
   const baseURL = '/dashboard';
   return (
     <Switch>
+      <Route path={`${baseURL}/perfil/publico/:slug`} component={UserProfilFollow} />
       <Route exact path={`${baseURL}/perfil/editar`} component={PersonalProfile} />
       <Route path="/dashboard/perfil" component={MainProfile} />
       <Route path="/dashboard/payment/event/:id" component={PaymentEvent} />
