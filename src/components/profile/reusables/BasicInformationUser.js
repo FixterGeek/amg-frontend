@@ -49,7 +49,7 @@ function BasicInformationUser({
             </div>
           </div>
         ) : (
-          <Button width="180px" onClick={() => followDispatch(user._id)}>
+          <Button width="180px" onClick={() => followDispatch(user._id, !follow)}>
             { follow ? 'Dejar de seguir' : 'Seguir' }
           </Button>
         )

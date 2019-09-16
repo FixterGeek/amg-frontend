@@ -335,14 +335,25 @@ export const createUserAction = (userData) => (dispatch) => {
         })
 }
 
-export const followUserAction = (userId, follow) => (dispatch) => {
+export const followUserAction = (userId, followType) => (dispatch) => {
+    console.log(followType);
     dispatch(followUser());
     return follow(userId)
         .then((data) => {
-            dispatch(followUserSuccess(data.followin));
+            const localUser = JSON.parse(localStorage.user);
+            let localFollowing = localUser.following ? localUser.following : [];
+
+            if (followType) localFollowing = [...localFollowing, data.following];
+            else localFollowing = localFollowing.filter(item => item._id !== data.following._id);
+
+            localUser.following = localFollowing;
+            localStorage.user = JSON.stringify(localUser);
+
+            dispatch(followUserSuccess(localFollowing));
             return data;
         })
         .catch((error) => {
+            console.log(error);
             dispatch(followUserError(error));
             return error;
         })
@@ -396,7 +407,7 @@ function reducer(state = userState, action) {
                 ...state,
                 fetching: false,
                 status: 'success',
-                followin: [action.payload, ...state.followin],
+                following: [...action.payload],
             }
         case FOLLOW_USER_ERROR:
             return { ...state, fetching: false, status: 'error', error: action.payload };

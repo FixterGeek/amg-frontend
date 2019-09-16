@@ -12,7 +12,8 @@ import Spinner from '../reusables/Spinner';
 
 function UserProfileDetails({
   history, match = {}, user,
-  followUserAction, userFetching, userStatus
+  followUserAction, userFetching, userStatus,
+  followingUsers,
 }) {
   const { errorAlert } = useSweet();
 
@@ -22,6 +23,7 @@ function UserProfileDetails({
     _id: null,
   });
   const [posts, setPosts] = useState([]);
+  const [followingsId, setFollowingsId] = useState([]);
 
 
   useEffect(() => {
@@ -47,7 +49,12 @@ function UserProfileDetails({
     }
   }, []);
 
-  console.log(posts);
+  useEffect(() => {
+    const idArray = followingUsers.map(item => item._id);
+    setFollowingsId(idArray);
+  }, [followingUsers]);
+
+  console.log(followingsId);
 
   return (
     <div className="dashboard-container  relative">
@@ -58,6 +65,7 @@ function UserProfileDetails({
           nonOwn={user._id !== userData._id}
           followDispatch={followUserAction}
           showBio
+          follow={followingsId.includes(userData._id)}
         />
       )}
       <ContainerItem style={{ position: 'relative' }}>
@@ -77,6 +85,7 @@ function mapSateToProps({ user }) {
     user,
     userFetching: user.fetching,
     userStatus: user.status,
+    followingUsers: user.following,
   };
 }
 
