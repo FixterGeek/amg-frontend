@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
@@ -13,9 +14,11 @@ function Invoices() {
     <section className="admin-invoices">
       <ContainerItem className="admin-invoices-title">
         <Title>Facturas</Title>
-        <Button marginTop="0px" line>
-          Crear factura ✚
-        </Button>
+        <Link to="/admin/invoices/edit">
+          <Button marginTop="0px">
+            Crear factura ✚
+          </Button>
+        </Link>
       </ContainerItem>
       <ContainerItem>
         <InvoicesTable />

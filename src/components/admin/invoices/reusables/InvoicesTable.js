@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Table, Tabs, Icon } from 'antd';
 
+import InvoicesAction from './InvoicesAction';
+
 function InvoicesTable() {
   const { TabPane } = Tabs;
 
@@ -32,9 +34,11 @@ function InvoicesTable() {
       dataIndex: 'method',
     },
     {
-      title: 'Acciones'
+      title: 'Acciones',
+      render: () => <InvoicesAction />,
     }
   ];
+
 
   return (
     <div className="admin-reusables-invoices-table">

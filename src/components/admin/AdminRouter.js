@@ -9,12 +9,14 @@ import AdminTestQuestionsForm from './AdminTestQuestionsForm';
 import AdminResources from './AdminResources';
 import AdminResourcesForm from './AdminResourcesForm';
 import AdminInvoices from './invoices/AdminInvoices';
+import AdminInvoicesForm from './invoices/AdminInvoicesForm';
 
 
 function AdminRouter() {
   return (
     <Switch>
       {/* Invoices */}
+      <Route exact path="/admin/invoices/edit" component={AdminInvoicesForm} />
       <Route exact path="/admin/invoices" component={AdminInvoices} />
       {/*Resources */}
       <Route path="/admin/resources/edit/:id" component={AdminResourcesForm} />

@@ -69,6 +69,16 @@ export const followUser = (userId) => {
 export const resetPassword = ({ email }) => axios.post(`${baseAuthURL}/forgot`, { email })
   .then(({ data }) => data);
 
+
+export const getUserByFilter = (filter) => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}/users?query=${filter}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
 /* Publications section */
 
 export const getPublications = async () => {

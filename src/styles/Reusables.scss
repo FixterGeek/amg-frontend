@@ -726,6 +726,57 @@
 }
 
 
+/* Style InvoicesAction */
+.admin-invoices-reusables-invoices-action {
+  display: flex;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    margin-left: $smallMargin;
+    margin-right: $smallMargin;
+    cursor: pointer;
+  }
+
+  .more-menu-container {
+    position: relative;
+    border-right: 1px solid transparent;
+
+    .menu {
+      position: absolute;
+      z-index: 2;
+      left: -114px;
+      top: 8px;
+      background-color: $clouds;
+
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        display: none;
+      }
+
+      li {
+        &::after {
+          display: none;
+        }
+        margin-bottom: 0px;
+      }
+
+      &-visible {
+        display: inline-block;
+      }
+
+      &-invisible {
+        display: none;
+      }
+    }
+  }
+}
+
+
 // Events ===>
 .events-reusables-event-cover {
   width: 265px;

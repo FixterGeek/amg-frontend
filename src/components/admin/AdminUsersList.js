@@ -6,9 +6,11 @@ import {
     faSearch,
     faFilter
 } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-let { Search } = Input
+import UserFilter from './reusables/UserFilter';
+
+let { Search } = Input;
 
 const data = [
     {
@@ -55,38 +57,44 @@ const columns = [
         title: 'Estado membresía',
         key: 'tags',
         dataIndex: 'tags',
-        render: tags => (
-            <span>
-                {tags.map(tag => {
-                    let color = tag.length > 6 ? 'volcano' : 'green';
-                    if (tag === 'nuevo') {
-                        color = 'blue';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </span>
-        ),
+        render: (tags = []) => {
+            console.log('A tag', tags)
+            return (
+                <span>
+                    {tags.map(tag => {
+                        let color = tag.length > 6 ? 'volcano' : 'green';
+                        if (tag === 'nuevo') {
+                            color = 'blue';
+                        }
+                        return (
+                            <Tag color={color} key={tag}>
+                                {tag.toUpperCase()}
+                            </Tag>
+                        );
+                    })}
+                </span>
+            )
+        },
     },
     {
         title: 'Acciones',
         key: 'action',
-        render: (text, record) => (
-            <span>
-                Cuenta activa <Switch defaultChecked={record.tags[0] === "activa"} />
-                <Divider type="vertical" />
-                <a style={{ color: "red" }}>Eliminar</a>
-            </span>
-        ),
+        render: (text, record) => {
+            const { tags = [] } = record;
+            return (
+                <span>
+                    Cuenta activa <Switch defaultChecked={tags[0] === "activa"} />
+                    <Divider type="vertical" />
+                    <a style={{ color: "red" }}>Eliminar</a>
+                </span>
+            )
+        },
     },
 ];
 function AdminUsersList({ list = data, fetching }) {
 
     let [searchButton, setButton] = useState(true)
-    let [filtered, setFiltered] = useState(list)
+    let [filtered, setFiltered] = useState(list);
     useEffect(() => {
         setFiltered(list)
     }, [list])
@@ -102,6 +110,12 @@ function AdminUsersList({ list = data, fetching }) {
         let f = list.filter(u => regex.test(u.name))
         setFiltered(f)
     }
+
+    const handleFilterResults = (resultsArray) => {
+        setFiltered(resultsArray);
+    }
+
+    console.log(list);
 
     return (
         <section>
@@ -121,12 +135,14 @@ function AdminUsersList({ list = data, fetching }) {
 
             </div>
             <div className="admin-users-list-bar">
-                {searchButton ? <Search
+                {
+                    searchButton ? <Search
                     onSearch={onSearch}
                     onChange={onChange}
                     size="large"
                     placeholder="Ingresa nombre" allowClear />
-                    : null}
+                    : <UserFilter usersArray={list} onResults={handleFilterResults} />
+                }
             </div>
             <div>
                 <Table
