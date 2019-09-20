@@ -84,14 +84,6 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Socios</span>
             </Item>
-            <Item key={5}>
-                <Icon
-                    className={currentLocation === 'biblioteca' ? 'menu-item-active' : ''}
-                >
-                    <FontAwesomeIcon icon={faBell} />
-                </Icon>
-                <span>Biblioteca</span>
-            </Item>
             <Item key={6} onClick={() => link('/admin/tests')} >
                 <Icon
                     className={currentLocation === 'tests' ? 'menu-item-active' : ''}

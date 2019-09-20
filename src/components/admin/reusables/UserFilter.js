@@ -41,8 +41,6 @@ function UserFilter({ usersArray, onResults }) {
     onResults(filteredUsers);
   };
 
-  console.log(usersArray);
-
   return (
     <div>
       <CheckboxField

@@ -14,6 +14,7 @@ import TextNIconButton from '../../atoms/TextNIconButton';
 import Spinner from '../reusables/Spinner';
 import MapLocation from './reusables/MapLocation';
 import SubscribeButton from './reusables/SubscribeButton';
+import ContainerItem from '../reusables/ContainerItem';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -93,8 +94,20 @@ function EventDetail({
             event={state}
             text="Descargar carta permiso"
           />
+          <SubscribeButton payable eventObject={state} />
         </div>
         <div className="right">
+          <Title level={2}>Ubicación</Title>
+          <ContainerItem>
+            <MapLocation
+              street={state.location.street}
+              colony={state.location.colony}
+              city={state.location.city}
+              zipCode={state.location.zipCode}
+              coordinates={state.location.coordinates}
+            />
+          </ContainerItem>
+
           {state.description[0] && (
             <TextBlock title="Dirigido a" text={state.description[0]} />
           )}
@@ -111,17 +124,6 @@ function EventDetail({
             <br/>
             2. Complementar la información expuesta con casos clínicos que serán discutidos por los profesores y los asistentes en general.</p>
         </div>
-          <Title level={2}>Ubicación</Title>
-          <MapLocation
-            street={state.location.street}
-            colony={state.location.colony}
-            city={state.location.city}
-            zipCode={state.location.zipCode}
-            coordinates={state.location.coordinates} />
-
-          <div className="right-button">
-            <SubscribeButton payable eventObject={state} />
-          </div>
         </div>
       </div>
     </div>
