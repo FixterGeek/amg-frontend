@@ -422,6 +422,7 @@
 /* Style SelectField */
 .reusables-select-field {
   max-width: 445px;
+
   label {
     font-weight: bold;
   }
@@ -437,7 +438,17 @@
   .ant-select-selection-selected-value {
     height: 50px;
     line-height: 46px;
-  }
+  }  
+}
+/* Override ul in select */
+.ant-select-dropdown-menu-item {
+  height: 40px;
+  line-height: 35px;
+  border-radius: 0px;
+}
+.ant-select-dropdown-menu-item-active {
+  background-color: $navy!important;
+  color: white;
 }
 
 /* Style ContainerItem */

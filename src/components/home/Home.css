@@ -482,6 +482,9 @@ Footer*/
 }
 .form-contacto{
     padding: 50px 15%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 .form-contacto h2{
     text-align: center;
