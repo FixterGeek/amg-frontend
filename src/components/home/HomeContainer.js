@@ -161,8 +161,12 @@ class HomeContainer extends Component {
                         toda la AMG donde quiera que estes. Disponible para iOs
                         y Android</p>
                     <div className="tiendas">
+                      <a href="https://play.google.com/store/apps/details?id=mx.com.gastro.app" target="_blank">
                         <img src={google} alt=""/>
+                      </a>
+                      <a href="https://apps.apple.com/us/app/gastro/id1477130303?l=es&ls=1" target="_blank">
                         <img src={ios} alt=""/>
+                      </a>
                     </div>
                 </div>
                 <div className="phone"/>
