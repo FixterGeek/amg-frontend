@@ -36,7 +36,7 @@ export const getSelfUser = async () => {
 
 export const getUserBySlug = async (slug) => {
   const token = localStorage.authToken;
-  return axios.get(`${APIURL}/users?query={"email": "${slug}"}`, {
+  return axios.get(`${APIURL}/users?query={"slug": "${slug}"}`, {
     headers: {
       Authorization: token,
     },

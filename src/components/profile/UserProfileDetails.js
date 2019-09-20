@@ -15,7 +15,7 @@ function UserProfileDetails({
   followUserAction, userFetching, userStatus,
   followingUsers,
 }) {
-  const { errorAlert } = useSweet();
+  const { errorAlert, infoAlert } = useSweet();
 
   const [loading, setLoading] = useState(true);
   const [loadingPosts, setLoadingPosts] = useState(false);
@@ -32,6 +32,11 @@ function UserProfileDetails({
     if (slug) {
       getUserBySlug(slug)
         .then((data) => {
+          if (!data[0]) {
+            infoAlert({ text: 'El usuario que intentas buscar no existe' });
+            history.push('/dashboard');
+            return;
+          }
           setUserData(data[0]);
           setLoading(false);
           setLoadingPosts(true);

@@ -3,7 +3,9 @@ import React from 'react';
 import { Form, Checkbox } from 'antd';
 
 function CheckboxField({
-  label, checks, value, onChange, name,
+  label, checks, value,
+  onChange, name, containerClassName,
+  groupClassName,
 }) {
   const { Item } = Form;
   const { Group } = Checkbox;
@@ -13,8 +15,8 @@ function CheckboxField({
   }
 
   return (
-    <Item label={label} className="reusables-checkbox-field">
-      <Group onChange={handleChange} value={value}>
+    <Item label={label} className={`reusables-checkbox-field ${containerClassName}`}>
+      <Group onChange={handleChange} value={value} className={`${groupClassName}`}>
         {
           checks.map((check, index) => (
             <Checkbox value={check.value || check} key={index}>

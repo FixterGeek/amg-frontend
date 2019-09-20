@@ -787,6 +787,17 @@
   }
 }
 
+/* Style UserFilter */
+.admin-reusables-user-filter {
+  background-color: white;
+  padding: $smallPadding;
+
+  &-group {
+    display: flex;
+    flex-flow: row!important;
+  }
+}
+
 
 // Events ===>
 .events-reusables-event-cover {

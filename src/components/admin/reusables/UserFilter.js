@@ -42,24 +42,27 @@ function UserFilter({ usersArray, onResults }) {
   };
 
   return (
-    <div>
+    <div className="admin-reusables-user-filter">
       <CheckboxField
         onChange={value => handleFilter({ 'basicData.speciality': value[0] }, 'speciality', value[0])}
         label="Especialidad"
         checks={['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra']}
         value={speciality}
+        groupClassName="admin-reusables-user-filter-group"
       />
       <CheckboxField
         onChange={value => handleFilter({ membershipStatus: value[0] }, 'membership', value[0])}
         label="Membresia"
         checks={['Free', 'Residente', 'Socio', 'Veterano']}
         value={membership}
+        groupClassName="admin-reusables-user-filter-group"
       />
       <CheckboxField
         onChange={value => handleFilter({ membershipStatus: value[0] }, 'userStatus', value[0])}
         label="Estado del usuario"
         checks={['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado']}
         value={userStatus}
+        groupClassName="admin-reusables-user-filter-group"
       />
     </div>
   );
