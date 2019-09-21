@@ -89,10 +89,7 @@
     cursor: pointer;
     background-color: grey;
 }
-.admin-main-button:hover{
-    font-size: 1.2rem;
 
-}
 .admin-main-button{
     outline: none;
     width:200px;
@@ -155,9 +152,7 @@
     display: flex;
     justify-content: center;
 }
-.admin-form-header button:hover{
-    font-size: 1.1rem;
-}
+
 .admin-form-header button{
     box-sizing: border-box;
     width:220px;

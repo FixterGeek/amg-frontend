@@ -18,13 +18,14 @@ function Settings({ user }) {
       <ContainerItem>
         <Title level={3}>Membresía</Title>
       </ContainerItem>
-        <SettingsMembership
-          membershipStatus={user.membershipStatus}
-          userStatus={user.userStatus}
-        />
       {
         user.userStatus === 'Aprobado'
-          ? <MembershipCards user={user} /> : '¡Tu cuenta aún no ha sido aprobada!'
+          ? (
+            <SettingsMembership
+              membershipStatus={user.membershipStatus}
+              userStatus={user.userStatus}
+            />
+          ) : '¡Tu cuenta aún no ha sido aprobada!'
       }
     </div>
   );

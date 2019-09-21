@@ -32,6 +32,8 @@ import ListAndModal from './reusables/ListAndModal'
 import ImageGalleryPicker from './reusables/ImageGalleryPicker'
 import ModuleModal from './reusables/ModuleModal';
 import ActivityModal from './reusables/ActivityModal';
+import MapLocation from '../events/reusables/MapLocation';
+import SearchPlaceField from '../reusables/SearchPlaceField';
 import Swal from 'sweetalert2'
 
 let { Option } = Select
@@ -337,6 +339,11 @@ function AdminEventForm({
                                 return <Option value={name} >{name}</Option>
                             })}
                         </Select>
+                    </div>
+                    <div style={{ width: '100%' }}>
+                        <b>Coordenadas</b>
+                        <SearchPlaceField />
+                        <MapLocation />
                     </div>
                     <div className="admin-form-group">
                         <b>Imagen del evento</b>
