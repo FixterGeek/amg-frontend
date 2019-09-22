@@ -69,6 +69,10 @@
 
 /* Style RangeDatePicker */
 .reusable-component-range-picker{
+  label {
+    font-weight: bold;
+  }
+
   &-container {
     display: flex;
     align-items: center;
@@ -634,6 +638,19 @@
 
   .full-width {
     width: 100%;
+  }
+}
+
+/* Style TextAreaField */
+.reusables-text-area-field {
+  label {
+    font-weight: bold;
+  }
+  textarea {
+    max-width: 445px;
+    border-radius: 0px;
+    background-color: $clouds;
+    border: solid 1px $clouds;
   }
 }
 
