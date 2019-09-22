@@ -10,6 +10,7 @@ import AdminResources from './AdminResources';
 import AdminResourcesForm from './AdminResourcesForm';
 import AdminInvoices from './invoices/AdminInvoices';
 import AdminInvoicesForm from './invoices/AdminInvoicesForm';
+import AdminEventsEdit from './events/AdminEventEdit';
 
 
 function AdminRouter() {
@@ -25,6 +26,8 @@ function AdminRouter() {
       {/* Group */}
       <Route exact path="/admin/users" component={AdminUsers} />
       {/* Group */}
+      <Route path="/admin/eventos/edit/:id" component={AdminEventsEdit} />
+      <Route path="/admin/eventos/edit" component={AdminEventsEdit} />
       <Route path="/admin/events/edit/:id" component={AdminEventForm} />
       <Route exact path="/admin/events/edit/" component={AdminEventForm} />
       <Route exact path="/admin/events" component={AdminEvents} />

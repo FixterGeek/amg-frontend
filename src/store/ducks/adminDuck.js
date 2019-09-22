@@ -367,7 +367,7 @@ let initialWorkingOn = {
     startDate: null,
     startTime: '',
     endDate: '',
-    description: [],
+    description: [null, null, null],
     mainImagesURLS: [],
     permisosURLS: [],
     status: "draft",
