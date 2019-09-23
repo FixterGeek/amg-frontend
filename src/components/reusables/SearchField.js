@@ -13,7 +13,7 @@ function SearchField({ label, onSearch, fullWidth }) {
 
   return (
     <Item label={label} className="reusables-search-field">
-      <Search onSearch={handleSearch} className={ fullWidth ? 'full-width' : '' } />
+      <Search onSearch={handleSearch} className={ fullWidth ? 'full-width' : '' } style={{ position: 'relative' }} />
     </Item>
   )
 }

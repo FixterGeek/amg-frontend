@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function MapLocation({ coordinates, title, street, colony, city, zipCode }) {
+function MapLocation({
+  coordinates, title, street,
+  colony, city, zipCode,
+  zoom, onCoordinates, marckeable
+}) {
   if (coordinates && !(coordinates[0] && coordinates[1])) {
     coordinates = [19.4389145, -99.1974394]
     title = 'Asociación Mexicana de Gastroenterología'
@@ -36,14 +40,17 @@ function MapLocation({ coordinates, title, street, colony, city, zipCode }) {
       script.onload = () =>{
         const map = new window.google.maps.Map(document.getElementById('map'), {
           center: { lat: Number(coordinates[0]), lng: Number(coordinates[1]) },
-          zoom: 15,
+          zoom,
         });
 
         const m = setMarker(Number(coordinates[0]), Number(coordinates[1]), map).makeMarker();
 
-        map.addListener('click', (event) => {
-          m.setPosition(new window.google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
-        }, true)
+        if (marckeable) {
+          map.addListener('click', (event) => {
+            if (onCoordinates) onCoordinates([event.latLng.lat(), event.latLng.lng()])
+            m.setPosition(new window.google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+          }, true)
+        }
       }
     }
   }, [window.google]);
@@ -76,9 +83,13 @@ MapLocation.propTypes = {
     ]
   ),
   title: PropTypes.string,
+  zoom: PropTypes.number,
+  marckeable: PropTypes.bool,
 };
 
 MapLocation.defaultProps = {
   coordinates: [19.4389145, -99.1974394],
-  title: 'Evento Asociación Mexicana de Gastroenterología'
+  title: 'Evento Asociación Mexicana de Gastroenterología',
+  zoom: 15,
+  marckeable: false,
 };

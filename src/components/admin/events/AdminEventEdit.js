@@ -4,6 +4,7 @@ import { Tabs, Typography } from 'antd';
 
 import ContainerItem from '../../reusables/ContainerItem';
 import AdminEventForm from './AdminEventForm';
+import AdminEventMap from './AdminEventMap';
 
 function AdminEventEdit({
   match
@@ -23,7 +24,7 @@ function AdminEventEdit({
       <Title>{ sectionTitle }</Title>
       <ContainerItem>
         <Tabs type="line">
-          <TabPane key="1" tab="Datos Generales">
+          <TabPane key="1" tab="Datos Generales" style={{ position: 'relative' }}>
             <AdminEventForm />
           </TabPane>
           <TabPane key="2" tab="Ponentes">
@@ -32,8 +33,11 @@ function AdminEventEdit({
           <TabPane key="3" tab="Modulos">
             modulos
           </TabPane>
-          <TabPane key="4" tab="Actividades">
+          <TabPane key="4" tab="Portadas">
             modulos
+          </TabPane>
+          <TabPane key="5" tab="Mapa">
+            <AdminEventMap />
           </TabPane>
         </Tabs>
       </ContainerItem>

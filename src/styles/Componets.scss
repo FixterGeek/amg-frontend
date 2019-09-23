@@ -456,6 +456,24 @@ $eventLeftWidth: 350px;
   }
 }
 
+.admin-events-event-form {
+  &-active-switch {
+    position: absolute;
+    right: 0;
+  }
+
+  .ant-switch {
+    width: 90px;
+    background-color: $red;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .ant-switch-checked {
+    background-color: $green;
+  }
+}
+
 
 // Signup ===>
 .signup {

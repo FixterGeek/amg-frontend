@@ -610,6 +610,13 @@
 }
 
 .reusables-search-field {
+  label {
+    font-weight: bold;
+  }
+
+  .ant-input-search {
+    max-width: 445px;;
+  }
   .ant-input {
     height: 50px;
     background-color: $clouds;
@@ -617,6 +624,7 @@
     border: solid 1px $clouds;
     max-width: 445px;
     padding-right: 0px;
+    position: relative;
   }
 
   .ant-input-suffix {
@@ -627,6 +635,7 @@
     align-items: center;
     right: 0px;
     cursor: pointer;
+    position: absolute;
 
     &:hover {
       background-color: $primary;
@@ -636,8 +645,19 @@
     }
   }
 
+  .ant-form-item-children {
+    max-width: 445px;
+  }
+
   .full-width {
     width: 100%;
+  }
+}
+
+/* Style SearchPlaceField */
+.reusables-search-place-field {
+  #map {
+    height: 400px;
   }
 }
 
@@ -651,6 +671,20 @@
     border-radius: 0px;
     background-color: $clouds;
     border: solid 1px $clouds;
+  }
+}
+
+/* Style TimePickerField */
+.reusables-time-picker-field {
+  label {
+    font-weight: bold;
+  }
+
+  .ant-time-picker-input {
+    height: 50px;
+    background-color: $clouds;
+    border: solid 1px $clouds;
+    border-radius: 0px;
   }
 }
 

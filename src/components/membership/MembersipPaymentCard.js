@@ -38,7 +38,7 @@ function MembershipPaymentCard({
     paymentData.price = amount;
     paymentData.subscriptionType = type;
 
-    makePaymentAction(paymentData);
+    makePaymentAction(paymentData, 'subscription');
   };
 
   return (

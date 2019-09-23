@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Form } from 'antd';
+import { Form, Switch } from 'antd';
 
 import { updateWorkingOn } from '../../../store/ducks/adminDuck';
 import TextField from '../../reusables/TextField';
 import RangeDatePicker from '../../reusables/RangeDatePicker';
 import TextAreaField from '../../reusables/TextAreaField';
+import TimePickerField from '../../reusables/TimePickerField';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
+
+import estados from '../estados.json'
 
 function AdminEventForm({
   state, setState
@@ -45,7 +49,12 @@ function AdminEventForm({
   console.log(state);
 
   return (
-    <Form>
+    <Form className="admin-events-event-form">
+      <Switch
+        className="admin-events-event-form-active-switch"
+        checkedChildren="Activo"
+        unCheckedChildren="Inactivo"
+      />
       <TextField
         onChange={handleChange}
         value={state.title}
@@ -58,6 +67,11 @@ function AdminEventForm({
         format="MM/DD/YYYY"
         dateOne={state.startDate}
         dateTwo={state.endDate}
+      />
+      <TimePickerField
+        onChange={m => handleChange({ target: { name: 'startTime', value: m.toString() } })}
+        value={state.startTime}
+        label="Hora de inicio"
       />
       <TextAreaField
         onChange={handleChange}
@@ -77,6 +91,40 @@ function AdminEventForm({
         label="Objetivo"
         name="objective"
       />
+      <TextField
+        onChange={event => handleChange(event, 'location')}
+        value={state.location.street}
+        label="Direcciòn"
+        name="street"
+        placeholder="Calle"
+      />
+      <TextField
+        onChange={event => handleChange(event, 'location')}
+        value={state.location.zipCode}
+        label="Código postal"
+        name="zipCode"
+        placeholder="07239"
+      />
+      <TextField
+        onChange={event => handleChange(event, 'location')}
+        value={state.location.city}
+        label="Ciudad"
+        name="city"
+        placeholder="Ciudad de México"
+      />
+      <SelectField
+        onChange={state => handleChange({ target: { name: 'state', value: state } }, 'location')}
+        value={state.location.state}
+        placeholder="Selecciona un estado"
+        label="Estado">
+        {
+          Object.keys(estados).map(key => (
+            <OptionSelect key={key} value={estados[key]}>
+              { estados[key] }
+            </OptionSelect>
+          ))
+        }
+      </SelectField>
     </Form>
   );
 }
