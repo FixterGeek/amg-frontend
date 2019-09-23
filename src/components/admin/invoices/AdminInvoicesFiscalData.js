@@ -18,6 +18,7 @@ function AdminInvoicesFiscalData() {
     eventSerieDescription: null,
     privateNumber: null,
     certificate: null,
+    key: null,
     rfc: null,
     name: null,
     regime: null,
@@ -86,6 +87,13 @@ function AdminInvoicesFiscalData() {
             onFile={file => handleChange({ target: { name: 'certificate', value: file } })}
             file={state.certificate}
             label="Certificado"
+            customTypes=".cer"
+          />
+          <DocumentField
+            onFile={file => handleChange({ target: { name: 'certificate', value: file } })}
+            file={state.key}
+            label="Llave"
+            customTypes=".key"
           />
 
           <Divider />

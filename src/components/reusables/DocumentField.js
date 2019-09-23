@@ -10,6 +10,7 @@ function DocumentField({
   label, buttonText, name,
   value, placeholder, onFile,
   document, url, fileTypes,
+  customTypes,
 }) {
   const { Item } = Form;
 
@@ -41,6 +42,7 @@ function DocumentField({
             name="file"
             onChange={handleFile}
             type={fileTypes}
+            customTypes={customTypes || null}
           >
             <Button marginTop="0px" marginBottom="0px">
               { buttonText }

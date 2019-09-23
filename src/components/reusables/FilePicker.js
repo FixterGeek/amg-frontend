@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import fileToUrl from '../../tools/fileToURL';
 
-function FilePicker({ children, multi, type, onChange, onBase64, name, className }) {
+function FilePicker({
+  children, multi, type,
+  onChange, onBase64, name,
+  className, customTypes
+}) {
   const [state] = useState({
     inputFile: createRef(),
   });
@@ -41,7 +45,7 @@ function FilePicker({ children, multi, type, onChange, onBase64, name, className
         ref={state.inputFile}
         type="file"
         multiple={multi}
-        accept={fileTypes[type]} />
+        accept={customTypes || fileTypes[type]} />
       <div
         className="reusables-file-picker-button-container"
         onClick={handleClick}>
