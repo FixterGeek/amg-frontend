@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Tabs as Tbs } from 'antd';
 
@@ -15,7 +16,7 @@ function Tabs({ headers, componentContent }) {
           headers.map((header, index) => {
             return (
               <TabPane tab={header} key={`${index}`}>
-                { header }
+                { componentContent[index] }
               </TabPane>
             );
           })
@@ -26,3 +27,11 @@ function Tabs({ headers, componentContent }) {
 }
 
 export default Tabs;
+
+Tabs.propTypes = {
+  componentContent: PropTypes.node,
+};
+
+Tabs.defaultProps = {
+  componentContent: [],
+};

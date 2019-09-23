@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Typography, Icon } from 'antd';
+import { Typography } from 'antd';
 
 import { selfPublicationsAction } from '../../store/ducks/publicationsDuck';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
-import ProfilePhoto from '../../atoms/ProfilePhoto';
 import Tabs from './reusables/Tabs';
 import PostItem from '../feed/reusables/PostItem';
 import BasicInformationUser from './reusables/BasicInformationUser';
+import PaymentsTable from './PaymentsTable';
 
 function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   const { Title, Text } = Typography;
@@ -38,7 +37,10 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
       <Title>Perfil</Title>
       <BasicInformationUser user={user} editableLink />
 
-      <Tabs headers={['Mis Pagos', 'Mis constancias']} />
+      <Tabs
+        headers={['Mis Pagos', 'Mis constancias']}
+        componentContent={[<PaymentsTable/>]}
+      />
 
       <DashboardContainerItem>
         <div>
