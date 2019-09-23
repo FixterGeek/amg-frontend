@@ -66,7 +66,7 @@ function LateralMenu({ history, user, populateUserAction }) {
                 </Icon>
                 <span>Eventos</span>
             </Item>
-            <Item key={3} onClick={() => link('/admin/events')}>
+            <Item key={3} onClick={() => link('/admin/invoices')}>
                 <Icon
                     className={
                         currentLocation === 'facturas' ? 'menu-item-active' : ''

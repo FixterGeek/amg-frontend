@@ -14,6 +14,11 @@ function Invoices() {
     <section className="admin-invoices">
       <ContainerItem className="admin-invoices-title">
         <Title>Facturas</Title>
+        <Link to="/admin/invoices/fiscals">
+          <Button marginTop="0px">
+            Datos fiscales
+          </Button>
+        </Link>
         <Link to="/admin/invoices/edit">
           <Button marginTop="0px">
             Crear factura ✚
