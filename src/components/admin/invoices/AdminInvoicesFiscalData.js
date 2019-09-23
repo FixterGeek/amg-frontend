@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import toFormData from 'object-to-formdata';
 
 import { Form, Divider, Typography } from 'antd';
 
+import { dataFacturacion, getDataFacturacion } from '../../../services/invoicesServices';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
 import DocumentField from '../../reusables/DocumentField';
+import Button from '../../reusables/Button';
 
 function AdminInvoicesFiscalData() {
   const { Title } = Typography;
@@ -17,24 +20,39 @@ function AdminInvoicesFiscalData() {
     eventSerieFolio: null,
     eventSerieDescription: null,
     privateNumber: null,
-    certificate: null,
+    cer: null,
     key: null,
     rfc: null,
     name: null,
     regime: null,
     zipCode: null,
+    _id: null,
   });
+
+  useEffect(() => {
+    getDataFacturacion()
+      .then((data) => console.log(data))
+      .catch((error => console.log(error)));
+  }, [])
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = toFormData({ ...state }, { nulls: true });
+    dataFacturacion(formData)
+      .then((data) => console.log(data))
+      .catch(error => console.log(error));
+  }
+
   return (
     <ContainerItem>
       <Title>Certificados y series</Title>
       <ContainerItem>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Title level={3}>Membresia</Title>
           <TextField
             onChange={handleChange}
@@ -84,13 +102,13 @@ function AdminInvoicesFiscalData() {
             name="privateNumber"
           />
           <DocumentField
-            onFile={file => handleChange({ target: { name: 'certificate', value: file } })}
+            onFile={file => handleChange({ target: { name: 'cer', value: file } })}
             file={state.certificate}
             label="Certificado"
             customTypes=".cer"
           />
           <DocumentField
-            onFile={file => handleChange({ target: { name: 'certificate', value: file } })}
+            onFile={file => handleChange({ target: { name: 'key', value: file } })}
             file={state.key}
             label="Llave"
             customTypes=".key"
@@ -123,6 +141,10 @@ function AdminInvoicesFiscalData() {
             label="Lugar de Expedición (código postal del lugar de expedición)"
             name="zipCode"
           />
+
+          <Button width="100%" htmlType="submit">
+            Guardar
+          </Button>
         </Form>
       </ContainerItem>
     </ContainerItem>
