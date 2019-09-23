@@ -54,3 +54,12 @@ export const activitySubscribe = async (activityId) => {
     },
   }).then(({ data }) => data);
 };
+
+export const addSpeakerToEvent = (eventId, speakerData) => {
+  const token = localStorage.authToken;
+  return axios.post(`${APIURL}/${eventId}/speaker`, speakerData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}

@@ -8,9 +8,9 @@ import ImagePreview from './ImagePreview';
 
 function BoxItem({
   title, subtitle, footer,
-  noLeft, leftContent, leftIsImage,
+  noLeft, leftContent, leftIsImage, imageUrl,
   leftStyle, infoStyle, to,
-  linkState, className,
+  linkState, className, 
 }) {
   const { Title, Text } = Typography;
 
@@ -44,6 +44,7 @@ function BoxItem({
             {
               leftIsImage ? (
                 <ImagePreview
+                  url={imageUrl}
                   containerStyle={{
                     maxWidth: '120px', maxHeight: '120px', borderStyle: 'none',
                     width: '120px', height: '120px',

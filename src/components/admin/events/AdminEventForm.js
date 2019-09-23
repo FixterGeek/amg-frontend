@@ -1,19 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { Form, Switch } from 'antd';
 
-import { updateWorkingOn } from '../../../store/ducks/adminDuck';
 import TextField from '../../reusables/TextField';
 import RangeDatePicker from '../../reusables/RangeDatePicker';
 import TextAreaField from '../../reusables/TextAreaField';
 import TimePickerField from '../../reusables/TimePickerField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
+import DocumentField from '../../reusables/DocumentField';
+import Button from '../../reusables/Button';
 
 import estados from '../estados.json'
 
 function AdminEventForm({
-  state, setState
+  state, setState, saveDraftEvent,
 }) {
   const handleChange = ({ target }, sub) => {
     const { name, value } = target;
@@ -46,14 +47,69 @@ function AdminEventForm({
     setState({ [name]: value })
   };
 
+  const handleStatus = (checked) => {
+    const newStatus = checked ? 'published' : 'draft';
+    setState({ status: newStatus })
+    if (state._id) {
+      const st = { ...state }
+      st.status = newStatus;
+      const form = new FormData();
+      const eventData = normalizeData(st);
+      const formData = transformToFormData(form, eventData.normalizedData);
+      saveDraftEvent({ body: formData, id: eventData.id });
+    }
+  }
+
+  function transformToFormData(formData, obj, parentKey) {
+    if (parentKey) {
+        for (let k in obj) {
+            formData.append(`${parentKey}[${k}]`, obj[k])
+        }
+    }
+    else {
+        for (let k in obj) {
+            if (k === "permisos" || k === "mainImages") {
+                formData.append(k, obj[k])
+                continue
+            }
+            if (Array.isArray(obj[k]) || typeof obj[k] === "object") {
+                formData.append(k, JSON.stringify(obj[k]))
+                continue
+            }
+            // if (typeof obj[k] === "object") transformToFormData(formData, obj[k], k)
+            else formData.append(k, obj[k])
+        }
+    }
+    return formData
+  }
+
+  const handleSave = (event) => {
+    event.preventDefault();
+    const eventData = normalizeData(state);
+    const form = new FormData();
+    const formData = transformToFormData(form, eventData.normalizedData);
+    saveDraftEvent({ body: formData, id: eventData.id });
+  }
+
+  const normalizeData = (eventData) => {
+    const normalizedData = { ...eventData }
+    delete normalizedData.modules;
+    delete normalizedData.assistants;
+    const id = normalizedData._id;
+    delete normalizedData._id;
+    return { normalizedData, id };
+  }
+
   console.log(state);
 
   return (
-    <Form className="admin-events-event-form">
+    <Form onSubmit={handleSave} className="admin-events-event-form">
       <Switch
+        onChange={handleStatus}
         className="admin-events-event-form-active-switch"
         checkedChildren="Activo"
         unCheckedChildren="Inactivo"
+        checked={state.status === 'published'}
       />
       <TextField
         onChange={handleChange}
@@ -65,13 +121,18 @@ function AdminEventForm({
         onChange={m => handleChange({ target: { name: 'dates', value: m } })}
         label="Fechas"
         format="MM/DD/YYYY"
-        dateOne={state.startDate}
-        dateTwo={state.endDate}
+        values={[state.startDate, state.endDate]}
       />
       <TimePickerField
         onChange={m => handleChange({ target: { name: 'startTime', value: m.toString() } })}
         value={state.startTime}
         label="Hora de inicio"
+      />
+      <TextField
+        onChange={handleChange}
+        value={state.cost || null}
+        label="Costo"
+        name="cost"
       />
       <TextAreaField
         onChange={handleChange}
@@ -125,18 +186,22 @@ function AdminEventForm({
           ))
         }
       </SelectField>
+      <DocumentField
+        onFile={file => handleChange({ target: { name: 'permisos', value: file } })}
+        file={state.permisos || null}
+        label="Carta permiso"
+        url={state.permisosURLS[0] || null}
+      />
+      <DocumentField
+        onFile={file => handleChange({ target: { name: 'constancias', value: file } })}
+        file={state.permisos || null}
+        label="Constancia"
+      />
+      <Button width="100%" htmlType="submit">
+        { state._id ? 'Actualizar evento' : 'Subir evento' }
+      </Button>
     </Form>
   );
 }
 
-function mapStateToProps({ admin }) {
-  return {
-    state: admin.workingOn,
-  }
-}
-
-export default connect(
-  mapStateToProps, {
-    setState: updateWorkingOn,
-  }
-)(AdminEventForm);
+export default AdminEventForm;

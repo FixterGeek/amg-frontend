@@ -20,6 +20,7 @@ import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
 import { allSettled } from 'q';
+import { addSpeakerToEvent } from '../../services/eventsServices';
 
 let baseURL = "https://amg-api.herokuapp.com/"
 
@@ -56,6 +57,10 @@ const REMOVE_ACTIVITY_SUCCESS = "REMOVE_ACTIVITY_SUCCESS"
 const DELETE_EVENT = "DELETE_EVENT"
 const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS"
 const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR"
+
+const ADD_SPEAKER = 'ADD_SPEAKER'
+const ADD_SPEAKER_SUCCESS = 'ADD_SPEAKER_SUCCESS'
+const ADD_SPEAKER_ERROR = 'ADD_SPEAKER_ERROR'
 
 //action creators
 // delete
@@ -150,6 +155,19 @@ export function updateWorkingOn(event) {
         type: UPDATE_WORKING_ON,
         payload: event
     }
+}
+
+// Add speaker
+export function  addSPeaker() {
+    return { type: ADD_SPEAKER }
+}
+
+export function addSPeakerSuccess(speakerData) {
+    return { type: ADD_SPEAKER_SUCCESS, payload: speakerData };
+}
+
+export function addSPeakerError(error) {
+    return { type: ADD_SPEAKER_ERROR, payload: error };
 }
 
 //epics
@@ -331,6 +349,21 @@ export function emptyWorkingOn() {
     return (dispatch) => dispatch({ type: "EMPTY_WORKING_ON" })
 }
 
+// Add Speaker
+export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
+    console.log(speakerData);
+    dispatch(addSPeaker())
+    return addSpeakerToEvent(eventId, speakerData)
+        .then((data) => {
+            dispatch(addSPeakerSuccess(data));
+            return data;
+        })
+        .catch((error) => {
+            dispatch(addSPeakerError(error));
+            return error;
+        })
+}
+
 //reducers
 function draftEvents(
     state = initialState.draftEvents, // {}
@@ -381,6 +414,16 @@ function workingOn(
     action
 ) {
     switch (action.type) {
+        /* Add Speaker to event */
+        case ADD_SPEAKER:
+            return { ...state, fetching: true }
+        case ADD_SPEAKER_SUCCESS:
+            return {
+                ...state, fetching: false, status: 'success',
+                speakers: [action.payload, ...state.speakers]
+            }
+        case ADD_SPEAKER_ERROR:
+            return { ...state, fetching: false, status: 'error' }
         case DELETE_EVENT_SUCCESS:
             return { ...initialWorkingOn, fetching: false }
         case DELETE_EVENT_ERROR:

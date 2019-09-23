@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { DatePicker, Button, Input, Icon, Form } from 'antd';
+import DatePickerField from '../reusables/DatePickerField';
 
 function RangeDatePicker({
-  label, onChange, value, style,
-  dateOne, dateTwo, placeholder,
-  format, onlyMonth
+  label, onChange, values, placeholder,
+  format, onlyMonth, datesArray,
 }) {
   const { Item } = Form;
   const { MonthPicker } = DatePicker;
@@ -35,7 +35,13 @@ function RangeDatePicker({
       if(onChange) onChange([dates.startDate, current])
     }
 
-  }, [dates, current])
+  }, [dates, current]);
+
+  useEffect(() => {
+    if (values && !dates.startDate) {
+      setDate({ startDate: values[0], endDate: values[1] });
+    }
+  }, [values]);
 
 
   const handleCurrent = (current) => {
@@ -43,8 +49,10 @@ function RangeDatePicker({
   };
 
   const handleDate = (moment, name) => {
-    setDate({ ...dates, [name]: moment });
+    setDate({ ...dates, [name]: moment.toString() });
   };
+
+  console.log(dates);
 
   return (
     <div className="reusable-component-range-picker">
@@ -59,7 +67,7 @@ function RangeDatePicker({
                   { ...startProps }
                 />
               ) : (
-                <DatePicker
+                <DatePickerField
                   onChange={moment => handleDate(moment, 'startDate')}
                   value={dates.startDate}
                   { ...startProps }
@@ -93,7 +101,7 @@ function RangeDatePicker({
                   { ...endProps }
                 />
               ) : (
-                <DatePicker
+                <DatePickerField
                   onChange={moment => handleDate(moment, 'endDate')}
                   value={dates.endDate}
                   renderExtraFooter={ () => (
