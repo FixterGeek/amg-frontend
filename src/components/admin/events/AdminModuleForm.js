@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { Form } from 'antd';
 
+import {
+  addModuleAction,
+  updateEventModuleAction,
+} from '../../../store/ducks/adminDuck';
 import TextField from '../../reusables/TextField';
 import TextAreaField from '../../reusables/TextAreaField';
 import Button from '../../reusables/Button';
 
-function AdminModuleForm({ eventId, addModule }) {
+function AdminModuleForm({
+  eventId, addModuleAction, updateEventModuleAction,
+  externalData,
+}) {
   const initialState = {
     event: null,
     title: null,
     description: null,
     date: null,
+    _id: null,
   }
 
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    if (externalData && !state._id) setState({ ...externalData })
+  }, [externalData])
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -26,7 +39,8 @@ function AdminModuleForm({ eventId, addModule }) {
     const st = { ...state }
     st.event = eventId;
     
-    addModule(st);
+    if (state._id) updateEventModuleAction(st._id, st);
+    else addModuleAction(st);
   }
 
   return (
@@ -50,4 +64,16 @@ function AdminModuleForm({ eventId, addModule }) {
   );
 }
 
-export default AdminModuleForm;
+function mapSatateToProps({ admin }) {
+  return {
+    fetching: admin.workingOn.fetching,
+    status: admin.workingOn.status,
+  };
+}
+
+export default connect(
+  mapSatateToProps, {
+    addModuleAction,
+    updateEventModuleAction,
+  }
+)(AdminModuleForm);

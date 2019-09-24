@@ -5,6 +5,7 @@ import { Table, Typography, List, Button, Icon } from 'antd';
 import ContainerItem from '../../reusables/ContainerItem';
 import JustModal from '../reusables/JustMoadal';
 import AdminActivityForm from '../events/AdminActivityForm';
+import AdminModuleForm from '../events/AdminModuleForm';
 import SpeakersAddList from '../events/AdminSpeakersAddList';
 import AmgButton from '../../reusables/Button';
 
@@ -118,6 +119,7 @@ function ModulesContent({
               Editar módulo
             </AmgButton>
           )}
+          childElement={<AdminModuleForm externalData={module} eventId={eventId} />}
         />
       </div>
       <Table dataSource={activities} columns={columns} rowKey="_id" />

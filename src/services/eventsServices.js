@@ -55,6 +55,7 @@ export const activitySubscribe = async (activityId) => {
   }).then(({ data }) => data);
 };
 
+
 export const addSpeakerToEvent = (eventId, speakerData) => {
   const token = localStorage.authToken;
   return axios.post(`${APIURL}/${eventId}/speaker`, speakerData, {
@@ -64,9 +65,20 @@ export const addSpeakerToEvent = (eventId, speakerData) => {
   }).then(({ data }) => data);
 }
 
+
 export const patchEventActivity = (activityId, activityData) => {
   const token = localStorage.authToken;
   return axios.patch(`${baseAPI}/eventActivities/${activityId}`, activityData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
+
+
+export const patchEventModule = (moduleId, moduleData) => {
+  const token = localStorage.authToken;
+  return axios.patch(`${baseAPI}/eventModules/${moduleId}`, moduleData, {
     headers: {
       Authorization: token,
     },

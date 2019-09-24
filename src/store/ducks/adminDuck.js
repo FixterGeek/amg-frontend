@@ -23,6 +23,7 @@ import { allSettled } from 'q';
 import {
     addSpeakerToEvent,
     patchEventActivity,
+    patchEventModule,
 } from '../../services/eventsServices';
 
 let baseURL = "https://amg-api.herokuapp.com/"
@@ -68,6 +69,10 @@ const ADD_SPEAKER_ERROR = 'ADD_SPEAKER_ERROR'
 const UPDATE_EVENT_ACTIVITY = 'UPDATE_EVENT_ACTIVITY'
 const UPDATE_EVENT_ACTIVITY_SUCCESS = 'UPDATE_EVENT_ACTIVITY_SUCCESS'
 const UPDATE_EVENT_ACTIVITY_ERROR = 'UPDATE_EVENT_ACTIVITY_ERROR'
+
+const UPDATE_EVENT_MODULE = 'UPDATE_EVENT_MODULE'
+const UPDATE_EVENT_MODULE_SUCCESS = 'UPDATE_EVENT_MODULE_SUCCESS'
+const UPDATE_EVENT_MODULE_ERROR = 'UPDATE_EVENT_MODULE_ERROR'
 
 //action creators
 // delete
@@ -188,6 +193,19 @@ export function updateEventActivitySuccess(activityData) {
 
 export function updateEventActivityError(error) {
     return { type: UPDATE_EVENT_ACTIVITY_ERROR, payload: error }
+}
+
+// Update event module
+export function updateEventModule() {
+    return { type: UPDATE_EVENT_MODULE }
+}
+
+export function updateEventModuleSuccess(moduleData) {
+    return { type: UPDATE_EVENT_MODULE_SUCCESS, payload: moduleData }
+}
+
+export function updateEventModuleError(error) {
+    return { type: UPDATE_EVENT_MODULE_ERROR, payload: error }
 }
 
 //epics
@@ -395,6 +413,21 @@ export const updateEventActivityAction = (activityId, activityData) => (dispatch
         .catch((error) => {
             dispatch(updateEventActivityError(error));
             return error;
+        })
+}
+
+// Update event module
+export const updateEventModuleAction = (moduleId, moduleData) => (dispatch) => {
+    dispatch(updateEventModule())
+    return patchEventModule(moduleId, moduleData)
+        .then((data) => {
+            dispatch(updateEventModuleSuccess(data))
+            dispatch({ type: GET_SINGLE_EVENT, payload: data.event })
+            return data
+        })
+        .catch((error) => {
+            dispatch(updateEventModuleError(error))
+            return error
         })
 }
 
