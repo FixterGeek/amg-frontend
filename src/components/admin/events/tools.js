@@ -15,7 +15,7 @@ export function transformToFormData(formData, obj, parentKey) {
     }
     else {
         for (let k in obj) {
-            if (k === "permisos" || k === "mainImages") {
+            if (k === "permisos" || k === "mainImages" || k === 'thumbnailImages') {
                 formData.append(k, obj[k])
                 continue
             }

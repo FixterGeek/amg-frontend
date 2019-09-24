@@ -19,6 +19,7 @@ import AdminEventForm from './AdminEventForm';
 import AdminSpeakerForm from './AdminSpeakerForm';
 import AdminSpeakersList from './AdmidSpeakersList';
 import AdminEventModules from './AdminEventModules';
+import AdminEventCoversForm from './AdminEvenCoversForm';
 import AdminEventMap from './AdminEventMap';
 
 function AdminEventEdit({
@@ -54,7 +55,7 @@ function AdminEventEdit({
               saveDraftEvent={saveDraftEvent}
             />
           </TabPane>
-          <TabPane key="2" tab="Ponentes">
+          <TabPane key="2" tab="Ponentes" disabled={!state._id}>
             <AdminSpeakerForm
               speakers={speakers}
               addSpeaker={addSpeakerAction}
@@ -64,7 +65,7 @@ function AdminEventEdit({
             <Title level={3}>Lista de ponentes</Title>
             <AdminSpeakersList speakers={speakers} />
           </TabPane>
-          <TabPane key="3" tab="Módulos">
+          <TabPane key="3" tab="Módulos" disabled={!state._id}>
             <AdminEventModules
               addModule={addModuleAction}
               modules={modules}
@@ -74,10 +75,13 @@ function AdminEventEdit({
               removeModuleAction={removeModuleAction}
             />
           </TabPane>
-          <TabPane key="4" tab="Portadas">
-            modulos
+          <TabPane key="4" tab="Portadas" disabled={!state._id}>
+            <AdminEventCoversForm
+              saveDraftEvent={saveDraftEvent}
+              state={state}
+            />
           </TabPane>
-          <TabPane key="5" tab="Mapa">
+          <TabPane key="5" tab="Mapa" disabled={!state._id}>
             <AdminEventMap 
               saveDraftEvent={saveDraftEvent}
               state={state}

@@ -474,6 +474,35 @@ $eventLeftWidth: 350px;
   }
 }
 
+.admin-events-event-covers {
+  &-small{
+    .reusables-image-preview {
+      width: 350px;
+      height: 350px;
+
+      img {
+        width: 360px;
+        height: 360px;;
+        max-height: 400px;
+        min-width: 400px;
+      }
+    }
+  }
+  &-large {
+    .reusables-image-preview {
+      width: 800px;
+      max-width: 1000px;
+      height: 415px;
+
+      img {
+        max-width: 900px;
+        width: 100%;
+        max-height: 800px;
+      }
+    }
+  }
+}
+
 
 // Signup ===>
 .signup {
