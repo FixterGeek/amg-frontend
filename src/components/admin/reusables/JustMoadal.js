@@ -9,10 +9,10 @@ function JustModal({ buttonText, childElement, openComponent }) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div>
+    <div className="admin-reusables-just-modal">
       {
         openComponent ? (
-          <button onClick={() => setOpenModal(true)}>
+          <button onClick={() => setOpenModal(true)} className="admin-reusables-just-modal-open-component">
             { openComponent }
           </button>
         ) : (

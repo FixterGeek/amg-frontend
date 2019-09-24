@@ -11,6 +11,7 @@ import {
   addModuleAction,
   updateEventActivityAction,
   removeActivityAction,
+  removeModuleAction,
 } from '../../../store/ducks/adminDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Spinner from '../../reusables/Spinner';
@@ -25,6 +26,7 @@ function AdminEventEdit({
   saveDraftEvent, getSingleEvent, addSpeakerAction,
   speakers, fetching, addModuleAction,
   modules, updateEventActivityAction, removeActivityAction,
+  removeModuleAction,
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -69,6 +71,7 @@ function AdminEventEdit({
               eventId={state._id}
               updateEventActivityAction={updateEventActivityAction}
               removeActivityAction={removeActivityAction}
+              removeModuleAction={removeModuleAction}
             />
           </TabPane>
           <TabPane key="4" tab="Portadas">
@@ -101,5 +104,6 @@ export default connect(
     addModuleAction,
     updateEventActivityAction,
     removeActivityAction,
+    removeModuleAction,
   }
 )(AdminEventEdit);

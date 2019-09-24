@@ -898,6 +898,23 @@
   }
 }
 
+/* Style Admin-> ModulesContent */
+.admin-reusables-modules-content {
+  &-main-buttons {
+    display: flex;
+  }
+}
+
+/* Style Admin-> JustModal */
+.admin-reusables-just-modal {
+  &-open-component {
+    appearance: none;
+    display: inline-block;
+    padding: 0px;
+    border: 0px;
+  }
+}
+
 
 // Events ===>
 .events-reusables-event-cover {

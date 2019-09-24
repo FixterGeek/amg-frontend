@@ -7,10 +7,11 @@ import ContainerItem from '../../reusables/ContainerItem';
 import JustModal from '../reusables/JustMoadal';
 import AdminModuleForm from './AdminModuleForm';
 import ModuleContent from '../reusables/ModulesContent';
+import Button from '../../reusables/Button';
 
 function AdminEventModules({
   addModule, modules, eventId,
-  updateEventActivityAction, removeActivityAction,
+  updateEventActivityAction, removeActivityAction, removeModuleAction,
 }) {
   const { Title } = Typography;
 
@@ -30,6 +31,7 @@ function AdminEventModules({
             eventId={eventId}
             updateEventActivityAction={updateEventActivityAction}
             removeActivity={removeActivityAction}
+            removeModule={removeModuleAction}
           />
         ))
       }

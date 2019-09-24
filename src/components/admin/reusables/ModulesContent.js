@@ -6,10 +6,11 @@ import ContainerItem from '../../reusables/ContainerItem';
 import JustModal from '../reusables/JustMoadal';
 import AdminActivityForm from '../events/AdminActivityForm';
 import SpeakersAddList from '../events/AdminSpeakersAddList';
+import AmgButton from '../../reusables/Button';
 
 function ModulesContent({
   module, eventId, updateEventActivityAction,
-  removeActivity,
+  removeActivity, removeModule
 }) {
   const { Title } = Typography;
   const { activities = [] } = module;
@@ -92,17 +93,33 @@ function ModulesContent({
   }
 
   return (
-    <ContainerItem>
+    <ContainerItem className="admin-reusables-modules-content">
       <Title level={4}>{ `Módulo: ${module.title}` }</Title>
-      <JustModal
-        buttonText="Agregar actividad ✚"
-        childElement={
-          <AdminActivityForm
-            module={module}
-            eventId={eventId}
-          />
-        }
-      />
+      <div className="admin-reusables-modules-content-main-buttons">
+        <JustModal
+          buttonText="Agregar actividad ✚"
+          childElement={
+            <AdminActivityForm
+              module={module}
+              eventId={eventId}
+            />
+          }
+        />
+        <AmgButton
+          onClick={() => removeModule(module)}
+          width="200px"
+          marginTop="0px"
+          bgColor="red" >
+          Eliminar módulo
+        </AmgButton>
+        <JustModal
+          openComponent={(
+            <AmgButton width="200px" marginTop="0px" bgColor="yellow">
+              Editar módulo
+            </AmgButton>
+          )}
+        />
+      </div>
       <Table dataSource={activities} columns={columns} rowKey="_id" />
     </ContainerItem>
   );
