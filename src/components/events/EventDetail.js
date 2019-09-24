@@ -60,6 +60,8 @@ function EventDetail({
     } 
   })
 
+  console.log(state);
+
 
   return (
     <div className="dashboard-container event-detail">
@@ -99,13 +101,17 @@ function EventDetail({
         <div className="right">
           <Title level={2}>Ubicación</Title>
           <ContainerItem>
-            <MapLocation
-              street={state.location.street}
-              colony={state.location.colony}
-              city={state.location.city}
-              zipCode={state.location.zipCode}
-              coordinates={state.location.coordinates}
-            />
+            {
+              state._id && (
+                <MapLocation
+                  street={state.location.street}
+                  colony={state.location.colony}
+                  city={state.location.city}
+                  zipCode={state.location.zipCode}
+                  coordinates={state.location.coordinates}
+                />
+              )
+            }
           </ContainerItem>
 
           {state.description[0] && (

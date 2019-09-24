@@ -6,7 +6,7 @@ const APIURL = `${baseAPI}/events`;
 export const getEvents = async () =>{
   const token = localStorage.authToken;
 
-  return axios.get(`${APIURL}`, {
+  return axios.get(`${APIURL}?query={"status": "published"}`, {
     headers: {
       Authorization: token,
     },

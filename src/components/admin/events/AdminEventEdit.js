@@ -78,7 +78,10 @@ function AdminEventEdit({
             modulos
           </TabPane>
           <TabPane key="5" tab="Mapa">
-            <AdminEventMap />
+            <AdminEventMap 
+              saveDraftEvent={saveDraftEvent}
+              state={state}
+            />
           </TabPane>
         </Tabs>
       </ContainerItem>
