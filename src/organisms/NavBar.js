@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from "../assets/logo-gastro.svg"
+import logo from '../assets/logo.png'
 import menu from "../assets/bars-solid.png"
 
 function NavBar() {
     return (
         <div className="navbar">
-            <Link to="/">
-                <img src={logo} alt=""/>
+            <Link to="/" style={{ marginTop: '8px' }}>
+                <img src={logo} alt="" style={{ marginTop: '8px' }} />
             </Link>
             <div className="web">
                 <Link to="/semana-nacional">
