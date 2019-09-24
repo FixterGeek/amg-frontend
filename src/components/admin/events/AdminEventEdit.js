@@ -7,19 +7,24 @@ import {
   updateWorkingOn,
   saveDraftEvent,
   getSingleEvent,
-  addSpeakerAction
+  addSpeakerAction,
+  addModuleAction,
+  updateEventActivityAction,
+  removeActivityAction,
 } from '../../../store/ducks/adminDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Spinner from '../../reusables/Spinner';
 import AdminEventForm from './AdminEventForm';
 import AdminSpeakerForm from './AdminSpeakerForm';
 import AdminSpeakersList from './AdmidSpeakersList';
+import AdminEventModules from './AdminEventModules';
 import AdminEventMap from './AdminEventMap';
 
 function AdminEventEdit({
   match, state,setState,
   saveDraftEvent, getSingleEvent, addSpeakerAction,
-  speakers, fetching,
+  speakers, fetching, addModuleAction,
+  modules, updateEventActivityAction, removeActivityAction,
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -57,8 +62,14 @@ function AdminEventEdit({
             <Title level={3}>Lista de ponentes</Title>
             <AdminSpeakersList speakers={speakers} />
           </TabPane>
-          <TabPane key="3" tab="Modulos">
-            modulos
+          <TabPane key="3" tab="Módulos">
+            <AdminEventModules
+              addModule={addModuleAction}
+              modules={modules}
+              eventId={state._id}
+              updateEventActivityAction={updateEventActivityAction}
+              removeActivityAction={removeActivityAction}
+            />
           </TabPane>
           <TabPane key="4" tab="Portadas">
             modulos
@@ -77,6 +88,7 @@ function mapStateToProps({ admin }) {
     state: admin.workingOn,
     speakers: admin.workingOn.speakers,
     fetching: admin.workingOn.fetching,
+    modules: admin.workingOn.modules,
   }
 }
 
@@ -86,5 +98,8 @@ export default connect(
     saveDraftEvent,
     getSingleEvent,
     addSpeakerAction,
+    addModuleAction,
+    updateEventActivityAction,
+    removeActivityAction,
   }
 )(AdminEventEdit);

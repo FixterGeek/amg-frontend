@@ -20,7 +20,10 @@ import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
 import { allSettled } from 'q';
-import { addSpeakerToEvent } from '../../services/eventsServices';
+import {
+    addSpeakerToEvent,
+    patchEventActivity,
+} from '../../services/eventsServices';
 
 let baseURL = "https://amg-api.herokuapp.com/"
 
@@ -61,6 +64,10 @@ const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR"
 const ADD_SPEAKER = 'ADD_SPEAKER'
 const ADD_SPEAKER_SUCCESS = 'ADD_SPEAKER_SUCCESS'
 const ADD_SPEAKER_ERROR = 'ADD_SPEAKER_ERROR'
+
+const UPDATE_EVENT_ACTIVITY = 'UPDATE_EVENT_ACTIVITY'
+const UPDATE_EVENT_ACTIVITY_SUCCESS = 'UPDATE_EVENT_ACTIVITY_SUCCESS'
+const UPDATE_EVENT_ACTIVITY_ERROR = 'UPDATE_EVENT_ACTIVITY_ERROR'
 
 //action creators
 // delete
@@ -168,6 +175,19 @@ export function addSPeakerSuccess(speakerData) {
 
 export function addSPeakerError(error) {
     return { type: ADD_SPEAKER_ERROR, payload: error };
+}
+
+// Update activity
+export function updateEventActivity() {
+    return { type: UPDATE_EVENT_ACTIVITY }
+}
+
+export function updateEventActivitySuccess(activityData) {
+    return { type: UPDATE_EVENT_ACTIVITY_SUCCESS, payload: activityData }
+}
+
+export function updateEventActivityError(error) {
+    return { type: UPDATE_EVENT_ACTIVITY_ERROR, payload: error }
 }
 
 //epics
@@ -351,7 +371,6 @@ export function emptyWorkingOn() {
 
 // Add Speaker
 export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
-    console.log(speakerData);
     dispatch(addSPeaker())
     return addSpeakerToEvent(eventId, speakerData)
         .then((data) => {
@@ -360,6 +379,21 @@ export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
         })
         .catch((error) => {
             dispatch(addSPeakerError(error));
+            return error;
+        })
+}
+
+// Update activity
+export const updateEventActivityAction = (activityId, activityData) => (dispatch) => {
+    dispatch(updateEventActivity())
+    return patchEventActivity(activityId, activityData)
+        .then((data) => {
+            dispatch(updateEventActivitySuccess(data));
+            dispatch({ type: GET_SINGLE_EVENT, payload: data.event })
+            return data;
+        })
+        .catch((error) => {
+            dispatch(updateEventActivityError(error));
             return error;
         })
 }

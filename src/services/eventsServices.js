@@ -63,3 +63,12 @@ export const addSpeakerToEvent = (eventId, speakerData) => {
     },
   }).then(({ data }) => data);
 }
+
+export const patchEventActivity = (activityId, activityData) => {
+  const token = localStorage.authToken;
+  return axios.patch(`${baseAPI}/eventActivities/${activityId}`, activityData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
