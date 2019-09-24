@@ -40,7 +40,10 @@ function AdminModuleForm({
     st.event = eventId;
     
     if (state._id) updateEventModuleAction(st._id, st);
-    else addModuleAction(st);
+    else {
+      delete st._id;
+      addModuleAction(st);
+    }
   }
 
   return (

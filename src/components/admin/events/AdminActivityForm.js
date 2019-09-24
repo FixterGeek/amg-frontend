@@ -54,11 +54,13 @@ function AdminActivityForm({
   const handleSubmit = (event) => {
     event.preventDefault();
     const st = { ...state };
+    st.module = module._id;
     setLocalLoading(true)
     if (state._id) {
       setLocalLoading(false);
       updateEventActivityAction(st._id, st);
     } else {
+      delete st._id;
       uploadFile(`/events/${eventId}/mocules`, st.constanciaURL)
       .then((url) => {
         st.constanciaURL = url;
