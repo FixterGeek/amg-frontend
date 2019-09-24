@@ -40,7 +40,7 @@ function AdminEvents({
         <section >
             <article className="admin-main-header" >
                 <h1>Eventos</h1>
-                <Link to="/admin/events/edit">
+                <Link to="/admin/eventos/edit">
                     <button className="admin-main-button">Agregar evento</button>
                 </Link>
             </article>
