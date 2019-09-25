@@ -237,7 +237,10 @@
     height: 330px;
     background-position: center;
     background-size: cover;
-    background-image: url("../../assets/people.png");
+    background-image: url("../../assets/log.png");
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .about .people {
     width: 300px;
