@@ -7,7 +7,8 @@ import Button from '../../reusables/Button';
 function MembershipCard({
   points, hiddenButton, hiddenCurrency,
   membershipType, membershipCostDisplay,
-  membershipCurrency, period, membershipCost
+  membershipCurrency, period, membershipCost,
+  currentPlan,
 }) {
   return (
     <div className="membership-reusables-membership-card">
@@ -30,6 +31,9 @@ function MembershipCard({
         }
       </ul>
       <div style={{ textAlign: 'center' }}>
+        {
+          currentPlan && 'Plan Actual'
+        }
         {
           !hiddenButton && (
             <Link

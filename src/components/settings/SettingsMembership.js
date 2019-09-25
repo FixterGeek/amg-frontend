@@ -16,6 +16,8 @@ function SettingsMembership({ membershipStatus, userStatus }) {
           'Acceso a transmisiones de sesiones en vivo',
           'Descarga constancias de participacón',
         ]}
+        currentPlan={membershipStatus === 'Socio'}
+        hiddenButton={membershipStatus === 'Socio'}
       />
 
       <MembershipCard
@@ -27,7 +29,10 @@ function SettingsMembership({ membershipStatus, userStatus }) {
           'Acceso total a calendario de eventos',
           'Inscripción a eventos con costo adicional',
           'Acceso a guías y consensos',
-        ]} />
+        ]}
+        currentPlan={membershipStatus === 'Residente'}
+        hiddenButton={membershipStatus === 'Residente'}
+      />
     </div>
   );
 
