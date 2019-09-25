@@ -7,8 +7,8 @@ import menu from "../assets/bars-solid.png"
 function NavBar() {
     return (
         <div className="navbar">
-            <Link to="/" style={{ marginTop: '8px' }}>
-                <img src={logo} alt="" style={{ marginTop: '8px' }} className="main-logo-desk" />
+            <Link to="/">
+                <img src={logo} alt="" style={{ marginTop: '8px', maxHeight: '50px' }} className="main-logo-desk" />
             </Link>
             <div className="web">
                 <Link to="/semana-nacional">
