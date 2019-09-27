@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
+import { populateInvoicesAction } from '../../../store/ducks/invoicesDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
 import InvoicesTable from './reusables/InvoicesTable';
 
-function Invoices() {
+function Invoices({
+  invoicess, populateInvoicesAction,
+}) {
   const { Title } = Typography;
 
   return (
@@ -32,4 +36,14 @@ function Invoices() {
   );
 }
 
-export default Invoices;
+function mapStateToProps({ invoice }) {
+  return {
+    invoices: invoice.array,
+  }
+}
+
+export default connect(
+  mapStateToProps, {
+    populateInvoicesAction,
+  }
+)(Invoices);
