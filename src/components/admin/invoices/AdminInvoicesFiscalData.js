@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import toFormData from 'object-to-formdata';
 
 import { Form, Divider, Typography } from 'antd';
 
+import {
+  populateFiscalDataAction,
+  resetInvoicesStatus,
+} from '../../../store/ducks/invoicesDuck';
+import useSweet from '../../../hooks/useSweetAlert';
 import { dataFacturacion, getDataFacturacion } from '../../../services/invoicesServices';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
 import DocumentField from '../../reusables/DocumentField';
 import Button from '../../reusables/Button';
 
-function AdminInvoicesFiscalData() {
+import { uploadFile } from '../../../tools/firebaseTools';
+
+function AdminInvoicesFiscalData({
+  fiscalData, fiscalDataFetching, fiscalDataStatus,
+  populateFiscalDataAction, resetInvoicesStatus,
+}) {
   const { Title } = Typography;
 
+  const { errorAlert } = useSweet();
   const [state, setState] = useState({
     membershipSerie: null,
     membershipSerieFolio: null,
@@ -27,25 +39,37 @@ function AdminInvoicesFiscalData() {
     regime: null,
     zipCode: null,
     _id: null,
+    cerfile: null,
+    keyfile: null,
   });
 
   useEffect(() => {
-    getDataFacturacion()
-      .then((data) => console.log(data))
-      .catch((error => console.log(error)));
-  }, [])
+    if (fiscalData._id) setState({ ...state, ...fiscalData });
+    else populateFiscalDataAction();
+  }, [fiscalData])
+
+  useEffect(() => {
+    if (fiscalDataStatus === 'error') errorAlert({});
+    if (fiscalDataStatus !== null) resetInvoicesStatus();
+  }, [fiscalDataStatus]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = toFormData({ ...state }, { nulls: true });
-    dataFacturacion(formData)
-      .then((data) => console.log(data))
-      .catch(error => console.log(error));
+    let cer = null;
+    const key = null;
+    if (state.cerfile) cer = await uploadFile('/fiscal-data/', state.cerfile).then(url => url);
+    if (state.keyfile) cer = await uploadFile('/fiscal-data/', state.keyfile).then(url => url);
+
+    console.log(cer, key);
+    // const formData = toFormData({ ...state }, { nulls: true });
+    // dataFacturacion(formData)
+    //   .then((data) => console.log(data))
+    //   .catch(error => console.log(error));
   }
 
   return (
@@ -102,14 +126,14 @@ function AdminInvoicesFiscalData() {
             name="privateNumber"
           />
           <DocumentField
-            onFile={file => handleChange({ target: { name: 'cer', value: file } })}
-            file={state.certificate}
+            onFile={file => handleChange({ target: { name: 'cerfile', value: file } })}
+            url={state.cer}
             label="Certificado"
             customTypes=".cer"
           />
           <DocumentField
-            onFile={file => handleChange({ target: { name: 'key', value: file } })}
-            file={state.key}
+            onFile={file => handleChange({ target: { name: 'keyfile', value: file } })}
+            url={state.key}
             label="Llave"
             customTypes=".key"
           />
@@ -151,4 +175,17 @@ function AdminInvoicesFiscalData() {
   );
 }
 
-export default AdminInvoicesFiscalData;
+function mapStateToProps({ invoice }){
+  return {
+    fiscalData: invoice.fiscalData,
+    fiscalDataFetching: invoice.fetching,
+    fiscalDataStatus: invoice.status,
+  };
+}
+
+export default connect(
+  mapStateToProps, {
+    populateFiscalDataAction,
+    resetInvoicesStatus,
+  }
+)(AdminInvoicesFiscalData);

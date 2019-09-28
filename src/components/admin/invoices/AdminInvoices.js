@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
-import { populateInvoicesAction } from '../../../store/ducks/invoicesDuck';
+import {
+  populateInvoicesAction,
+  resetInvoicesStatus,
+} from '../../../store/ducks/invoicesDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
 import InvoicesTable from './reusables/InvoicesTable';
 
 function Invoices({
-  invoicess, populateInvoicesAction,
+  invoices, noInvoices, populateInvoicesAction,
+  invoicesFetching, invoicesStatus, resetInvoicesStatus,
 }) {
   const { Title } = Typography;
+
+  useEffect(() => {
+    if (!invoices[0] && !noInvoices) populateInvoicesAction();
+  }, [])
+
+  useEffect(() => {
+    if (invoicesStatus !== null) resetInvoicesStatus();
+  }, [invoicesStatus])
+
+  console.log(invoicesStatus);
 
   return (
     <section className="admin-invoices">
@@ -23,9 +37,9 @@ function Invoices({
             Datos fiscales
           </Button>
         </Link>
-        <Link to="/admin/invoices/edit">
+        <Link to="/admin/invoices/payments">
           <Button marginTop="0px">
-            Crear factura ✚
+            Pagos para facturar
           </Button>
         </Link>
       </ContainerItem>
@@ -39,11 +53,15 @@ function Invoices({
 function mapStateToProps({ invoice }) {
   return {
     invoices: invoice.array,
+    noInvoices: invoice.noData,
+    invoicesFetching: invoice.fetching,
+    invoicesStatus: invoice.status,
   }
 }
 
 export default connect(
   mapStateToProps, {
     populateInvoicesAction,
+    resetInvoicesStatus,
   }
 )(Invoices);

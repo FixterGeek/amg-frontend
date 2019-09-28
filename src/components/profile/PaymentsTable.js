@@ -43,7 +43,7 @@ function PaymentsTable({
   );
 }
 
-function mapSateToProps({ payment, user }) {
+function mapSateToProps({ payment: { payment }, user }) {
   return {
     payments: payment.array,
     noPayments: payment.noData,

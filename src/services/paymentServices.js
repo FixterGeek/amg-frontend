@@ -22,3 +22,12 @@ export const getPaymentsByUser = (userId) => {
     },
   }).then(({ data }) => data);
 }
+
+export const getPayments = () => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) =>  data);
+};

@@ -11,6 +11,7 @@ import AdminResourcesForm from './AdminResourcesForm';
 import AdminInvoices from './invoices/AdminInvoices';
 import AdminInvoicesForm from './invoices/AdminInvoicesForm';
 import AdminInvoicesFiscalData from './invoices/AdminInvoicesFiscalData';
+import AdminInvoicesPayment from './invoices/AdminInvoicesPayments';
 import AdminEventsEdit from './events/AdminEventEdit';
 
 
@@ -18,6 +19,7 @@ function AdminRouter() {
   return (
     <Switch>
       {/* Invoices */}
+      <Route exact path="/admin/invoices/payments" component={AdminInvoicesPayment} />
       <Route exact path="/admin/invoices/fiscals" component={AdminInvoicesFiscalData} />
       <Route exact path="/admin/invoices/edit" component={AdminInvoicesForm} />
       <Route exact path="/admin/invoices" component={AdminInvoices} />

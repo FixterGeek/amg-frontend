@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Spin, Icon } from 'antd';
 
-function Spinner() {
+function Spinner({ fullScrren }) {
   return (
-    <div className="reusables-spinner">
+    <div className={`${fullScrren ? 'reusables-spinner-fullscreen' : 'reusables-spinner'}`}>
       <Spin
         indicator={<Icon type="loading" style={{ fontSize: '36px' }} />}
       />

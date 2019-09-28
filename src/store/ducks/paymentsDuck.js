@@ -1,4 +1,10 @@
-import { payment, getPaymentsByUser } from '../../services/paymentServices';
+import { combineReducers } from 'redux';
+import {
+  payment,
+  getPaymentsByUser,
+  getPayments,
+} from '../../services/paymentServices';
+import useSweet from '../../hooks/useSweetAlert';
 
 const paymetState = {
   array: [],
@@ -10,7 +16,7 @@ const paymetState = {
 
 
 /* Constants */
-const RESET_PAYMENT_STATUS = 'RESET_PAYMENTsTATUS';
+const RESET_PAYMENT_STATUS = 'RESET_PAYMENT_STATUS';
 
 const MAKE_PAYMENT = 'MAKE_PAYMENT';
 const MAKE_PAYMENT_SUCCESS = 'MAKE_PAYMENT_SUCCESS';
@@ -83,8 +89,9 @@ export const populatePaymentsAction = userId => (dispatch) => {
         return data;
       })
       .catch((error) => {
-        console.log(error);
+        useSweet().errorAlert({});
         dispatch(populatePaymentsError(error));
+        return error;
       });
   } else {
     const localPayments = JSON.parse(localStorage.payments);
@@ -95,10 +102,10 @@ export const populatePaymentsAction = userId => (dispatch) => {
 
 
 /* reducer */
-export default function reducer(state = paymetState, action) {
+export function reducer(state = paymetState, action) {
   switch (action.type) {
     case RESET_PAYMENT_STATUS:
-      return { ...state, status: null };
+      return { ...state, status: null, fetching: false };
     /* Make payment */
     case MAKE_PAYMENT:
       return { ...state, fetching: true };
@@ -129,3 +136,69 @@ export default function reducer(state = paymetState, action) {
       return state;
   }
 }
+
+
+/** Admin Payments **/
+/* Constant */
+const POPULATE_ADMIN_PAYMENTS = 'POPULATE_ADMIN_PAYMENTS';
+const POPULATE_ADMIN_PAYMENTS_SUCCESS = 'POPULATE_ADMIN_PAYMENTS_SUCCESS';
+const POPULATE_ADMIN_PAYMENTS_ERROR = 'POPULATE_ADMIN_PAYMENTS_ERROR';
+
+
+/* Actions creators */
+export function populateAdminPayments() {
+  return { type: POPULATE_ADMIN_PAYMENTS };
+}
+
+export function populateAdminPaymentsSuccess(paymentsArray) {
+  return { type: POPULATE_ADMIN_PAYMENTS_SUCCESS, payload: paymentsArray };
+}
+
+export function populateAdminPaymentsError(error) {
+  return { type: POPULATE_ADMIN_PAYMENTS_ERROR, payload: error };
+}
+
+
+/* Thunks */
+// populate admin payments
+export const populateAdminPaymentsAction = () => (dispatch) => {
+  dispatch(populateAdminPayments());
+  return getPayments()
+    .then((paymentsArray) => {
+      dispatch(populateAdminPaymentsSuccess(paymentsArray));
+      return paymentsArray;
+    })
+    .catch((error) => {
+      useSweet().errorAlert({});
+      dispatch(populateAdminPaymentsError(error));
+      return error;
+    });
+}
+
+
+/* Admin reducer */
+const adminState = {
+  array: [],
+  noData: false,
+  fetching: false,
+  status: null,
+}
+
+export function adminReducer(state = adminState, action) {
+  switch (action.type) {
+    case POPULATE_ADMIN_PAYMENTS:
+      return { ...state, fetching: true };
+    case POPULATE_ADMIN_PAYMENTS_SUCCESS:
+      return {
+        ...state, fetching: false, status: 'success',
+        array: [...state.array, ...action.payload],
+        noData: action.payload.length === 0,
+      };
+    case POPULATE_ADMIN_PAYMENTS_ERROR:
+      return { ...state, fetching: false, status: 'error', error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({ payment: reducer, adminPayment: adminReducer });
