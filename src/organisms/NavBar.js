@@ -11,10 +11,10 @@ function NavBar() {
                 <img src={logo} alt="" style={{ marginTop: '8px', maxHeight: '50px' }} className="main-logo-desk" />
             </Link>
             <div className="web">
-                <Link to="/semana-nacional">
+                {/* <Link to="/semana-nacional">
                     <p>Semana Nacional</p>
                     <hr className="blue-line"/>
-                </Link>
+                </Link> */}
                 <Link to="/biblioteca">
                     <p>Biblioteca</p>
                     <hr className="blue-line"/>
