@@ -7,7 +7,7 @@ export const getResources = () => {
   const token = localStorage.authToken;
   return axios.get(`${APIURL}`, {
     headers: {
-      Authorization: token,
+      Authorization: token || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZDY5OWU2ZjJhNzU1MjAwMTcxMjJiOTEiLCJlbWFpbCI6ImZlZWRAZml4dGVyLm9yZyIsImlhdCI6MTU2OTk1Mjg0OSwiZXhwIjoxNTcwMjEyMDQ5fQ.fZfje2c2iZAc62uDhxEwWFvcODOFj58qRcOV8890BJc',
     },
   })
     .then(({ data }) => data);
