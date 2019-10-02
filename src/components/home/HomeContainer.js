@@ -173,10 +173,18 @@ class HomeContainer extends Component {
             </div>
             <h2 className="titles">Nuestros Patrocinadores</h2>
             <div className="partners">
-              <img src={logo1} alt="logo-faes-farma"/>
-              <img src={logo2} alt="logo-liomont"/>
-              <img src={logo3} alt="logo-takeda"/>
-              <img src={logo4} alt="logo-gastro-asofarma"/>
+              <a href="https://faesfarma.com" alt="FAES Farma">
+                <img src={logo1} alt="logo-faes-farma"/>
+              </a>
+              <a href="https://liomont.com.mx/?lang=en" alt="Liomont">
+                <img src={logo2} alt="logo-liomont"/>
+              </a>
+              <a href="https://www.takeda.com" alt="Takeada">
+                <img src={logo3} alt="logo-takeda"/>
+              </a>
+              <a href="http://www.asofarma.com.mx" alt="Gastro asofarma">
+                <img src={logo4} alt="logo-gastro-asofarma"/>
+              </a>
             </div>
           </section>
         <Footer/>
