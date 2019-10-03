@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
-import { Form } from 'antd';
+import useSweet from '../../../hooks/useSweetAlert';
 import TextField from '../../reusables/TextField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import Button from '../../reusables/Button';
 
 function HomeContactForm() {
+  const {  infoAlert} = useSweet();
+  const [disabledSendButton, setDisabledSendButton] = useState(true);
   const [contactData, setContactData] = useState({
     email: null,
     name: null,
     topic: null,
   });
+
+  useEffect(() => {
+    console.log(window.google);
+  }, [])
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -19,7 +26,14 @@ function HomeContactForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const form = event.target;
+    const textArea = form.querySelectorAll('div')[0].querySelectorAll('div')[0].querySelectorAll('textarea')[0];
+    if (!textArea.value) return infoAlert({ text: 'Verifica la casilla' });
+    axios.post('https://www.google.com/recaptcha/api/siteverify', {
+      secret: '6LfXl7sUAAAAALbGZOu2uuiGxW3147vspHZDBPbQ',
+      response: textArea.value,
+    }).then(response => console.log(response))
+    .catch((error) => console.log(error));
   };
 
   return (
@@ -47,7 +61,7 @@ function HomeContactForm() {
           <br/>
         <input type="submit" value="Verificar" />
       </form>
-      <Button width="100%">
+      <Button width="100%" disabled={disabledSendButton}>
         Enviar
       </Button>
     </div>
