@@ -1146,3 +1146,21 @@
     padding-bottom: $padding;
   }
 }
+
+
+// Home ==>
+/* HomeContactFrom */
+.home-reusables-contact-form {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  .reusables-text-field, .reusables-select-field {
+    width: 100%;
+
+    .ant-select {
+      width: 100%;
+    }
+  }
+}
