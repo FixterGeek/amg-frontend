@@ -4,9 +4,9 @@ import logo from '../assets/logo.png'
 import log from '../assets/log.png';
 import menu from "../assets/bars-solid.png"
 
-function NavBar() {
+function NavBar({ className }) {
     return (
-        <div className="navbar">
+        <div className={`navbar  ${className}`}>
             <Link to="/">
                 <img src={logo} alt="" style={{ marginTop: '8px', maxHeight: '50px' }} className="main-logo-desk" />
             </Link>

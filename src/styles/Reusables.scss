@@ -1164,3 +1164,20 @@
     }
   }
 }
+
+/* MembersBlock */
+.home-reusables-members-block {
+  margin-bottom: $largeMargin;
+
+  &-item-position {
+    span {
+      &:first-child {
+        display: inline-block;
+        min-width: 300px;
+      }
+      &:last-child {
+        font-weight: bold;
+      }
+    }
+  }
+}

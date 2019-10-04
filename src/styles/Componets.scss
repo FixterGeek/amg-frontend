@@ -646,3 +646,20 @@ $eventLeftWidth: 350px;
     }
   }
 }
+
+
+// HOME
+.home-tables {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  &-navbar {
+    background-color: $secondary;
+  }
+
+  &-content {
+    margin-top: 100px;
+  }
+}
+

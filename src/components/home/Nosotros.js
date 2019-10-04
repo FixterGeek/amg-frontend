@@ -1,4 +1,6 @@
 import React  from 'react';
+import { Link } from 'react-router-dom';
+
 import NavBar from "../../organisms/NavBar";
 import log from "../../assets/log.svg"
 import abraham from "../../assets/abraham.svg";
@@ -6,6 +8,7 @@ import estatutos from "../../assets/estatutos.png";
 import historia from "../../assets/historia_amg.pdf"
 import Footer from "./Footer";
 import statutos from "../../assets/ESTATUTOS-ACTUALIZADOS-11-JULIO-2018.pdf"
+import mesas from '../../assets/mesas.jpg'
 
 
 function Nosotros() {
@@ -74,6 +77,18 @@ function Nosotros() {
                 </div>
                 <div className="biblioteca-img">
                     <img src={estatutos} alt="bitmap"/>
+                </div>
+            </section>
+            <section className="biblioteca-box grey">
+                <div className="biblioteca-text">
+                    <h2 className="titles">Mesas directivas</h2>
+                    <p>Conoce todos los detalles de nuestras mesas directivas y quiénes ha estado en ellas.</p>
+                    <Link to="/mesa-directiva">
+                        <button className="btn-blue-dark">Ver mesas directivas</button>
+                    </Link>
+                </div>
+                <div className="biblioteca-img">
+                    <img src={mesas} alt="bitmap"/>
                 </div>
             </section>
             <Footer/>

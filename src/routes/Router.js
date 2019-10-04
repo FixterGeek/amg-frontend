@@ -16,11 +16,13 @@ import Signup from '../components/signup/Signup';
 import Guias from "../components/home/Guias";
 import Publicaciones from "../components/home/Publicaciones";
 import SemanaNacional from '../components/home/SemanaNacional';
+import Tables from '../components/home/Tables';
 
 function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={Home} />
+        <Route path="/mesa-directiva" component={Tables} />
         <Route path="/semana-nacional" component={SemanaNacional}/>
         <Route path="/biblioteca" component={Biblioteca}/>
         <Route path="/guias" component={Guias}/>

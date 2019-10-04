@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+
+import { message } from 'antd';
 
 import useSweet from '../../../hooks/useSweetAlert';
 import TextField from '../../reusables/TextField';
@@ -15,10 +17,6 @@ function HomeContactForm() {
     topic: null,
   });
 
-  useEffect(() => {
-    console.log(window.google);
-  }, [])
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setContactData({ ...contactData, [name]: value });
@@ -28,12 +26,26 @@ function HomeContactForm() {
     event.preventDefault();
     const form = event.target;
     const textArea = form.querySelectorAll('div')[0].querySelectorAll('div')[0].querySelectorAll('textarea')[0];
+    const APIURL = `${process.env.REACT_APP_BASE_API_URL}/contact`;
+
     if (!textArea.value) return infoAlert({ text: 'Verifica la casilla' });
-    axios.post('https://www.google.com/recaptcha/api/siteverify', {
-      secret: '6LfXl7sUAAAAALbGZOu2uuiGxW3147vspHZDBPbQ',
+    axios.post(`${APIURL}/recapcha`, {
       response: textArea.value,
-    }).then(response => console.log(response))
-    .catch((error) => console.log(error));
+    }).then(({ data }) => {
+      if (data.success) {
+        message.success('Ahora puedes contactarnos.');
+        setDisabledSendButton(false);
+      }
+    })
+    .catch((error) => message.error('Intenta de nuevo.'));
+  };
+
+  const handleSend = (event) => {
+    const APIURL = `${process.env.REACT_APP_BASE_API_URL}/contact`;
+
+    axios.post(APIURL, contactData)
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   };
 
   return (
@@ -50,7 +62,10 @@ function HomeContactForm() {
         label="¿Cuál es tu nombre?"
         value={contactData.name}
       />
-      <SelectField label="¿De qué se trata?">
+      <SelectField
+        label="¿De qué se trata?"
+        onChange={value => handleChange({ target: { name: 'topic', value } })}
+        value={contactData.topic}>
         <OptionSelect value="Académico">Académico</OptionSelect>
         <OptionSelect value="Pagos">Pagos</OptionSelect>
         <OptionSelect value="Revista">Revista</OptionSelect>
@@ -61,9 +76,13 @@ function HomeContactForm() {
           <br/>
         <input type="submit" value="Verificar" />
       </form>
-      <Button width="100%" disabled={disabledSendButton}>
-        Enviar
-      </Button>
+      {
+        !disabledSendButton && (
+          <Button width="100%" disabled={disabledSendButton} onClick={handleSend}>
+            Enviar
+          </Button>
+        )
+      }
     </div>
   );
 }
