@@ -52,3 +52,46 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.generic-admin-table {
+  .ant-tabs-bar {
+    margin-bottom: 0px;
+  }
+
+  .ant-tabs-nav-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ant-tabs-content {
+    background-color: $navy;
+    min-height: 72px;
+  }
+
+  .ant-tabs-tab {
+    border-bottom: solid 1px $navy;
+    min-width: 65px;
+    text-align: center;
+    border-radius: 0px!important;
+    background-color: $clouds!important;
+    margin-right: 0px!important;
+  }
+
+  .ant-tabs-tab-active {
+    background-color: $navy!important;
+    border-bottom: solid 1px $navy!important;
+    color: white!important;
+  }
+
+  .ant-table-thead {
+    background-color: $silver!important;
+  }
+
+  .ant-table-tbody {
+    background-color: $lightBlue;
+
+    tr {
+      border-color: white;
+    }
+  }
+}

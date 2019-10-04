@@ -780,6 +780,28 @@
 
 
 // Admin ===>
+.admin-reusables-stats-container {
+  width: 350px;
+  min-height: 93px;
+  background-color: $navy;
+  display: flex;
+  text-align: left;
+  color: white;
+  flex-flow: column;
+  justify-content: center;
+  padding: $smallPadding;
+  font-weight: bold;
+
+  div {
+    &:first-child {
+      font-size: 1.1rem;
+    }
+    &:last-child {
+      font-size: 1.6rem;
+    }
+  }
+}
+
 .admin-reusables-invoices-table {
   .ant-tabs-bar {
     margin-bottom: 0px;

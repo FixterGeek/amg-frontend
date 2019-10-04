@@ -663,3 +663,14 @@ $eventLeftWidth: 350px;
   }
 }
 
+
+//  ADMIN ==>
+// AdminSubsidiaries
+.admin-subsidiaries {
+  padding: 0.1px;
+
+  &-stats-container {
+    display: flex;
+    justify-content: space-around;
+  }
+}

@@ -96,8 +96,12 @@ function LateralMenu({ history, user, populateUserAction }) {
                 <Icon component={SourcesIcon} />
                 <span>Recursos</span>
             </Item>
+            <Item key={8} onClick={() => link('/admin/filiales')}>
+                <Icon component={SourcesIcon} />
+                <span>Filiales</span>
+            </Item>
             <Item
-                key={8}
+                key={9}
                 onClick={() => logout(history)}
                 style={{ position: 'absolute', bottom: '16px' }}>
                 <Icon
