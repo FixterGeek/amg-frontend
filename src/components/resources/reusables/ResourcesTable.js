@@ -44,7 +44,7 @@ function ResourcesTable({
             preview={record.url}
             title={record.title}
             subtitle={record.authors}
-            footer={record.volume}
+            footer={record.publishedAt ? `${record.volume}, ${record.publishedAt}` : record.volume}
             url={record.docsURLS[0]}
           />
           {
