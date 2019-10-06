@@ -11,6 +11,8 @@ import logo2 from "../../assets/Logo Liomont 2017.png"
 import logo3 from "../../assets/logo takeda.png"
 import logo4 from "../../assets/Gastro Asofarma_logo.png"
 
+import MembershipCards from './reusables/MembershipCards';
+
 
 import "./Home.css";
 import Footer from "./Footer";
@@ -77,77 +79,7 @@ class HomeContainer extends Component {
         <section className="membership">
           <div className="mm">
             <h2 className="titles">Membresías</h2>
-            <div className="member-box">
-              <div className="card">
-                <div>
-                  <p className="tx1">No socio</p>
-                  <h3 className="tx2">Gratis</h3>
-                  <span style={{ color: "white" }}>.</span>
-                  <br />
-                  <span style={{ color: "white" }}>.</span>
-                  <hr />
-                  <div className="tx5">
-                    <p>&bull; Vista previa de revista</p>
-                    <p>&bull; Vista previa de eventos</p>
-                  </div>
-                </div>
-                <div>
-                  <Link to="/pre-signup">
-                    <button className="btn-dark-blue">
-                      Quiero ser miembro
-                    </button>
-                  </Link>
-                </div>
-              </div>
-              <div className="card">
-                <div>
-                  <p className="tx1">Socio</p>
-                  <h3 className="tx2">$4,750</h3>
-                  <span className="tx3">MXN</span>
-                  <br />
-                  <span className="tx4">anual</span>
-                  <hr />
-                  <div className="tx5">
-                    <p>&bull; Consulta completa de revista </p>
-                    <p>&bull; Inscripción a eventos sin costo</p>
-                    <p>&bull; Acceso a transmisiones de sesiones en vivo </p>
-                    <p>&bull; Descarga constancias de participacón</p>
-                  </div>
-                </div>
-
-                <div>
-                  <Link to="/pre-signup">
-                    <button className="btn-dark-blue">
-                      Quiero ser miembro
-                    </button>
-                  </Link>
-                </div>
-              </div>
-              <div className="card">
-                <div>
-                  <p className="tx1">Residente</p>
-                  <h3 className="tx2">$625</h3>
-                  <span className="tx3">MXN</span>
-                  <br />
-                  <span className="tx4">anual</span>
-                  <hr />
-
-                  <div className="tx5">
-                    <p>&bull; Consulta completa de revista </p>
-                    <p>&bull; Acceso total a calendario de eventos</p>
-                    <p>&bull; Inscripción a eventos con costo adicional </p>
-                    <p>&bull; Acceso a guías y consensos</p>
-                  </div>
-                </div>
-                <div>
-                  <Link to="/pre-signup">
-                    <button className="btn-dark-blue">
-                      Quiero ser miembro
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <MembershipCards />
           </div>
         </section>
           <section className="download">

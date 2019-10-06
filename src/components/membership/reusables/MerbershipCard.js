@@ -8,7 +8,7 @@ function MembershipCard({
   points, hiddenButton, hiddenCurrency,
   membershipType, membershipCostDisplay,
   membershipCurrency, period, membershipCost,
-  currentPlan,
+  currentPlan, toLink,
 }) {
   return (
     <div className="membership-reusables-membership-card">
@@ -38,7 +38,7 @@ function MembershipCard({
           !hiddenButton && (
             <Link
               to={{
-                pathname: `/dashboard/payment/membership/${membershipType.toLowerCase()}`,
+                pathname: toLink || `/dashboard/payment/membership/${membershipType.toLowerCase()}`,
                 state: { amount: membershipCost },
               }}
             >

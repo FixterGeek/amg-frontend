@@ -1057,12 +1057,13 @@
   background-color: white;
   display: flex;
   width: 296px;
-  height: 521px;
+  min-height: 450px;
   padding: $padding;
   flex-flow: column;
   justify-content: space-between;
   border-top: solid 2px white;
   margin: $smallMargin;
+  transition: all 0.4s ease;
 
   &-active {
     border-top: solid 2px $navy;
@@ -1077,15 +1078,20 @@
 
   .type {
     font-size: 1.4rem;
+    line-height: 20px;
+    min-height: 56px;
+    padding-bottom: 0px;
   }
 
   .cost {
     font-size: 2.4rem;
     color: $navy;
+    padding-bottom: 0px;
   }
 
   .currency {
-    min-height: 80px;
+    min-height: 66px;
+    padding-bottom: 0px;
     div {
       span {
         font-size: 1rem;
@@ -1115,18 +1121,38 @@
 
   a {
     height: 50px;
-    background-color: $secondary;
+    background-color: white;
+    border: solid 2px $secondary;
     padding-left: $padding;
     padding-right: $padding;
     display: inline-block;
     line-height: 50px;
-    color: white;
+    color: $secondary;
+    font-weight: bold;
   }
 
   &:hover {
     border-top: 2px solid $secondary;
     cursor: pointer;
-    transform: scale(1px);
+    transform: translateY(-25px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    a {
+      background-color: $secondary;
+      color: white;
+    }
+  }
+
+  &-active {
+    border-top: 2px solid $secondary;
+    cursor: pointer;
+    transform: translateY(-25px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    a {
+      background-color: $secondary;
+      color: white;
+    }
   }
 }
 
@@ -1180,6 +1206,11 @@
 
 
 // Home ==>
+/* MembershipCards */
+.home-reusables-membership-cards {
+  display: flex;
+}
+
 /* HomeContactFrom */
 .home-reusables-contact-form {
   width: 100%;

@@ -1,12 +1,22 @@
 import React from 'react';
 
-import MembershipCard from '../membership/reusables/MerbershipCard';
+import Card from '../../membership/reusables/MerbershipCard';
 
-function SettingsMembership({ membershipStatus, userStatus }) {
-  console.log(membershipStatus, userStatus)
-  if (userStatus === 'Aprobado') return (
-    <div className="settings-membership">
-      <MembershipCard
+function MembershipsCards() {
+  return (
+    <div className="home-reusables-membership-cards">
+      <Card
+        membershipType="No socio"
+        hiddenCurrency
+        points={[
+          'Acceso a los eventos',
+          'Inscripción a eventos con pago',
+          'Acceso a la revista',
+          'Acceso a las guías y consensos'
+        ]}
+        toLink="/pre-signup"
+      />
+      <Card
         membershipType="Socio"
         membershipCostDisplay="$4750"
         membershipCost={4750}
@@ -15,11 +25,9 @@ function SettingsMembership({ membershipStatus, userStatus }) {
           '•Inscripción a todos los eventos sin costo incluyendo ECOS y SENAGA',
           '• Pago de membresía online'
         ]}
-        currentPlan={membershipStatus === 'Socio'}
-        hiddenButton={membershipStatus === 'Socio'}
+        toLink="/pre-signup"
       />
-
-      <MembershipCard
+      <Card
         membershipType="Socio en entrenamiento"
         membershipCostDisplay="$625"
         membershipCost={625}
@@ -28,13 +36,10 @@ function SettingsMembership({ membershipStatus, userStatus }) {
           'Inscripción a todos los eventos sin costo incluyendo ECOS y SENAGA',
           'Pago de membresía online'
         ]}
-        currentPlan={membershipStatus === 'Residente'}
-        hiddenButton={membershipStatus === 'Residente'}
+        toLink="/pre-signup"
       />
     </div>
   );
-
-  return <div>Disculpa las molestias, aun estamos validando tu cuenta.</div>
 }
 
-export default SettingsMembership;
+export default MembershipsCards;
