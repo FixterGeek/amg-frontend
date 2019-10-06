@@ -1,0 +1,200 @@
+[
+  {
+    "_id": "5d699e6f2a75520017122b91",
+    "email": "feed@fixter.org",
+    "basicData":{ 
+      "name" :"oswaldinho",     
+      "dadSurname":"Martinez", 
+      "momSurname":"Anaya",     
+      "birthDate":"31/08/1996",         
+      "placeOfBirth":{
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }, 
+      "photoURL":"https://picsum.photos/id/393/200/300 ",        
+      "phone": "5555555555",
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }  
+    }, 
+    "fiscalData":{ 
+      "rfc":"1234567RTY", 
+      "phone":"1234567890" ,
+      "email":"email@email.com" ,
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }
+    },
+    "bankData": {
+      "clabe": 1253894,
+      "accountNumber": 2815694583,
+      "bank": "Bancomer"
+    },
+    "treasurer": "Abel Gomez",
+    "president": "Ricardo Segovia Gasque",
+    "registrationDate":"01/01/2010", 
+    "userType": "Filial",
+    "userStatus":"Aprobado", 
+    "revisionDate":"01/01/2010", 
+    "reviwedBy":"the Object ID of the User",
+    "assistedActivities":[],
+    "createdAt":"01/01/2019", 
+    "updatedAt":"01/01/2019",
+    "members": []  
+  },
+  {
+    "_id": "5d699e6f2a75520017122b92",
+    "email": "feed@fixter.org",
+    "basicData":{ 
+      "name" :"oswaldinho",     
+      "dadSurname":"Martinez", 
+      "momSurname":"Anaya",     
+      "birthDate":"31/08/1996",         
+      "placeOfBirth":{
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }, 
+      "photoURL":"https://picsum.photos/id/393/200/300 ",        
+      "phone": "5555555555",
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }  
+    }, 
+    "fiscalData":{ 
+      "rfc":"1234567RTY", 
+      "phone":"1234567890" ,
+      "email":"email@email.com" ,
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }
+    },
+    "bankData": {
+      "clabe": 1253894,
+      "accountNumber": 2815694583,
+      "bank": "Bancomer"
+    },
+    "treasurer": "Abel Gomez",
+    "president": "Ricardo Segovia Gasque",
+    "registrationDate":"01/01/2010", 
+    "userType": "Filial",
+    "userStatus":"Aprobado", 
+    "revisionDate":"01/01/2010", 
+    "reviwedBy":"the Object ID of the User",
+    "assistedActivities":[],
+    "createdAt":"01/01/2019", 
+    "updatedAt":"01/01/2019",
+    "members": [] 
+  },
+  {
+    "_id": "5d699e6f2a75520017122b93",
+    "email": "feed@fixter.org",
+    "basicData":{ 
+      "name" :"oswaldinho",     
+      "dadSurname":"Martinez", 
+      "momSurname":"Anaya",     
+      "birthDate":"31/08/1996",         
+      "placeOfBirth":{
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }, 
+      "photoURL":"https://picsum.photos/id/393/200/300 ",        
+      "phone": "5555555555",
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }  
+    }, 
+    "fiscalData":{ 
+      "rfc":"1234567RTY", 
+      "phone":"1234567890" ,
+      "email":"email@email.com" ,
+      "address":{ 
+        "addressName":"Pachuca", 
+        "street":"", 
+        "outdoorNumber":"", 
+        "interiorNumber":"", 
+        "colony":"", 
+        "zipCode":"", 
+        "city":"Pachuca", 
+        "state":"Hidalgo", 
+        "coordinates":["123312","123123"] 
+      }
+    },
+    "bankData": {
+      "clabe": 1253894,
+      "accountNumber": 2815694583,
+      "bank": "Bancomer"
+    },
+    "treasurer": "Abel Gomez",
+    "president": "Ricardo Segovia Gasque",
+    "registrationDate":"01/01/2010", 
+    "userType": "Filial",
+    "userStatus":"Aprobado", 
+    "revisionDate":"01/01/2010", 
+    "reviwedBy":"the Object ID of the User",
+    "assistedActivities":[],
+    "createdAt":"01/01/2019", 
+    "updatedAt":"01/01/2019",
+    "members": []
+  }
+]

@@ -14,6 +14,7 @@ import PersonalProfile from '../components/profile/PersonalProfile';
 import MainProfile from '../components/profile/MainProfile';
 import UserProfilFollow from '../components/profile/UserProfileDetails';
 import PaymentEvent from '../components/membership/PaymentEvent';
+import MembershipInvoice from '../components/membership/MembershipInvoice';
 import Resources from '../components/resources/Resources';
 import Guides from '../components/resources/Guides';
 import Posts from '../components/resources/Posts';
@@ -26,6 +27,7 @@ function DashBoardRouter() {
       <Route path={`${baseURL}/perfil/publico/:slug`} component={UserProfilFollow} />
       <Route exact path={`${baseURL}/perfil/editar`} component={PersonalProfile} />
       <Route path="/dashboard/perfil" component={MainProfile} />
+      <Route path="/dashboard/pagos/:id/facturar" component={MembershipInvoice} />
       <Route path="/dashboard/payment/event/:id" component={PaymentEvent} />
       <Route path={`${baseURL}/payment/membership/:type`} component={MembershipPaymentCard} />
       <Route path={`${baseURL}/payment/:membership`} component={MembershipPayment} />

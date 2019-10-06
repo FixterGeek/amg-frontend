@@ -675,3 +675,32 @@ $eventLeftWidth: 350px;
     justify-content: space-around;
   }
 }
+
+// AdminSubsidiaryProfile
+.admin-subsidiary-profile {
+  &-info {
+    display: flex;
+
+    .profile-data {
+      display: flex;
+      div {
+        &:last-child {
+          display: flex;
+          flex-flow: column;
+          margin-left: $smallMargin;
+          margin-right: $smallMargin;
+        }
+      }
+    }
+
+    .stats {
+      display: flex;
+      .admin-reusables-stats-container {
+        height: 93px;
+        &:first-child {
+          margin-right: $margin;
+        }
+      }
+    }
+  }
+}

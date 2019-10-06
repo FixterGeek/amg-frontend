@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import useSweet from '../../hooks/useSweetAlert';
 import { makePaymentAction, resetPaymentStatus } from '../../store/ducks/paymentsDuck';
 import PaymentCardForm from './reusables/PaymentCardForm';
 import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
+import Button from '../reusables/Button';
 
 function MembershipPaymentCard({
   history, match, userId,
@@ -19,6 +21,8 @@ function MembershipPaymentCard({
   const { amount } = state;
   const { errorAlert, successAlert } = useSweet();
 
+  const [paidData, setPaidData] = useState({});
+
 
   useEffect(() => {
     if (paymentStatus === 'error') {
@@ -28,7 +32,7 @@ function MembershipPaymentCard({
     if (paymentStatus === 'success') {
       successAlert({ title: `Has adquirido el plan ${type}` });
       resetPaymentStatus();
-      history.push('/dashboard/perfil');
+      // history.push('/dashboard/perfil');
     }
   }, paymentStatus);
 
@@ -38,7 +42,8 @@ function MembershipPaymentCard({
     paymentData.price = amount;
     paymentData.subscriptionType = type;
 
-    makePaymentAction(paymentData, 'subscription');
+    makePaymentAction(paymentData, 'subscription')
+      .then(data => setPaidData({ ...data }));
   };
 
   return (
@@ -49,7 +54,17 @@ function MembershipPaymentCard({
           onSubmit={handleForm}
           concept={`Plan - ${type}`}
           amount={amount}
+          paid={paidData.paid}
         />
+        { 
+          paidData._id && paidData.paid ? (
+            <Link to={{ pathname: `/dashboard/pagos/${paidData._id}/facturar`, state: paidData }}>
+              <Button width="100%" htmlType="button">
+                Facturar pago
+              </Button>
+            </Link>
+          ) : null 
+        }
       </ContainerItem>
     </div>
   );

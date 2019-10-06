@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { Table } from 'antd';
@@ -24,6 +25,19 @@ function PaymentsTable({
       render: (text, record) => (
         <span>{ moment(record.updatedAt).format('DD/MM/YYYY') }</span>
       )
+    },
+    {
+      title: 'Estado',
+      render: (t, r) => <span>{ r.paid ? 'Pagado' : 'Sin pago' }</span>
+    },
+    {
+      title: 'Acciones',
+      render: (t, r) => 
+        r.paid ? (
+        <Link to={{ pathname: `/dashboard/pagos/${r._id}/facturar`, state: r }}>
+          Solicitar factura
+        </Link>
+        ) : null
     }
   ];
 

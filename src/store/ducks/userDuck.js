@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import {
     login, updateUser as update, signup,
     followUser as follow,
@@ -20,6 +19,7 @@ import {
 import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
+import useSweet from '../../hooks/useSweetAlert';
 
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 
@@ -264,10 +264,12 @@ export const updateUserAction = (userData) => (dispatch) => {
         .then((data) => {
             localStorage.user = JSON.stringify(data);
             dispatch(updateUserSuccess(data));
+            useSweet().successAlert({ title: 'Datos actualizados' });
             return data;
         })
         .catch(({ response }) => {
             dispatch(updateUserError(response.data));
+            useSweet().errorAlert({});
             return response;
         })
 }

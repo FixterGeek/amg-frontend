@@ -9,7 +9,7 @@ import TextField from '../../../molecules/TextFields';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
 
-function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
+function PaymentCardForm({ onChange, onSubmit, amount, concept, paid }) {
   const { Title } = Typography;
   const { errorAlert } = useSweet();
 
@@ -242,7 +242,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept }) {
           />
           <Button
             htmlType="submit"
-            disabled={!isValid || loading}
+            disabled={!isValid || loading || paid}
             width="100%" >
             Pagar
           </Button>

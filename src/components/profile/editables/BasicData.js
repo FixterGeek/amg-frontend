@@ -3,10 +3,8 @@ import toFormData from 'object-to-formdata';
 
 import { Typography, Icon, Button } from 'antd';
 
-import useAmgService from '../../../hooks/services/useAmgService';
 import useSweetAlert from '../../../hooks/useSweetAlert';
 import fileToURL from '../../../tools/fileToURL';
-import { writeUser, writeUserBasicData, writeUserAddress } from '../../../store/actions';
 import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../../atoms/ProfilePhoto';
 import TransparentTextField from '../../../atoms/data-entry/TransparentTextField';

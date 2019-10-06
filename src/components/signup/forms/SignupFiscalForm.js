@@ -12,7 +12,11 @@ import TermsAndConditions from '../TermsAndConditionsModal';
 import Spinner from '../../reusables/Spinner';
 import estados from '../../admin/estados.json';
 
-function SignupFiscalForm({ user, dispatch, loading, status, resetStatus, history }) {
+function SignupFiscalForm({
+  user, dispatch, loading,
+  status, resetStatus, history,
+  noTerms, noRedirect,
+}) {
   const { Title } = Typography;
 
   const { errorAlert } = useSweet();
@@ -41,7 +45,7 @@ function SignupFiscalForm({ user, dispatch, loading, status, resetStatus, histor
 
     if (status === 'success') {
       resetStatus();
-      history.push('/dashboard');
+      if (!noRedirect) history.push('/dashboard');
     }
   }, [status]);
 
@@ -59,7 +63,6 @@ function SignupFiscalForm({ user, dispatch, loading, status, resetStatus, histor
     setFiscalData({ ...fiscalData, [name]: value });
   };
 
-  console.log(acceptedTerms)
 
   return (
     <Form style={{ position: 'relative' }}>
@@ -113,12 +116,20 @@ function SignupFiscalForm({ user, dispatch, loading, status, resetStatus, histor
           })
         }
       </SelectField>
-
-        <Button width="445px" disabled={!allAreFill}>
-          <TermsAndConditions onAccept={value => setAcceptedTerms(value)}>
-            Siguiente
-          </TermsAndConditions>
-        </Button>
+        {
+          noTerms ? (
+            <Button width="100%" onClick={() => setAcceptedTerms(true)} disabled={!allAreFill}>
+              Guardar
+            </Button>
+          ) : (
+            <Button width="445px" disabled={!allAreFill}>
+              <TermsAndConditions
+                onAccept={value => setAcceptedTerms(value)}>
+                Siguiente
+              </TermsAndConditions>
+            </Button>
+          )
+        }
     </Form>
   )
 }

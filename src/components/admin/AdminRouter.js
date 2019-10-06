@@ -14,12 +14,16 @@ import AdminInvoicesFiscalData from './invoices/AdminInvoicesFiscalData';
 import AdminInvoicesPayment from './invoices/AdminInvoicesPayments';
 import AdminEventsEdit from './events/AdminEventEdit';
 import AdminSubsidiaries from './subsidiaries/AdminSubsidiaries';
+import AdminSubsidiaryProfile from './subsidiaries/AdminSubsidiaryProfile';
+import AdminSubsidiaryForm from './subsidiaries/AdminSubsidiaryForm';
 
 
 function AdminRouter() {
   return (
     <Switch>
       {/* Filiales */}
+      <Route path="/admin/filiales/:id/edit" component={AdminSubsidiaryForm} />
+      <Route path="/admin/filiales/:id" component={AdminSubsidiaryProfile} />
       <Route exact path="/admin/filiales" component={AdminSubsidiaries} />
       {/* Invoices */}
       <Route exact path="/admin/invoices/payments" component={AdminInvoicesPayment} />

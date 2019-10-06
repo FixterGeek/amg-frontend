@@ -1,6 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Tabs, Icon, Table } from 'antd';
+
+import ActionMenu from './reusables/ActionMenu';
+
+import virtualData from './reusables/virtualRecords.json';
 
 function AdminSubsidiariesList() {
   const { TabPane } = Tabs;
@@ -8,26 +13,33 @@ function AdminSubsidiariesList() {
   const columns = [
     {
       title: 'Razón social',
-      dataIndes: 'name',
+      dataIndex: 'name',
+      render: (text, record) => (
+        <Link to={{ pathname: `/admin/filiales/${record._id}`, state: record }}>
+          { record.basicData.name }
+        </Link>
+      )
     },
     {
       title: 'Zona',
-      dataIndes: 'region',
+      dataIndex: 'basicData.address.addressName',
     },
     {
       title: 'Tesorero',
-      dataIndes: 'treasurer',
+      dataIndex: 'treasurer',
     },
     {
       title: 'President',
-      dataIndes: 'president',
+      dataIndex: 'president',
     },
     {
       title: 'Miembros asignados',
-      dataIndes: 'members',
+      dataIndex: 'members',
+      render: (text, record) => (<span>{ record.members.length }</span>),
     },
     {
       title: 'Acciones',
+      render: () => (<ActionMenu />),
     },
   ]
 
@@ -43,7 +55,7 @@ function AdminSubsidiariesList() {
           ok
         </TabPane>
       </Tabs>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={virtualData} />
     </div>
   )
 }

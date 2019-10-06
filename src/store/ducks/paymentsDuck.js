@@ -4,6 +4,7 @@ import {
   getPaymentsByUser,
   getPayments,
 } from '../../services/paymentServices';
+import { makeInvoice } from '../../services/invoicesServices';
 import useSweet from '../../hooks/useSweetAlert';
 
 const paymetState = {
@@ -25,6 +26,10 @@ const MAKE_PAYMENT_ERROR = 'MAKE_PAYMENT_ERROR';
 const POPULATE_PAYMENTS = 'POPULATE_PAYMENTS';
 const POPULATE_PAYMENTS_SUCCESS = 'POPPULATE_PAYMENTS_SUCCESS';
 const POPULATE_PAYMENTS_ERROR = 'POPULATE_PAYMENTS_ERROR';
+
+const MAKE_PAYMENT_INVOICE = 'MAKE_PAYMENT_INVOICE';
+const MAKE_PAYMENT_INVOICE_SUCCESS = 'MAKE_PAYMENT_INVOICE_SUCCESS';
+const MAKE_PAYMENT_INVOICE_ERROR = 'MAKE_PAYMENT_INVOICE_ERROR';
 
 
 /* Action creators */
@@ -57,6 +62,19 @@ export function populatePaymentsSuccess(paymentsArray) {
 
 export function populatePaymentsError(error) {
   return { type: POPULATE_PAYMENTS_ERROR, payload: error };
+}
+
+// Make invoice
+export function makePaymentInvoice() {
+  return { type: MAKE_PAYMENT_INVOICE };
+}
+
+export function makePaymentInvoiceSuccess(invoiceData) {
+  return { type: MAKE_PAYMENT_INVOICE_SUCCESS, payload: invoiceData };
+}
+
+export function makePaymentInvoiceError(error) {
+  return { type: MAKE_PAYMENT_INVOICE_ERROR, payload: error };
 }
 
 
@@ -101,6 +119,27 @@ export const populatePaymentsAction = userId => (dispatch) => {
 }
 
 
+// make invoice
+export const makePaymentInvoiceAction = (paymentId) => (dispatch) => {
+  dispatch(makePaymentInvoice());
+  return makeInvoice(paymentId)
+    .then((data) => {
+      dispatch(makePaymentInvoiceSuccess(data));
+      return data;
+    })
+    .catch((error) => {
+      const { response = {} } = error;
+      const { data = {} } = response;
+      const { errors } = data;
+
+      if (errors) useSweet().errorAlert({ text: JSON.stringify(errors) });
+      else useSweet().errorAlert({ text: 'No fue posible generar la factura' });
+      dispatch(makePaymentInvoiceError(data ? data : error));
+      return data || error;
+    });
+}
+
+
 /* reducer */
 export function reducer(state = paymetState, action) {
   switch (action.type) {
@@ -132,6 +171,13 @@ export function reducer(state = paymetState, action) {
         array: action.payload,
         noData: action.payload.length === 0,
       };
+    /* Make payment invoice */
+    case MAKE_PAYMENT_INVOICE:
+      return { ...state, fetching: true };
+    case MAKE_PAYMENT_INVOICE_SUCCESS:
+      return { ...state, fetching: false, status: 'success' };
+    case MAKE_PAYMENT_INVOICE_ERROR:
+      return { ...state, fetching: false, status: 'error' };
     default:
       return state;
   }

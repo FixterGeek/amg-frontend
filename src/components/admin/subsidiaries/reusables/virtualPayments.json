@@ -1,0 +1,32 @@
+[
+  {
+    "paid": true,
+    "_id": "5d88cd762957fc05aceeabf1",
+    "user": "5d699e6f2a75520017122b91",
+    "concept": "Suscripción socio",
+    "reference": "ord_2mNiCRbRRwANez71H",
+    "date": 1569246582,
+    "amount": 4750,
+    "paymentType": "Subscription"
+  },
+  {
+    "paid": true,
+    "_id": "5d88cd762957fc05aceeabf2",
+    "user": "5d699e6f2a75520017122b91",
+    "concept": "Suscripción socio",
+    "reference": "ord_2mNiCRbRRwANez71H",
+    "date": 1569246582,
+    "amount": 4750,
+    "paymentType": "Subscription"
+  },
+  {
+    "paid": true,
+    "_id": "5d88cd762957fc05aceeabf3",
+    "user": "5d699e6f2a75520017122b91",
+    "concept": "Suscripción socio",
+    "reference": "ord_2mNiCRbRRwANez71H",
+    "date": 1569246582,
+    "amount": 4750,
+    "paymentType": "Subscription"
+  }
+]

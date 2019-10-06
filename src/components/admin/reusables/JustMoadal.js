@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal } from 'antd';
 
 import Button from '../../reusables/Button';
 
-function JustModal({ buttonText, childElement, openComponent }) {
+function JustModal({ buttonText, childElement, openComponent, close }) {
   const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    if (close) setOpenModal(false);
+  }, [close])
 
   return (
     <div className="admin-reusables-just-modal">
