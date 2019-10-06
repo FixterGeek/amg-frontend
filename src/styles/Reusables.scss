@@ -1056,7 +1056,7 @@
 .membership-reusables-membership-card {
   background-color: white;
   display: flex;
-  width: 296px;
+  width: 266px;
   min-height: 450px;
   padding: $padding;
   flex-flow: column;
@@ -1064,6 +1064,10 @@
   border-top: solid 2px white;
   margin: $smallMargin;
   transition: all 0.4s ease;
+
+  @include for-size(tablet-landscape-up) {
+    width: 296px;
+  }
 
   &-active {
     border-top: solid 2px $navy;
@@ -1209,6 +1213,10 @@
 /* MembershipCards */
 .home-reusables-membership-cards {
   display: flex;
+  flex-flow: column;
+  @include for-size(tablet-portrait-up) {
+    flex-flow: row;
+  }
 }
 
 /* HomeContactFrom */
