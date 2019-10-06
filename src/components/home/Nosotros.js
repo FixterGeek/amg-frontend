@@ -1,6 +1,8 @@
 import React  from 'react';
 import { Link } from 'react-router-dom';
 
+import { List } from 'antd';
+
 import NavBar from "../../organisms/NavBar";
 import log from "../../assets/log.svg"
 import abraham from "../../assets/abraham.svg";
@@ -10,8 +12,17 @@ import Footer from "./Footer";
 import statutos from "../../assets/ESTATUTOS-ACTUALIZADOS-11-JULIO-2018.pdf"
 import mesas from '../../assets/mesas.jpg'
 
+/* Logos convenios */
+import gastroac from '../../assets/gastroac.jpg';
+import hepatologia from '../../assets/epatologia.jpg';
+import americangastro from '../../assets/americangastro.jpg';
+import americanassociation from '../../assets/americanassociation.jpg';
+import gastroargentina from '../../assets/gastroargentina.jpg';
+import endoscopia from '../../assets/endoscopia.jpg';
+
 
 function Nosotros() {
+    const { Item } = List;
     return (
         <section className="app">
             <NavBar />
@@ -80,6 +91,53 @@ function Nosotros() {
                 </div>
             </section>
             <section className="biblioteca-box grey">
+                <div className="biblioteca-text">
+                    <h2 className="titles">Convenios</h2>
+                    <List itemLayout="horizontal" className="home-nosotros-convenios">
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={gastroac} />}
+                                title="Consejo Mexicano de Gatroenterología, A.C."
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={hepatologia} />}
+                                title="Asociación Mexicana de Hepatología"
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={americangastro} />}
+                                title="American College of Gastroenterology"
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={americanassociation} />}
+                                title="The American Gastroenterological Association"
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={gastroargentina} />}
+                                title="Sociedad Argentina de Gastroenterología"
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={endoscopia} />}
+                                title={
+                                    <a href="http://amce.com.mx/V2/" target="_blank">
+                                        Asociación Mexicana de Cirugía Endoscopica, A.C.
+                                    </a>
+                                }
+                            />
+                        </Item>
+                    </List>
+                </div>
+            </section>
+            <section className="biblioteca-box">
                 <div className="biblioteca-text">
                     <h2 className="titles">Mesas directivas</h2>
                     <p>Conoce todos los detalles de nuestras mesas directivas y quiénes ha estado en ellas.</p>
