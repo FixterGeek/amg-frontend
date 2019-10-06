@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function MembershipCard({
   points, hiddenButton, hiddenCurrency,
   membershipType, membershipCostDisplay,
   membershipCurrency, period, membershipCost,
-  currentPlan, toLink,
+  currentPlan, toLink, onlyHeader
 }) {
   return (
     <div className="membership-reusables-membership-card">
@@ -23,30 +23,36 @@ function MembershipCard({
           </div>
         ) : null }
       </span>
-      <ul className="description">
-        {
-          points.map(point => (
-            <li>{ point }</li>
-          ))
-        }
-      </ul>
-      <div style={{ textAlign: 'center' }}>
-        {
-          currentPlan && 'Plan Actual'
-        }
-        {
-          !hiddenButton && (
-            <Link
-              to={{
-                pathname: toLink || `/dashboard/payment/membership/${membershipType.toLowerCase()}`,
-                state: { amount: membershipCost },
-              }}
-            >
-              Quiero ser miembro
-            </Link>
-          )
-        }
-      </div>
+      {
+        !onlyHeader && (
+          <Fragment>
+            <ul className="description">
+              {
+                points.map(point => (
+                  <li>{ point }</li>
+                ))
+              }
+            </ul>
+            <div style={{ textAlign: 'center' }}>
+              {
+                currentPlan && 'Plan Actual'
+              }
+              {
+                !hiddenButton && (
+                  <Link
+                    to={{
+                      pathname: toLink || `/dashboard/payment/membership/${membershipType.toLowerCase()}`,
+                      state: { amount: membershipCost },
+                    }}
+                  >
+                    Quiero ser miembro
+                  </Link>
+                )
+              }
+            </div>
+          </Fragment>
+        )
+      }
     </div>
   );
 }

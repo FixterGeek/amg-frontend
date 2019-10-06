@@ -12,6 +12,7 @@ import logo3 from "../../assets/logo takeda.png"
 import logo4 from "../../assets/Gastro Asofarma_logo.png"
 
 import MembershipCards from './reusables/MembershipCards';
+import MembersCost from './reusables/MembersCost';
 
 
 import "./Home.css";
@@ -80,6 +81,8 @@ class HomeContainer extends Component {
           <div className="mm">
             <h2 className="titles">Membresías</h2>
             <MembershipCards />
+            <h2 className="titles">Costos para socios</h2>
+            <MembersCost />
           </div>
         </section>
           <section className="download">
