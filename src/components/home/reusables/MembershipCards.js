@@ -21,9 +21,9 @@ function MembershipsCards() {
         membershipCostDisplay="$4750"
         membershipCost={4750}
         points={[
-          '•Acceso total a los beneficios de la plataforma GASTRO',
-          '•Inscripción a todos los eventos sin costo incluyendo ECOS y SENAGA',
-          '• Pago de membresía online'
+          'Acceso total a los beneficios de la plataforma GASTRO',
+          'Inscripción a todos los eventos sin costo incluyendo ECOS y SENAGA',
+          'Pago de membresía online'
         ]}
         toLink="/pre-signup"
       />

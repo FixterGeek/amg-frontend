@@ -98,30 +98,51 @@ function Nosotros() {
                             <Item.Meta
                                 avatar={<img src={gastroac} />}
                                 title="Consejo Mexicano de Gatroenterología, A.C."
+                                title={
+                                    <a href="https://www.cmgastro.org.mx" target="_blank">
+                                        Consejo Mexicano de Gatroenterología, A.C.
+                                    </a>
+                                }
                             />
                         </Item>
                         <Item>
                             <Item.Meta
                                 avatar={<img src={hepatologia} />}
-                                title="Asociación Mexicana de Hepatología"
+                                title={
+                                    <a href="https://hepatologia.org.mx" target="_blank">
+                                        Asociación Mexicana de Hepatología
+                                    </a>
+                                }
                             />
                         </Item>
                         <Item>
                             <Item.Meta
                                 avatar={<img src={americangastro} />}
-                                title="American College of Gastroenterology"
+                                title={
+                                    <a href="https://gi.org" target="_blank">
+                                        Ameican College of Gastroenterology
+                                    </a>
+                                }
                             />
                         </Item>
                         <Item>
                             <Item.Meta
                                 avatar={<img src={americanassociation} />}
-                                title="The American Gastroenterological Association"
+                                title={
+                                    <a href="https://www.gastro.org" target="_blank">
+                                        The American Gastroenterological Association
+                                    </a>
+                                }
                             />
                         </Item>
                         <Item>
                             <Item.Meta
                                 avatar={<img src={gastroargentina} />}
-                                title="Sociedad Argentina de Gastroenterología"
+                                title={
+                                    <a href="https://sage.org.ar" target="_blank">
+                                        Sociedad Argentina de Gastroenterología
+                                    </a>
+                                }
                             />
                         </Item>
                         <Item>

@@ -1214,8 +1214,11 @@
 .home-reusables-membership-cards {
   display: flex;
   flex-flow: column;
-  @include for-size(tablet-portrait-up) {
+  align-items: center;
+
+  @include for-size(tablet-landscape-up) {
     flex-flow: row;
+    justify-content: space-between;
   }
 }
 
@@ -1223,15 +1226,39 @@
 .home-members-costs {
   display: flex;
   background-color: white;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @include for-size(tablet-portrait-up) {
-    flex-wrap: nowrap;
-  }
+  flex-flow: column;
 
   .membership-reusables-membership-card {
     min-height: 200px;
+
+    &:hover {
+      transform: translateY(0);
+      border-color: transparent;
+      box-shadow: none;
+      cursor: default;
+    }
+  }
+
+  .notes {
+    padding: $padding;
+    font-weight: bold;
+    color: $darkSilver;
+  }
+
+  .cards {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    @include for-size(tablet-landscape-up) {
+      flex-flow: row;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @include for-size(desktop-up) {
+      flex-wrap: nowrap;
+    }
   }
 }
 
