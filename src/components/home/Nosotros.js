@@ -23,7 +23,7 @@ import endoscopia from '../../assets/endoscopia.jpg';
 import espanola from '../../assets/SociedadEspanola.png';
 import especialistas from '../../assets/Colegio.png';
 import digestivo from '../../assets/Aparatodigestivo.png';
-import AMEG from '../../assets/AMEG.png';
+import AMEG from '../../assets/AMEG.jpg';
 import AMCD from '../../assets/AMCD.png';
 
 
