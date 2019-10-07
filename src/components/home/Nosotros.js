@@ -19,6 +19,11 @@ import americangastro from '../../assets/americangastro.jpg';
 import americanassociation from '../../assets/americanassociation.jpg';
 import gastroargentina from '../../assets/gastroargentina.jpg';
 import endoscopia from '../../assets/endoscopia.jpg';
+import espanola from '../../assets/SociedadEspanola.png';
+import especialistas from '../../assets/Colegio.png';
+import digestivo from '../../assets/Aparatodigestivo.png';
+import AMEG from '../../assets/AMEG.png';
+import AMCD from '../../assets/AMCD.png';
 
 
 function Nosotros() {
@@ -151,6 +156,56 @@ function Nosotros() {
                                 title={
                                     <a href="http://amce.com.mx/V2/" target="_blank">
                                         Asociación Mexicana de Cirugía Endoscopica, A.C.
+                                    </a>
+                                }
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={espanola} />}
+                                title={
+                                    <a href="https://www.sepd.es/mision_vision.php" target="_blank">
+                                        Sociedad Española de Patología Digestiva
+                                    </a>
+                                }
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={especialistas} />}
+                                title={
+                                    <a href="http://colegiomexicanocoloproctologia.org" target="_blank">
+                                        Colegio Mexicano de Proctología
+                                    </a>
+                                }
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={digestivo} />}
+                                title={
+                                    <a href="http://www.amcad.mx" target="_blank">
+                                        Asociación Mexicana de Cirugía del Aparato Digestivo A.C.
+                                    </a>
+                                }
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={AMEG} />}
+                                title={
+                                    <a href="http://www.amegendoscopia.org.mx" target="_blank">
+                                        Asociación Mexicana de Endoscopia Gastrointestinal
+                                    </a>
+                                }
+                            />
+                        </Item>
+                        <Item>
+                            <Item.Meta
+                                avatar={<img src={AMCD} />}
+                                title={
+                                    <a href="https://amcg.org.mx" target="_blank">
+                                        Asociación Mexicana de Cirugía General, A. C.
                                     </a>
                                 }
                             />

@@ -674,6 +674,10 @@ $eventLeftWidth: 350px;
       width: 130px;
       display: flex;
       justify-content: center;
+      img {
+        max-height: 80px;
+        max-width: 100px;
+      }
     }
     .ant-list-item-meta {
       display: flex;
