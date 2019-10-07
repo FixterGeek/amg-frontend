@@ -1218,7 +1218,7 @@
 
   @include for-size(tablet-landscape-up) {
     flex-flow: row;
-    justify-content: space-between;
+    justify-content: center;
   }
 }
 
