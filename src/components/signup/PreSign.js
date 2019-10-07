@@ -7,7 +7,7 @@ import log from "../../assets/LOGO-COMPLETO.svg"
 import {Link} from "react-router-dom";
 import down from "../../assets/down.svg"
 import AmgButton from '../../atoms/Button';
-import solicitud from "../../assets/SOLICITUD DE INGRESO AMG.pdf"
+import solicitud from "../../assets/SOLICITUD_DE_INGRESO_AMG.pdf"
 
 function PreSign() {
     return (
