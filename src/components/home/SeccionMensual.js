@@ -3,6 +3,7 @@ import NavBar from "../../organisms/NavBar";
 import sesion from "../../assets/sesion-mensaul.svg";
 import {Link} from "react-router-dom"
 import Footer from "./Footer";
+import ScrollIndicator from './reusables/ScrollIndicator';
 
 
 function SeccionMensual() {
@@ -20,6 +21,7 @@ function SeccionMensual() {
                         </h1>
                     </div>
                 </div>
+                <ScrollIndicator />
             </section>
             <section className="biblioteca-box">
                 <div className="biblioteca-text">

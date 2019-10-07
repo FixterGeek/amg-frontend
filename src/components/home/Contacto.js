@@ -4,6 +4,7 @@ import TextField from "../../molecules/TextFields";
 import {Select} from "antd";
 import Footer from "./Footer";
 import ContactForm from './reusables/HomeContactForm';
+import ScrollIndicator from './reusables/ScrollIndicator';
 
 const { Option } = Select;
 
@@ -20,6 +21,7 @@ function Contacto() {
                         </h1>
                     </div>
                 </div>
+                <ScrollIndicator />
             </section>
             <section className="form-contacto">
                 <h2 className="titles">¿Qué podemos hacer por ti?</h2>

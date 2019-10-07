@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { List } from 'antd';
 
 import NavBar from "../../organisms/NavBar";
+import ScrollIndicator from './reusables/ScrollIndicator';
 import log from "../../assets/log.svg"
 import abraham from "../../assets/abraham.svg";
 import estatutos from "../../assets/estatutos.png";
@@ -40,6 +41,7 @@ function Nosotros() {
                         </h1>
                     </div>
                 </div>
+                <ScrollIndicator />
             </section>
             <section className="biblioteca-box">
                 <div className="biblioteca-img left">

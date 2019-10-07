@@ -6,24 +6,24 @@ import publi from "../../assets/publi.svg"
 import {Link} from "react-router-dom"
 import Footer from "./Footer";
 
+import ScrollIndicator from './reusables/ScrollIndicator';
+
 function Biblioteca() {
-
-
     return (
-
         <section className="app">
-        <NavBar />
-        <section className="biblioteca">
-        <div className="cover">
-        <div className="descript">
-        <h1>
-        BIBLIOTEC
-        <span>A</span>
-        </h1>
-        <p>Accede a la revista, guías y consensos y publicaciones de la Asociación Mexicana de Gastroenterología</p>
-    </div>
-    </div>
-    </section>
+            <NavBar />
+            <section className="biblioteca">
+                <div className="cover">
+                    <div className="descript">
+                    <h1>
+                        BIBLIOTEC
+                        <span>A</span>
+                        </h1>
+                        <p>Accede a la revista, guías y consensos y publicaciones de la Asociación Mexicana de Gastroenterología</p>
+                    </div>
+                </div>
+                <ScrollIndicator />
+            </section>
     <section className="biblioteca-box">
         <div className="biblioteca-text">
         <h2 className="titles">Revista</h2>

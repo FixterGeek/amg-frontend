@@ -13,6 +13,7 @@ import logo4 from "../../assets/Gastro Asofarma_logo.png"
 
 import MembershipCards from './reusables/MembershipCards';
 import MembersCost from './reusables/MembersCost';
+import ScrollIndicator from './reusables/ScrollIndicator';
 
 
 import "./Home.css";
@@ -47,6 +48,7 @@ class HomeContainer extends Component {
               </Link>
             </div>
           </div>
+          <ScrollIndicator />
         </section>
         <section className="about">
           <h2 className="titles">Asociación Mexicana de Gastroenterología</h2>
