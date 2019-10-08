@@ -5,6 +5,7 @@ import { Form } from 'antd';
 import useSweet from '../../../hooks/useSweetAlert';
 import TextField from '../../reusables/TextField';
 import TextAreaField from '../../reusables/TextAreaField';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import ImagePicker from '../../reusables/ImagePicker';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
@@ -22,6 +23,7 @@ function AdminSpeakerForm({
     photoURL: null,
     city: null,
     bio: null,
+    photoFile: null,
   }
   const [state, setState] = useState(initialState);
 
@@ -37,7 +39,7 @@ function AdminSpeakerForm({
     setLocalLoading(true);
     const st = { ...state };
 
-    uploadFile('speakers', st.photoURL)
+    if (st.photoFile) uploadFile('speakers', st.photoURL)
       .then((url) => {
         st.photoURL = url;
         addSpeaker(eventId, st);
@@ -47,19 +49,28 @@ function AdminSpeakerForm({
         errorAlert({});
         setLocalLoading(false);
       });
+    else addSpeaker(eventId, st);
   }
 
-  console.log(speakers);
+  console.log(state);
 
   return (
     <Form onSubmit={handleSubmit}>
       { localLoading && <Spinner /> }
-      <TextField
-        onChange={handleChange}
+      <SelectField
+        onChange={value => handleChange({ target: { name: 'title', value } })}
         value={state.title}
-        name="title"
-        label="Grado del ponente"
-      />
+        label="Grado del ponente">
+        <OptionSelect value="Doctor">
+          Doctor
+        </OptionSelect>
+        <OptionSelect value="Lic. en enfermería">
+          Lic. en enfermería
+        </OptionSelect>
+        <OptionSelect value="Lic. en nutrición">
+          Lic. en nutrición
+        </OptionSelect>
+      </SelectField>
       <TextField
         onChange={handleChange}
         value={state.fullName}
@@ -68,7 +79,7 @@ function AdminSpeakerForm({
       />
       <ImagePicker
         onBase64={url64 => setPhotoURL(url64)}
-        onChange={file => handleChange({ target: { name: 'photoURL', value: file } })}
+        onChange={file => handleChange({ target: { name: 'photoFile', value: file } })}
         label="Foto"
         url={photoURL}
       />

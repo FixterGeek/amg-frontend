@@ -8,60 +8,45 @@ import CheckboxField from '../../reusables/CheckboxField';
 */
 
 function UserFilter({ usersArray, onResults }) {
-  const [currentFilter, setCurrentFilter] = useState(null);
-  const [speciality, setSpeciality] = useState(null);
-  const [membership, setMembership] = useState(null);
-  const [userStatus, setUserStatus] = useState(null);
+  const [currentFilter, setCurrentFilter] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState(null);
 
-  useEffect(() => {
-    if (currentFilter !== null) {
-      getUserByFilter(currentFilter)
-        .then((data) => {
-          if (onResults) onResults(data);
-        });
-    }
-  }, [currentFilter]);
+  const handleFilter = (value) => {
+    console.log(value);
+    setCurrentFilter(value);
 
-  const handleFilter = (filter, name, value) => {
-    let filteredUsers = [];
-
-    if (name === 'speciality') {
-      setSpeciality(value);
-      filteredUsers = usersArray.filter(user => user.basicData.speciality === value);
-    }
-    if (name === 'membership') {
-      setMembership(value);
-      filteredUsers = usersArray.filter(user => user.membershipStatus === value);
-    }
-    if (name === 'userStatus') {
-      setUserStatus(value);
-      filteredUsers = usersArray.filter(user => user.userStatus === value);
+    if (!value[0]) {
+      setFilteredUsers(null);
+      onResults(usersArray);
+      return;
     }
 
-    onResults(filteredUsers);
+    const usersToFilter = usersArray;
+
+    const filtered = usersToFilter.filter(
+      user => {
+        let incs = [false, false, false];
+        if (value.includes(user.basicData.speciality)) incs[0] = true;
+        if (value.includes(user.membershipStatus)) incs[1] = true;
+        if (value.includes(user.userStatus)) incs[2] = true;
+
+        return incs.includes(true);
+      });
+
+    setFilteredUsers(filtered);
+    onResults(filtered);
   };
 
   return (
     <div className="admin-reusables-user-filter">
       <CheckboxField
-        onChange={value => handleFilter({ 'basicData.speciality': value[0] }, 'speciality', value[0])}
-        label="Especialidad"
-        checks={['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra']}
-        value={speciality}
-        groupClassName="admin-reusables-user-filter-group"
-      />
-      <CheckboxField
-        onChange={value => handleFilter({ membershipStatus: value[0] }, 'membership', value[0])}
-        label="Membresia"
-        checks={['Free', 'Residente', 'Socio', 'Veterano']}
-        value={membership}
-        groupClassName="admin-reusables-user-filter-group"
-      />
-      <CheckboxField
-        onChange={value => handleFilter({ membershipStatus: value[0] }, 'userStatus', value[0])}
-        label="Estado del usuario"
-        checks={['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado']}
-        value={userStatus}
+        onChange={value => handleFilter(value)}
+        checksGroup={[
+          { name: 'Especialidad', checks: ['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra'] },
+          { name: 'Membresia', checks: ['Free', 'Residente', 'Socio', 'Veterano'] },
+          { name: 'Estado del usuario', checks: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado'] },
+        ]}
+        value={currentFilter}
         groupClassName="admin-reusables-user-filter-group"
       />
     </div>
