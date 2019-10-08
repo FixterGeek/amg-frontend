@@ -61,16 +61,19 @@ function AdminActivityForm({
       updateEventActivityAction(st._id, st);
     } else {
       delete st._id;
-      uploadFile(`/events/${eventId}/mocules`, st.constanciaURL)
-      .then((url) => {
-        st.constanciaURL = url;
-        addActivityAction(st);
-        setLocalLoading(false);
-      })
-      .catch(() => {
-        setLocalLoading(false);
-        errorAlert({});
-      })
+      addActivityAction(st);
+      setLocalLoading(false);
+      // por si a caso
+      // uploadFile(`/events/${eventId}/modules`, st.constanciaURL)
+      // .then((url) => {
+      //   st.constanciaURL = url;
+      //   addActivityAction(st);
+      //   setLocalLoading(false);
+      // })
+      // .catch(() => {
+      //   setLocalLoading(false);
+      //   errorAlert({});
+      // })
     }
   }
 
@@ -127,11 +130,6 @@ function AdminActivityForm({
         value={state.address}
         name="address"
         label="Ubicación"
-      />
-      <DocumentField
-        onFile={file => handleChange({ target: { name: 'constanciaURL', value: file } })}
-        url={state.constanciaURL}
-        label="Constancia"
       />
       <Button width="100%" htmlType="submit">
         { state._id ? 'Actualizar actividad' : 'Agregar actividad' }
