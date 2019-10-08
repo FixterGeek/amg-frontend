@@ -127,7 +127,7 @@ function Nosotros() {
                                 avatar={<img src={americangastro} />}
                                 title={
                                     <a href="https://gi.org" target="_blank">
-                                        Ameican College of Gastroenterology
+                                        American College of Gastroenterology
                                     </a>
                                 }
                             />

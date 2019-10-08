@@ -450,6 +450,13 @@ $eventLeftWidth: 350px;
 
 
 // Admin ===>
+.admin-speakers-add-list {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .admin-invoices {
   &-title {
     display: flex;

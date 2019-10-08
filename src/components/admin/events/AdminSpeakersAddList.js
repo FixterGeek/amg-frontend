@@ -26,10 +26,10 @@ function AdminSpeakersAddList({
   }
 
   return (
-    <List>
+    <List className="admin-speakers-add-list">
       {
         speakers.map(speaker => (
-          <List.Item key={speaker._id}>
+          <List.Item key={speaker._id} className="admin-speakers-add-list-item">
             { speaker.fullName }
             <div>
               <Checkbox
