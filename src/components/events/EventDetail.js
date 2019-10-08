@@ -10,11 +10,12 @@ import useSweet from '../../hooks/useSweetAlert';
 import { subscribeUserToEventAction } from '../../store/ducks/userDuck';
 import EventCover from '../../molecules/EventCover';
 import TextBlock from '../../atoms/TextBlock';
-import TextNIconButton from '../../atoms/TextNIconButton';
+import TextNIconButton from '../reusables/TextNIconButton';
 import Spinner from '../reusables/Spinner';
 import MapLocation from './reusables/MapLocation';
 import SubscribeButton from './reusables/SubscribeButton';
 import ContainerItem from '../reusables/ContainerItem';
+import { LineCap } from '../feed/reusables/Icons';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -60,8 +61,6 @@ function EventDetail({
     } 
   })
 
-  console.log(state);
-
 
   return (
     <div className="dashboard-container event-detail">
@@ -89,6 +88,10 @@ function EventDetail({
             text="Ver ponentes"
             icon="micro"
             to={{ pathname: `/dashboard/events/${state._id}/speakers`, state }} />
+          {/* <TextNIconButton
+            text="Ver cursos"
+            icon="cap"
+            to={{ pathname: `/dashboard/events/${state._id}/cursos`, state }} /> */}
           <TextNIconButton
             iconStyle={{ marginRight: '6px' }}
             downloadable

@@ -48,6 +48,52 @@
   }
 }
 
+/* Style TextNIconButton */
+.reusables-text-n-icon-button {
+  margin-top: $largeMargin;
+  margin-bottom: $largeMargin;
+  padding-right: $smallPadding;
+  box-sizing: border-box;
+
+  a {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    color: $secondary;
+  }
+
+  .bino {
+    background-image: url("../assets/bino.svg");
+    width: 34px;
+    height: 34px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .micro {
+    background-image: url("../assets/micro.svg");
+    width: 34px;
+    height: 34px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .cap {
+    background-image: url("../assets/cap.jpg");
+    width: 34px;
+    height: 34px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .text-n-icon-icon {
+    color: $primary;
+  }
+}
+
 
 /* Reusable save button */
 .reusable-save-button {

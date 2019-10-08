@@ -87,6 +87,7 @@ $eventLeftWidth: 350px;
     flex-grow: 1;
     box-sizing: border-box;
     padding-left: 0;
+    min-width: 0;
 
     @include for-size(tablet-landscape-up) {
       padding-left: $largePadding;

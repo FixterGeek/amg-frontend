@@ -1,0 +1,86 @@
+[
+  {
+    "_id": "5d5cd228693d5c0017549f10",
+    "event": "5d5cd228693d5c0017549f63",
+    "type": "Precongreso",
+    "title": "Curso chido",
+    "startData": "",
+    "endDate": "",
+    "location": {
+      "addressName": "",
+      "city": "San Cristóbal de las Casas",
+      "colony": "",
+      "coordinates": [16.733362, -92.638307],
+      "interiorNumber": "",
+      "outdoorNumber": "",
+      "state": "Chiapas",
+      "street": "Av. Miguel Hidalgo #17B,  Col. Barrio Santa Lucía",
+      "type": "Point",
+      "zipCode": "29250"
+    },
+    "assistants": []
+  },
+  {
+    "_id": "5d5cd228693d5c0017549f11",
+    "event": "5d5cd228693d5c0017549f63",
+    "type": "Precongreso",
+    "title": "Curso chido",
+    "startData": "",
+    "endDate": "",
+    "location": {
+      "addressName": "",
+      "city": "San Cristóbal de las Casas",
+      "colony": "",
+      "coordinates": [16.733362, -92.638307],
+      "interiorNumber": "",
+      "outdoorNumber": "",
+      "state": "Chiapas",
+      "street": "Av. Miguel Hidalgo #17B,  Col. Barrio Santa Lucía",
+      "type": "Point",
+      "zipCode": "29250"
+    },
+    "assistants": []
+  },
+  {
+    "_id": "5d5cd228693d5c0017549f12",
+    "event": "5d5cd228693d5c0017549f63",
+    "type": "Trascongreso",
+    "title": "Curso chido",
+    "startData": "",
+    "endDate": "",
+    "location": {
+      "addressName": "",
+      "city": "San Cristóbal de las Casas",
+      "colony": "",
+      "coordinates": [16.733362, -92.638307],
+      "interiorNumber": "",
+      "outdoorNumber": "",
+      "state": "Chiapas",
+      "street": "Av. Miguel Hidalgo #17B,  Col. Barrio Santa Lucía",
+      "type": "Point",
+      "zipCode": "29250"
+    },
+    "assistants": []
+  },
+  {
+    "_id": "5d5cd228693d5c0017549f13",
+    "event": "5d5cd228693d5c0017549f63",
+    "type": "Trascongreso",
+    "title": "Curso chido",
+    "startData": "",
+    "endDate": "",
+    "location": {
+      "addressName": "",
+      "city": "San Cristóbal de las Casas",
+      "colony": "",
+      "coordinates": [16.733362, -92.638307],
+      "interiorNumber": "",
+      "outdoorNumber": "",
+      "state": "Chiapas",
+      "street": "Av. Miguel Hidalgo #17B,  Col. Barrio Santa Lucía",
+      "type": "Point",
+      "zipCode": "29250"
+    },
+    "assistants": []
+  }
+]

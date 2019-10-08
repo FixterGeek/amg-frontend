@@ -6,6 +6,7 @@ import EventsList from '../components/events/EventsList';
 import EventDetail from '../components/events/EventDetail';
 import Program from '../components/events/Program';
 import Speakers from '../components/events/Speakers';
+import EventCourses from '../components/events/EventCourses';
 import ActivityDetail from '../components/events/ActivityDetail';
 import Settings from '../components/settings/Settings';
 import MembershipPayment from '../components/membership/MembershipPayment';
@@ -33,6 +34,7 @@ function DashBoardRouter() {
       <Route path={`${baseURL}/payment/:membership`} component={MembershipPayment} />
       <Route path={`${baseURL}/events/:id/program/:id`} component={ActivityDetail} />
       <Route path={`${baseURL}/events/:id/program`} component={Program} />
+      <Route path={`${baseURL}/events/:id/cursos`} component={EventCourses} />
       <Route path={`${baseURL}/events/:id/speakers`} component={Speakers} />
       <Route path={`${baseURL}/events/:id`} component={EventDetail} />
       <Route path={`${baseURL}/recursos/guias`} component={Guides} />

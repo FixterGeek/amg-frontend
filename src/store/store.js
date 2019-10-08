@@ -17,8 +17,13 @@ import resourceDuck from './ducks/resourceDuck';
 import configReducer from './ducks/configDuck';
 import paymentDuck from './ducks/paymentsDuck';
 import invoicesDuck from './ducks/invoicesDuck';
+import coursesDuck from './ducks/coursesDuck';
 import testsDuck,{saveTestEpic, getAllTestsEpic, getSingleTestEpic, deleteTestEpic} from './ducks/testsDuck'
 import adminReducer, { saveDraftEventEpic, getSingleEventEpic } from './ducks/adminDuck'
+
+window.thunkErrorGenerator = function(state, error) {
+    return { ...state, fetching: false, status: 'error',  error }
+}
 
 let rootReducer = combineReducers({
     user: userDuck,
@@ -35,6 +40,7 @@ let rootReducer = combineReducers({
     resources: resourceDuck,
     payment: paymentDuck,
     invoice: invoicesDuck,
+    course: coursesDuck,
 });
 
 

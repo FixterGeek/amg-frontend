@@ -8,7 +8,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 function TextNIconButton({ text, icon, to, downloadable, iconStyle }) {
   // eslint-disable-next-line curly
   if (downloadable) return (
-    <div className="text-n-icon-button">
+    <div className="reusables-text-n-icon-button">
       <a href={to} download target="_blank">
         <div>{ text }</div>
         <div className="text-n-icon-icon" style={{ ...iconStyle }}>
@@ -19,7 +19,7 @@ function TextNIconButton({ text, icon, to, downloadable, iconStyle }) {
   );
 
   return (
-    <div className="text-n-icon-button">
+    <div className="reusables-text-n-icon-button">
       <Link to={to}>
         <div>{ text }</div>
         <div className={`text-n-icon-icon ${icon}`} style={{ ...iconStyle }} />
