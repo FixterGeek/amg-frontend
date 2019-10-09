@@ -6,14 +6,23 @@ import { Button as Btn } from 'antd';
 import { palette, size } from '../../styles/theme';
 
 function Button({
-  onClick, children, bgColor, width, marginTop, marginBottom, line, className, style, ...others
+  onClick, children, bgColor,
+  width, marginTop, marginBottom,
+  line, className, style,
+  disabled, ...others
 }) {
-  const bgColorBtn = !line ? palette[bgColor] : 'transparent';
-  const borderColorBtn = palette[bgColor];
-  const textColotBtn = line ? palette[bgColor] : '#f5f8f9';
+  let bgColorBtn = !line ? palette[bgColor] : 'transparent';
+  let borderColorBtn = palette[bgColor];
+  let textColotBtn = line ? palette[bgColor] : '#f5f8f9';
+
+  if (disabled) {
+    bgColorBtn = palette.silver;
+    borderColorBtn = palette.silver;
+  }
 
   return (
     <Btn
+      disabled={disabled}
       className={`amg-button ${className}`}
       onClick={onClick ? event => onClick(event) : null}
       style={{
