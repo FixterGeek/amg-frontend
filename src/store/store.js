@@ -25,6 +25,16 @@ window.thunkErrorGenerator = function(state, error) {
     return { ...state, fetching: false, status: 'error',  error }
 }
 
+window.errorDestructure = function(error, customMessage = 'Ocurrio un error.') {
+    const { response = {} } = error;
+
+    if (process.env.REACT_APP_DEVELOP) console.log('\x1b[36m', error.response, error);
+
+    const { data = { message: customMessage } } = response;
+    const message = data.error || data.message;
+    return message;
+}
+
 let rootReducer = combineReducers({
     user: userDuck,
     events: eventsDuck,

@@ -466,11 +466,11 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.2);
-  z-index: 10;
+  z-index: 10000;
 
   &-fullscreen {
     position: fixed;
-    z-index: 20;
+    z-index: 10000;
     top: 0;
     right: 0;
     bottom: 0;

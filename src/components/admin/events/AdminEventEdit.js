@@ -19,8 +19,10 @@ import AdminEventForm from './AdminEventForm';
 import AdminSpeakerForm from './AdminSpeakerForm';
 import AdminSpeakersList from './AdmidSpeakersList';
 import AdminEventModules from './AdminEventModules';
+import CourseForm from './AdminCourseForm';
 import AdminEventCoversForm from './AdminEvenCoversForm';
 import AdminEventMap from './AdminEventMap';
+import AdminCourseForm from './AdminCourseForm';
 
 function AdminEventEdit({
   match, state,setState,
@@ -75,13 +77,16 @@ function AdminEventEdit({
               removeModuleAction={removeModuleAction}
             />
           </TabPane>
-          <TabPane key="4" tab="Portadas" disabled={!state._id}>
+          <TabPane key="4" tab="Cursos" disabled={!state._id}>
+            <AdminCourseForm />
+          </TabPane>
+          <TabPane key="5" tab="Portadas" disabled={!state._id}>
             <AdminEventCoversForm
               saveDraftEvent={saveDraftEvent}
               state={state}
             />
           </TabPane>
-          <TabPane key="5" tab="Mapa" disabled={!state._id}>
+          <TabPane key="6" tab="Mapa" disabled={!state._id}>
             <AdminEventMap 
               saveDraftEvent={saveDraftEvent}
               state={state}

@@ -5,12 +5,23 @@ import { Modal } from 'antd';
 
 import Button from '../../reusables/Button';
 
-function JustModal({ buttonText, childElement, openComponent, close }) {
+function JustModal({
+  buttonText, childElement, openComponent, close,
+  modalTitle, onClose
+}) {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    if (close) setOpenModal(false);
-  }, [close])
+    if (close) handleCancel();
+  }, [close]);
+
+  useEffect(() => {
+    if (onClose) onClose(openModal, openModal ? 'open' : 'close');
+  }, [openModal]);
+
+  const handleCancel = () => {
+    setOpenModal(opened => !opened);
+  }
 
   return (
     <div className="admin-reusables-just-modal">
@@ -27,8 +38,9 @@ function JustModal({ buttonText, childElement, openComponent, close }) {
       }
       <Modal
         visible={openModal}
-        onCancel={() => setOpenModal(false)}
+        onCancel={handleCancel}
         footer={null}
+        title={modalTitle || null}
       >
         { childElement }
       </Modal>
