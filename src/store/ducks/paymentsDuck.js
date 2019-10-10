@@ -84,10 +84,12 @@ export const makePaymentAction = (paymentData, paymentType = 'event') => (dispat
   dispatch(makePayment());
   return payment(paymentData, paymentType)
     .then((data) => {
+      useSweet().successAlert({ text: data.paid ? 'Paga realizado' : 'Pago pendiente' });
       dispatch(makePaymentSuccess(data));
       return data;
     })
     .catch((error) => {
+      useSweet().errorAlert({ text: 'Error al realizar el cobro' });
       dispatch(makePaymentError(error));
       return error;
     });

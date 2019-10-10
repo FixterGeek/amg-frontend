@@ -51,6 +51,14 @@
   @include for-size(tablet-landscape-up) {
     padding-left: $lateralSpace;
   }
+
+  .dash-item-center {
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    max-width: 1200px;
+  }
 }
 
 .dashboard-container-item {
@@ -60,6 +68,26 @@
 
 
 // Events ===>
+/* EventCourses */
+.events-event-courses {
+  &-course {
+    display: flex;
+
+    .reusables-box-item {
+      flex-grow: 1;
+    }
+  }
+
+  &-header {
+    display: flex;
+    flex-flow: column;
+
+    @include for-size(tablet-portrait-up) {
+      flex-flow: row;
+      justify-content: space-between;
+    }
+  }
+}
 
 /* Style EventDetail */
 $eventLeftWidth: 350px;

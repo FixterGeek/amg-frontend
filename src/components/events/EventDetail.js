@@ -88,10 +88,10 @@ function EventDetail({
             text="Ver ponentes"
             icon="micro"
             to={{ pathname: `/dashboard/events/${state._id}/speakers`, state }} />
-          {/* <TextNIconButton
+          <TextNIconButton
             text="Ver cursos"
             icon="cap"
-            to={{ pathname: `/dashboard/events/${state._id}/cursos`, state }} /> */}
+            to={{ pathname: `/dashboard/events/${state._id}/cursos`, state }} />
           <TextNIconButton
             iconStyle={{ marginRight: '6px' }}
             downloadable

@@ -1015,6 +1015,34 @@
 
 
 // Events ===>
+/* CourseCheck */
+.events-reusables-course-check {
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: $padding;
+  padding-left: $smallPadding;
+  padding-right: $padding;
+
+  @include for-size(tablet-portrait-up) {
+    padding-left: $largePadding;
+    padding-right: 0;
+    width: 150px;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    color: $silver;
+    cursor: pointer;
+  }
+
+  .active {
+    color: $primary;
+  }
+}
+
+/* EventCover */
 .events-reusables-event-cover {
   width: 265px;
   height: 235px;
@@ -1116,6 +1144,43 @@
 
 
 // Membership ===>
+/* BuyDetail */
+.membership-reusables-buy-detail {
+  &-list {
+    background-color: $clouds;
+    padding: $padding;
+
+    .detail {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+
+      div {
+        &:last-child  {
+          width: 200px;
+        }
+      }
+    }
+
+    .lasts {
+      display: flex;
+      font-size: 1.1rem;
+      div {
+        &:first-child {
+          flex-grow: 1;
+          text-align: right;
+          padding-right: $largePadding;
+        }
+        &:last-child {
+          width: 200px;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+/* MembershipCard */
 .membership-reusables-membership-card {
   background-color: white;
   display: flex;

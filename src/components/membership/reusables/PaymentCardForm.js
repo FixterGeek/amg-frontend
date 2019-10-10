@@ -178,7 +178,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid }) {
       </div>
       <DashboardContainerItem>
         <form onSubmit={handleSubmit} className="payment-card-form" style={{ position: 'relative' }}>
-          { loading && <Spinner /> }
+          { loading && <Spinner fullScrren /> }
           <div>
             <TextField
               onChange={handleCard}

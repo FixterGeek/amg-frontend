@@ -3,9 +3,13 @@
     "_id": "5d5cd228693d5c0017549f10",
     "event": "5d5cd228693d5c0017549f63",
     "type": "Precongreso",
-    "title": "Curso chido",
-    "startData": "",
-    "endDate": "",
+    "title": "Curso 1",
+    "startDate": "Fri Sep 27 2019 00:07:12 GMT-0500",
+    "endDate": "Sat Sep 28 2019 00:07:16 GMT-0500",
+    "startTime": "Wed Aug 21 2019 08:00:00 GMT-0500",
+    "endTime": "",
+    "description": "",
+    "cost": 120,
     "location": {
       "addressName": "",
       "city": "San Cristóbal de las Casas",
@@ -18,15 +22,35 @@
       "type": "Point",
       "zipCode": "29250"
     },
+    "modules": [
+      {
+        "event": "5d5cd228693d5c0017549f10",
+        "title": "String",
+        "description": "String",
+        "date": "Wed Aug 21 2019 08:00:00 GMT-0500",
+        "activities":[]
+      },
+      {
+        "event": "5d5cd228693d5c0017549f10",
+        "title": "Item de program",
+        "description": "String",
+        "date": "Wed Aug 21 2019 08:00:00 GMT-0500",
+        "activities":[]
+      }
+    ],
     "assistants": []
   },
   {
     "_id": "5d5cd228693d5c0017549f11",
     "event": "5d5cd228693d5c0017549f63",
     "type": "Precongreso",
-    "title": "Curso chido",
-    "startData": "",
-    "endDate": "",
+    "title": "Curso 2",
+    "startDate": "Fri Sep 27 2019 00:07:12 GMT-0500",
+    "endDate": "Sat Sep 28 2019 00:07:16 GMT-0500",
+    "startTime": "Wed Aug 21 2019 08:00:00 GMT-0500",
+    "endTime": "",
+    "description": "",
+    "cost": 584,
     "location": {
       "addressName": "",
       "city": "San Cristóbal de las Casas",
@@ -39,15 +63,20 @@
       "type": "Point",
       "zipCode": "29250"
     },
+    "modules": [],
     "assistants": []
   },
   {
     "_id": "5d5cd228693d5c0017549f12",
     "event": "5d5cd228693d5c0017549f63",
     "type": "Trascongreso",
-    "title": "Curso chido",
-    "startData": "",
-    "endDate": "",
+    "title": "Curso 3",
+    "startDate": "Fri Sep 27 2019 00:07:12 GMT-0500",
+    "endDate": "Sat Sep 28 2019 00:07:16 GMT-0500",
+    "startTime": "Wed Aug 21 2019 08:00:00 GMT-0500",
+    "endTime": "",
+    "description": "",
+    "cost": 814,
     "location": {
       "addressName": "",
       "city": "San Cristóbal de las Casas",
@@ -60,15 +89,20 @@
       "type": "Point",
       "zipCode": "29250"
     },
+    "modules": [],
     "assistants": []
   },
   {
     "_id": "5d5cd228693d5c0017549f13",
     "event": "5d5cd228693d5c0017549f63",
     "type": "Trascongreso",
-    "title": "Curso chido",
-    "startData": "",
-    "endDate": "",
+    "title": "Curso 4",
+    "startDate": "Fri Sep 27 2019 00:07:12 GMT-0500",
+    "endDate": "Sat Sep 28 2019 00:07:16 GMT-0500",
+    "startTime": "Wed Aug 21 2019 08:00:00 GMT-0500",
+    "endTime": "",
+    "description": "",
+    "cost": 710,
     "location": {
       "addressName": "",
       "city": "San Cristóbal de las Casas",
@@ -81,6 +115,22 @@
       "type": "Point",
       "zipCode": "29250"
     },
+    "modules": [
+      {
+        "event": "5d5cd228693d5c0017549f10",
+        "title": "String",
+        "description": "String",
+        "date": "Wed Aug 21 2019 08:00:00 GMT-0500",
+        "activities":[]
+      },
+      {
+        "event": "5d5cd228693d5c0017549f10",
+        "title": "Item de program",
+        "description": "String",
+        "date": "Wed Aug 21 2019 08:00:00 GMT-0500",
+        "activities":[]
+      }
+    ],
     "assistants": []
   }
 ]

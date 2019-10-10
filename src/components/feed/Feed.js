@@ -60,7 +60,7 @@ function Feed({
         {
           eventsList.length > 0 && (
             <Link to={{
-              pathname: `/dashboard/events/${eventsList[0]._id}`,
+              pathname: `/dashboard/eventos/${eventsList[0]._id}`,
               event: { ...eventsList[0] },
             }}>
               <EventCover

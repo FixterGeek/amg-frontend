@@ -18,7 +18,7 @@ function EventsCarousel({ events }) {
         <EventCover
           imageUrl={event.mainImagesURLS[0] || defaultImage}
           linkeable
-          to={`/dashboard/events/${event._id}`}
+          to={`/dashboard/eventos/${event._id}`}
           eventObject={event}
         />
       ]

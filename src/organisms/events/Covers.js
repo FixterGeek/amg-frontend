@@ -49,7 +49,7 @@ function Covers({ events }) {
           state.events.slice(0, 3).map(event => (
             <Link
               key={event._id}
-              to={{ pathname: `/dashboard/events/${event._id}`, event }}
+              to={{ pathname: `/dashboard/eventos/${event._id}`, event }}
               className={`event-carousel-${state.animate} carousel-item`}>
               <EventCover
                 title={event.title}

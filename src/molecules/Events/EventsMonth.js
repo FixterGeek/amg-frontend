@@ -31,7 +31,7 @@ function EventsMonth({ month, events }) {
                   title={event.title}
                   level1={event.location.addressName}
                   level2={moment(event.startDate).format('dddd DD [de] MMMM')}
-                  to={`/dashboard/events/${event._id}`}
+                  to={`/dashboard/eventos/${event._id}`}
                   state={event} />
               );
             })

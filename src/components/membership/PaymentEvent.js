@@ -52,9 +52,6 @@ function PaymentEvent({
     setEvent({ ...event, ...location.state })
   }, [location]);
 
-  const handleChange = (data) => {
-    //console.log(data);
-  }
 
   const handleSubmit = (data) => {
     makePaymentAction({ ...data, user: user._id, eventId: event._id });
@@ -65,7 +62,6 @@ function PaymentEvent({
       <ContainerItem style={{ position: 'relative' }}>
         { userFetching || paymentFetching ? <Spinner /> : null }
         <PaymentCardForm
-          onChange={handleChange}
           onSubmit={handleSubmit}
           amount={event.cost}
           concept={`Evento - ${event.title}`}
