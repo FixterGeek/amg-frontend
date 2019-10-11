@@ -313,7 +313,7 @@ export const subscribeUserToEventAction = (eventId) => (dispatch) => {
 // logout
 export const logoutAction = () => (dispatch) => {
     return new Promise((resolve, reject) => {
-        localStorage.clear();
+        localStorage.clear(); 
         dispatch(logoutUser());
         resolve(true);
     });

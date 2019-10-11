@@ -39,13 +39,13 @@ function AdminSpeakerForm({
     setLocalLoading(true);
     const st = { ...state };
 
-    if (st.photoFile) uploadFile('speakers', st.photoURL)
+    if (st.photoFile) uploadFile('speakers', st.photoFile)
       .then((url) => {
         st.photoURL = url;
         addSpeaker(eventId, st);
         setLocalLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         errorAlert({});
         setLocalLoading(false);
       });

@@ -396,6 +396,7 @@ export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
             return data;
         })
         .catch((error) => {
+            console.log(error);
             dispatch(addSPeakerError(error));
             return error;
         })
