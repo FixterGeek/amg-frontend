@@ -846,6 +846,51 @@
 
 
 // Admin ===>
+/* CourseItem */
+.admin-reusables-course-data {
+  .header {
+    background-color: $navy;
+    padding: $smallPadding;
+    color: white;
+    font-weight: bold;
+  }
+  margin-bottom: $largePadding;
+}
+
+/* CourseDetail */
+.admin-reusables-course-detail {
+  .dates {
+    display: flex;
+    flex-flow: column;
+
+    span {
+      &:first-child {
+        &::before {
+          content: 'Fecha(s): ';
+        }
+      }
+      &:last-child {
+        &::before {
+          content: 'Hora(s): ';
+        }
+      }
+    }
+  }
+
+  .action-delete, .action-edit {
+    padding: 0;
+    height: auto;
+    border-color: transparent;
+    box-shadow: none∫;
+  }
+
+  .action-delete {
+    color: $red;
+    &:hover {
+      color: $yellow;
+    }
+  }
+}
 .admin-reusables-stats-container {
   width: 350px;
   min-height: 93px;

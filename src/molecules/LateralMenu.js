@@ -79,7 +79,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
       </Item>
       <Item
         key={7}
-        onClick={() => logoutAction().then(() => history.push('/login'))}
+        onClick={() => logoutAction().then(() => history.push('/'))}
         style={{ position: 'absolute', bottom: '0'  }} >
         <Icon>
           <FontAwesomeIcon icon={faPowerOff} />

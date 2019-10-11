@@ -478,6 +478,15 @@ $eventLeftWidth: 350px;
 
 
 // Admin ===>
+/* Courses */
+.admin-courses {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* SpeakersAddList */
 .admin-speakers-add-list {
   &-item {
     display: flex;

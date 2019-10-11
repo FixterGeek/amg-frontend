@@ -1,0 +1,68 @@
+import React  from 'react';
+import moment from 'moment';
+
+import { List, Button, Icon, Popconfirm } from 'antd';
+
+import AdminCourseForm from '../AdminCourseForm';
+
+function CourseDetail({ courseData, deleteAction }) {
+  const { Item } = List;
+
+  const {
+    title, startDate, endDate,
+    startTime, endTime, description,
+    _id: courseId,
+  } = courseData;
+
+  const Date = () => {
+    const sd = moment(startDate).format('DD/MMMM/YYYY');
+    const ed = moment(endDate).format('DD/MMMM/YYYY');
+    const st = moment(startTime).format('hh:mm a');
+    const et = moment(endTime).format('hh:mm a');
+
+    return (
+      <div className="dates">
+        <span>{endDate ? `${sd} - ${ed}` : `${sd}`}</span>
+        <span>{endTime ? `${st} - ${et}` : `${st}`}</span>
+      </div>
+    )
+  };
+
+  const handleDelete = (courseId) => {
+    if (deleteAction) deleteAction(courseId);
+  };
+
+  return (
+    <div className="admin-reusables-course-detail">
+      <List
+        itemLayout="vertical"
+        size="large"
+      >
+        <Item actions={[
+          <AdminCourseForm
+            actionType="update"
+            existingData={courseData}
+          />,
+          <Popconfirm
+            title={`¿Eliminar ${title}?`}
+            okText="Si"
+            cancelText="No"
+            onConfirm={() => handleDelete(courseId)}
+          >
+            <Button className="action-delete">
+              Eliminar
+              <Icon type="delete" />
+            </Button>
+          </Popconfirm>
+        ]}>
+          <Item.Meta
+            description={<Date />}
+          />
+          { description || null }
+        </Item>
+      </List>
+    </div>
+  );
+}
+
+export default CourseDetail;

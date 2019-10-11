@@ -95,3 +95,28 @@ body {
     }
   }
 }
+
+.ant-popover-inner {
+  border-radius: 0px;
+  background-color: $clouds;
+}
+
+.ant-popover-arrow {
+  border-right-color: $clouds!important;
+  border-left-color: $clouds!important;
+}
+
+.ant-popover-buttons {
+  .ant-btn {
+    border-radius: 0px;
+    background-color: transparent;
+    border: solid 2px $navy;
+    color: $navy;
+  }
+
+  .ant-btn-primary {
+    background-color: $primary;
+    border: solid 2px $primary;
+    color: white;
+  }
+}

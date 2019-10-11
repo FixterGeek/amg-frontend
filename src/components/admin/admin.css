@@ -213,6 +213,13 @@
     height: 100%;
 }
 
+.admin-event-form-container .event-title {
+    padding: 8px;
+    background-color: #28abd8;
+    font-weight: bold;
+    color: white;
+}
+
 .admin-page-menu-container{
     position: fixed;
     left:0;

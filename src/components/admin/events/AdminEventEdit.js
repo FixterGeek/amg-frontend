@@ -19,10 +19,9 @@ import AdminEventForm from './AdminEventForm';
 import AdminSpeakerForm from './AdminSpeakerForm';
 import AdminSpeakersList from './AdmidSpeakersList';
 import AdminEventModules from './AdminEventModules';
-import CourseForm from './AdminCourseForm';
 import AdminEventCoversForm from './AdminEvenCoversForm';
 import AdminEventMap from './AdminEventMap';
-import AdminCourseForm from './AdminCourseForm';
+import AdminCourses from './AdminCourses';
 
 function AdminEventEdit({
   match, state,setState,
@@ -48,7 +47,10 @@ function AdminEventEdit({
     <div className="admin-event-form-container">
       <Title>{ sectionTitle }</Title>
       <ContainerItem style={{ position: 'relative' }}>
-        { fetching && <Spinner /> }
+        { fetching && <Spinner fullScrren /> }
+        <div className="event-title">
+          { state.title }
+        </div>
         <Tabs type="line">
           <TabPane key="1" tab="Datos Generales" style={{ position: 'relative' }}>
             <AdminEventForm
@@ -78,7 +80,7 @@ function AdminEventEdit({
             />
           </TabPane>
           <TabPane key="4" tab="Cursos" disabled={!state._id}>
-            <AdminCourseForm />
+            <AdminCourses />
           </TabPane>
           <TabPane key="5" tab="Portadas" disabled={!state._id}>
             <AdminEventCoversForm
