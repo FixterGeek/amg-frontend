@@ -14,7 +14,7 @@ import {
 
 function AdminCourses({
   courses, fetching, status,
-  noCourses, match,
+  noCourses, match, event,
   populateEventCoursesAction,
 }) {
   const { Title } = Typography;
@@ -30,7 +30,7 @@ function AdminCourses({
     <div className="admin-courses">
       <div className="header">
         <Title level={3}>Cursos</Title>
-        <AdminCourseForm />
+        <AdminCourseForm location={event ? event.location : null} eventId={event._id} />
       </div>
 
       <ContainerItem>

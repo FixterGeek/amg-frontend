@@ -12,7 +12,7 @@ function JustModal({
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    if (close) handleCancel();
+    if (close) setOpenModal(false);
   }, [close]);
 
   useEffect(() => {

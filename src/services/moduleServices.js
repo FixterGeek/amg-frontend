@@ -36,7 +36,7 @@ export const patchModule = (moduleId, moduleData) => {
 
 export const deleteModule = (moduleId) => {
   const token = localStorage.authToken;
-  return axios.delete(`${APIURL}/${id}`, {
+  return axios.delete(`${APIURL}/${moduleId}`, {
     headers: {
       Authorization: token,
     },

@@ -11,7 +11,7 @@ import AmgButton from '../../reusables/Button';
 
 function ModulesContent({
   module, eventId, updateEventActivityAction,
-  removeActivity, removeModule
+  removeActivity, removeModule, moduleForm
 }) {
   const { Title } = Typography;
   const { activities = [] } = module;
@@ -113,14 +113,20 @@ function ModulesContent({
           bgColor="red" >
           Eliminar módulo
         </AmgButton>
-        <JustModal
-          openComponent={(
-            <AmgButton width="200px" marginTop="0px" bgColor="yellow">
-              Editar módulo
-            </AmgButton>
-          )}
-          childElement={<AdminModuleForm externalData={module} eventId={eventId} />}
-        />
+        {
+          moduleForm ? (
+            <moduleForm.type {...moduleForm.props} existingData={module} dataPersistence />
+          ) : (
+            <JustModal
+              openComponent={(
+                <AmgButton width="200px" marginTop="0px" bgColor="yellow">
+                  Editar módulo
+                </AmgButton>
+              )}
+              childElement={<AdminModuleForm externalData={module} eventId={eventId} />}
+            />
+          )
+        }
       </div>
       <Table dataSource={activities} columns={columns} rowKey="_id" />
     </ContainerItem>

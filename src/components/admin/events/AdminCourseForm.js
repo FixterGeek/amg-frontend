@@ -3,43 +3,63 @@ import { connect } from 'react-redux';
 
 import { Form, Button as AntButton, Icon } from 'antd';
 
-import {
-  createOrUpdateEventCourseAction
-} from '../../../store/ducks/coursesDuck';
+import { createOrUpdateEventCourseAction } from '../../../store/ducks/coursesDuck';
 import CreateAndUpdateManager from '../reusables/CreateAndUpdateManager';
 import TextField from '../../reusables/TextField';
 import TextAreaField from '../../reusables/TextAreaField';
 import TimePickerField from '../../reusables/TimePickerField';
 import Button from '../../reusables/Button';
 import RangeDatePicker from '../../reusables/RangeDatePicker';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
+
+import estados from '../estados.json';
 
 function AdminCourseForm({
   course, fetching, status,
   createOrUpdateEventCourseAction,
-  existingData = {}, actionType = 'create'
+  existingData, actionType = 'create',
+  location = {}, eventId, dataPersistence,
 }) {
   const initialCourseData = {
     title: null,
-    description: null,
+    description: [],
     startDate: null,
     endDate: null,
     startTime: null,
-    entTime: null,
+    endTime: null,
+    location: {
+      type: 'Course',
+      state: location.state || null,
+      street: location.street || null,
+      city: location.city || null,
+      zipCode: location.zipCode || null,
+      addressName: eventId,
+    },
+    status: 'draft',
+    speakers: [],
+    mainImagesURLS: [],
+    permisosURLS: [],
   }
+
   const [courseData, setCourseData] = useState(existingData || initialCourseData);
 
   useEffect(() => {
-    if (existingData._id) setCourseData(state => ({ ...state, ...existingData }))
-  }, [existingData._id])
+    console.log(existingData);
+    if (existingData) setCourseData(state => ({ ...state, ...existingData }))
+  }, [existingData])
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({ target }, sub) => {
     const { name, value } = target;
     if (name === 'dates') return setCourseData(
-      state => ({ ...state, startDate: value[0].toString(), endDate: value[0].toString })
+      state => ({ ...state, startDate: value[0].toString(), endDate: value[0].toString() })
     )
+    if (name === 'description') return setCourseData(s => ({ ...s, description: [value] }))
+    if (sub) return setCourseData(state => ({ ...state, [sub]: { ...state[sub], [name]: value } }))
 
     setCourseData(state => ({ ...state, [name]: value }));
   }
+
+  console.log(courseData);
 
   return (
     <div>
@@ -52,7 +72,7 @@ function AdminCourseForm({
         successClose
         status={status}
         fetching={fetching}
-        onModalClose={close => close && setCourseData(initialCourseData)}
+        onModalClose={close => close && !dataPersistence ? setCourseData(initialCourseData) : null}
         modalOpenText="Agregar curso ✚"
         openModalElement={actionType === 'update' ? (
           <AntButton className="action-edit">
@@ -89,6 +109,37 @@ function AdminCourseForm({
             value={courseData.endTime}
             label="Hora de termino"
           />
+          <TextField
+            onChange={e => handleChange(e, 'location')}
+            value={courseData.location.street}
+            name="street"
+            label="Dirección"
+          />
+          <TextField
+            onChange={e => handleChange(e, 'location')}
+            value={courseData.location.city}
+            name="city"
+            label="Ciudad"
+          />
+          <TextField
+            onChange={e => handleChange(e, 'location')}
+            value={courseData.location.zipCode}
+            name="zipCode"
+            label="Código postal"
+          />
+          <SelectField
+            onChange={value => handleChange({ target: { name: 'state', value } }, 'location')}
+            value={courseData.location.state}
+            label="Estado"
+          >
+            {
+              Object.keys(estados).map(key => (
+                <OptionSelect key={key} value={estados[key]}>
+                  { estados[key] }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
 
           <Button htmlType="submit" width="100%">
             { actionType === 'create' ? 'Guardar' : 'Actualizar' }

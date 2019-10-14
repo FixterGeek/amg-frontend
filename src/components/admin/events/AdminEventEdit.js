@@ -80,7 +80,7 @@ function AdminEventEdit({
             />
           </TabPane>
           <TabPane key="4" tab="Cursos" disabled={!state._id}>
-            <AdminCourses />
+            <AdminCourses event={state} />
           </TabPane>
           <TabPane key="5" tab="Portadas" disabled={!state._id}>
             <AdminEventCoversForm

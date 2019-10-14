@@ -10,7 +10,8 @@ function CreateAndUpdateManager({
   fetching, actionType,
   isModal, openModalElement, modalTitle,
   onModalClose, status, successClose,
-  errorClose, modalOpenText,
+  errorClose, modalOpenText, onActionResponse,
+  onActionError,
 }) {
   const [modalState, setModalState] = useState('close');
 
@@ -20,7 +21,9 @@ function CreateAndUpdateManager({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (createAndUpdateAction) createAndUpdateAction(payloadData, actionType);
+    if (createAndUpdateAction) createAndUpdateAction(payloadData, actionType)
+      .then(data => onActionResponse && onActionResponse(data))
+      .catch(error => onActionError && onActionError(error));
   };
 
   console.log('render');
@@ -34,7 +37,7 @@ function CreateAndUpdateManager({
         openComponent={openModalElement || null}
         onClose={(bol, mstate) => setModalState(mstate)}
         close={
-          successClose && status === 'succes' ? true :
+          successClose && status === 'success' ? true :
           errorClose && status === 'error' ? true : false
         }
         childElement={

@@ -28,8 +28,8 @@ function CourseDetail({ courseData, deleteAction }) {
     )
   };
 
-  const handleDelete = (courseId) => {
-    if (deleteAction) deleteAction(courseId);
+  const handleDelete = (courseData) => {
+    if (deleteAction) deleteAction(courseData);
   };
 
   return (
@@ -42,12 +42,13 @@ function CourseDetail({ courseData, deleteAction }) {
           <AdminCourseForm
             actionType="update"
             existingData={courseData}
+            dataPersistence
           />,
           <Popconfirm
             title={`¿Eliminar ${title}?`}
             okText="Si"
             cancelText="No"
-            onConfirm={() => handleDelete(courseId)}
+            onConfirm={() => handleDelete(courseData)}
           >
             <Button className="action-delete">
               Eliminar
