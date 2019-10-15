@@ -69,7 +69,7 @@ function AdminEventEdit({
             <Title level={3}>Lista de ponentes</Title>
             <AdminSpeakersList speakers={speakers} />
           </TabPane>
-          <TabPane key="3" tab="Módulos" disabled={!state._id}>
+          <TabPane key="3" tab="Programa" disabled={!state._id}>
             <AdminEventModules
               addModule={addModuleAction}
               modules={modules}

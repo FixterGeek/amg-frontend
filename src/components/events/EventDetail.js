@@ -15,7 +15,7 @@ import Spinner from '../reusables/Spinner';
 import MapLocation from './reusables/MapLocation';
 import SubscribeButton from './reusables/SubscribeButton';
 import ContainerItem from '../reusables/ContainerItem';
-import { LineCap } from '../feed/reusables/Icons';
+import { Download } from '../feed/reusables/Icons';
 
 import useAmgService from '../../hooks/services/useAmgService';
 
@@ -98,6 +98,7 @@ function EventDetail({
             to={state.permisosURLS[0]}
             event={state}
             text="Descargar carta permiso"
+            iconComponent={<Download />}
           />
           <SubscribeButton payable eventObject={state} />
         </div>
