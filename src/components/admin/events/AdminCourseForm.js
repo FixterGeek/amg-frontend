@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Form, Button as AntButton, Icon } from 'antd';
+import { Form, Button as AntButton, Icon, Radio } from 'antd';
 
 import { createOrUpdateEventCourseAction } from '../../../store/ducks/coursesDuck';
 import CreateAndUpdateManager from '../reusables/CreateAndUpdateManager';
@@ -21,6 +21,7 @@ function AdminCourseForm({
   location = {}, eventId, dataPersistence,
 }) {
   const initialCourseData = {
+    type: 'Precongreso',
     title: null,
     description: [],
     startDate: null,
@@ -82,6 +83,12 @@ function AdminCourseForm({
         ) : null}
       >
         <Form>
+          <Form.Item label="Tipo de curso" style={{ fontWeight: 'bold' }}>
+            <Radio.Group onChange={handleChange} value={courseData.type}  name="type" style={{ fontWeight: 'normal' }}>
+              <Radio value="Precongreso">Precongreso</Radio>
+              <Radio value="Trascongreso">Trascongreso</Radio>
+            </Radio.Group>
+          </Form.Item>
           <TextField
             onChange={handleChange}
             value={courseData.title}
