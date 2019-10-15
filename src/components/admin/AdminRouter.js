@@ -16,6 +16,7 @@ import AdminEventsEdit from './events/AdminEventEdit';
 import AdminSubsidiaries from './subsidiaries/AdminSubsidiaries';
 import AdminSubsidiaryProfile from './subsidiaries/AdminSubsidiaryProfile';
 import AdminSubsidiaryForm from './subsidiaries/AdminSubsidiaryForm';
+import AdminUserDetail from './AdminUserDetail';
 
 
 function AdminRouter() {
@@ -34,9 +35,10 @@ function AdminRouter() {
       <Route path="/admin/resources/edit/:id" component={AdminResourcesForm} />
       <Route exact path="/admin/resources/edit" component={AdminResourcesForm} />
       <Route exact path="/admin/resources" component={AdminResources} />
-      {/* Group */}
+      {/* Userus */}
       <Route exact path="/admin/users" component={AdminUsers} />
-      {/* Group */}
+      <Route exact path="/admin/users/:userId" component={AdminUserDetail} />
+      {/* Events */}
       <Route path="/admin/eventos/edit/:id" component={AdminEventsEdit} />
       <Route path="/admin/eventos/edit" component={AdminEventsEdit} />
       <Route path="/admin/events/edit/:id" component={AdminEventForm} />

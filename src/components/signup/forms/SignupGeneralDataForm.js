@@ -16,7 +16,9 @@ import Spinner from '../../reusables/Spinner';
 import estados from '../../admin/estados.json';
 
 function SignupGeneralDataForm({
-  user, dispatch, loading, status, history
+  user, dispatch, loading,
+  status, history, noPassword,
+  hiddenButton,
 }) {
   const { Title } = Typography;
 
@@ -47,6 +49,7 @@ function SignupGeneralDataForm({
   }
 
   const [generals, setGeneral] = useState(generalsState);
+  const [localLoading, setlocalLoading] = useState(false);
 
   useEffect(() => {
     if (status === 'error') errorAlert({});
@@ -81,6 +84,7 @@ function SignupGeneralDataForm({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setlocalLoading(true);
     if (!user._id) {
       const url = await uploadFile('generic/users', generals.photoProfile)
       .then(url => url)
@@ -88,6 +92,7 @@ function SignupGeneralDataForm({
         errorAlert({});
         return;
       })
+      setlocalLoading(false);
 
       const userData = generals;
       userData.basicData.photoURL = url;
@@ -95,11 +100,9 @@ function SignupGeneralDataForm({
     } else history.push('/signup/educacion')
   }
 
-  console.log(history);
-
   return (
     <Form onSubmit={handleSubmit} style={{ position: 'relative' }}>
-      { loading && <Spinner /> }
+      { loading || localLoading ? <Spinner fullScrren /> : null }
       <ContainerItem>
         <Title>Datos generales</Title>
       </ContainerItem>
@@ -132,12 +135,16 @@ function SignupGeneralDataForm({
         name="email"
         value={generals.email}
       />
-      <PasswordField
-        onChange={handleChange}
-        label="Contraseña"
-        name="password"
-        value={generals.password}
-      />
+      {
+        !noPassword && (
+          <PasswordField
+            onChange={handleChange}
+            label="Contraseña"
+            name="password"
+            value={generals.password}
+          />
+        )
+      }
       <DatePickerField
         onChange={moment => handleChange({ target: { name: 'birthDate', value: moment.toString() }})}
         label="Fecha de nacimiento"
@@ -168,9 +175,13 @@ function SignupGeneralDataForm({
         checks={checks}
       />
 
-      <Button htmlType="submit" width="100%">
-        Siguiente
-      </Button>
+      {
+        !hiddenButton && (
+          <Button htmlType="submit" width="100%">
+            Siguiente
+          </Button>
+        )
+      }
     </Form>
   )
 }

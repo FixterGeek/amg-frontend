@@ -55,6 +55,15 @@ export const updateUser = (userData) => {
   }).then(({ data }) => data);
 };
 
+export const updateNotSelfUser = (userId, userData) => {
+  const token = localStorage.authToken;
+  return axios.patch(`${APIURL}/users/${userId}`, userData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
+
 
 export const followUser = (userId) => {
   const token = localStorage.authToken;

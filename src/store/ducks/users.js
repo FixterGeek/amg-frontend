@@ -1,4 +1,5 @@
 import { usersService } from "../../services/users";
+import { updateNotSelfUser } from '../../services/userServices';
 import {
   switchMap, map, debounceTime, filter, catchError,
   withLatestFrom,
@@ -7,6 +8,8 @@ import {
 import { ajax } from 'rxjs/ajax'
 import { concat, of } from 'rxjs'
 import { ofType } from 'redux-observable';
+import useSweet from '../../hooks/useSweetAlert';
+import useSweetAlert from "../../hooks/useSweetAlert";
 
 const APIURL = process.env.REACT_APP_BASE_API_URL;
 const authToken = localStorage.getItem('authToken');
@@ -14,17 +17,22 @@ const authToken = localStorage.getItem('authToken');
 
 //actionTypes
 export const ADD_USER_SUCCESS = 'amg-frontend/users/ADD_SUCCESS';
+export const UPDATE_USER = 'amg-frontend/users/UPDATE';
 export const UPDATE_USER_SUCCESS = 'amg-frontend/users/UPDATE_SUCCESS';
+export const UPDATE_USER_ERROR = 'amg-frontend/users/UPDATE_ERROR';
 export const DELETE_USER_SUCCESS = 'amg-frontend/users/DELETE_SUCCESS';
 export const GET_USERS_SUCCESS = 'amg-frontend/users/GET_SUCCESS';
 export const GET_USERS = 'amg-frontend/users/GET';
 export const GET_USERS_ERROR = 'amg-frontend/users/GET_USERS_ERROR';
+export const WRITE_WORKING_ON = 'WRITE_USER_DETAIL_WORKING_ON';
+export const SET_WORKING_ON = 'SET_USER_DETAIL_WORKING_ON';
 
 
 //initialState
 
 const initialState = {
   array: [],
+  workingOn: {},
   fetching: false,
   error: '',
   status: 'idle', // success || error || fetching
@@ -54,6 +62,25 @@ function reducer(state = initialState, action) {
         fetching: false,
         status: "success"
       }
+    case UPDATE_USER:
+      return { ...state, fetching: true };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state, fetching: false, status: 'success',
+        array: state.array.map(u => u._id === action.payload._id ? action.payload : u),
+      };
+    case UPDATE_USER_ERROR:
+      return { ...state, fetching: false, status: 'error', error: action.payload };
+    case SET_WORKING_ON:
+      return { ...state, workingOn: {...action.payload} };
+    case WRITE_WORKING_ON:
+      return {
+        ...state,
+        workingOn: {
+          ...state.workingOn,
+          [action.payload.name]: action.payload.value,
+        }
+      };
     default:
       return state;
   }
@@ -82,13 +109,45 @@ export const getUsers = (query="") => {
   }
 }
 
+export function updateUserSucces(userData) {
+  return { type: UPDATE_USER_SUCCESS, payload: userData };
+}
+
+export function updateUserError(error) {
+  return { type: UPDATE_USER_ERROR, payload: error };
+}
+
+export function writeWorkingOn(name, value) {
+  return { type: WRITE_WORKING_ON, payload: { name, value }};
+}
+
+export function setWorkingOn(userData) {
+  return { type: SET_WORKING_ON, payload: userData };
+}
+
 // thunks
 
 export const getAllUsers = (query) => (dispatch, getState) => {
+  dispatch(getUsers());
   return usersService.getAllUsers(query)
     .then(response => dispatch(getAllUsersSuccess(response)))
     .catch(error => error)
 }
+
+export const updateUser = (userData) => (dispatch) => {
+  dispatch({ type: UPDATE_USER })
+  return updateNotSelfUser(userData._id, userData)
+    .then((data) => {
+      useSweetAlert().successAlert({ text: 'Usuario actualizado' });
+      dispatch(updateUserSucces(data))
+      return data;
+    })
+    .catch((error) => {
+      useSweetAlert().errorAlert({ text: 'Error al actualizar usuario' });
+      dispatch(updateUserError(error));
+      return error;
+    });
+};
 
 //or 
 

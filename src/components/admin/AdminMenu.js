@@ -15,7 +15,7 @@ import {
 
 import { Menu, Icon } from 'antd';
 
-import { SourcesIcon } from '../feed/reusables/Icons';
+import { SourcesIcon, EventIcon, MapIcon } from '../feed/reusables/Icons';
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { logout } from '../../services/userServices';
 // import { populateUserAction } from '../store/ducks/userDuck';
@@ -97,7 +97,7 @@ function LateralMenu({ history, user, populateUserAction }) {
                 <span>Recursos</span>
             </Item>
             <Item key={8} onClick={() => link('/admin/filiales')}>
-                <Icon component={SourcesIcon} />
+                <Icon component={MapIcon} />
                 <span>Filiales</span>
             </Item>
             <Item

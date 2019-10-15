@@ -41,7 +41,7 @@ const columns = [
         title: 'Nombre',
         dataIndex: 'name',
         key: 'name',
-        render: text => <Link to="/admin/users">{text}</Link>,
+        render: (text, record) => <Link to={`/admin/users/${record._id}`}>{text}</Link>,
     },
     {
         title: 'Especialidad',
@@ -107,7 +107,7 @@ function AdminUsersList({ list = data, fetching }) {
     }
     function onChange({ target: { value } }) {
         let regex = new RegExp(value, 'i')
-        let f = list.filter(u => regex.test(u.name))
+        let f = list.filter(u => regex.test(u.name) || regex.test(u.email))
         setFiltered(f)
     }
 

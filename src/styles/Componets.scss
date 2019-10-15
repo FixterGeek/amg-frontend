@@ -478,6 +478,12 @@ $eventLeftWidth: 350px;
 
 
 // Admin ===>
+.admin-users-states-form {
+  .ant-form-item-label {
+    font-weight: bold;
+  }
+}
+
 /* Courses */
 .admin-courses {
   .header {
