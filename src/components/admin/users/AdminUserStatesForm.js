@@ -6,6 +6,7 @@ import { Form, Radio } from 'antd';
 
 import { updateUser, setWorkingOn, writeWorkingOn } from '../../../store/ducks/users';
 import TextField from '../../reusables/TextField';
+import CheckboxField from '../../reusables/CheckboxField';
 import Button from '../../reusables/Button';
 
 function AdminUserStatesForm({
@@ -60,6 +61,15 @@ function AdminUserStatesForm({
           <Radio value="No Aprobado">No Aprobado</Radio>
         </Radio.Group>
       </Form.Item>
+      <CheckboxField
+        onChange={arr => writeWorkingOn('selectables', arr)}
+        value={workingOn.selectables}
+        label="Planes elegibles"
+        checks={[
+          { label: 'Socio en entrenamiento', value: 'Residente' },
+          { label: 'Socio', value: 'Socio' },
+        ]}
+      />
       <Button width="100%" htmlType="submit">
         Actualizar
       </Button>
