@@ -265,11 +265,13 @@ export const updateUserAction = (userData) => (dispatch) => {
             localStorage.user = JSON.stringify(data);
             dispatch(updateUserSuccess(data));
             useSweet().successAlert({ title: 'Datos actualizados' });
+            dispatch({ type: RESET_USER_STATUS });
             return data;
         })
         .catch(({ response }) => {
             dispatch(updateUserError(response.data));
             useSweet().errorAlert({});
+            dispatch({ type: RESET_USER_STATUS });
             return response;
         })
 }
@@ -325,11 +327,14 @@ export const createUserAction = (userData) => (dispatch) => {
         .then((data) => {
             localStorage.authToken = data.token;
             localStorage.user = JSON.stringify(data.user);
-            dispatch(createUserSuccess(data.user))
+            dispatch(createUserSuccess(data.user));
+            dispatch({ type: RESET_USER_STATUS });;
             return data
         })
         .catch((error) => {
-            dispatch(createUser(error))
+            console.log('AQUIIII!!!', error);
+            dispatch(createUser(error));
+            dispatch({ type: RESET_USER_STATUS });
             return error
         })
 }

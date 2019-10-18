@@ -27,7 +27,7 @@ function Feed({
 
   useEffect(() => {
     if (user.membershipStatus === 'Free') {
-      infoAlert({ text: 'La sección de Publicaciones estará disponible en la siguiente versión' });
+      infoAlert({ text: 'Sección de publicaciones disponible para usuarios con membresía.' });
       history.push('/dashboard/events')
     }
   }, [user]);

@@ -86,12 +86,13 @@ function SignupGeneralDataForm({
     event.preventDefault();
     setlocalLoading(true);
     if (!user._id) {
-      const url = await uploadFile('generic/users', generals.photoProfile)
-      .then(url => url)
-      .catch((error) => {
-        errorAlert({});
-        return;
-      })
+      let url = null; 
+      if (generals.photoProfile) await uploadFile('generic/users', generals.photoProfile)
+        .then(urlf => url = urlf)
+        .catch((error) => {
+          errorAlert({});
+          return;
+        })
       setlocalLoading(false);
 
       const userData = generals;

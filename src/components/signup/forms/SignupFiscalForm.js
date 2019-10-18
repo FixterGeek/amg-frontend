@@ -15,7 +15,7 @@ import estados from '../../admin/estados.json';
 function SignupFiscalForm({
   user, dispatch, loading,
   status, resetStatus, history,
-  noTerms, noRedirect,
+  noTerms, noRedirect
 }) {
   const { Title } = Typography;
 
@@ -29,9 +29,6 @@ function SignupFiscalForm({
     city: null,
     state: null,
   });
-
-  const allAreFill = fiscalData.rfc && fiscalData.street && fiscalData.colony
-    && fiscalData.zipCode && fiscalData.city && fiscalData.state;
 
   useEffect(() => {
     if (user._id) setFiscalData({ rfc: user.fiscalData.rfc, ...user.fiscalData.address });
@@ -118,11 +115,11 @@ function SignupFiscalForm({
       </SelectField>
         {
           noTerms ? (
-            <Button width="100%" onClick={() => setAcceptedTerms(true)} disabled={!allAreFill}>
+            <Button width="100%" onClick={() => setAcceptedTerms(true)}>
               Guardar
             </Button>
           ) : (
-            <Button width="445px" disabled={!allAreFill}>
+            <Button width="445px">
               <TermsAndConditions
                 onAccept={value => setAcceptedTerms(value)}>
                 Siguiente

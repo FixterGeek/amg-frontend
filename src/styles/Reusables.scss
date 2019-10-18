@@ -633,6 +633,7 @@
     box-sizing: border-box;
     width: inherit;
     overflow: hidden;
+    min-height: 90px;
 
     h3 {
       font-weight: 500;
@@ -796,7 +797,7 @@
 
   &-medias {
     display: grid;
-    grid-template-rows: 188px 178px;
+    // grid-template-rows: 188px 178px;
     grid-template-columns: 178px 178px;
     grid-row-gap: 2px;
     grid-column-gap: 2px;

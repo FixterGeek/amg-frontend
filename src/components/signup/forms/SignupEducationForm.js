@@ -17,7 +17,7 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
 
   const { errorAlert } = useSweet();
   const { studies, internships , residencies } = education;
-  const allIsEmpty = (studies.length === 0 && internships.length === 0 && residencies.length === 0);
+  const allIsEmpty = studies.length === 0;
 
   useEffect(() => {
     if (status === 'error') {

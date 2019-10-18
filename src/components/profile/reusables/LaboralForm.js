@@ -87,6 +87,7 @@ function LaboralForm({
           !disabledOwn && (
             <Checkbox
               disabled
+              style={{ marginLeft: '8px' }}
               checked={activity.institutionOwner === user._id} />
           )
         }

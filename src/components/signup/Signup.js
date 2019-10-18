@@ -92,7 +92,6 @@ function Signup({
               status={status}
               resetStatus={resetUserStatus}
               history={history}
-              noRedirect
             />
           )
         }

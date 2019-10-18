@@ -9,6 +9,8 @@ import down from "../../assets/down.svg"
 import AmgButton from '../../atoms/Button';
 import solicitud from "../../assets/SOLICITUD_DE_INGRESO_AMG.pdf"
 
+import { Download } from '../feed/reusables/Icons';
+
 function PreSign() {
     return (
         <FullScreenContainer
@@ -26,9 +28,10 @@ function PreSign() {
                     <h2 className="titles">Registro</h2>
                     <p>Este es el registro en línea para la Asociación Mexicana de Gastroenterología. El formulario tiene una duración aproximada de 15 minutos. </p>
                     <br/>
-                    <p>Formulario para imprimir
+                    <p style={{ display: 'flex', maxHeight: '30px' }}>
+                        Formulario para imprimir
                         <a href={solicitud} target="blank">
-                            <img style={{width:"14px", marginLeft:"8px"}} src={down} alt="icon-download"/>
+                            <img style={{width:"20px", marginLeft:"16px"}} src={down} alt="icon-download"/>
                         </a>
                     </p>
                     <h2 className="titles">Ten a la mano</h2>
