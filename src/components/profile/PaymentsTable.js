@@ -52,6 +52,7 @@ function PaymentsTable({
         columns={columns}
         pagination={{ pageSize: 5 }}
         rowKey="_id"
+        locale={{ emptyText: 'No hay movimientos registrados' }}
       />
     </div>
   );

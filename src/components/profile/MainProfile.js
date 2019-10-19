@@ -9,6 +9,7 @@ import Tabs from './reusables/Tabs';
 import PostItem from '../feed/reusables/PostItem';
 import BasicInformationUser from './reusables/BasicInformationUser';
 import PaymentsTable from './PaymentsTable';
+import ConstanciesTable from './ConstanciesTable';
 
 function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   const { Title, Text } = Typography;
@@ -39,7 +40,7 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
 
       <Tabs
         headers={['Mis Pagos', 'Mis constancias']}
-        componentContent={[<PaymentsTable/>]}
+        componentContent={[<PaymentsTable/>, <ConstanciesTable />]}
       />
 
       <DashboardContainerItem>

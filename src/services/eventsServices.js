@@ -84,3 +84,13 @@ export const patchEventModule = (moduleId, moduleData) => {
     },
   }).then(({ data }) => data);
 }
+
+
+export const getEventsForUser = userId => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}?query={"assistants":{"$in":["${userId}"]}}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};

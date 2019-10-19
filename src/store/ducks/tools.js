@@ -1,7 +1,7 @@
 import sweet from 'sweetalert2';
 
 export function successAction(dispatch, action, actionPayload, resetConstant, successMessage) {
-  sweet.fire({
+  if (successMessage) sweet.fire({
     type: 'success',
     title: 'Listo!',
     text: successMessage,
