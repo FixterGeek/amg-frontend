@@ -11,7 +11,8 @@ import { populatePublicationsAction } from '../../store/ducks/publicationsDuck';
 import EventCover from '../../molecules/EventCover';
 import PostItem from './reusables/PostItem';
 import Publisher from './Publisher';
-import Spinner from '../../atoms/Spinner';
+import Spinner from '../reusables/Spinner';
+import AmgFinder from './FeedAmgFinder';
 
 function Feed({
   events, publications, populateEventsAction, populatePublicationsAction, user, history
@@ -55,6 +56,7 @@ function Feed({
       <div>
         <Title>Inicio</Title>
       </div>
+      <AmgFinder />
       <div className="feed-event">
         { loadingEvent && (<Spinner tip="Cargando evento..." />) }
         {

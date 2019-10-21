@@ -24,7 +24,7 @@ function SemanaModal() {
       <Title>Semana Nacional de Gastroenterología</Title>
       <Text>Entra al nuevo micrositio creado exclusivamente para Semana Nacional</Text>
       <Button htmlType="button" width="100%" onClick={handleClick}>
-        Acceder al microsition
+        Acceder al micrositio
       </Button>
       <a href="https://www.senaga.mx" target="_blank" ref={anchor} style={{ display: 'none' }} />
     </Modal>

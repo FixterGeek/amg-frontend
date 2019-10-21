@@ -88,6 +88,16 @@ export const getUserByFilter = (filter) => {
   }).then(({ data }) => data);
 };
 
+export const findUsers = (value) => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}/users?query={"basicData.name": {"$regex":"${value}", "$options": "i"}}`, {
+    headers: {
+      Authorization: token,
+    }
+  })
+    .then(({ data }) => data);
+};
+
 /* Publications section */
 
 export const getPublications = async () => {
