@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Divider, Tag, Switch, Input } from 'antd';
+import { Table, Icon, Divider, Tag, Switch, Input, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -36,62 +36,71 @@ const data = [
     },
 ];
 
-const columns = [
-    {
-        title: 'Nombre',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text, record) => <Link to={`/admin/users/${record._id}`}>{text}</Link>,
-    },
-    {
-        title: 'Especialidad',
-        dataIndex: 'speciality',
-        key: 'speciality',
-    },
-    {
-        title: 'Rango',
-        dataIndex: 'userType',
-        key: 'userType',
-    },
-    {
-        title: 'Estado membresía',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (tags = []) => {
-            console.log('A tag', tags)
-            return (
-                <span>
-                    {tags.map(tag => {
-                        let color = tag.length > 6 ? 'volcano' : 'green';
-                        if (tag === 'nuevo') {
-                            color = 'blue';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </span>
-            )
+function AdminUsersList({ list = data, fetching, deleteAction }) {
+
+    const columns = [
+        {
+            title: 'Nombre',
+            dataIndex: 'name',
+            key: 'name',
+            render: (text, record) => <Link to={`/admin/users/${record._id}`}>{text}</Link>,
         },
-    },
-    {
-        title: 'Acciones',
-        key: 'action',
-        render: (text, record) => {
-            const { tags = [] } = record;
-            return (
-                <span>
-                    Cuenta activa <Switch defaultChecked={tags[0] === "activa"} />
-                    <Divider type="vertical" />
-                    <a style={{ color: "red" }}>Eliminar</a>
-                </span>
-            )
+        {
+            title: 'Especialidad',
+            dataIndex: 'speciality',
+            key: 'speciality',
         },
-    },
-];
-function AdminUsersList({ list = data, fetching }) {
+        {
+            title: 'Rango',
+            dataIndex: 'userType',
+            key: 'userType',
+        },
+        {
+            title: 'Estado membresía',
+            key: 'tags',
+            dataIndex: 'tags',
+            render: (tags = []) => {
+                console.log('A tag', tags)
+                return (
+                    <span>
+                        {tags.map(tag => {
+                            let color = tag.length > 6 ? 'volcano' : 'green';
+                            if (tag === 'nuevo') {
+                                color = 'blue';
+                            }
+                            return (
+                                <Tag color={color} key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>
+                            );
+                        })}
+                    </span>
+                )
+            },
+        },
+        {
+            title: 'Acciones',
+            key: 'action',
+            render: (text, record) => {
+                const { tags = [] } = record;
+                return (
+                    <span>
+                        Cuenta activa <Switch defaultChecked={tags[0] === "activa"} />
+                        <Divider type="vertical" />
+                        <Popconfirm
+                            title={`¿Eliminar a ${record.basicData.name} ${record.basicData.dadSurname}?`}
+                            cancelText="NO"
+                            okText="SI"
+                            placement="left"
+                            onConfirm={() => deleteAction(record._id)}
+                        >
+                            <span style={{ color: '#e24c4c', cursor: 'pointer' }}>Eliminar</span>
+                        </Popconfirm>
+                    </span>
+                )
+            },
+        },
+    ];
 
     let [searchButton, setButton] = useState(true)
     let [filtered, setFiltered] = useState(list);

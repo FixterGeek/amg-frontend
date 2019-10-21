@@ -1,5 +1,5 @@
 import { usersService } from "../../services/users";
-import { updateNotSelfUser } from '../../services/userServices';
+import { updateNotSelfUser, deleteUser as dltUser } from '../../services/userServices';
 import {
   switchMap, map, debounceTime, filter, catchError,
   withLatestFrom,
@@ -8,8 +8,8 @@ import {
 import { ajax } from 'rxjs/ajax'
 import { concat, of } from 'rxjs'
 import { ofType } from 'redux-observable';
-import useSweet from '../../hooks/useSweetAlert';
 import useSweetAlert from "../../hooks/useSweetAlert";
+import { successAction, errorAction } from './tools';
 
 const APIURL = process.env.REACT_APP_BASE_API_URL;
 const authToken = localStorage.getItem('authToken');
@@ -20,13 +20,15 @@ export const ADD_USER_SUCCESS = 'amg-frontend/users/ADD_SUCCESS';
 export const UPDATE_USER = 'amg-frontend/users/UPDATE';
 export const UPDATE_USER_SUCCESS = 'amg-frontend/users/UPDATE_SUCCESS';
 export const UPDATE_USER_ERROR = 'amg-frontend/users/UPDATE_ERROR';
+export const DELETE_USER = 'amg-frontend/users/DELETE_USER';
 export const DELETE_USER_SUCCESS = 'amg-frontend/users/DELETE_SUCCESS';
+export const DELETE_USER_ERROR = 'amg-frontend/users/DELETE_USER';
 export const GET_USERS_SUCCESS = 'amg-frontend/users/GET_SUCCESS';
 export const GET_USERS = 'amg-frontend/users/GET';
 export const GET_USERS_ERROR = 'amg-frontend/users/GET_USERS_ERROR';
 export const WRITE_WORKING_ON = 'WRITE_USER_DETAIL_WORKING_ON';
 export const SET_WORKING_ON = 'SET_USER_DETAIL_WORKING_ON';
-
+const RESET_USER_STATUS = 'amg-frontend/users/RESET_USER_STATUS'
 
 //initialState
 
@@ -43,6 +45,8 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_USER_STATUS:
+      return { ...state, fetching: false, status: null };
     case GET_USERS_ERROR:
       return {
         ...state,
@@ -81,13 +85,24 @@ function reducer(state = initialState, action) {
           [action.payload.name]: action.payload.value,
         }
       };
+    /* Delete user */
+    case DELETE_USER:
+      return { ...state, fetching: true };
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state, fetching: false, status: 'success',
+        array: state.array.filter(u => u._id !== action.payload._id),
+      }
+    case DELETE_USER_ERROR:
+      return {
+        ...state, fetching: false, status: 'error',
+      };
     default:
       return state;
   }
 }
 
 //actions
-
 export const getAllUsersError = (err) => {
   return {
     type: GET_USERS_ERROR,
@@ -117,6 +132,19 @@ export function updateUserError(error) {
   return { type: UPDATE_USER_ERROR, payload: error };
 }
 
+// delete
+export function deleteUser() {
+  return { type: DELETE_USER };
+}
+
+export function deleteUserSuccess(deletedUser) {
+  return { type: DELETE_USER_SUCCESS, payload: deletedUser };
+}
+
+export function deleteUserError(error) {
+  return { type: DELETE_USER_ERROR, payload: error };
+}
+
 export function writeWorkingOn(name, value) {
   return { type: WRITE_WORKING_ON, payload: { name, value }};
 }
@@ -124,6 +152,8 @@ export function writeWorkingOn(name, value) {
 export function setWorkingOn(userData) {
   return { type: SET_WORKING_ON, payload: userData };
 }
+
+// 
 
 // thunks
 
@@ -146,6 +176,21 @@ export const updateUser = (userData) => (dispatch) => {
       useSweetAlert().errorAlert({ text: 'Error al actualizar usuario' });
       dispatch(updateUserError(error));
       return error;
+    });
+};
+
+export const deleteUserAction = (userId) => (dispatch) => {
+  dispatch(deleteUser());
+  return dltUser(userId)
+    .then((deletedUser) => {
+      return successAction(
+        dispatch, deleteUserSuccess, deletedUser, RESET_USER_STATUS, 'Usuario eliminado',
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, deleteUserError, error, RESET_USER_STATUS, 'No fue posible eliminar el usuario',
+      );
     });
 };
 

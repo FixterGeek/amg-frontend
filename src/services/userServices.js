@@ -98,6 +98,16 @@ export const findUsers = (value) => {
     .then(({ data }) => data);
 };
 
+
+export const deleteUser = (userId) => {
+  const token = localStorage.authToken;
+  return axios.delete(`${APIURL}/users/${userId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
 /* Publications section */
 
 export const getPublications = async () => {

@@ -35,6 +35,10 @@ body {
 }
 
 /* Override SweetAlert */
+.swal2-title {
+  border-radius: 0px;
+}
+
 .swal2-actions {
   .swal2-confirm {
     background-color: $secondary;
