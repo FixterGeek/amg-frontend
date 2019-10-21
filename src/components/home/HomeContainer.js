@@ -14,6 +14,7 @@ import logo4 from "../../assets/Gastro Asofarma_logo.png"
 import MembershipCards from './reusables/MembershipCards';
 import MembersCost from './reusables/MembersCost';
 import ScrollIndicator from './reusables/ScrollIndicator';
+import SemanaModal from './SemanaModal';
 
 
 import "./Home.css";
@@ -23,6 +24,7 @@ class HomeContainer extends Component {
   render() {
     return (
       <div className="app">
+        <SemanaModal />
         <NavBar />
         <section className="welcome">
           <div className="video-bg">

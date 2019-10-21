@@ -106,7 +106,7 @@ function MembershipInvoice({
         />
       </ContainerItem>
       <Button width="100%" htmlType="button" onClick={() => handleInvoice()}>
-        Solicitar Factura
+        Generar Factura
       </Button>
     </div>
   );
