@@ -61,15 +61,19 @@ function AdminUserStatesForm({
           <Radio value="No Aprobado">No Aprobado</Radio>
         </Radio.Group>
       </Form.Item>
-      <CheckboxField
-        onChange={arr => writeWorkingOn('selectables', arr)}
-        value={workingOn.selectables}
-        label="Planes elegibles"
-        checks={[
-          { label: 'Socio en entrenamiento', value: 'Residente' },
-          { label: 'Socio', value: 'Socio' },
-        ]}
-      />
+      {
+        workingOn.userStatus === 'Aprobado' && (
+          <CheckboxField
+            onChange={arr => writeWorkingOn('selectables', arr)}
+            value={workingOn.selectables}
+            label="Planes elegibles"
+            checks={[
+              { label: 'Socio en entrenamiento', value: 'Residente' },
+              { label: 'Socio', value: 'Socio' },
+            ]}
+          />
+        )
+      }
       <Button width="100%" htmlType="submit">
         Actualizar
       </Button>
