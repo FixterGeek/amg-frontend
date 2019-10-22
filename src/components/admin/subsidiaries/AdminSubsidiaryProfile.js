@@ -48,13 +48,9 @@ function AdminSubsidiary({
           <div>
             <Text strong>{ basicData.name }</Text>
             <Text>{ `${address.city}, ${address.state}` }</Text>
-            {
-              user._id === currentSub._id && (
-                <Link to={{ pathname: `/admin/filiales/${currentSub._id}/edit`, state: currentSub }}>
-                  Modificar datos
-                </Link>
-              )
-            }
+            <Link to={{ pathname: `/admin/filiales/${currentSub._id}/edit`, state: currentSub }}>
+              Modificar datos
+            </Link>
           </div>
         </div>
         <div className="stats">

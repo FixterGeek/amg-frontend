@@ -17,11 +17,14 @@ import AdminSubsidiaries from './subsidiaries/AdminSubsidiaries';
 import AdminSubsidiaryProfile from './subsidiaries/AdminSubsidiaryProfile';
 import AdminSubsidiaryForm from './subsidiaries/AdminSubsidiaryForm';
 import AdminUserDetail from './AdminUserDetail';
+import AdminDashboard from './AdminDashboard';
 
 
 function AdminRouter() {
   return (
     <Switch>
+      {/* Dash */}
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       {/* Filiales */}
       <Route path="/admin/filiales/:id/edit" component={AdminSubsidiaryForm} />
       <Route path="/admin/filiales/:id" component={AdminSubsidiaryProfile} />

@@ -538,6 +538,19 @@ $eventLeftWidth: 350px;
 
 
 // Admin ===>
+/* AdminDashboard */
+.admin-dashboard {
+  padding-right: 294px;
+  padding-top: 0.1px;
+  &-graphs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0px!important;
+  }
+}
+
+/* StatesForm */
 .admin-users-states-form {
   .ant-form-item-label {
     font-weight: bold;

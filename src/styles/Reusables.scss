@@ -3,8 +3,24 @@
   position: relative;
 }
 
-/* Style Tabs */
+/* SmallBoxItem */
+.reusables-small-box-item {
+  background-color: $lightBlue;
+  margin-bottom: $margin;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $smallPadding;
+  max-width: 1200px;
+  cursor: pointer;
 
+  .rigth {
+    color: $textPrimary;
+  }
+}
+
+/* Style Tabs */
 .reusable-tabs {
   .ant-tabs-nav-scroll {
     background-color: $clouds;
@@ -847,6 +863,45 @@
 
 
 // Admin ===>
+/* Style AdminNotoficationPanel */
+.reusables-admin-notifications-panel {
+  position: fixed;
+  width: 294px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $secondary;
+  color: white;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  overflow-y: scroll;
+
+  h3 {
+    color: white;
+    margin-top: $largeMargin;
+  }
+
+  .item {
+    background-color: $clouds;
+    width: 220px;
+    color: $textPrimary;
+    margin-bottom: $margin;
+    padding: $smallPadding;
+    font-size: 0.8rem;
+
+    span {
+      display: inline-block;
+      width: 100%;
+    }
+
+    a {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
 /* CourseItem */
 .admin-reusables-course-data {
   .header {
@@ -903,6 +958,7 @@
   justify-content: center;
   padding: $smallPadding;
   font-weight: bold;
+  margin-bottom: $margin;
 
   div {
     &:first-child {

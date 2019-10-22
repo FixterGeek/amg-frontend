@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
-import * as usersActions from '../../store/ducks/users'
 import AdminMenu from './AdminMenu'
 import AdminRouter from './AdminRouter';
 
 
-function Admin({ users, usersLoading }) {
+function Admin({ history }) {
+    useEffect(() => {
+        const {location} = history;
+        if (location.pathname === '/admin') history.push('/admin/dashboard');
+    }, []);
+
+    console.log(history);
+
     return (
         <div className="admin-page-container">
             <section className="admin-page-menu-container" >
                 <AdminMenu />
             </section>
-
             <AdminRouter />
         </div >
     )

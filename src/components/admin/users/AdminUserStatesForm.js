@@ -22,7 +22,7 @@ function AdminUserStatesForm({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateUser(workingOn);
+    updateUser({ ...workingOn, revisionDate: moment().toString() });
   };
 
   return (
