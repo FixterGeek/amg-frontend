@@ -13,8 +13,8 @@ function AdminNotificationsPanel({ slopes = [] }) {
       </Title>
 
       {
-        slopes.map(s => (
-          <div className="item">
+        slopes.map((s, index) => (
+          <div className="item" key={index}>
             <span>Afiliación pendiente</span>
             <span>{ `${s.basicData.name} ${s.basicData.dadSurname}` }</span>
             <Link to={`/admin/users/${s._id}`}>

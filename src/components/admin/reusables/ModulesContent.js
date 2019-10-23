@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Table, Typography, List, Button, Icon } from 'antd';
+import { Table, Typography, List, Button, Icon, Popconfirm } from 'antd';
 
 import ContainerItem from '../../reusables/ContainerItem';
 import JustModal from '../reusables/JustMoadal';
@@ -11,10 +11,12 @@ import AmgButton from '../../reusables/Button';
 
 function ModulesContent({
   module, eventId, updateEventActivityAction,
-  removeActivity, removeModule, moduleForm
+  removeActivity, removeModule, moduleForm,
+  isForCourse, onResult
 }) {
   const { Title } = Typography;
-  const { activities = [] } = module;
+  console.log(module);
+  const [activities, setActivities] = useState(module.activities || []);
 
   const columns = [
     {
@@ -28,7 +30,7 @@ function ModulesContent({
     {
       title: 'Número de asistentes',
       render: (text, record) => (
-        <span>{ record.assistants.length }</span>
+        <span>{ record.students.length }</span>
       )
     },
     {
@@ -63,7 +65,16 @@ function ModulesContent({
       render: (text, record) => {
         return (
           <div>
-            <Icon type="delete" onClick={() => removeActivity(record)} />
+            <Popconfirm
+              okText="SI"
+              cancelText="NO"
+              title={`¿Eliminar ${record.activityName}?`}
+              onConfirm={() => removeActivity(record).then((a) =>
+                setActivities(activities.filter(activity => activity._id !== a._id))
+              )}
+            >
+              <Icon type="delete" />
+            </Popconfirm>
             <JustModal
               openComponent={<Icon type="edit" />}
               childElement={
@@ -71,6 +82,8 @@ function ModulesContent({
                   module={module}
                   eventId={eventId}
                   externalData={record}
+                  grandfatherKey={isForCourse ? 'course' : null}
+                  onResult={activity => setActivities(s => s.map(a => a._id === activity._id ? activity : a))}
                 />
               }
             />
@@ -103,16 +116,26 @@ function ModulesContent({
             <AdminActivityForm
               module={module}
               eventId={eventId}
+              grandfatherKey={isForCourse ? 'course' : null}
+              onResult={activity => setActivities(s => [activity, ...s])}
             />
           }
         />
-        <AmgButton
-          onClick={() => removeModule(module)}
-          width="200px"
-          marginTop="0px"
-          bgColor="red" >
-          Eliminar módulo
-        </AmgButton>
+        <Popconfirm
+          title={`¿Eliminar ${module.title}?`}
+          okText="SI"
+          cancelText="NO"
+          onConfirm={() => removeModule(module).then(deleted => {
+            if (onResult) onResult(deleted)
+          })}
+        >
+          <AmgButton
+            width="200px"
+            marginTop="0px"
+            bgColor="red" >
+            Eliminar módulo
+          </AmgButton>
+        </Popconfirm>
         {
           moduleForm ? (
             <moduleForm.type {...moduleForm.props} existingData={module} dataPersistence />
@@ -128,7 +151,7 @@ function ModulesContent({
           )
         }
       </div>
-      <Table dataSource={activities} columns={columns} rowKey="_id" />
+      <Table dataSource={activities[0] ? activities : []} columns={columns} rowKey="_id" />
     </ContainerItem>
   );
 }

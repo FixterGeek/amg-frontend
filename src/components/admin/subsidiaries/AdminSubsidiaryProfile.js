@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import { Typography, Table } from 'antd';
+import { Typography, Table, Tabs } from 'antd';
 
 import ContainerItem from '../../reusables/ContainerItem';
 import ImagePreview from '../../reusables/ImagePreview';
 import StatsContainer from '../reusables/StatsContainer';
+import UserList from '../AdminUsersList';
 
 import paymentsData from './reusables/virtualPayments.json'
 
@@ -15,6 +16,7 @@ function AdminSubsidiary({
   user, history
 }) {
   const { Title, Text } = Typography;
+  const { TabPane } = Tabs;
   const { location: historyLocation } = history;
   const [currentSub, setCurrentSub] = useState({ _id: null});
   const { basicData = {} } = currentSub;
@@ -58,17 +60,24 @@ function AdminSubsidiary({
           <StatsContainer title="Total de facturas emitidas" stats="0" />
         </div>
       </ContainerItem>
-      <Title level={3}>Historial pagos</Title>
       <ContainerItem>
-        <Table columns={columns} dataSource={paymentsData} rowKey="_id" />
+        <Tabs type="card" className="generic-table-header">
+          <TabPane key="1" tab="Historial de pagos">
+            <Table columns={columns} dataSource={paymentsData} rowKey="_id" />
+          </TabPane>
+          <TabPane key="2" tab="Usuarios de la filial">
+            <UserList />
+          </TabPane>
+        </Tabs>
       </ContainerItem>
     </section>
   );
 }
 
-function mapSateToProps({ user }) {
+function mapSateToProps({ users }) {
+  /* CHANGE FOR THE CORRECT FIELD */
   return {
-    user,
+    users: users.array.filter(u => u.subsidiry === "id")
   }
 }
 

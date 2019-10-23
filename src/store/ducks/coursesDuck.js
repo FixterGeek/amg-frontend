@@ -3,13 +3,13 @@ import {
   patchCourse,
   deleteCourse,
   postCourse,
+  postCourseModule,
+  patchCourseModule,
+  postActivityForCourseModule,
+  patchActivityForCourseModule,
+  deleteCourseForModule,
+  deleteActivityForCourseModule,
 } from '../../services/coursesServices';
-import {
-  getModules,
-  postModule,
-  patchModule,
-  deleteModule,
-} from '../../services/moduleServices';
 import useSweet from '../../hooks/useSweetAlert';
 import { successAction, errorAction } from './tools';
 
@@ -49,6 +49,22 @@ const ADD_COURSE_MODULE_ERROR = 'ADD_COURSE_MODULE_ERROR';
 const UPDATE_COURSE_MODULE = 'UPDATE_COURSE_MODULE';
 const UPDATE_COURSE_MODULE_SUCCESS = 'UPDATE_COURSE_MODULE_SUCCESS';
 const UPDATE_COURSE_MODULE_ERROR = 'UPDATE_CORSE_MODULE_ERROR';
+
+const DELETE_COURSE_MODULE = 'COURSE/DELETE_COURSE_MODULE';
+const DELETE_COURSE_MODULE_SUCCESS = 'COURSE/DELETE_COURSE_MODULE_SUCCESS';
+const DELETE_COURSE_MODULE_ERROR = 'COURSE/DELETE_COURSE_MODULE_ERROR';
+
+const ADD_ACTIVITY_COURSE = 'COUSER/ADD_ACTIVITY';
+const ADD_ACTIVITY_COURSE_SUCCESS = 'COURSE/ADD_ACTIVITY_COURSE_SUCCESS';
+const ADD_ACTIVITY_COURSE_ERROR = 'COURSE/ADD_ACTIVITY_COURSE_ERROR';
+
+const UPDATE_ACTIVITY_COURSE = 'COURSE/UPDATE_ACTIVITY_COURSE';
+const UPDATE_ACTIVITY_COURSE_SUCCESS = 'COURSE/UPDATE_ACTIVITY_COURSE_SUCCESS';
+const UPDATE_ACTIVITY_COURSE_ERROR = 'COURSE/UPDATE_ACTIVITY_COURSE_ERROR';
+
+const DELETE_ACTIVITY_COURSE = 'COURSE/DELETE_ACTIVITY_COURSE';
+const DELETE_ACTIVITY_COURSE_SUCCESS = 'COURSE/DELETE_ACTIVITY_COURSE_SUCCESS';
+const DELETE_ACTIVITY_COURSE_ERROR = 'COURSE/DELETE_ACTIVITY_COURSE_ERROR';
 
 
 /* Actios Creators */
@@ -92,14 +108,33 @@ const deleteEventCourseError = (error) => ({ type: DELETE_EVENT_COURSE_ERROR, pa
 
 // ADD MODULE COURSE
 const addCourseModule = () => ({ type: ADD_COURSE_MODULE });
-const addCourseModuleSuccess = (moduleData) => ({ type: ADD_COURSE_MODULE_SUCCESS, payload: moduleData });
+const addCourseModuleSuccess = (moduleData) => ({type: ADD_COURSE_MODULE_SUCCESS, payload: moduleData });
 const addCourseModuleError = (error) => ({ type: ADD_COURSE_MODULE_ERROR, payload: error });
 
 // UPDATE COURSE MODULE
-
 const updateCourseModule = () => ({ type: UPDATE_COURSE_MODULE });
 const updateCourseModuleSuccess = (courseData) => ({ type: UPDATE_COURSE_MODULE_SUCCESS, payload: courseData });
 const updateCourseModuleError = (error) => ({ type: UPDATE_COURSE_MODULE_ERROR, payload: error });
+
+// DELETE COURSE MODULE
+const deleteCourseModule = () => ({ type: DELETE_COURSE_MODULE });
+const deleteCourseModuleSuccess = (deletedCourse) => ({ type: DELETE_COURSE_MODULE_SUCCESS, payload: deletedCourse });
+const deleteCourseModuleError = (error) => ({ type: DELETE_COURSE_MODULE_ERROR, payload: error });
+
+// ADD COURSE ACTIVITY
+const addActivityCourse = () => ({ type: ADD_ACTIVITY_COURSE });
+const addActivityCourseSuccess = (activityData) => ({ type: ADD_ACTIVITY_COURSE_SUCCESS, payload: activityData });
+const addActivityCourseError = (error) => ({ type: ADD_ACTIVITY_COURSE_ERROR, payload: error });
+
+// UPDATE COURSE ACTIVITY
+const updateActivityCourse = () => ({ type: UPDATE_ACTIVITY_COURSE });
+const updateActivityCourseSuccess = updatedActivity => ({ type: UPDATE_ACTIVITY_COURSE_SUCCESS, payload: updatedActivity });
+const updateActivityCourseError = error => ({ type: UPDATE_ACTIVITY_COURSE_ERROR, payload: error });
+
+// DELETE ACTIVITY COURSE
+const deleteActivityCourse = () => ({ type: DELETE_ACTIVITY_COURSE });
+const deleteActivityCourseSuccess = deletedActivity => ({ type: DELETE_ACTIVITY_COURSE_SUCCESS, payload: deletedActivity });
+const deleteActivityCourseError = error => ({ type: DELETE_ACTIVITY_COURSE_ERROR, payload: error });
 
 
 /* Thunk */
@@ -171,7 +206,7 @@ export const deleteEventCourseAction = (courseData) => (dispatch) => {
 // ADD COURSE MODULE
 export const addOrUpdateCourseModuleAction = (moduleData, mainEventId) => (dispatch) => {
   dispatch(moduleData._id ? updateCourseModule() : addCourseModule());
-  if (moduleData._id) return patchModule(moduleData._id, moduleData)
+  if (moduleData._id) return patchCourseModule(moduleData._id, moduleData)
     .then((data) => {
       successAction(
         dispatch, updateCourseModuleSuccess, data, RESET_COURSES_SATUS, 'Módulo actualizado',
@@ -183,7 +218,7 @@ export const addOrUpdateCourseModuleAction = (moduleData, mainEventId) => (dispa
         dispatch, updateCourseModuleError, error, RESET_COURSES_SATUS, 'No fue posible actualizar el módulo',
       );
     });
-  return postModule(moduleData)
+  return postCourseModule(moduleData)
     .then((createdModule) => {
       successAction(
         dispatch, addCourseModuleSuccess, createdModule, RESET_COURSES_SATUS, 'Módulo agregado',
@@ -194,6 +229,65 @@ export const addOrUpdateCourseModuleAction = (moduleData, mainEventId) => (dispa
     .catch((error) => {
       return errorAction(
         dispatch, addCourseModuleError, error, RESET_COURSES_SATUS, 'Error al agregar el módulo'
+      );
+    });
+};
+
+// DELETE COURSE MODULE
+export const deleteCourseModuleAction = (module) => (dispatch) => {
+  dispatch(deleteCourseModule());
+  return deleteCourseForModule(module._id)
+    .then((deletedModule) => {
+      return successAction(
+        dispatch, deleteCourseModuleSuccess, deletedModule, RESET_COURSES_SATUS, 'Módulo eliminado',
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, deleteCourseModuleError, error, RESET_COURSES_SATUS, 'No fue posible eliminar el módulo',
+      );
+    });
+};
+
+// ADD ACTIVITY COURSE
+export const addOrUpdateActivityCourse = (activityData) => (dispatch) => {
+  dispatch(activityData._id ? addActivityCourse() : updateActivityCourse());
+  if (activityData._id) return patchActivityForCourseModule(activityData._id, activityData)
+    .then((updatedActivity) => {
+      return successAction(
+        dispatch, updateActivityCourseSuccess, updatedActivity, RESET_COURSES_SATUS, 'Actividad actualizada',
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, updateActivityCourseError, error, RESET_COURSES_SATUS, 'Error al actualizar actividad',
+      );
+    });
+  return postActivityForCourseModule(activityData)
+    .then((createdActivity) => {
+      return successAction(
+        dispatch, addActivityCourseSuccess, createdActivity, RESET_COURSES_SATUS, 'Actividad creadea',
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, addActivityCourseError, error, RESET_COURSES_SATUS, 'No fue posible crear la actividad'
+      );
+    })
+};
+
+// DELETE ACTIVITY MODULE
+export const deleteActivityModuleAction = (activity) => (dispatch) => {
+  dispatch(deleteActivityCourse());
+  return deleteActivityForCourseModule(activity._id)
+    .then((deletedActivity) => {
+      return successAction(
+        dispatch, deleteActivityCourseSuccess, deletedActivity, RESET_COURSES_SATUS, 'Actividad eliminada',
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, deleteActivityCourseError, error, RESET_COURSES_SATUS, 'No fue posible eliminar la actividad',
       );
     });
 };
@@ -255,6 +349,20 @@ export default function reducer(state = courseState, action) {
       return { ...state, fetching: false, status: 'success' };
     case UPDATE_COURSE_MODULE_ERROR:
         return window.thunkErrorGenerator(state, action.payload);
+    /* ADD MODULE ACTIVITY */
+    case ADD_ACTIVITY_COURSE:
+      return { ...state, fetching: true };
+    case ADD_ACTIVITY_COURSE_SUCCESS:
+      return { ...state, fetching: false, status: 'success' };
+    case ADD_ACTIVITY_COURSE_ERROR:
+      return window.thunkErrorGenerator(state, action.payload);
+    /* UPDATE MODULE ACTIVITY */
+    case UPDATE_ACTIVITY_COURSE:
+      return { ...state, fetching: true };
+    case UPDATE_ACTIVITY_COURSE_SUCCESS:
+      return { ...state, fetching: false, status: 'success' };
+    case UPDATE_ACTIVITY_COURSE_ERROR:
+      return window.thunkErrorGenerator(state, action.payload);
     default:
       return state;
   }

@@ -84,7 +84,7 @@ export const makePaymentAction = (paymentData, paymentType = 'event') => (dispat
   dispatch(makePayment());
   return payment(paymentData, paymentType)
     .then((data) => {
-      useSweet().successAlert({ text: data.paid ? 'Paga realizado' : 'Pago pendiente' });
+      useSweet().successAlert({ text: data.paid ? 'Pago realizado' : 'Pago pendiente' });
       dispatch(makePaymentSuccess(data));
       return data;
     })

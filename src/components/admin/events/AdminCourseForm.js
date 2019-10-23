@@ -21,8 +21,10 @@ function AdminCourseForm({
   location = {}, eventId, dataPersistence,
 }) {
   const initialCourseData = {
-    type: 'Precongreso',
+    courseType: 'Precongreso',
+    event: eventId,
     title: null,
+    cost: null,
     description: [],
     startDate: null,
     endDate: null,
@@ -34,9 +36,8 @@ function AdminCourseForm({
       street: location.street || null,
       city: location.city || null,
       zipCode: location.zipCode || null,
-      addressName: eventId,
     },
-    status: 'draft',
+    status: 'published',
     speakers: [],
     mainImagesURLS: [],
     permisosURLS: [],
@@ -60,8 +61,6 @@ function AdminCourseForm({
     setCourseData(state => ({ ...state, [name]: value }));
   }
 
-  console.log(courseData);
-
   return (
     <div>
       <CreateAndUpdateManager 
@@ -84,7 +83,7 @@ function AdminCourseForm({
       >
         <Form>
           <Form.Item label="Tipo de curso" style={{ fontWeight: 'bold' }}>
-            <Radio.Group onChange={handleChange} value={courseData.type}  name="type" style={{ fontWeight: 'normal' }}>
+            <Radio.Group onChange={handleChange} value={courseData.courseType}  name="courseType" style={{ fontWeight: 'normal' }}>
               <Radio value="Precongreso">Precongreso</Radio>
               <Radio value="Trascongreso">Trascongreso</Radio>
             </Radio.Group>
@@ -94,6 +93,12 @@ function AdminCourseForm({
             value={courseData.title}
             name="title"
             label="Titulo"
+          />
+          <TextField
+            onChange={handleChange}
+            value={courseData.cost}
+            name="cost"
+            label="Costo"
           />
           <TextAreaField
             onChange={handleChange}

@@ -19,7 +19,7 @@ function SettingsMembership({ membershipStatus, userStatus }) {
         hiddenButton={membershipStatus === 'Socio'}
       />   
       {
-        membershipStatus === 'Socio' ? null : (
+        membershipStatus !== 'Socio' ? null : (
           <MembershipCard
             membershipType="Socio en entrenamiento"
             membershipCostDisplay="$625"

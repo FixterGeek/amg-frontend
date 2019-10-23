@@ -34,12 +34,23 @@ function AdminCourses({
       </div>
 
       <ContainerItem>
+        <Title level={4}>Precongreso:</Title>
         {
-          courses.map(course => (
+          courses.map(course => course.courseType === 'Precongreso' ? (
             <CourseItem
               courseData={course}
             />
-          ))
+          ) : null)
+        }
+      </ContainerItem>
+      <ContainerItem>
+        <Title level={4}>Trascongreso:</Title>
+        {
+          courses.map(course => course.courseType === 'Trascongreso' ? (
+            <CourseItem
+              courseData={course}
+            />
+          ) : null)
         }
       </ContainerItem>
     </div>

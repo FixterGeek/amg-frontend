@@ -5,6 +5,7 @@ import { Form } from 'antd';
 
 import useSweet from '../../../hooks/useSweetAlert';
 import { addActivityAction, updateEventActivityAction } from '../../../store/ducks/adminDuck';
+import { addOrUpdateActivityCourse } from '../../../store/ducks/coursesDuck';
 import TextField from '../../reusables/TextField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import TextAreaField from '../../reusables/TextAreaField';
@@ -19,12 +20,12 @@ import { uploadFile } from '../../../tools/firebaseTools';
 function AdminActivityForm({
   module, eventId, addActivityAction,
   fetching, status, updateEventActivityAction,
-  externalData
+  externalData, grandfatherKey = 'event', fatherKey = 'module',
+  addOrUpdateActivityCourse, onResult
 }) {
-  const { errorAlert } = useSweet();
   const initialState = {
-    event: eventId,
-    module: module._id,
+    [grandfatherKey]: eventId,
+    [fatherKey]: module._id,
     moduleTitle: module.title,
     activityName: null,
     activityType: null, // 'Actividad', 'Conferencia', 'Taller', 'Otro'
@@ -55,25 +56,17 @@ function AdminActivityForm({
     event.preventDefault();
     const st = { ...state };
     st.module = module._id;
-    setLocalLoading(true)
+
+    if (grandfatherKey === 'course') return addOrUpdateActivityCourse(st)
+      .then((data) => {
+        if (onResult) onResult(data);
+      });
+
     if (state._id) {
-      setLocalLoading(false);
       updateEventActivityAction(st._id, st);
     } else {
       delete st._id;
       addActivityAction(st);
-      setLocalLoading(false);
-      // por si a caso
-      // uploadFile(`/events/${eventId}/modules`, st.constanciaURL)
-      // .then((url) => {
-      //   st.constanciaURL = url;
-      //   addActivityAction(st);
-      //   setLocalLoading(false);
-      // })
-      // .catch(() => {
-      //   setLocalLoading(false);
-      //   errorAlert({});
-      // })
     }
   }
 
@@ -149,5 +142,6 @@ export default connect(
   mapSatateToProps, {
     addActivityAction,
     updateEventActivityAction,
+    addOrUpdateActivityCourse,
   }
 )(AdminActivityForm);

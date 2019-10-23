@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { Form } from 'antd';
 
-import { getSingleEvent } from '../../../services/eventsServices';
+import { getSingleCourse } from '../../../services/coursesServices';
 import {
   addOrUpdateCourseModuleAction,
 } from '../../../store/ducks/coursesDuck';
@@ -17,12 +17,12 @@ import Spinner from '../../reusables/Spinner';
 
 function AdminCourseModuleForm({
   fetching, status, match: { params },
-  existingData, event, dataPersistence,
+  existingData, course, dataPersistence,
   addOrUpdateCourseModuleAction,
   onEvent, modalOpenText, onActionResponse,
 }) {
   const initalData = {
-    event: event._id,
+    course: course._id,
     title: null,
     description: null,
     date: null,
@@ -33,8 +33,8 @@ function AdminCourseModuleForm({
 
   useEffect(() => {
     if (!eventIsLoading) {
-      getSingleEvent(event._id).then(eventData => {
-        if (onEvent) onEvent(eventData);
+      getSingleCourse(course._id).then(courseData => {
+        if (onEvent) onEvent(courseData);
         setEventIsLoading(true);
       });
     }

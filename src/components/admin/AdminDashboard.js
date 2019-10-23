@@ -26,8 +26,6 @@ function AdminDashboard({
     getAdminEvents();
   }, []);
 
-  console.log(event);
-
   return (
     <section className="admin-dashboard">
       { fetching && <Spinner fullScrren /> }
@@ -66,6 +64,7 @@ function AdminDashboard({
         {
           currents.slice(0, 10).map(u => (
             <SmallBoxItem
+              key={u._id}
               title={`${u.basicData.name} ${u.basicData.dadSurname}`}
               rigth={`${moment(u.revisionDate).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}
               to={`/admin/users/${u._id}`}

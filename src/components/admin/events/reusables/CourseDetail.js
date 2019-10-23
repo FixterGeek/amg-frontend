@@ -1,17 +1,18 @@
 import React  from 'react';
 import moment from 'moment';
 
-import { List, Button, Icon, Popconfirm } from 'antd';
+import { List, Button, Icon, Popconfirm, Typography } from 'antd';
 
 import AdminCourseForm from '../AdminCourseForm';
 
 function CourseDetail({ courseData, deleteAction }) {
   const { Item } = List;
+  const { Text } = Typography;
 
   const {
     title, startDate, endDate,
     startTime, endTime, description,
-    _id: courseId,
+    _id: courseId, cost
   } = courseData;
 
   const Date = () => {
@@ -59,6 +60,7 @@ function CourseDetail({ courseData, deleteAction }) {
           <Item.Meta
             description={<Date />}
           />
+          <div>{ `Costo: ${cost || 'Sin costo'}`}</div>
           { description || null }
         </Item>
       </List>

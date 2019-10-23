@@ -31,7 +31,7 @@ function PaymentCourse({
   };
 
   const handleSubmit = (data) => {
-    makePaymentAction({ ...data, user: userId, eventId: params.eventId }, 'course')
+    makePaymentAction({ ...data, user: userId, eventId: params.eventId }, 'coursePayment')
       .then(paymentData => paymentData.paid && setPaid(state => !state));
   };
 

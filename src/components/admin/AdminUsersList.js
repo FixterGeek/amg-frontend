@@ -156,7 +156,7 @@ function AdminUsersList({ list = data, fetching, deleteAction }) {
             <div>
                 <Table
                     loading={fetching}
-                    // locale={{ emptyText: "Da enter para una busqueda profunda" }}
+                    locale={{ emptyText: "Sin usuarios" }}
                     columns={columns} dataSource={filtered} />
             </div>
 

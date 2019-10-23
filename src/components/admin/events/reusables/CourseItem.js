@@ -5,7 +5,8 @@ import { Tabs } from 'antd';
 
 import {
   deleteEventCourseAction,
-  addOrUpdateCourseModuleAction,
+  deleteCourseModuleAction,
+  deleteActivityModuleAction,
 } from '../../../../store/ducks/coursesDuck';
 import ContainerItem from '../../../reusables/ContainerItem';
 import CourseDetail from './CourseDetail';
@@ -14,16 +15,14 @@ import ModulesContent from '../../reusables/ModulesContent';
 
 function AdminCoursesItem({
   courseData, deleteEventCourseAction,
+  deleteCourseModuleAction,
+  deleteActivityModuleAction,
 }) {
   const { TabPane } = Tabs;
 
   const [currentEvent, setCurrentEvent] = useState({
     modules: [],
   });
-
-  const updateModule = (moduleData) => {
-
-  }
 
   return (
     <div className="admin-reusables-course-data">
@@ -36,16 +35,20 @@ function AdminCoursesItem({
           />
         </TabPane>
         <TabPane key="2" tab="Modulos del curso">
-          <AdminCourseModuleForm event={courseData} onEvent={e => setCurrentEvent(e)} />
+          <AdminCourseModuleForm course={courseData} onEvent={e => setCurrentEvent(e)} />
           <ContainerItem>
             {
               currentEvent.modules.map(module => (
                 <ModulesContent
+                  isForCourse
                   module={module}
                   eventId={currentEvent._id}
+                  removeModule={deleteCourseModuleAction}
+                  removeActivity={deleteActivityModuleAction}
+                  onResult={r => setCurrentEvent(c => ({ ...c, modules: c.modules.filter(m => m._id !== r._id) }))}
                   moduleForm={
                     <AdminCourseModuleForm
-                      event={courseData}
+                      course={courseData}
                       modalOpenText="Editar módulo"
                       onActionResponse={
                         data => data && setCurrentEvent(s => ({
@@ -67,5 +70,7 @@ function AdminCoursesItem({
 export default connect(
   null, {
     deleteEventCourseAction,
+    deleteCourseModuleAction,
+    deleteActivityModuleAction,
   }
 )(AdminCoursesItem);
