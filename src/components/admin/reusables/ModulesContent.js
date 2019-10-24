@@ -96,7 +96,9 @@ function ModulesContent({
   const updateSpeakers = (speakersArray, activity) => {
     const currentActivity = { ...activity };
     currentActivity.speakers = speakersArray;
-    updateEventActivityAction(currentActivity._id, currentActivity);
+    updateEventActivityAction(currentActivity._id, currentActivity).then((updatedActivity) => {
+      if (isForCourse) setActivities(activities.map(a => a._id === updatedActivity._id ? updatedActivity : a))
+    });
   }
 
   const deleteSpeakers = (activity, speaker) => {

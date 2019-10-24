@@ -7,6 +7,7 @@ import {
   deleteEventCourseAction,
   deleteCourseModuleAction,
   deleteActivityModuleAction,
+  addOrUpdateActivityCourse,
 } from '../../../../store/ducks/coursesDuck';
 import ContainerItem from '../../../reusables/ContainerItem';
 import CourseDetail from './CourseDetail';
@@ -17,6 +18,7 @@ function AdminCoursesItem({
   courseData, deleteEventCourseAction,
   deleteCourseModuleAction,
   deleteActivityModuleAction,
+  addOrUpdateActivityCourse,
 }) {
   const { TabPane } = Tabs;
 
@@ -43,6 +45,7 @@ function AdminCoursesItem({
                   isForCourse
                   module={module}
                   eventId={currentEvent._id}
+                  updateEventActivityAction={addOrUpdateActivityCourse}
                   removeModule={deleteCourseModuleAction}
                   removeActivity={deleteActivityModuleAction}
                   onResult={r => setCurrentEvent(c => ({ ...c, modules: c.modules.filter(m => m._id !== r._id) }))}
@@ -72,5 +75,6 @@ export default connect(
     deleteEventCourseAction,
     deleteCourseModuleAction,
     deleteActivityModuleAction,
+    addOrUpdateActivityCourse,
   }
 )(AdminCoursesItem);
