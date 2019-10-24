@@ -53,6 +53,7 @@ function AdminEventForm({
     if (state._id) {
       const st = { ...state }
       st.status = newStatus;
+      delete st.courses;
       const form = new FormData();
       const eventData = normalizeData(st);
       const formData = transformToFormData(form, eventData.normalizedData);
@@ -95,6 +96,7 @@ function AdminEventForm({
     const normalizedData = { ...eventData }
     delete normalizedData.modules;
     delete normalizedData.assistants;
+    delete normalizeData.courses
     const id = normalizedData._id;
     delete normalizedData._id;
     return { normalizedData, id };

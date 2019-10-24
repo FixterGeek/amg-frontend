@@ -8,6 +8,7 @@ import PaymentCardForm from './reusables/PaymentCardForm';
 import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
 import Button from '../reusables/Button';
+import PaymentType from './reusables/PaymentType';
 
 function MembershipPaymentCard({
   history, match, userId,
@@ -22,6 +23,7 @@ function MembershipPaymentCard({
   const { errorAlert, successAlert } = useSweet();
 
   const [paidData, setPaidData] = useState({});
+  const [paymentType, setPaymentType] = useState(null);
 
 
   useEffect(() => {
@@ -46,7 +48,9 @@ function MembershipPaymentCard({
       .then(data => setPaidData({ ...data }));
   };
 
-  return (
+  if (!paymentType) return <PaymentType onChange={type => setPaymentType(type)} />
+
+  if (paymentType === 'card') return (
     <div className="dashboard-container">
       <ContainerItem style={{ position: 'relative' }}>
         { paymentFetching && <Spinner /> }

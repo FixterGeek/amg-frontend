@@ -9,6 +9,7 @@ import ContainerItem from '../reusables/ContainerItem';
 import BoxItem from '../reusables/BoxItem';
 import CourseCheck from './reusables/CourseCheck';
 import Button from '../reusables/Button';
+import moment from 'moment';
 
 function EventCourses({
   courses, noCourses, fetching, status,
@@ -20,19 +21,19 @@ function EventCourses({
   const [trasCheckeds, setTrasCheckeds] = useState([]);
 
   useEffect(() => {
-    if (!courses[0] && !noCourses) populateEventCoursesAction();
+    if (!courses[0] && !noCourses) populateEventCoursesAction(params.id);
   }, []);
 
   const handleChecked = ({ target }, courseType) => {
     const { checked, course } = target;
 
     if (courseType === 'pre') {
-      if (checked) setPrechckeds(state => [ ...state, course ])
+      if (checked) setPrechckeds(state => [course])
       if (!checked) setPrechckeds(state => state.filter(item => item._id !== course._id))
     }
 
     if (courseType === 'tras') {
-      if (checked) setTrasCheckeds(state => [ ...state, course ])
+      if (checked) setTrasCheckeds(state => [course ])
       if (!checked) setTrasCheckeds(state => state.filter(item => item._id !== course._id))
     }
   };
@@ -51,12 +52,12 @@ function EventCourses({
         <ContainerItem>
           {
             courses.map(course => {
-              return course.type === 'Precongreso' ? (
+              return course.courseType === 'Precongreso' ? (
                 <div className="events-event-courses-course" key={course._id}>
                   <BoxItem
                     noLeft
                     title={course.title}
-                    subtitle={course.startDate}
+                    subtitle={`${moment(course.startDate).format('dddd[  ]DD[ de ]MMMM')}`}
                     footer={course.location.city}
                     to={`/dashboard/eventos/${params.id}/cursos/${course._id}`}
                   />
@@ -73,7 +74,7 @@ function EventCourses({
       </ContainerItem>
       <ContainerItem className="dash-item-center">
         <div className="events-event-courses-header">
-          <Title level={3}>Precongreso</Title>
+          <Title level={3}>Trascongreso</Title>
           <div className="number">
             { `Selecciona 1 de ${ courses.filter(c => c.type === 'Precongreso').length }` }
           </div>
@@ -81,12 +82,12 @@ function EventCourses({
         <ContainerItem>
           {
             courses.map(course => {
-              return course.type === 'Trascongreso' ? (
+              return course.courseType === 'Trascongreso' ? (
                 <div className="events-event-courses-course" key={course._id}>
                   <BoxItem
                     noLeft
                     title={course.title}
-                    subtitle={course.startDate}
+                    subtitle={`${moment(course.startDate).format('dddd[  ]DD[ de ]MMMM')}`}
                     footer={course.location.city}
                   />
                   <CourseCheck
