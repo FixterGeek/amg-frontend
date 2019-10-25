@@ -471,6 +471,7 @@ let initialWorkingOn = {
     description: [null, null, null],
     mainImagesURLS: [],
     permisosURLS: [],
+    constanciasURLS: [],
     status: "draft",
     fetching: false,
     modules: [],

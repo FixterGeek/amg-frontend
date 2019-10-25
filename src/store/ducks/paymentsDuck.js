@@ -83,10 +83,11 @@ export function makePaymentInvoiceError(error) {
 export const makePaymentAction = (paymentData, paymentType = 'event') => (dispatch) => {
   dispatch(makePayment());
   return payment(paymentData, paymentType)
-    .then((data) => {
-      useSweet().successAlert({ text: data.paid ? 'Pago realizado' : 'Pago pendiente' });
-      dispatch(makePaymentSuccess(data));
-      return data;
+    .then(({ conektaOrder, payment }) => {
+      console.log(conektaOrder);
+      useSweet().successAlert({ text: conektaOrder.payment_status === 'paid' ? 'Pago realizado' : 'Pago pendiente' });
+      dispatch(makePaymentSuccess({payment, conektaPaid: conektaOrder.payment_status}));
+      return {payment, conektaOrder};
     })
     .catch((error) => {
       useSweet().errorAlert({ text: 'Error al realizar el cobro' });
@@ -155,7 +156,7 @@ export function reducer(state = paymetState, action) {
         ...state,
         fetching: false,
         array: [...state.array, action.payload],
-        status: 'success',
+        status: action.payload.conektaPaid,
       };
     case MAKE_PAYMENT_ERROR:
       return {

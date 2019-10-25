@@ -29,17 +29,30 @@ function EventCourseDetail({
     <div className="dashboard-container  events-event-courses-detail">
       { courseFetching && <Spinner fullScrren /> }
       <ContainerItem className="dash-item-center">
-        <Title>{`${course.title || ''} - Programa`}</Title>
+        <Title>{`${course.title || ''}`}</Title>
         <ContainerItem>
           {
-            course.modules.map(module => (
-              <BoxItem
-                leftContent={moment(module.date).format('hh a')}
-                title={module.title}
-                subtitle={module.description}
-                footer={moment(module.date).format('dddd DD[ de ] MMMM')}
-              />
-            ))
+            course.modules.map(module => {
+              console.log(typeof module);
+              if (typeof module === 'string') return null
+              return (
+                <ContainerItem> 
+                  <Title>{module.title}</Title>
+                  {
+                    module.activities.map(activity => (
+                      <BoxItem
+                        leftContent={
+                          `${moment(activity.startTime).format('hh a')} - ${moment(activity.endTime).format('hh a')}`
+                        }
+                        title={activity.title}
+                        subtitle={activity.description}
+                        footer={moment(activity.date).format('dddd DD[ de ] MMMM')}
+                      />
+                    ))
+                  }
+                </ContainerItem>
+              )
+            })
           }
         </ContainerItem>
       </ContainerItem>

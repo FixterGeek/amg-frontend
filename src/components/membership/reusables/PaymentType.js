@@ -5,8 +5,9 @@ import { Typography, Form, Radio } from 'antd';
 
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
+import Spinner from '../../reusables/Spinner';
 
-function PaymentType({ title, onChange }) {
+function PaymentType({ title, onChange, loading }) {
   const { Title } = Typography;
 
   const [type, setType] = useState('card');
@@ -20,8 +21,11 @@ function PaymentType({ title, onChange }) {
     if (onChange) onChange(type);
   };
 
+  console.log(loading);
+
   return (
     <div className="dashboard-container">
+      { loading && <Spinner fullScrren /> }
       <ContainerItem className="dash-item-center">
         <Title>{ title }</Title>
         <ContainerItem>

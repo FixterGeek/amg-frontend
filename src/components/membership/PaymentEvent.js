@@ -7,6 +7,8 @@ import useSweet from '../../hooks/useSweetAlert';
 import PaymentCardForm from './reusables/PaymentCardForm';
 import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
+import OxxoOrder from './reusables/OxxoOrder';
+import PaymentType from './reusables/PaymentType';
 
 function PaymentEvent({
   history, user, makePaymentAction,
@@ -21,12 +23,15 @@ function PaymentEvent({
     title: null,
   });
 
+  const [paymentType, setPaymentType] = useState(null);
+  const [oxxoOrder, setOxxoOrder] = useState(null);
+
   useEffect(() => {
     if (paymentStatus === 'error') {
       errorAlert({ text: 'No fue posible completar el pago' });
     }
-    if (paymentStatus === 'success') {
-      subscribeUserToEventAction(event._id)
+    if (paymentStatus === 'paid') {
+      subscribeUserToEventAction(event._id).then(() => history.push('/dashboard/events'))
     }
   }, [paymentStatus]);
 
@@ -52,6 +57,21 @@ function PaymentEvent({
     setEvent({ ...event, ...location.state })
   }, [location]);
 
+  useEffect(() => {
+    if (paymentType === 'oxxo') makePaymentAction({
+        price: event.cost,
+        isOxxoPayment: true 
+      },'subscription' )
+      .then(({ conektaOrder }) => setOxxoOrder(conektaOrder));
+  }, [paymentType]);
+
+  if (oxxoOrder) return <OxxoOrder oxxoOrder={oxxoOrder} />
+
+  if (!paymentType || paymentType === 'oxxo') return <PaymentType
+      onChange={type => setPaymentType(type)}
+      loading={paymentFetching}
+    />
+
 
   const handleSubmit = (data) => {
     makePaymentAction({ ...data, user: user._id, eventId: event._id });
@@ -71,7 +91,7 @@ function PaymentEvent({
   );
 }
 
-function mapStateToProps({ user, payment }) {
+function mapStateToProps({ user, payment: { payment } }) {
   return {
     user,
     userFetching: user.fetching,

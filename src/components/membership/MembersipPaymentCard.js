@@ -9,6 +9,7 @@ import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
 import Button from '../reusables/Button';
 import PaymentType from './reusables/PaymentType';
+import OxxoOrder from './reusables/OxxoOrder';
 
 function MembershipPaymentCard({
   history, match, userId,
@@ -24,6 +25,7 @@ function MembershipPaymentCard({
 
   const [paidData, setPaidData] = useState({});
   const [paymentType, setPaymentType] = useState(null);
+  const [oxxoOrder, setOxxoOrder] = useState(null);
 
 
   useEffect(() => {
@@ -31,12 +33,15 @@ function MembershipPaymentCard({
       errorAlert({ title: 'No fue posible procesar el pago' });
       resetPaymentStatus();
     }
-    if (paymentStatus === 'success') {
-      successAlert({ title: `Has adquirido el plan ${type}` });
-      resetPaymentStatus();
-      // history.push('/dashboard/perfil');
-    }
   }, paymentStatus);
+
+  useEffect(() => {
+    if (paymentType === 'oxxo') makePaymentAction({
+        price: amount,
+        isOxxoPayment: true 
+      },'subscription' )
+      .then(({ conektaOrder }) => setOxxoOrder(conektaOrder));
+  }, [paymentType]);
 
   const handleForm = (data) => {
     const paymentData = data;
@@ -48,12 +53,17 @@ function MembershipPaymentCard({
       .then(data => setPaidData({ ...data }));
   };
 
-  if (!paymentType) return <PaymentType onChange={type => setPaymentType(type)} />
+  if (oxxoOrder) return <OxxoOrder oxxoOrder={oxxoOrder} />
+
+  if (!paymentType || paymentType === 'oxxo') return <PaymentType
+      onChange={type => setPaymentType(type)}
+      loading={paymentFetching}
+    />
 
   if (paymentType === 'card') return (
     <div className="dashboard-container">
       <ContainerItem style={{ position: 'relative' }}>
-        { paymentFetching && <Spinner /> }
+        { paymentFetching && <Spinner fullScrren /> }
         <PaymentCardForm
           onSubmit={handleForm}
           concept={`Plan - ${type}`}
@@ -74,7 +84,7 @@ function MembershipPaymentCard({
   );
 }
 
-function mapSateToProps({ user, payment }) {
+function mapSateToProps({ user, payment: { payment } }) {
   return {
     userId: user.id,
     userFetching: user.fetching,

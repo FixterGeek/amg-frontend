@@ -1,5 +1,4 @@
-import React from 'react';
-import moment from 'moment';
+import React, { useState } from 'react';
 
 import { Form, Switch } from 'antd';
 
@@ -10,12 +9,15 @@ import TimePickerField from '../../reusables/TimePickerField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import DocumentField from '../../reusables/DocumentField';
 import Button from '../../reusables/Button';
+import Spinner from '../../reusables/Spinner';
+import { uploadFile } from '../../../tools/firebaseTools';
 
 import estados from '../estados.json'
 
 function AdminEventForm({
   state, setState, saveDraftEvent,
 }) {
+  const [uploadLoading, setUploadLoading] = useState(false);
   const handleChange = ({ target }, sub) => {
     const { name, value } = target;
 
@@ -84,9 +86,21 @@ function AdminEventForm({
     return formData
   }
 
-  const handleSave = (event) => {
+  const handleSave = async event => {
     event.preventDefault();
-    const eventData = normalizeData(state);
+    const st = { ...state };
+    delete st.courses;
+    let constancia = null;
+
+    if (st.constancia) {
+      setUploadLoading(true);
+      constancia = await uploadFile(`/events/${st._id || st.title}`, st.constancia)
+      .then(url => {
+        setUploadLoading(false);
+        return url;
+      })
+    }
+    const eventData = normalizeData({ st, constanciasURLS: [constancia] });
     const form = new FormData();
     const formData = transformToFormData(form, eventData.normalizedData);
     saveDraftEvent({ body: formData, id: eventData.id });
@@ -106,6 +120,7 @@ function AdminEventForm({
 
   return (
     <Form onSubmit={handleSave} className="admin-events-event-form">
+      { uploadLoading && <Spinner fullScrren /> }
       <Switch
         onChange={handleStatus}
         className="admin-events-event-form-active-switch"
@@ -195,9 +210,10 @@ function AdminEventForm({
         url={state.permisosURLS[0] || null}
       />
       <DocumentField
-        onFile={file => handleChange({ target: { name: 'constancias', value: file } })}
+        onFile={file => handleChange({ target: { name: 'constancia', value: file } })}
         file={state.permisos || null}
         label="Constancia"
+        url={state.constanciasURLS ? state.constanciasURLS[0] || null : null}
       />
       <Button width="100%" htmlType="submit">
         { state._id ? 'Actualizar evento' : 'Subir evento' }

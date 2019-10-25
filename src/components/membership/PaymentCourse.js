@@ -8,6 +8,8 @@ import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
 import PaymentCardForm from './reusables/PaymentCardForm';
 import BuyDetail from './reusables/BuyDetail';
+import OxxoOrder from './reusables/OxxoOrder';
+import PaymentType from './reusables/PaymentType';
 
 function PaymentCourse({
   paymetFetching, userId,
@@ -20,10 +22,20 @@ function PaymentCourse({
   const [courses, setCourses] = useState(location.state ? [...location.state] : []);
   const [amount, setAmount] = useState({});
   const [paid, setPaid] = useState(false);
+  const [paymentType, setPaymentType] = useState(null);
+  const [oxxoOrder, setOxxoOrder] = useState(null)
 
   useEffect(() => {
     if (courses.length === 0) history.push(`/dashboard/eventos/${params.eventId}`)
   }, [courses.length]);
+
+  useEffect(() => {
+    if (paymentType === 'oxxo') makePaymentAction({
+        price: amount,
+        isOxxoPayment: true 
+      }, 'coursePayment')
+      .then(({ conektaOrder }) => setOxxoOrder(conektaOrder));
+  }, [paymentType]);
 
 
   const handleBuy = (amountData) => {
@@ -35,7 +47,12 @@ function PaymentCourse({
       .then(paymentData => paymentData.paid && setPaid(state => !state));
   };
 
-  console.log(amount);
+  if (oxxoOrder) return <OxxoOrder oxxoOrder={oxxoOrder} />
+
+  if (!paymentType || paymentType === 'oxxo') return <PaymentType
+      onChange={type => setPaymentType(type)}
+      loading={paymetFetching}
+    />
 
 
   return (

@@ -622,6 +622,8 @@
   position: relative;
   margin-left: $largeMargin;
   margin-bottom: $margin;
+  min-width: 0;
+  width: 100%;
 
   @include for-size(tablet-landscape-up) {
     margin-left: $extraMargin;

@@ -4,10 +4,11 @@ import AdminMenu from './AdminMenu'
 import AdminRouter from './AdminRouter';
 
 
-function Admin({ history }) {
+function Admin({ history, user }) {
     useEffect(() => {
         const {location} = history;
         if (location.pathname === '/admin') history.push('/admin/dashboard');
+        if (user.userType !== 'Admin') history.push('/dashboard');
     }, []);
 
     console.log(history);
@@ -22,10 +23,11 @@ function Admin({ history }) {
     )
 }
 
-function mapState({ users }) {
+function mapState({ users, user }) {
     return {
         users: users.data,
-        usersLoading: users.fetching
+        usersLoading: users.fetching,
+        user,
     }
 }
 
