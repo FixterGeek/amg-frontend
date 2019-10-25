@@ -12,7 +12,7 @@ import PaymentType from './reusables/PaymentType';
 import OxxoOrder from './reusables/OxxoOrder';
 
 function MembershipPaymentCard({
-  history, match, userId,
+  history, match, userId, userPhone,
   userFetching, userStatus, makePaymentAction,
   paymentFetching, paymentStatus, resetPaymentStatus,
 }) {
@@ -58,6 +58,7 @@ function MembershipPaymentCard({
   if (!paymentType || paymentType === 'oxxo') return <PaymentType
       onChange={type => setPaymentType(type)}
       loading={paymentFetching}
+      phone={userPhone}
     />
 
   if (paymentType === 'card') return (
@@ -69,6 +70,7 @@ function MembershipPaymentCard({
           concept={`Plan - ${type}`}
           amount={amount}
           paid={paidData.paid}
+          phone={userPhone}
         />
         { 
           paidData._id && paidData.paid ? (
@@ -87,6 +89,7 @@ function MembershipPaymentCard({
 function mapSateToProps({ user, payment: { payment } }) {
   return {
     userId: user.id,
+    userPhone: user.basicData.phone,
     userFetching: user.fetching,
     userStatus: user.status,
     paymentFetching: payment.fetching,

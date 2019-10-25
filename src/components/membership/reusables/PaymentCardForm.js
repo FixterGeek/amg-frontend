@@ -9,7 +9,7 @@ import TextField from '../../../molecules/TextFields';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
 
-function PaymentCardForm({ onChange, onSubmit, amount, concept, paid }) {
+function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
   const { Title } = Typography;
   const { errorAlert } = useSweet();
 
@@ -18,7 +18,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid }) {
     number: '',
     expiration: '',
     ccv: '',
-    phone: null,
+    phone: phone || null,
   }
 
   const [isValid, setIsValid] = useState(false);

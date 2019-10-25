@@ -7,14 +7,15 @@ import { Typography } from 'antd'
 
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { populateEventsAction } from '../../store/ducks/eventsDuck';
-import Spinner from '../../atoms/Spinner';
+import Spinner from '../reusables/Spinner';
 import EventsMonth from '../../molecules/Events/EventsMonth';
 import EventsCarousel from './EventsCarousel';
 
-function EventsList(props) {
+function EventsList({
+  events, populateEventsAction, fetching,
+}) {
   const { Title } = Typography;
   const { errorAlert } = useSweetAlert();
-  const { events, populateEventsAction } = props;
   const [loading, setLoading] = useState(false);
 
   const [state, setState] = useState({
@@ -49,7 +50,7 @@ function EventsList(props) {
 
   return (
     <div className="dashboard-container">
-      { loading && <Spinner tip="Cargando eventos..." /> }
+      { loading || fetching ? <Spinner tip="Cargando eventos..." /> : null }
       <Title>Eventos</Title>
       <EventsCarousel events={events.events} />
       <div>
@@ -64,8 +65,11 @@ function EventsList(props) {
 }
 
 
-function mapStateToProps(state) {
-  return { events: state.events };
+function mapStateToProps({ events }) {
+  return {
+    events,
+    fetching: events.fetching,
+  };
 }
 
 export default withRouter(connect(mapStateToProps, { populateEventsAction })(EventsList));

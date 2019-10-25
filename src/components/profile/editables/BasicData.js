@@ -7,7 +7,7 @@ import useSweetAlert from '../../../hooks/useSweetAlert';
 import fileToURL from '../../../tools/fileToURL';
 import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
 import ProfilePhoto from '../../../atoms/ProfilePhoto';
-import TransparentTextField from '../../../atoms/data-entry/TransparentTextField';
+import TransparentTextField from '../../reusables/TransparentTextField';
 import FilePicker from '../../../atoms/FilePicker';
 import ModalName from '../modals/ModalName';
 
@@ -20,9 +20,10 @@ function BasicData({
   const { basicData } = user;
   const { placeOfBirth = {} } = basicData;
   const [speciality, setSpeciality] = useState();
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState(basicData.placeOfBirth.addressName);
   const [temporalPhoto, setTemporalPhoto] = useState();
   const [photoFile, setPhotoFile] = useState();
+  const [phone, setPhone] = useState(basicData.phone);
   const [edits, setEdits] = useState({
     photoURL: {
       edit: false,
@@ -36,6 +37,10 @@ function BasicData({
       edit: false,
       icon: 'edit',
     },
+    phone: {
+      edit: false,
+      icon: 'edit',
+    }
   });
 
   const handleEdit = (name) => {
@@ -54,6 +59,7 @@ function BasicData({
         ...user,
         basicData: {
           ...user.basicData,
+          phone,
           placeOfBirth: {
             ...user.basicData.placeOfBirth,
             addressName: address,
@@ -70,6 +76,7 @@ function BasicData({
     const { name, value } = target;
 
     if (name === 'speciality') setSpeciality(value);
+    else if (name === 'phone') setPhone(value);
     else setAddress(value);
   };
 
@@ -124,10 +131,19 @@ function BasicData({
       <TransparentTextField
         onChange={handleChange}
         onClick={handleEdit}
+        placeholder="Lugar"
         name="addressName"
         disabled={!edits.addressName.edit}
         value={address || placeOfBirth.addressName}
         icon={edits.addressName.icon} />
+      <TransparentTextField
+        onChange={handleChange}
+        onClick={handleEdit}
+        placeholder="Número telefónico"
+        name="phone"
+        disabled={!edits.phone.edit}
+        value={phone || basicData.phone}
+        icon={edits.phone.icon} />
     </DashboardContainerItem>
   );
 }

@@ -251,8 +251,8 @@ export const deleteCourseModuleAction = (module) => (dispatch) => {
 
 // ADD ACTIVITY COURSE
 export const addOrUpdateActivityCourse = (activityData, object) => (dispatch) => {
-  dispatch(object && object._id ? addActivityCourse() : updateActivityCourse());
-  if (object && object._id) return patchActivityForCourseModule(activityData, object)
+  dispatch(activityData._id ? updateActivityCourse() : addActivityCourse());
+  if (activityData._id) return patchActivityForCourseModule(activityData._id, activityData)
     .then((updatedActivity) => {
       return successAction(
         dispatch, updateActivityCourseSuccess, updatedActivity, RESET_COURSES_SATUS, 'Actividad actualizada',
