@@ -42,7 +42,7 @@ function PaymentType({
   }
 
   const handleUpdatePhone = () => {
-    const formData = toFormData(userData, { nulls: true });
+    const formData = toFormData({ basicData: userData.basicData }, { nulls: true });
     updateUserAction(formData);
   }
 

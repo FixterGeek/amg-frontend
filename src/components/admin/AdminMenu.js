@@ -17,10 +17,10 @@ import { Menu, Icon } from 'antd';
 
 import { SourcesIcon, EventIcon, MapIcon } from '../feed/reusables/Icons';
 import useSweetAlert from '../../hooks/useSweetAlert';
-import { logout } from '../../services/userServices';
+import { logoutAction } from '../../store/ducks/userDuck';
 // import { populateUserAction } from '../store/ducks/userDuck';
 
-function LateralMenu({ history, user, populateUserAction }) {
+function LateralMenu({ history, user, populateUserAction, logoutAction }) {
     const { errorAlert } = useSweetAlert();
     const [state] = useState({ anchor: createRef() });
     const { Item } = Menu;
@@ -44,6 +44,11 @@ function LateralMenu({ history, user, populateUserAction }) {
     const toMagazine = () => {
         state.anchor.current.click();
     };
+
+    const logOut = () => {
+        logoutAction();
+        history.push('/');
+    }
 
 
     return (
@@ -102,7 +107,7 @@ function LateralMenu({ history, user, populateUserAction }) {
             </Item>
             <Item
                 key={9}
-                onClick={() => logout(history)}
+                onClick={() => logOut()}
                 style={{ position: 'absolute', bottom: '16px' }}>
                 <Icon
                     className={
@@ -126,4 +131,9 @@ function mapStateToProps(state) {
     return { user: state.user };
 }
 
-export default withRouter(connect(mapStateToProps)(LateralMenu));
+export default withRouter(
+    connect(
+        mapStateToProps, {
+            logoutAction,
+        }
+    )(LateralMenu));

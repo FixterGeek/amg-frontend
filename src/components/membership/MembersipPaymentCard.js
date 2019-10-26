@@ -38,7 +38,8 @@ function MembershipPaymentCard({
   useEffect(() => {
     if (paymentType === 'oxxo') makePaymentAction({
         price: amount,
-        isOxxoPayment: true 
+        isOxxoPayment: true,
+        phone: userPhone,
       },'subscription' )
       .then(({ conektaOrder }) => setOxxoOrder(conektaOrder));
   }, [paymentType]);

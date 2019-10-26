@@ -2,6 +2,7 @@ export function normalizeDate(eventData) {
     const normalizedData = { ...eventData }
     delete normalizedData.modules;
     delete normalizedData.assistants;
+    delete normalizedData.courses
     const id = normalizedData._id;
     delete normalizedData._id;
     return { normalizedData, id };

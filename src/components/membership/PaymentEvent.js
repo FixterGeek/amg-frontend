@@ -14,6 +14,7 @@ function PaymentEvent({
   history, user, makePaymentAction,
   userFetching, userStatus,
   paymentFetching, paymentStatus, subscribeUserToEventAction,
+  userPhone,
 }) {
   const { infoAlert, errorAlert } = useSweet();
   const { location } = history;
@@ -60,7 +61,8 @@ function PaymentEvent({
   useEffect(() => {
     if (paymentType === 'oxxo') makePaymentAction({
         price: event.cost,
-        isOxxoPayment: true 
+        isOxxoPayment: true,
+        phone: userPhone, 
       },'subscription' )
       .then(({ conektaOrder }) => setOxxoOrder(conektaOrder));
   }, [paymentType]);
@@ -70,6 +72,7 @@ function PaymentEvent({
   if (!paymentType || paymentType === 'oxxo') return <PaymentType
       onChange={type => setPaymentType(type)}
       loading={paymentFetching}
+      phone={userPhone || null}
     />
 
 
@@ -85,6 +88,7 @@ function PaymentEvent({
           onSubmit={handleSubmit}
           amount={event.cost}
           concept={`Evento - ${event.title}`}
+          phone={ userPhone || null }
         />
       </ContainerItem>
     </div>
@@ -94,6 +98,7 @@ function PaymentEvent({
 function mapStateToProps({ user, payment: { payment } }) {
   return {
     user,
+    userPhone: user.basicData.phone,
     userFetching: user.fetching,
     useStatus: user.status,
     paymentFetching: payment.fetching,
