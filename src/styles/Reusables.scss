@@ -623,7 +623,7 @@
   margin-left: $largeMargin;
   margin-bottom: $margin;
   min-width: 0;
-  width: 100%;
+  flex-grow: 1;
 
   @include for-size(tablet-landscape-up) {
     margin-left: $extraMargin;

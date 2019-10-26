@@ -43,6 +43,7 @@ function EventCourseDetail({
                       console.log(activity);
                       return (
                         <BoxItem
+                          leftStyle={{ paddingRight: '16px', flexShrink: 0 }}
                           leftContent={
                             `${moment(activity.startTime).format('hh a')} - ${moment(activity.endTime).format('hh a')}`
                           }
