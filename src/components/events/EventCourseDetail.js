@@ -39,16 +39,19 @@ function EventCourseDetail({
                 <ContainerItem> 
                   <Title>{module.title}</Title>
                   {
-                    module.activities.map(activity => (
-                      <BoxItem
-                        leftContent={
-                          `${moment(activity.startTime).format('hh a')} - ${moment(activity.endTime).format('hh a')}`
-                        }
-                        title={activity.title}
-                        subtitle={activity.description}
-                        footer={moment(activity.date).format('dddd DD[ de ] MMMM')}
-                      />
-                    ))
+                    module.activities.map(activity => {
+                      console.log(activity);
+                      return (
+                        <BoxItem
+                          leftContent={
+                            `${moment(activity.startTime).format('hh a')} - ${moment(activity.endTime).format('hh a')}`
+                          }
+                          title={activity.activityName}
+                          subtitle={activity.description}
+                          footer={moment(activity.date).format('dddd DD[ de ] MMMM')}
+                        />
+                      )
+                    })
                   }
                 </ContainerItem>
               )
