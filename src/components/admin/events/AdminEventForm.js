@@ -116,7 +116,7 @@ function AdminEventForm({
     return { normalizedData, id };
   }
 
-  console.log(state);
+  console.log(state.cost.freeCost);
 
   return (
     <Form onSubmit={handleSave} className="admin-events-event-form">
@@ -146,10 +146,22 @@ function AdminEventForm({
         label="Hora de inicio"
       />
       <TextField
-        onChange={handleChange}
-        value={state.cost || null}
-        label="Costo"
-        name="cost"
+        onChange={event => handleChange(event, 'cost')}
+        value={state.cost.freeCost}
+        label="Costo para usuarios Free"
+        name="freeCost"
+      />
+      <TextField
+        onChange={event => handleChange(event, 'cost')}
+        value={state.cost.residentCost}
+        label="Costo para Socios en Entrenamiento"
+        name="residentCost"
+      />
+      <TextField
+        onChange={event => handleChange(event, 'cost')}
+        value={state.cost.socioCost}
+        label="Costo para Socios"
+        name="socioCost"
       />
       <TextAreaField
         onChange={handleChange}

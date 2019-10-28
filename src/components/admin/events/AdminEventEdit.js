@@ -24,7 +24,7 @@ import AdminEventMap from './AdminEventMap';
 import AdminCourses from './AdminCourses';
 
 function AdminEventEdit({
-  match, state,setState,
+  match, state, setState,
   saveDraftEvent, getSingleEvent, addSpeakerAction,
   speakers, fetching, addModuleAction,
   modules, updateEventActivityAction, removeActivityAction,

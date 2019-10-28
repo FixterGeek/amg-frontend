@@ -452,6 +452,11 @@ let initialWorkingOn = {
     mainImages: null,
     permisos: null,
     speakers: [],
+    cost: {
+        freeCost: 0,
+        residentCost: 0,
+        socioCost: 0,
+    },
     // modules: ["ids de los modulos"],
     location: {
         addressName: "",
