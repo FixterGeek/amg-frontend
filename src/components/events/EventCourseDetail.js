@@ -40,16 +40,19 @@ function EventCourseDetail({
                   <Title>{module.title}</Title>
                   {
                     module.activities.map(activity => {
-                      console.log(activity);
+                      const speakers = activity.speakers.map((speaker) => {
+                        if (speaker.fullName) return `${speaker.fullName}`;
+                        return ' ';
+                      });
                       return (
                         <BoxItem
                           leftStyle={{ paddingRight: '16px', flexShrink: 0 }}
                           leftContent={
-                            `${moment(activity.startTime).format('hh a')} - ${moment(activity.endTime).format('hh a')}`
+                            `${moment(activity.startTime).format('hh:mm a')} - ${moment(activity.endTime).format('hh:mm a')}`
                           }
                           title={activity.activityName}
-                          subtitle={activity.description}
-                          footer={moment(activity.date).format('dddd DD[ de ] MMMM')}
+                          subtitle={speakers[0] ? speakers.join() : activity.description}
+                          footer={activity.address || moment(activity.date).format('dddd DD[ de ] MMMM')}
                         />
                       )
                     })
