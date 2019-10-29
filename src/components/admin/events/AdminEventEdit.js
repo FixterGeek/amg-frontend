@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Tabs, Typography, Divider } from 'antd';
+import { Tabs, Typography, Divider, Popconfirm } from 'antd';
 
 import {
   updateWorkingOn,
@@ -12,6 +12,7 @@ import {
   updateEventActivityAction,
   removeActivityAction,
   removeModuleAction,
+  deleteEventAction,
 } from '../../../store/ducks/adminDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Spinner from '../../reusables/Spinner';
@@ -22,13 +23,14 @@ import AdminEventModules from './AdminEventModules';
 import AdminEventCoversForm from './AdminEvenCoversForm';
 import AdminEventMap from './AdminEventMap';
 import AdminCourses from './AdminCourses';
+import Button from '../../reusables/Button';
 
 function AdminEventEdit({
-  match, state, setState,
+  match, history, state, setState,
   saveDraftEvent, getSingleEvent, addSpeakerAction,
   speakers, fetching, addModuleAction,
   modules, updateEventActivityAction, removeActivityAction,
-  removeModuleAction,
+  removeModuleAction, deleteEventAction
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -45,7 +47,23 @@ function AdminEventEdit({
 
   return (
     <div className="admin-event-form-container">
-      <Title>{ sectionTitle }</Title>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Title>{ sectionTitle }</Title>
+        {
+          state._id && (
+            <Popconfirm
+              okText="SI"
+              cancelText="NO"
+              title={`¿Eliminar ${state.title}?`}
+              onConfirm={() => deleteEventAction(state._id).then(() => history.push('/admin/events'))}
+            >
+              <Button bgColor="red" marginTop="0">
+                Eliminar
+              </Button>
+            </Popconfirm>
+          )
+        }
+      </div>
       <ContainerItem style={{ position: 'relative' }}>
         { fetching && <Spinner fullScrren /> }
         <div className="event-title">
@@ -119,5 +137,6 @@ export default connect(
     updateEventActivityAction,
     removeActivityAction,
     removeModuleAction,
+    deleteEventAction,
   }
 )(AdminEventEdit);

@@ -6,6 +6,8 @@ import { emptyWorkingOn } from '../../store/ducks/adminDuck'
 import AdminEventCard from './AdminEventCard';
 import { Skeleton, Card } from 'antd'
 
+import Button from '../reusables/Button';
+
 function AdminEvents({
     getAdminEvents,
     activeEvents,
@@ -41,7 +43,7 @@ function AdminEvents({
             <article className="admin-main-header" >
                 <h1>Eventos</h1>
                 <Link to="/admin/eventos/edit">
-                    <button className="admin-main-button">Agregar evento</button>
+                    <Button>Agregar evento</Button>
                 </Link>
             </article>
 

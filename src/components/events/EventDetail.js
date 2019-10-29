@@ -34,6 +34,11 @@ function EventDetail({
     location: {
       coordinates: [],
     },
+    cost: {
+      freeCost: 0,
+      residentCost: 0,
+      socioCost: 0,
+    }
   });
 
 
@@ -48,7 +53,7 @@ function EventDetail({
       if (!state._id) {
         const locationSplit = location.pathname.split('/');
         const id = locationSplit[locationSplit.length - 1];
-        getSingleEvent(id).then(({ data }) => setState({ ...data }));
+        getSingleEvent(id).then(({ data }) => setState(s => ({ ...s, ...data })));
       }
     }
   }, []);

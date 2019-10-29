@@ -13,9 +13,12 @@ function SubscribeButton({
   subscribeUserToActivityAction, subscribeUserToEventAction,
   assistedEvents, activityObject = {}, assistedActivities
 }) {
+  console.log(eventObject);
   const { membershipStatus = 'Veterano', userStatus } = user;
-  const userPays = membershipStatus === 'Socio' || membershipStatus === 'Veterano' ?
-    false : membershipStatus === 'Free' || membershipStatus === 'Residente'
+  let userPays = membershipStatus === 'Socio' && eventObject.cost.socioCost > 0;
+    if (membershipStatus === 'Residente' && eventObject.cost.residenCost > 0) userPays = true;
+    if (membershipStatus === 'Free' && eventObject.cost.freeCost > 0) userPays = true;
+    if (membershipStatus === 'Veterano') userPays = false;
 
   if (userStatus !== 'Aprobado') return (
     <Button disabled width="100%">

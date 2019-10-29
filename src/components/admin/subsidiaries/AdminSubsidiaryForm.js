@@ -4,175 +4,150 @@ import toFormData from 'object-to-formdata';
 
 import { Typography, Form } from 'antd';
 
-import { updateUserAction } from '../../../store/ducks/userDuck';
+import {
+  createOrUpdateSubsidiary,
+  workingOn,
+} from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import ImagePicker from '../../reusables/ImagePicker';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
+import FormManager from '../reusables/CreateAndUpdateManager';
 
 import banks from './reusables/banks.json';
 import states from '../estados.json';
 
 function AdminSubsidiaryForm({
-  user, history, updateUserAction,
-  fetching, status,
+  user, working, createOrUpdateSubsidiary,
+  workingOn,
 }) {
   const { Title } = Typography;
-  const { location: historyLocation } = history;
 
-  const [subData, setSubData] = useState({
-    _id: null,
-    basicData: {},
-    fiscalData: {
-      address: {}
-    },
-    bankData: {},
-    ...user,
-  });
 
-  const { basicData } = subData;
-
-  const handleChange = ({ target }, sub, subSub) => {
-    const { name, value } = target;
-    if (sub) setSubData(state => ({ ...state, [sub]: { ...state[sub], [name]: value } }));
-    if (subSub) setSubData(state => ({
-      ...state,
-      [sub]: {
-        ...state[sub],
-        [subSub]: { ...state[sub][subSub], [name]: value }
-      }
-    }));
-    else setSubData(state => ({ ...state, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const userData = subData;
-    delete userData._id;
-    const formData = toFormData({
-      basicData: userData.basicData,
-      fiscalData: userData.fiscalData,
-      bankData: userData.bankData,
-      photo: userData.photo || null,
-    }, { nulls: true });
-
-    updateUserAction(formData);
-  };
-
-  console.log(subData);
+  console.log(working);
 
   return (
     <section>
-      { fetching && <Spinner fullScrren /> }
-      <ContainerItem>
-        <Title>{ basicData.name }</Title>
-      </ContainerItem>
-      <Form onSubmit={handleSubmit}>
-        <ImagePicker
-          onChange={file => handleChange({ target: { name: 'photo', value: file } })}
-          url={subData.basicData.photoURL}
-        />
-        <Title level={4}>Datos de contacto</Title>
-        <TextField
-          value={subData.email}
-          disabled
-          label="Correo electrónico"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'basicData')}
-          value={subData.basicData.phone}
-          name="phone"
-          label="Número telefonico"
-        />
+      <FormManager
+        isModal
+        modalOpenText="Crear Filial"
+        createAndUpdateAction={createOrUpdateSubsidiary}
+        payloadData={working}
+        successClose
+        errorClose
+        autoResetFromClose
+      >
+        <Form>
+          <Title level={4}>Filial de</Title>
+          <SelectField
+            onChange={value => workingOn(working, 'state', value)}
+            value={working.state}
+            label="Filial para el estado de:" >
+            {
+              Object.keys(states).map(key => (
+                <OptionSelect key={key} value={states[key]}>
+                  { states[key] }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
 
-        <Title level={4}>Datos bancarios</Title>
-        <TextField
-          onChange={event => handleChange(event, 'bankData')}
-          value={subData.bankData.clabe}
-          name="clabe"
-          label="CLABE interbancaria"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'bankData')}
-          value={subData.bankData.accountNumber}
-          name="accountNumber"
-          label="Número de cuenta"
-        />
-        <SelectField
-          onChange={value => handleChange({ target: { name: 'bank', value }}, 'bankData')}
-          value={subData.bankData.bank}
-          label="Entidad bancaria" >
-          {
-            Object.keys(banks).map(key => (
-              <OptionSelect key={key} value={banks[key][0]}>
-                { banks[key][0] }
-              </OptionSelect>
-            ))
-          }
-        </SelectField>
-        <Title level={4}>DatosFiscales</Title>
-        <TextField
-          onChange={event => handleChange(event, 'fiscalData')}
-          value={subData.fiscalData.rfc}
-          name="rfc"
-          label="RFC"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'fiscalData', 'address')}
-          value={subData.fiscalData.address.street}
-          name="street"
-          label="Dirección"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'fiscalData', 'address')}
-          value={subData.fiscalData.address.colony}
-          name="colony"
-          label="Colonia"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'fiscalData', 'address')}
-          value={subData.fiscalData.address.zipCode}
-          name="zipCode"
-          label="Código postal"
-        />
-        <TextField
-          onChange={event => handleChange(event, 'fiscalData', 'address')}
-          value={subData.fiscalData.address.city}
-          name="city"
-          label="Ciudad"
-        />
-        <SelectField
-          onChange={value => handleChange({ target: { name: 'state', value }}, 'fiscalData', 'address')}
-          value={subData.fiscalData.address.state}
-          label="Estado" >
-          {
-            Object.keys(states).map(key => (
-              <OptionSelect key={key} value={states[key]}>
-                { states[key] }
-              </OptionSelect>
-            ))
-          }
-        </SelectField>
-        <Button width="100%" htmlType="submit">
-          Actualizar Datos
-        </Button>
-      </Form>
+          <Title level={4}>Datos de contacto</Title>
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.email', value)}
+            value={working.fiscalData.email}
+            label="Correo electrónico"
+          />
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.phone', value)}
+            value={working.fiscalData.phone}
+            label="Número telefonico"
+          />
+
+          <Title level={4}>Datos bancarios</Title>
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'bankData.CLABE', value)}
+            value={working.bankData.CLABE}
+            label="CLABE interbancaria"
+          />
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'bankData.accountNumber', value)}
+            value={working.bankData.accountNumber}
+            label="Número de cuenta"
+          />
+          <SelectField
+            onChange={value => workingOn(working, 'bankData.bank', value)}
+            value={working.bankData.bank}
+            label="Entidad bancaria" >
+            {
+              Object.keys(banks).map(key => (
+                <OptionSelect key={key} value={banks[key][0]}>
+                  { banks[key][0] }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
+          <Title level={4}>DatosFiscales</Title>
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.rfc', value)}
+            value={working.fiscalData.rfc}
+            label="RFC"
+          />
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.address.street', value)}
+            value={working.fiscalData.address.street}
+            label="Dirección"
+          />
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.address.colony', value)}
+            value={working.fiscalData.address.colony}
+            label="Colonia"
+          />
+          <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'fiscalData.address.zipCode', value)}
+            value={working.fiscalData.address.zipCode}
+            label="Código postal"
+          />
+          <TextField
+            onChange={({ target: { value }}) => workingOn(working, 'fiscalData.address.city', value)}
+            value={working.fiscalData.address.city}
+            label="Ciudad"
+          />
+          <SelectField
+            onChange={value => workingOn(working, 'fiscalData.address.state', value)}
+            value={working.fiscalData.address.state}
+            label="Estado" >
+            {
+              Object.keys(states).map(key => (
+                <OptionSelect key={key} value={states[key]}>
+                  { states[key] }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
+          <Button width="100%" htmlType="submit">
+            { working._id ? 'Actualizar datos' : 'Crear Filial' }
+          </Button>
+        </Form>
+      </FormManager>
     </section>
   );
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps({ user, subsidiary }) {
   return {
     user,
     fetching: user.fetching,
     status: user.status,
+    working: subsidiary.workingOn,
   }
 }
 
 export default connect(
   mapStateToProps, {
-    updateUserAction,
+    workingOn,
+    createOrUpdateSubsidiary,
   },
 )(AdminSubsidiaryForm);

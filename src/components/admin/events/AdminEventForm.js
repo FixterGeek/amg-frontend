@@ -89,18 +89,19 @@ function AdminEventForm({
   const handleSave = async event => {
     event.preventDefault();
     const st = { ...state };
-    delete st.courses;
     let constancia = null;
+    delete st.courses;
 
     if (st.constancia) {
       setUploadLoading(true);
       constancia = await uploadFile(`/events/${st._id || st.title}`, st.constancia)
       .then(url => {
         setUploadLoading(false);
+        st.constanciasURLS = [url];
         return url;
       })
     }
-    const eventData = normalizeData({ st, constanciasURLS: [constancia] });
+    const eventData = normalizeData(st);
     const form = new FormData();
     const formData = transformToFormData(form, eventData.normalizedData);
     saveDraftEvent({ body: formData, id: eventData.id });
@@ -110,13 +111,13 @@ function AdminEventForm({
     const normalizedData = { ...eventData }
     delete normalizedData.modules;
     delete normalizedData.assistants;
-    delete normalizeData.courses
+    delete normalizeData.courses;
     const id = normalizedData._id;
     delete normalizedData._id;
     return { normalizedData, id };
   }
 
-  console.log(state.cost.freeCost);
+  console.log(state);
 
   return (
     <Form onSubmit={handleSave} className="admin-events-event-form">
@@ -146,7 +147,7 @@ function AdminEventForm({
         label="Hora de inicio"
       />
       <TextField
-        onChange={event => handleChange(event, 'cost')}
+        onChange={({ target: { value } }) => handleChange({ target: { name: 'freeCost', value: Number(value) } }, 'cost' )}
         value={state.cost.freeCost}
         label="Costo para usuarios Free"
         name="freeCost"
