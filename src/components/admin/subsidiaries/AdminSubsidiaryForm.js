@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import toFormData from 'object-to-formdata';
 
 import { Typography, Form } from 'antd';
 
 import {
   createOrUpdateSubsidiary,
   workingOn,
+  setWorkingOn,
+  populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
@@ -21,17 +22,25 @@ import states from '../estados.json';
 
 function AdminSubsidiaryForm({
   user, working, createOrUpdateSubsidiary,
-  workingOn,
+  workingOn, history: { location }, match = {},
+  setWorkingOn, subsidiaries, noSubsidiaries,
+  populateSubsidiaries,
 }) {
   const { Title } = Typography;
+  const { pathname } = location;
+  const { params = {} } = match;
 
+  useEffect(() => {
+    if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+    if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
+  }, [subsidiaries]);
 
-  console.log(working);
+  console.log(subsidiaries);
 
   return (
     <section>
       <FormManager
-        isModal
+        isModal={pathname.split('/').pop() !== 'edit'}
         modalOpenText="Crear Filial"
         createAndUpdateAction={createOrUpdateSubsidiary}
         payloadData={working}
@@ -141,7 +150,10 @@ function mapStateToProps({ user, subsidiary }) {
     user,
     fetching: user.fetching,
     status: user.status,
+    subsidiaryFetching: subsidiary.fetching,
     working: subsidiary.workingOn,
+    subsidiaries: subsidiary.array,
+    noSubsidiaries: subsidiary.noData,
   }
 }
 
@@ -149,5 +161,7 @@ export default connect(
   mapStateToProps, {
     workingOn,
     createOrUpdateSubsidiary,
+    setWorkingOn,
+    populateSubsidiaries,
   },
 )(AdminSubsidiaryForm);

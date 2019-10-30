@@ -26,7 +26,7 @@ export const patchSubsidiary = (subsidiaryId, subsidiaryData) => {
 
 export const getSubsidiaries = () => {
   const token = localStorage.authToken;
-  return axios.get(`${APIURL}?query={"userType": "Filial"}`, {
+  return axios.get(`${APIURL}`, {
     headers: {
       Authorization: token,
     },

@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
+import {
+  populateSubsidiaries,
+} from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import StatsContainer from '../reusables/StatsContainer';
 import SubsidiariesList from './AdminSibsidiariesList';
-import FormManager from '../reusables/CreateAndUpdateManager';
 import SubsidiaryForm from './AdminSubsidiaryForm';
+import Spinner from '../../reusables/Spinner';
 
-function AdminSubsidiaries() {
+function AdminSubsidiaries({
+  subsidiaries, noSubsidiaries, fetching,
+  populateSubsidiaries,
+}) {
   const { Title } = Typography;
+
+  useEffect(() => {
+    if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+  }, []);
 
   return (
     <section className="admin-subsidiaries">
+      { fetching && <Spinner fullScrren /> }
       <ContainerItem>
         <Title>Filiales</Title>
       </ContainerItem>
@@ -24,10 +36,22 @@ function AdminSubsidiaries() {
           <SubsidiaryForm isModal />
       </ContainerItem>
       <ContainerItem>
-        <SubsidiariesList />
+        <SubsidiariesList subsidiaries={subsidiaries} />
       </ContainerItem>
     </section>
   );
 }
 
-export default AdminSubsidiaries;
+function mapStateToProps({ subsidiary }) {
+  return {
+    subsidiaries: subsidiary.array,
+    noSubsidiaries: subsidiary.noData,
+    fetching: subsidiary.fetching,
+  };
+}
+
+export default connect(
+  mapStateToProps, {
+    populateSubsidiaries,
+  }
+)(AdminSubsidiaries);

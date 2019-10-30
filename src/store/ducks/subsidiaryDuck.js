@@ -1,5 +1,6 @@
 import {
   postSubsidiary,
+  getSubsidiaries,
 } from '../../services/subsidiaryServices';
 
 import { successAction, errorAction } from './tools';
@@ -52,6 +53,7 @@ const FETCHING_ERROR = `${prefix}/ERROR`;
 
 const CREATE_SUBSIDIARY_SUCCESS = `${prefix}/CREATE_SUBSIDIARY_SUCCESS`;
 const UPDATE_SUBSIDIARY_SUCCESS = `${prefix}/UPDATE_SUBSIDIARY_SUCCESS`;
+const POPULATE_SUBSIDIARIES_SUCCESS = `${prefix}/POPULATE_SUBSIDIARIES_SUCCESS`;
 
 
 /* Actions */
@@ -78,12 +80,19 @@ export const workingOn = (working, name, value) => {
   return { type: WORKING_ON, payload: working };
 };
 
+export const setWorkingOn = (working) => {
+  console.log(working);
+  return { type: SET_WORKING_ON, payload: working }
+}
+
 // successes
 const createSubsidiarySuccess = subsidiaryData => ({ type: CREATE_SUBSIDIARY_SUCCESS, payload: subsidiaryData });
 const updateSubsidiarySuccess = updatedSubsidiary => ({ type: UPDATE_SUBSIDIARY_SUCCESS, payload: updatedSubsidiary });
+const populateSubsidiariesSuccess = subsidiariesArray => ({ type: POPULATE_SUBSIDIARIES_SUCCESS ,payload: subsidiariesArray });
 
 
 /* thunks */
+// CREATE AND UPDATE
 export const createOrUpdateSubsidiary = (subsidiaryData) => (dispatch) => {
   dispatch(fetching());
   if (!subsidiaryData._id) return postSubsidiary(subsidiaryData)
@@ -97,6 +106,23 @@ export const createOrUpdateSubsidiary = (subsidiaryData) => (dispatch) => {
     });
 }
 
+// POPULATE
+export const populateSubsidiaries = () => (dispatch) => {
+  dispatch(fetching());
+  return getSubsidiaries()
+    .then((subsidiariesArray) => {
+      return successAction(
+        dispatch, populateSubsidiariesSuccess, subsidiariesArray, RESET_SUBSIDIARY_STATUS, false
+      );
+    })
+    .catch((error) => {
+      return errorAction(
+        dispatch, fetchingError, error, RESET_SUBSIDIARY_STATUS, 'Filiales no disponibles',
+      );
+    });
+};
+
+
 /* reducer */
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -108,7 +134,10 @@ export default function reducer(state = initialState, action) {
     case FETCHING_ERROR:
       return { ...state, status: 'error', error: action.payload };
     case WORKING_ON:
-      return { ...state, workingOn: { ...action.payload } }
+      return { ...state, workingOn: { ...action.payload } };
+    case SET_WORKING_ON:
+      console.log(action.payload);
+      return { ...state, workingOn: { ...action.payload } };
     /* spesisifcs */
     case CREATE_SUBSIDIARY_SUCCESS:
       return {
@@ -120,6 +149,8 @@ export default function reducer(state = initialState, action) {
         ...state, status: 'success',
         array: state.array.map(s => s._id === action.payload._id ? action.payload : s),
       }
+    case POPULATE_SUBSIDIARIES_SUCCESS:
+      return { ...state, status: 'success', array: action.payload, noData: action.payload.length === 0 };
     default:
       return state;
   }

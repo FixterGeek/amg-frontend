@@ -9,6 +9,7 @@ import ContainerItem from '../../reusables/ContainerItem';
 import ImagePreview from '../../reusables/ImagePreview';
 import StatsContainer from '../reusables/StatsContainer';
 import UserList from '../AdminUsersList';
+import SubsidiaryForm from './AdminSubsidiaryForm';
 
 import paymentsData from './reusables/virtualPayments.json'
 
@@ -39,22 +40,12 @@ function AdminSubsidiary({
   return (
     <section className="admin-subsidiary-profile">
       <ContainerItem>
-        <Title>{ address.addressName }</Title>
+        <Title>{ currentSub.state }</Title>
+        <Link to={{ pathname: `/admin/filiales/${currentSub._id}/edit`, state: currentSub }}>
+          Modificar datos
+        </Link>
       </ContainerItem>
       <ContainerItem className="admin-subsidiary-profile-info">
-        <div className="profile-data">
-          <ImagePreview
-            url={basicData.photoURL}
-            containerStyle={{ borderStyle: 'none', height: '162px' }}
-          />
-          <div>
-            <Text strong>{ basicData.name }</Text>
-            <Text>{ `${address.city}, ${address.state}` }</Text>
-            <Link to={{ pathname: `/admin/filiales/${currentSub._id}/edit`, state: currentSub }}>
-              Modificar datos
-            </Link>
-          </div>
-        </div>
         <div className="stats">
           <StatsContainer title="Progreso" stats="65%" />
           <StatsContainer title="Total de facturas emitidas" stats="0" />

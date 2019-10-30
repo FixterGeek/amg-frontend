@@ -5,25 +5,34 @@ import moment from 'moment';
 import { Form, Radio } from 'antd';
 
 import { updateUser, setWorkingOn, writeWorkingOn } from '../../../store/ducks/users';
+import { populateSubsidiaries } from '../../../store/ducks/subsidiaryDuck';
 import TextField from '../../reusables/TextField';
 import CheckboxField from '../../reusables/CheckboxField';
 import Button from '../../reusables/Button';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
 
 function AdminUserStatesForm({
-  user,
+  user, subsidiaries, noSubsidiaries,
   workingOn,
   setWorkingOn,
   writeWorkingOn,
   updateUser,
+  populateSubsidiaries,
 }) {
   useEffect(() => {
     if (user._id) setWorkingOn(user);
   }, [user]);
 
+  useEffect(() => {
+    if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUser({ ...workingOn, revisionDate: moment().toString() });
   };
+
+  console.log(subsidiaries);
 
   return (
     <Form className="admin-users-states-form" onSubmit={handleSubmit}>
@@ -36,11 +45,23 @@ function AdminUserStatesForm({
           onChange={({ target }) => writeWorkingOn('userType', target.value)}
           value={workingOn.userType} >
           <Radio value="Member">Miembro</Radio>
-          <Radio value="Editor">Editor</Radio>
           <Radio value="Admin">Administrador</Radio>
-          <Radio value="Subsidiary">Filial</Radio>
+          <Radio value="Filial">Filial</Radio>
         </Radio.Group>
       </Form.Item>
+      {
+        workingOn.userType === 'Filial' && (
+          <SelectField>
+            {
+              subsidiaries.map(s => (
+                <OptionSelect key={s._id} value={s._id} >
+                  { s.state }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
+        )
+      }
       <Form.Item label="Membresia">
         <Radio.Group
           onChange={({ target }) => writeWorkingOn('membershipStatus', target.value)}
@@ -81,10 +102,12 @@ function AdminUserStatesForm({
   );
 }
 
-function mapStateToProps({ users }, { userId }) {
+function mapStateToProps({ users, subsidiary }, { userId }) {
   return {
     user: users.array.filter(u => u._id === userId)[0] || {},
     workingOn: users.workingOn,
+    subsidiaries: subsidiary.array,
+    noSubsidiaries: subsidiary.noData,
   };
 }
 
@@ -93,5 +116,6 @@ export default connect(
     setWorkingOn,
     writeWorkingOn,
     updateUser,
+    populateSubsidiaries,
   }
 )(AdminUserStatesForm);

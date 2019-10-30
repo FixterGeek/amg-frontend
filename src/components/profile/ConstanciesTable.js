@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import jsPDF from 'jspdf';
 
 import { Table } from 'antd';
 
 import Spinner from '../reusables/Spinner';
+import { getBlob } from '../../tools/fileToURL';
 
 import {
   populateUserEventsAction
@@ -13,7 +15,26 @@ import {
 function ConstanciesTable({
   events, fetching, userId,
   populateUserEventsAction,
+  userName,
 }) {
+  const certificateGenerator = (image, name, userName) => {
+    if (image) getBlob(image).then((blob) => {
+      const { base64 } = blob;
+      const doc = new jsPDF({
+        orientation: 'landscape',
+      })
+      const w = doc.internal.pageSize.getWidth();
+      const h = doc.internal.pageSize.getHeight();
+
+      doc.addImage(base64, 'JPEG', 0, 0, w, h);
+      doc.setFontSize(36);
+      doc.setFont('Helvetica');
+      doc.setFontType('italic');
+      doc.text(w/2, (h/2) - 19, userName, null, null, 'center');
+      doc.save(name);
+    });
+  };
+
   const columns = [
     {
       title: 'Evento',
@@ -29,7 +50,7 @@ function ConstanciesTable({
       title: 'Constancia',
       render: (t, r) => {
         if (moment().isAfter(moment(r.endDate))) return (
-          <a href={r.constanciasURLS[0]} target="_blank">
+          <a onClick={() => certificateGenerator(r.constanciasURLS[0], r.title, userName)}>
             Descargar constancia
           </a>
         )
@@ -60,6 +81,7 @@ function mapStateToProps({ events, user }) {
     events: events.userEvents,
     fetching: events.fetching,
     userId: user._id,
+    userName: `${user.basicData.name} ${user.basicData.dadSurname} ${user.basicData.momSurname || ''}`
   }
 }
 

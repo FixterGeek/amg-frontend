@@ -20,8 +20,6 @@ function PublicationGallery({ urlArray }) {
     });
   }, []);
 
-  
-
   return (
     <div className="feed-reusables-publication-gallery">
       { loading && <Skeleton active /> }

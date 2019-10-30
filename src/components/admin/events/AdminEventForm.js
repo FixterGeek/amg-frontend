@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toFormData from 'object-to-formdata';
 
 import { Form, Switch } from 'antd';
 
@@ -224,9 +225,10 @@ function AdminEventForm({
       />
       <DocumentField
         onFile={file => handleChange({ target: { name: 'constancia', value: file } })}
-        file={state.permisos || null}
+        file={state.constancia || null}
         label="Constancia"
         url={state.constanciasURLS ? state.constanciasURLS[0] || null : null}
+        fileTypes="forImages"
       />
       <Button width="100%" htmlType="submit">
         { state._id ? 'Actualizar evento' : 'Subir evento' }
