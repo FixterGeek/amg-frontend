@@ -27,7 +27,7 @@ function ConstanciesTable({
       const h = doc.internal.pageSize.getHeight();
 
       doc.addImage(base64, 'JPEG', 0, 0, w, h);
-      doc.setFontSize(36);
+      doc.setFontSize(28);
       doc.setFont('Helvetica');
       doc.setFontType('italic');
       doc.text(w/2, (h/2) - 19, userName, null, null, 'center');
