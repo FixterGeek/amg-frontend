@@ -539,6 +539,46 @@ $eventLeftWidth: 350px;
 
 
 // Admin ===>
+/* Styles AdminSubsidiaryReceipt */
+.admin-subsidiary-receipt {
+  &-receipt {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-content {
+    display: flex;
+    .users-list {
+      flex-grow: 1;
+      padding-right: $padding;
+    }
+  }
+
+  .ant-select-search__field {
+    height: 50px!important;
+    border-radius: 0px!important;
+    border-color: $clouds;
+    background-color: $clouds;
+    background: $clouds!important;
+    width: 445px;
+  }
+
+  .ant-btn {
+    margin-left: $smallMargin;
+    margin-right: $smallMargin;
+  }
+
+  .reusables-image-preview {
+    width: 300px;
+    height: 300px;
+
+    img {
+      min-width: 330px;
+      min-height: 330px;
+    }
+  }
+}
+
 /* AdminDashboard */
 .admin-dashboard {
   padding-right: 294px;

@@ -81,7 +81,6 @@ export const workingOn = (working, name, value) => {
 };
 
 export const setWorkingOn = (working) => {
-  console.log(working);
   return { type: SET_WORKING_ON, payload: working }
 }
 

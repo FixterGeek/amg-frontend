@@ -14,12 +14,13 @@ import Spinner from '../../reusables/Spinner';
 
 function AdminSubsidiaries({
   subsidiaries, noSubsidiaries, fetching,
-  populateSubsidiaries,
+  populateSubsidiaries, history, userIsAdmin,
 }) {
   const { Title } = Typography;
 
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+    if (!userIsAdmin) history.push('/dashboard');
   }, []);
 
   return (
@@ -42,11 +43,12 @@ function AdminSubsidiaries({
   );
 }
 
-function mapStateToProps({ subsidiary }) {
+function mapStateToProps({ subsidiary, user }) {
   return {
     subsidiaries: subsidiary.array,
     noSubsidiaries: subsidiary.noData,
     fetching: subsidiary.fetching,
+    userIsAdmin: user.userType === 'Admin',
   };
 }
 

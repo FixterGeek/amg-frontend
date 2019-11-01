@@ -3,29 +3,51 @@ import {
   payment,
   getPaymentsByUser,
   getPayments,
+  postPaymentFromSubsidiary,
+  getSubsidiaryPayments,
 } from '../../services/paymentServices';
 import { makeInvoice } from '../../services/invoicesServices';
 import useSweet from '../../hooks/useSweetAlert';
+import { successAction, errorAction } from './tools';
+
+const working = {
+  user: null,
+  users: [],
+  chat: {
+    messages: [],
+  },
+  concept: null,
+  amount: 0,
+  paid: false,
+  paymentType: 'Subscription',
+  recipetURL: '',
+  receiptFile: null,
+  filial: null,
+};
 
 const paymetState = {
   array: [],
+  subsidiaryPayments: [],
   noData: false,
   fetching: false,
   status: null,
   errorMessage: null,
+  workingOn: working,
 };
 
 
 /* Constants */
-const RESET_PAYMENT_STATUS = 'RESET_PAYMENT_STATUS';
+const PREFIX = 'PAYMENT';
+const RESET_PAYMENT_STATUS = `${PREFIX}/RESET_PAYMENT_STATUS`;
+const FETCHING = `${PREFIX}/FETCHING`;
+const FETCHING_ERROR = `${PREFIX}/FETCHING_ERROR`;
+const WORKING_ON = `${PREFIX}/WORKING`;
 
-const MAKE_PAYMENT = 'MAKE_PAYMENT';
 const MAKE_PAYMENT_SUCCESS = 'MAKE_PAYMENT_SUCCESS';
-const MAKE_PAYMENT_ERROR = 'MAKE_PAYMENT_ERROR';
-
-const POPULATE_PAYMENTS = 'POPULATE_PAYMENTS';
 const POPULATE_PAYMENTS_SUCCESS = 'POPPULATE_PAYMENTS_SUCCESS';
-const POPULATE_PAYMENTS_ERROR = 'POPULATE_PAYMENTS_ERROR';
+const PAYMENT_FOR_FILIAL_SUCCESS = `${PREFIX}/PAYMENT_FOR_FILIAL_SUCCESS`;
+const UPDATE_PAYMENT_FOR_FILIAL_SUCCESS = `${PREFIX}/UPDATE_PAYMENT_FOR_FILIAL_SUCCESS`;
+const POPULATE_SUBSIDIARY_PAYMENTS = `${PREFIX}/POPULATE_SUBSIDIARY_PAYMENTS`;
 
 const MAKE_PAYMENT_INVOICE = 'MAKE_PAYMENT_INVOICE';
 const MAKE_PAYMENT_INVOICE_SUCCESS = 'MAKE_PAYMENT_INVOICE_SUCCESS';
@@ -34,54 +56,45 @@ const MAKE_PAYMENT_INVOICE_ERROR = 'MAKE_PAYMENT_INVOICE_ERROR';
 
 /* Action creators */
 // Reset payment status
-export function resetPaymentStatus() {
-  return { type: RESET_PAYMENT_STATUS };
-}
+export const resetPaymentStatus = () => ({ type: RESET_PAYMENT_STATUS });
+
+export const fetching = () => ({ type: FETCHING });
+
+export const fetchingError = (error) => ({ type: FETCHING_ERROR, payload: error });
+
+export const workingOn = (working, name, value) => {
+  if (name === 'chat') return {
+    type: WORKING_ON,
+    payload: { ...working, chat: { messages: [...working.chat.messages, value] } }
+  };
+  return { type: WORKING_ON, payload: { ...working, [name]: value }}
+};
+
+export const setWorkingOn = (payment) => {
+  console.log('here!!!', payment);
+  return { type: WORKING_ON, payload: payment };
+};
 
 // Make payment
-export function makePayment() {
-  return { type: MAKE_PAYMENT };
-}
+const makePaymentSuccess = (paymentData) => ({ type: MAKE_PAYMENT_SUCCESS, payload: paymentData });
 
-export function makePaymentSuccess(paymentData) {
-  return { type: MAKE_PAYMENT_SUCCESS, payload: paymentData };
-}
-
-export function makePaymentError(error) {
-  return { type: MAKE_PAYMENT_ERROR, payload: error };
-}
+// CREATE OR UPDATE PAYMENT FOR FILIAL
+const paymentForFilialSuccess = (paymentData) => ({ type: PAYMENT_FOR_FILIAL_SUCCESS, payload: paymentData });
+const updatePaymentForFilialSuccess = (updatedPayment) => ({ type: UPDATE_PAYMENT_FOR_FILIAL_SUCCESS, payload: updatedPayment });
 
 // Populate payments
-export function populatePayments() {
-  return { type: POPULATE_PAYMENTS };
-}
-
-export function populatePaymentsSuccess(paymentsArray) {
-  return { type: POPULATE_PAYMENTS_SUCCESS, payload: paymentsArray };
-}
-
-export function populatePaymentsError(error) {
-  return { type: POPULATE_PAYMENTS_ERROR, payload: error };
-}
+const populatePaymentsSuccess =(paymentsArray) => ({ type: POPULATE_PAYMENTS_SUCCESS, payload: paymentsArray });
+// Populate subsidiary payments
+const populateSunsidiaryPaymentsSuccess = (array) => ({ type: POPULATE_SUBSIDIARY_PAYMENTS , payload: array })
 
 // Make invoice
-export function makePaymentInvoice() {
-  return { type: MAKE_PAYMENT_INVOICE };
-}
-
-export function makePaymentInvoiceSuccess(invoiceData) {
-  return { type: MAKE_PAYMENT_INVOICE_SUCCESS, payload: invoiceData };
-}
-
-export function makePaymentInvoiceError(error) {
-  return { type: MAKE_PAYMENT_INVOICE_ERROR, payload: error };
-}
+const makePaymentInvoiceSuccess = (invoiceData) => ({ type: MAKE_PAYMENT_INVOICE_SUCCESS, payload: invoiceData });
 
 
 /* Thunks */
 // Make payment
 export const makePaymentAction = (paymentData, paymentType = 'event') => (dispatch) => {
-  dispatch(makePayment());
+  dispatch(fetching());
   return payment(paymentData, paymentType)
     .then(({ conektaOrder, payment }) => {
       console.log(conektaOrder);
@@ -91,14 +104,38 @@ export const makePaymentAction = (paymentData, paymentType = 'event') => (dispat
     })
     .catch((error) => {
       useSweet().errorAlert({ text: 'Error al realizar el cobro' });
-      dispatch(makePaymentError(error));
+      dispatch(fetchingError(error));
       return error;
     });
 };
 
+
+// For filiales
+export const populateSubsidiaryPayments = subsidiaryId => (dispatch) => {
+  dispatch(fetching());
+  return getSubsidiaryPayments(subsidiaryId)
+    .then(data => successAction(
+      dispatch, populateSunsidiaryPaymentsSuccess, data, RESET_PAYMENT_STATUS, false,
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_PAYMENT_STATUS, 'Los pagos no estan disponibles por el momento',
+    ));
+};
+
+export const createOrUpdateFilialPayment = (paymentData) => (dispatch) => {
+  dispatch(fetching());
+  if (!paymentData._id) return postPaymentFromSubsidiary(paymentData)
+    .then((data) => successAction(
+      dispatch, paymentForFilialSuccess, data, RESET_PAYMENT_STATUS, 'El comprobante fue enviado a AMG',
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_PAYMENT_STATUS, 'No fue posible enviar el comprobante',
+    ));
+}
+
 // Populate payments action
 export const populatePaymentsAction = userId => (dispatch) => {
-  dispatch(populatePayments());
+  dispatch(fetching());
   if (!localStorage.payments) {
     return getPaymentsByUser(userId)
       .then((data) => {
@@ -111,7 +148,7 @@ export const populatePaymentsAction = userId => (dispatch) => {
       })
       .catch((error) => {
         useSweet().errorAlert({});
-        dispatch(populatePaymentsError(error));
+        dispatch(fetchingError(error));
         return error;
       });
   } else {
@@ -124,7 +161,7 @@ export const populatePaymentsAction = userId => (dispatch) => {
 
 // make invoice
 export const makePaymentInvoiceAction = (paymentId) => (dispatch) => {
-  dispatch(makePaymentInvoice());
+  dispatch(fetching());
   return makeInvoice(paymentId)
     .then((data) => {
       dispatch(makePaymentInvoiceSuccess(data));
@@ -137,7 +174,7 @@ export const makePaymentInvoiceAction = (paymentId) => (dispatch) => {
 
       if (errors) useSweet().errorAlert({ text: JSON.stringify(errors) });
       else useSweet().errorAlert({ text: 'No fue posible generar la factura' });
-      dispatch(makePaymentInvoiceError(data ? data : error));
+      dispatch(fetchingError(data ? data : error));
       return data || error;
     });
 }
@@ -148,32 +185,35 @@ export function reducer(state = paymetState, action) {
   switch (action.type) {
     case RESET_PAYMENT_STATUS:
       return { ...state, status: null, fetching: false };
-    /* Make payment */
-    case MAKE_PAYMENT:
+    case FETCHING:
       return { ...state, fetching: true };
+    case FETCHING_ERROR:
+      return { ...state, status: 'error', error: action.payload };
+    case WORKING_ON:
+      console.log(action.payload);
+      return { ...state, workingOn: action.payload };
+
+    /* Make payment */
     case MAKE_PAYMENT_SUCCESS:
       return {
-        ...state,
-        fetching: false,
-        array: [...state.array, action.payload],
+        ...state, fetching: false, array: [...state.array, action.payload],
         status: action.payload.conektaPaid,
       };
-    case MAKE_PAYMENT_ERROR:
-      return {
-        ...state,
-        fetching: false,
-        error: action.payload,
-        status: 'error',
-      };
     /* Pupulate payments */
-    case POPULATE_PAYMENTS:
-      return { ...state, fetching: true };
     case POPULATE_PAYMENTS_SUCCESS:
       return {
-        ...state, fetching: false, status: 'success',
-        array: action.payload,
+        ...state, fetching: false, status: 'success', array: action.payload,
         noData: action.payload.length === 0,
       };
+
+    /* PYMENTS FOR FILIAL */
+    case POPULATE_SUBSIDIARY_PAYMENTS:
+      return { ...state, status: 'success', subsidiaryPayments: action.payload.length === 0 ? ['empty'] : action.payload };
+    case PAYMENT_FOR_FILIAL_SUCCESS:
+        return { ...state, status: 'success', array: [action.payload, ...state.array] };
+    case UPDATE_PAYMENT_FOR_FILIAL_SUCCESS:
+      return { ...state, status: 'success', array: state.array.map(p => p._id === action.payload._is ? action.payload : p) };
+
     /* Make payment invoice */
     case MAKE_PAYMENT_INVOICE:
       return { ...state, fetching: true };

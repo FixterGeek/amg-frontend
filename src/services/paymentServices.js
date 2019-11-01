@@ -31,3 +31,22 @@ export const getPayments = () => {
     },
   }).then(({ data }) =>  data);
 };
+
+export const postPaymentFromSubsidiary = (paymentPayload) => {
+  const token = localStorage.authToken;
+  return axios.post(`${APIURL}/`, paymentPayload, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};
+
+export const getSubsidiaryPayments = (subsidiaryId) => {
+  const token = localStorage.authToken;
+  const filter = subsidiaryId ? `{"filial":"${subsidiaryId}"}` : {};
+  return axios.get(`${APIURL}?query=${filter}`, {
+    headers: {
+      Authorization: token,
+    }
+  }).then(({ data }) => data);
+};

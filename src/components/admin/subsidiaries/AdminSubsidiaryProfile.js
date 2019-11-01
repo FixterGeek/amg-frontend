@@ -5,23 +5,32 @@ import { connect } from 'react-redux';
 
 import { Typography, Table, Tabs } from 'antd';
 
+import {
+  populateSubsidiaries,
+} from '../../../store/ducks/subsidiaryDuck';
+import {
+  getAllUsers,
+} from '../../../store/ducks/users';
 import ContainerItem from '../../reusables/ContainerItem';
 import ImagePreview from '../../reusables/ImagePreview';
 import StatsContainer from '../reusables/StatsContainer';
 import UserList from '../AdminUsersList';
 import SubsidiaryForm from './AdminSubsidiaryForm';
+import Spinner from '../../reusables/Spinner';
+import Button from '../../reusables/Button';
+import SubsidiaryReceipt from './AdminSubsidiaryReceipt';
+import SubsidiaryPayments from './reusables/PaymentsList';
 
 import paymentsData from './reusables/virtualPayments.json'
 
 function AdminSubsidiary({
-  user, history
+  user, history, subsidiaries,
+  subsidiary, noSubsidiaries,
+  populateSubsidiaries,
+  fetching, users, getAllUsers,
 }) {
-  const { Title, Text } = Typography;
+  const { Title } = Typography;
   const { TabPane } = Tabs;
-  const { location: historyLocation } = history;
-  const [currentSub, setCurrentSub] = useState({ _id: null});
-  const { basicData = {} } = currentSub;
-  const { address = {} } = basicData;
 
   const columns = [
     { title: 'No. de referencia', dataIndex: 'reference' },
@@ -31,19 +40,30 @@ function AdminSubsidiary({
     { title: 'Fecha', render: (t, r) =>  <span>{ moment(r.date).format('DD/MM/YYYY') }</span>}
   ];
 
-  useEffect(() => {
-    if (!currentSub._id && historyLocation.state) setCurrentSub(historyLocation.state);
-  }, []);
+  const [isReceipt, setIsReceipt] = useState(false);
 
-  console.log(currentSub);
+  useEffect(() => {
+    if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+    getAllUsers();
+  }, []);
 
   return (
     <section className="admin-subsidiary-profile">
-      <ContainerItem>
-        <Title>{ currentSub.state }</Title>
-        <Link to={{ pathname: `/admin/filiales/${currentSub._id}/edit`, state: currentSub }}>
-          Modificar datos
-        </Link>
+      { fetching && <Spinner fullScrren /> }
+      <ContainerItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Title>{ subsidiary.state }</Title>
+          <Link to={{ pathname: `/admin/filiales/${subsidiary._id}/edit`, state: subsidiary }}>
+            Modificar datos
+          </Link>
+        </div>
+        {
+          user.userType === 'Filial' && (
+            <Button line marginTop="0" onClick={() => setIsReceipt(s => !s)}>
+              Subir comprobante AMG
+            </Button>
+          )
+        }
       </ContainerItem>
       <ContainerItem className="admin-subsidiary-profile-info">
         <div className="stats">
@@ -52,26 +72,49 @@ function AdminSubsidiary({
         </div>
       </ContainerItem>
       <ContainerItem>
-        <Tabs type="card" className="generic-table-header">
-          <TabPane key="1" tab="Historial de pagos">
-            <Table columns={columns} dataSource={paymentsData} rowKey="_id" />
+        <Tabs>
+          <TabPane key="1" tab="Miembros">
+            <UserList
+              externalData={users.map(u => ({
+                name: `${u.basicData.name} ${u.basicData.dadSurname}`,
+                speciality: u.basicData.speciality || "Gastroenterología",
+                address: 'Emérito',
+                tags: ['activa'],
+                ...u,
+                }))}
+              />
           </TabPane>
-          <TabPane key="2" tab="Usuarios de la filial">
-            <UserList />
+          <TabPane key="2" tab="Historial de pagos">
+            <SubsidiaryPayments subId={subsidiary._id} />
           </TabPane>
         </Tabs>
       </ContainerItem>
+      {
+        isReceipt && <SubsidiaryReceipt
+            users={users}
+            onCancel={v => setIsReceipt(v)}
+            filial={subsidiary}
+          />
+      }
     </section>
   );
 }
 
-function mapSateToProps({ users }) {
-  /* CHANGE FOR THE CORRECT FIELD */
+function mapSateToProps({ users, user, subsidiary }, { match = {} }) {
+  const { params = {} } = match;
   return {
-    users: users.array.filter(u => u.subsidiry === "id")
+    users: users.array.filter(u => u.filialAsUser === params.id),
+    user,
+    subsidiaries: subsidiary.array,
+    noSubsidiaries: subsidiary.noData,
+    subsidiary: subsidiary.array.filter(s => s._id === params.id)[0] || {},
+    fetching: user.fetching || subsidiary.fetching,
   }
 }
 
 export default connect(
-  mapSateToProps
+  mapSateToProps, {
+    populateSubsidiaries,
+    getAllUsers,
+  }
 )(AdminSubsidiary);

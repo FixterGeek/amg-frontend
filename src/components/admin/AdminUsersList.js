@@ -36,7 +36,7 @@ const data = [
     },
 ];
 
-function AdminUsersList({ list = data, fetching, deleteAction }) {
+function AdminUsersList({ list = data, fetching, deleteAction, externalData }) {
 
     const columns = [
         {
@@ -105,7 +105,7 @@ function AdminUsersList({ list = data, fetching, deleteAction }) {
     let [searchButton, setButton] = useState(true)
     let [filtered, setFiltered] = useState(list);
     useEffect(() => {
-        setFiltered(list)
+        setFiltered(externalData || list)
     }, [list])
     //effect
 

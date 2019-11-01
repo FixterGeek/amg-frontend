@@ -8,7 +8,7 @@ function Admin({ history, user }) {
     useEffect(() => {
         const {location} = history;
         if (location.pathname === '/admin') history.push('/admin/dashboard');
-        if (user.userType !== 'Admin') history.push('/dashboard');
+        if (!(user.userType === 'Admin' || user.filialAsAdmin)) history.push('/dashboard');
     }, []);
 
     console.log(history);

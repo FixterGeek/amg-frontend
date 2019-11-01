@@ -614,6 +614,60 @@
   }
 }
 
+/* Styles Chat */
+.reusables-chat {
+  min-width: 250px;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid $silver;
+
+  &-header {
+    padding: 8px;
+    padding-left: $smallPadding;
+    padding-right: $smallPadding;
+    border-bottom: solid 1px $silver;
+    background-color: $clouds;
+    .ant-list-item-meta {
+      display: flex;
+      align-items: center;
+    }
+    li {
+      padding: 0;
+    }
+  }
+
+  &-messages {
+    max-height: 320px;
+    overflow-y: scroll;
+    .ant-card-meta {
+      margin-bottom: $margin!important;
+      display: flex;
+      align-items: center;
+    }
+    .ant-card-meta-title {
+      margin-bottom: 0px!important;
+    }
+    .ant-card-meta-description {
+      font-size: 0.85rem;
+      margin-top: -4px;
+    }
+  }
+
+  textarea {
+    border-radius: 0px;
+    &:focus {
+      border: none;
+      border-color: $clouds!important;
+      outline-color: $clouds!important;
+    }
+    &:hover {
+      border: none;
+      border-color: $clouds!important;
+      outline-color: $clouds!important;
+    }
+  }
+}
+
 /* Style BoxItem */
 .reusables-box-item {
   max-width: 1200px;

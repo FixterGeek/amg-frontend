@@ -101,12 +101,27 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                 <Icon component={SourcesIcon} />
                 <span>Recursos</span>
             </Item>
-            <Item key={8} onClick={() => link('/admin/filiales')}>
+            <Item
+                key={8}
+                onClick={
+                    () => link(user.filialAsAdmin ? `/admin/filiales/${user.filialAsAdmin}` :'/admin/filiales')
+                }
+            >
                 <Icon component={MapIcon} />
                 <span>Filiales</span>
             </Item>
+            {
+                user.filialAsAdmin && (
+                    <Item key={9} onClick={() => link(`/admin/filiales/${user.filialAsAdmin}/pagos`)}>
+                        <Icon className={currentLocation === 'pagos' ? 'menu-item-active' : ''}>
+                            <FontAwesomeIcon icon={faFileInvoiceDollar} />
+                        </Icon>
+                        <span>Historial de pagos</span>
+                    </Item>
+                )
+            }
             <Item
-                key={9}
+                key={10}
                 onClick={() => logOut()}
                 style={{ position: 'absolute', bottom: '16px' }}>
                 <Icon
@@ -122,7 +137,8 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                 href="http://www.revistagastroenterologiamexico.org/?codref=ddh3dk3Yjdsafg503zSInMNxBdsddsa545vs809jdn02nubHHtJufRpNPu3hjd673&py=7jb39db3"
                 target="_blanck"
                 style={{ display: 'none' }}
-                ref={state.anchor} />
+                ref={state.anchor}
+            />
         </Menu>
     );
 }

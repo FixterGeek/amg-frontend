@@ -22,12 +22,13 @@ import states from '../estados.json';
 
 function AdminSubsidiaryForm({
   user, working, createOrUpdateSubsidiary,
-  workingOn, history: { location }, match = {},
+  workingOn, history = {}, match = {},
   setWorkingOn, subsidiaries, noSubsidiaries,
   populateSubsidiaries,
 }) {
   const { Title } = Typography;
-  const { pathname } = location;
+  const { location = {} } = history;
+  const { pathname = '' } = location;
   const { params = {} } = match;
 
   useEffect(() => {
@@ -35,7 +36,6 @@ function AdminSubsidiaryForm({
     if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
   }, [subsidiaries]);
 
-  console.log(subsidiaries);
 
   return (
     <section>
@@ -49,6 +49,11 @@ function AdminSubsidiaryForm({
         autoResetFromClose
       >
         <Form>
+          <ImagePicker
+            onChange={file => workingOn(working, 'photoFile', file)}
+            label="Foto/Logo de la filial"
+            url={working.photoURL || null}
+          />
           <Title level={4}>Filial de</Title>
           <SelectField
             onChange={value => workingOn(working, 'state', value)}

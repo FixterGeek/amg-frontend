@@ -10,9 +10,11 @@ import TextField from '../../reusables/TextField';
 import CheckboxField from '../../reusables/CheckboxField';
 import Button from '../../reusables/Button';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
+import Spinner from '../../reusables/Spinner';
 
 function AdminUserStatesForm({
   user, subsidiaries, noSubsidiaries,
+  subsidiaryFetching,
   workingOn,
   setWorkingOn,
   writeWorkingOn,
@@ -36,6 +38,7 @@ function AdminUserStatesForm({
 
   return (
     <Form className="admin-users-states-form" onSubmit={handleSubmit}>
+      { subsidiaryFetching && <Spinner fullScrren /> }
       <TextField
         label="Fecha de registro"
         value={moment(user.createdAt).format('DD/MM/YY[ - ]hh:mm a')}
@@ -51,7 +54,28 @@ function AdminUserStatesForm({
       </Form.Item>
       {
         workingOn.userType === 'Filial' && (
-          <SelectField>
+          <SelectField
+            label="Como administrador para la filial de:"
+            onChange={value => writeWorkingOn('filialAsAdmin', value)}
+            value={workingOn.filialAsAdmin}
+          >
+            {
+              subsidiaries.map(s => (
+                <OptionSelect key={s._id} value={s._id} >
+                  { s.state }
+                </OptionSelect>
+              ))
+            }
+          </SelectField>
+        )
+      }
+      {
+        workingOn.userType === 'Filial' && (
+          <SelectField
+            label="Como miembro para la filial de:"
+            onChange={value => writeWorkingOn('filialAsUser', value)}
+            value={workingOn.filialAsUser}
+          >
             {
               subsidiaries.map(s => (
                 <OptionSelect key={s._id} value={s._id} >
@@ -108,6 +132,7 @@ function mapStateToProps({ users, subsidiary }, { userId }) {
     workingOn: users.workingOn,
     subsidiaries: subsidiary.array,
     noSubsidiaries: subsidiary.noData,
+    subsidiaryFetching: subsidiary.fetching,
   };
 }
 

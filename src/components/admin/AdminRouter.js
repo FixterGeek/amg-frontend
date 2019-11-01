@@ -16,6 +16,8 @@ import AdminEventsEdit from './events/AdminEventEdit';
 import AdminSubsidiaries from './subsidiaries/AdminSubsidiaries';
 import AdminSubsidiaryProfile from './subsidiaries/AdminSubsidiaryProfile';
 import AdminSubsidiaryForm from './subsidiaries/AdminSubsidiaryForm';
+import AdminSubsidiaryPayments from '../admin/subsidiaries/AdminSubsidiaryPayments';
+import AdminSubsidiaryReceipt from '../admin/subsidiaries/AdminSubsidiaryReceipt';
 import AdminUserDetail from './AdminUserDetail';
 import AdminDashboard from './AdminDashboard';
 
@@ -26,6 +28,8 @@ function AdminRouter() {
       {/* Dash */}
       <Route path="/admin/dashboard" component={AdminDashboard} />
       {/* Filiales */}
+      <Route path="/admin/filiales/:id/pagos/:paymentId" component={AdminSubsidiaryReceipt} />
+      <Route path="/admin/filiales/:id/pagos" component={AdminSubsidiaryPayments} />
       <Route path="/admin/filiales/:id/edit" component={AdminSubsidiaryForm} />
       <Route path="/admin/filiales/:id" component={AdminSubsidiaryProfile} />
       <Route exact path="/admin/filiales" component={AdminSubsidiaries} />
