@@ -8,6 +8,7 @@ import {
 } from '../../store/ducks/userDuck';
 import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
 import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
+import { populateSubsidiaries } from '../../store/ducks/subsidiaryDuck';
 import Stepper from './SignupStepper';
 import GeneralDataForm from './forms/SignupGeneralDataForm';
 import EducationForm from './forms/SignupEducationForm';
@@ -21,7 +22,7 @@ function Signup({
   education, populateEducationAction, resetEducationStatus,
   activities, populateActivitiesAction, resetActivitiesStatus,
   activitiesFetching, activitiesStatus, updateUserAction,
-  educationFetching, educationStatus,
+  educationFetching, educationStatus, subsidiaries,
 }) {
 
   const currents = {
@@ -49,6 +50,7 @@ function Signup({
               resetStatus={resetUserStatus}
               status={status}
               history={history}
+              subsidiaries={subsidiaries}
             />
           )
         }
@@ -100,7 +102,7 @@ function Signup({
   );
 }
 
-function mapStateToProps({ user, education, activities }) {
+function mapStateToProps({ user, education, activities, subsidiary }) {
   return {
     user,
     fetching: user.fetching,
@@ -111,6 +113,7 @@ function mapStateToProps({ user, education, activities }) {
     activitiesStatus: activities.status,
     educationFetching: education.fetching,
     educationStatus: education.status,
+    subsidiaries: subsidiary.array,
   }
 }
 
@@ -123,5 +126,6 @@ export default connect(
     populateActivitiesAction,
     resetActivitiesStatus,
     updateUserAction,
+    populateSubsidiaries,
   }
 )(Signup);

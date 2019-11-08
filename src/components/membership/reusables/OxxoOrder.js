@@ -65,7 +65,6 @@ function OxxoOrder({ oxxoOrder }) {
                   <li>Realiza el pago correspondiente con dinero en efectivo.</li>
                   <li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
                 </ol>
-                <div class="opps-footnote">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
               </div>
             </div>
           </div>

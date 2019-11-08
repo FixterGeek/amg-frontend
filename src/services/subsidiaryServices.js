@@ -16,6 +16,7 @@ export const postSubsidiary = (subsidiaryData) => {
 
 export const patchSubsidiary = (subsidiaryId, subsidiaryData) => {
   const token = localStorage.authToken;
+  if (subsidiaryData._id) delete subsidiaryData._id;
   return axios.patch(`${APIURL}/${subsidiaryId}`, subsidiaryData, {
     headers: {
       Authorization: token,
@@ -37,6 +38,15 @@ export const getSubsidiaries = () => {
 export const getSingleSubsidiary = (subsidiaryId) => {
   const token = localStorage.authToken;
   return axios.get(`${APIURL}/${subsidiaryId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
+
+export const deleteSubsidiary = (subsidiaryId) => {
+  const token = localStorage.authToken;
+  return axios.delete(`${APIURL}/${subsidiaryId}`, {
     headers: {
       Authorization: token,
     },

@@ -7,6 +7,7 @@ import {
   createOrUpdateSubsidiary,
   workingOn,
   setWorkingOn,
+  resetWorkingOn,
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
@@ -24,7 +25,8 @@ function AdminSubsidiaryForm({
   user, working, createOrUpdateSubsidiary,
   workingOn, history = {}, match = {},
   setWorkingOn, subsidiaries, noSubsidiaries,
-  populateSubsidiaries,
+  populateSubsidiaries, resetWorkingOn,
+  status,
 }) {
   const { Title } = Typography;
   const { location = {} } = history;
@@ -36,6 +38,7 @@ function AdminSubsidiaryForm({
     if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
   }, [subsidiaries]);
 
+  console.log(working);
 
   return (
     <section>
@@ -47,6 +50,8 @@ function AdminSubsidiaryForm({
         successClose
         errorClose
         autoResetFromClose
+        status={status}
+        onModalClose={c => c ? resetWorkingOn() : null}
       >
         <Form>
           <ImagePicker
@@ -105,6 +110,11 @@ function AdminSubsidiaryForm({
           </SelectField>
           <Title level={4}>DatosFiscales</Title>
           <TextField
+            onChange={({ target: { value } }) => workingOn(working, 'businessName', value)}
+            value={working.businessName}
+            label="Razón social"
+          />
+          <TextField
             onChange={({ target: { value } }) => workingOn(working, 'fiscalData.rfc', value)}
             value={working.fiscalData.rfc}
             label="RFC"
@@ -153,8 +163,8 @@ function AdminSubsidiaryForm({
 function mapStateToProps({ user, subsidiary }) {
   return {
     user,
-    fetching: user.fetching,
-    status: user.status,
+    fetching: user.fetching || subsidiary.fetching,
+    status: user.status || subsidiary.status,
     subsidiaryFetching: subsidiary.fetching,
     working: subsidiary.workingOn,
     subsidiaries: subsidiary.array,
@@ -168,5 +178,6 @@ export default connect(
     createOrUpdateSubsidiary,
     setWorkingOn,
     populateSubsidiaries,
+    resetWorkingOn,
   },
 )(AdminSubsidiaryForm);

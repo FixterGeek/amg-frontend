@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import {
   Typography, AutoComplete, List,
   Avatar, Form, Button as AmgButton,
-  Icon, Empty,
+  Icon, Empty, Switch
 } from 'antd';
 
 import {
@@ -32,6 +32,7 @@ function AdminSubsidiaryReceipt({
   fetching, match, payment,
   populateSubsidiaries,
   populateSubsidiaryPayments,
+  user,
 }) {
   const { Title } = Typography;
   const { Item } = List;
@@ -48,7 +49,7 @@ function AdminSubsidiaryReceipt({
   useEffect(() => {
     if (payment) {
       setWorkingOn(payment);
-      // setUserInList(payment.users);
+      setUserInList(payment.users);
     }
   }, [payment]);
 
@@ -64,18 +65,23 @@ function AdminSubsidiaryReceipt({
     if (onCancel) onCancel(false);
   };
 
-  const handleSave = async () => {
+  const handleSwitch = (checked) => {
+    console.log(checked);
+    if (checked !== working.paid) handleSave('approve', !working.paid);
+  };
+
+  const handleSave = async (paid, v) => {
     ft();
     const data = working;
     const fbRef = `/filiales/${filial._id}/recibos/`;
 
     data.date = moment().toString();
     if (working.receiptFile) data.recipetURL = await uploadFile(fbRef, working.receiptFile).then(url => url);
+    if (paid === 'approve') data.paid = v;
+  
     createOrUpdateFilialPayment(data);
     setModalOpen(false);
   }
-
-  console.log(payment);
 
   return (
     <section className="admin-subsidiary-receipt">
@@ -87,9 +93,21 @@ function AdminSubsidiaryReceipt({
         users={usersInList}
       />
       <ContainerItem className="dash-item-center">
-        <Title level={3}>
-          { payment ? `Comprobante No. ${payment._id}` : 'Subir comprobante AMG' }
-        </Title>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Title level={3}>
+            { payment ? `Comprobante No. ${payment._id}` : 'Subir comprobante AMG' }
+          </Title>
+          {
+            user.userType === 'Admin' && (
+              <Switch
+                onChange={handleSwitch}
+                checkedChildren="Aprobado"
+                unCheckedChildren="Declinado"
+                checked={working.paid}
+              />
+            )
+          }
+        </div>
         <ContainerItem className="admin-subsidiary-receipt-receipt">
           <ImagePicker
             onChange={file => workingOn(working, 'receiptFile', file)}
@@ -144,11 +162,11 @@ function AdminSubsidiaryReceipt({
               }
             </List>
           </div>
-          <Chat
+          {/* <Chat
             chat={working.chat}
             onNewMessage={messageObject => workingOn(working, 'chat', messageObject)}
             toUser={{ name: `Filial de ${filial.state}`, photoURL: filial.photoURL }}
-          />
+          /> */}
         </ContainerItem>
         {
           !payment && (
@@ -167,7 +185,7 @@ function AdminSubsidiaryReceipt({
   );
 }
 
-function mapStateToProps({ subsidiary, payment: { payment } }, { match }) {
+function mapStateToProps({ subsidiary, user, payment: { payment } }, { match }) {
   const { params } = match;
 
   return {
@@ -175,6 +193,7 @@ function mapStateToProps({ subsidiary, payment: { payment } }, { match }) {
     fetching: payment.fetching,
     filial: subsidiary.array.filter(s => s._id === params.id)[0],
     payment: payment.subsidiaryPayments.filter(p => p._id === params.paymentId)[0],
+    user,
   }
 }
 

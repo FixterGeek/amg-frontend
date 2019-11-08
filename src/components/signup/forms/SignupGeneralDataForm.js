@@ -18,7 +18,7 @@ import estados from '../../admin/estados.json';
 function SignupGeneralDataForm({
   user, dispatch, loading,
   status, history, noPassword,
-  hiddenButton,
+  hiddenButton, subsidiaries
 }) {
   const { Title } = Typography;
 
@@ -46,6 +46,7 @@ function SignupGeneralDataForm({
       },
     },
     membershipStatus: 'Free',
+    address: {},
   }
 
   const [generals, setGeneral] = useState(generalsState);
@@ -159,7 +160,7 @@ function SignupGeneralDataForm({
       />
       <SelectField
         onChange={value => handleChange({ target: { name: 'state', value } })}
-        value={generals.basicData.address.state}
+        value={generals.basicData.address.state || generals.address.state}
         label="Estado" >
         {
           Object.keys(estados).map((key) => (

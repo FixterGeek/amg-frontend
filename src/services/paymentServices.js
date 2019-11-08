@@ -50,3 +50,13 @@ export const getSubsidiaryPayments = (subsidiaryId) => {
     }
   }).then(({ data }) => data);
 };
+
+export const patchPaymentForSubsidiary = (paymentId, paymentData) => {
+  const token = localStorage.authToken;
+  if (paymentData._id) delete paymentData._id;
+  return axios.patch(`${APIURL}/${paymentId}`, paymentData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+};

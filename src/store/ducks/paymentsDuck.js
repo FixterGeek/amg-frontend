@@ -5,6 +5,7 @@ import {
   getPayments,
   postPaymentFromSubsidiary,
   getSubsidiaryPayments,
+  patchPaymentForSubsidiary,
 } from '../../services/paymentServices';
 import { makeInvoice } from '../../services/invoicesServices';
 import useSweet from '../../hooks/useSweetAlert';
@@ -131,7 +132,15 @@ export const createOrUpdateFilialPayment = (paymentData) => (dispatch) => {
     .catch(error => errorAction(
       dispatch, fetchingError, error, RESET_PAYMENT_STATUS, 'No fue posible enviar el comprobante',
     ));
-}
+
+  return patchPaymentForSubsidiary(paymentData._id, paymentData)
+    .then(data => successAction(
+      dispatch, updatePaymentForFilialSuccess, data, RESET_PAYMENT_STATUS, 'El pago fue actualizado',
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_PAYMENT_STATUS, 'No fue posible actualizar el pago',
+    ));
+};
 
 // Populate payments action
 export const populatePaymentsAction = userId => (dispatch) => {

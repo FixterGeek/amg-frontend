@@ -61,46 +61,55 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                 </Icon>
                 <span>Home</span>
             </Item>
-            <Item key={2} onClick={() => link('/admin/events')}>
-                <Icon
-                    className={
-                        currentLocation === 'events' ? 'menu-item-active' : ''
-                    }
-                >
-                    <FontAwesomeIcon icon={faCalendar} />
-                </Icon>
-                <span>Eventos</span>
-            </Item>
-            <Item key={3} onClick={() => link('/admin/invoices')}>
-                <Icon
-                    className={
-                        currentLocation === 'facturas' ? 'menu-item-active' : ''
-                    }
-                >
-                    <FontAwesomeIcon icon={faFileInvoiceDollar} />
-                </Icon>
-                <span>Facturas</span>
-            </Item>
-            <Item key={4} onClick={() => link('/admin/users')} >
-                <Icon
-                    className={currentLocation === 'users' ? 'menu-item-active' : ''}
-                >
-                    <FontAwesomeIcon icon={faUsers} />
-                </Icon>
-                <span>Socios</span>
-            </Item>
-            <Item key={6} onClick={() => link('/admin/tests')} >
-                <Icon
-                    className={currentLocation === 'tests' ? 'menu-item-active' : ''}
-                >
-                    <FontAwesomeIcon icon={faFileAlt} />
-                </Icon>
-                <span>Tests</span>
-            </Item>
-            <Item key={7} onClick={() => link('/admin/resources')}>
-                <Icon component={SourcesIcon} />
-                <span>Recursos</span>
-            </Item>
+            {
+                user.userType === 'Admin' && (
+                    <Item key={2} onClick={() => link('/admin/events')}>
+                        <Icon className={ currentLocation === 'events' ? 'menu-item-active' : '' }>
+                            <FontAwesomeIcon icon={faCalendar} />
+                        </Icon>
+                        <span>Eventos</span>
+                    </Item>
+                )
+            }
+            {
+                user.userType === 'Admin' && (
+                    <Item key={3} onClick={() => link('/admin/invoices')}>
+                        <Icon className={ currentLocation === 'facturas' ? 'menu-item-active' : '' }>
+                            <FontAwesomeIcon icon={faFileInvoiceDollar} />
+                        </Icon>
+                        <span>Facturas</span>
+                    </Item>
+                )
+            }
+            {
+                user.userType === 'Admin' && (
+                    <Item key={4} onClick={() => link('/admin/users')} >
+                        <Icon className={currentLocation === 'users' ? 'menu-item-active' : ''} >
+                            <FontAwesomeIcon icon={faUsers} />
+                        </Icon>
+                        <span>Socios</span>
+                    </Item>
+                )
+            }
+            {
+                user.userType === 'Admin' && (
+                    <Item key={6} onClick={() => link('/admin/tests')} >
+                        <Icon className={currentLocation === 'tests' ? 'menu-item-active' : ''}>
+                            <FontAwesomeIcon icon={faFileAlt} />
+                        </Icon>
+                        <span>Tests</span>
+                    </Item>
+                )
+            }
+            {
+                user.userType === 'Admin' && (
+                    <Item key={7} onClick={() => link('/admin/resources')}>
+                        <Icon component={SourcesIcon} />
+                        <span>Recursos</span>
+                    </Item>
+                )
+            }
+           
             <Item
                 key={8}
                 onClick={
@@ -110,7 +119,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                 <Icon component={MapIcon} />
                 <span>Filiales</span>
             </Item>
-            {
+            {/* {
                 user.filialAsAdmin && (
                     <Item key={9} onClick={() => link(`/admin/filiales/${user.filialAsAdmin}/pagos`)}>
                         <Icon className={currentLocation === 'pagos' ? 'menu-item-active' : ''}>
@@ -119,7 +128,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                         <span>Historial de pagos</span>
                     </Item>
                 )
-            }
+            } */}
             <Item
                 key={10}
                 onClick={() => logOut()}

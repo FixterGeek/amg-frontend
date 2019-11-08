@@ -1616,3 +1616,19 @@
     }
   }
 }
+
+
+// Subsidiaries ===>
+/* Style SubsidiaryMenuAction */
+.reusables-subsidiary-menu-action {
+  .ant-menu-dark {
+    background: $clouds!important;
+    .ant-menu-item {
+      background: $clouds!important;
+    }
+  }
+  &-menu {
+    background: $clouds;
+    border-right: 0px;
+  }
+}

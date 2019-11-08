@@ -30,19 +30,17 @@ function PaymentsList({
     },
     {
       title: 'Filial',
-      render: (t, r) => (<span>{r.filial}</span>)
+      render: (t, r) => (<span>{r.filial.state}</span>)
     },
     {
       title: 'Acciones',
-      render: (t, r) => <Link to={`/admin/filiales/${r.filial}/pagos/${r._id}`}>Ver detalles de pago</Link>
+      render: (t, r) => <Link to={`/admin/filiales/${r.filial._id}/pagos/${r._id}`}>Ver detalles de pago</Link>
     }
   ];
 
   useEffect(() => {
     if (!payments[0] && payments[0] !== 'empty') populateSubsidiaryPayments(subsidiaryId || subId);
   }, [payments.length])
-
-  console.log(payments);
 
   return (
     <Table columns={colums} dataSource={payments} />

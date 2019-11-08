@@ -75,6 +75,7 @@ function AdminSubsidiary({
         <Tabs>
           <TabPane key="1" tab="Miembros">
             <UserList
+              noEditable
               externalData={users.map(u => ({
                 name: `${u.basicData.name} ${u.basicData.dadSurname}`,
                 speciality: u.basicData.speciality || "Gastroenterología",
@@ -102,8 +103,18 @@ function AdminSubsidiary({
 
 function mapSateToProps({ users, user, subsidiary }, { match = {} }) {
   const { params = {} } = match;
+  let subs = {}
+  if (subsidiary.array[0]) subs = subsidiary.array.filter(s => s._id === params.id)[0];
+  console.log(subsidiary);
+  let us = []
+  if (subs) us = users.array.filter(u => {
+    if (u.address && u.address.state === subs.state) return true;
+    if (u.basicData.address.state === subs.state) return true;
+    if (u.filialAsUser === params.id) return true;
+    return false;
+  });
   return {
-    users: users.array.filter(u => u.filialAsUser === params.id),
+    users: us,
     user,
     subsidiaries: subsidiary.array,
     noSubsidiaries: subsidiary.noData,

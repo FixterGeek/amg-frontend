@@ -36,14 +36,17 @@ const data = [
     },
 ];
 
-function AdminUsersList({ list = data, fetching, deleteAction, externalData }) {
+function AdminUsersList({ list = data, fetching, deleteAction, externalData, noEditable }) {
 
     const columns = [
         {
             title: 'Nombre',
             dataIndex: 'name',
             key: 'name',
-            render: (text, record) => <Link to={`/admin/users/${record._id}`}>{text}</Link>,
+            render: (text, record) => {
+                if (noEditable) return <span>{text}</span>
+                return <Link to={`/admin/users/${record._id}`}>{text}</Link>
+            },
         },
         {
             title: 'Especialidad',
@@ -83,6 +86,7 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData }) {
             key: 'action',
             render: (text, record) => {
                 const { tags = [] } = record;
+                if (noEditable) return 'Acciones no disponibles'
                 return (
                     <span>
                         Cuenta activa <Switch defaultChecked={tags[0] === "activa"} />

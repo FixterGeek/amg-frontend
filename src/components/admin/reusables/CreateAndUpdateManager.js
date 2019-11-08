@@ -54,7 +54,8 @@ function CreateAndUpdateManager({
     <Fragment>
       { fetching && <Spinner fullScrren /> }
       <children.type
-        {...children.props}  
+        {...children.props}
+        onSubmit={handleSubmit}
       />
     </Fragment>
   );

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Tabs, Icon, Table } from 'antd';
 
+import {
+  deletedSubsidiary,
+  populateSubsidiaries,
+} from '../../../store/ducks/subsidiaryDuck';
 import ActionMenu from './reusables/ActionMenu';
 
-import virtualData from './reusables/virtualRecords.json';
 
 function AdminSubsidiariesList({
-  subsidiaries
+  subsidiaries, deletedSubsidiary,
+  populateSubsidiaries, fetching,
+  noSubsidiaries,
 }) {
   const { TabPane } = Tabs;
 
@@ -42,11 +48,15 @@ function AdminSubsidiariesList({
     },
     {
       title: 'Acciones',
-      render: () => (<ActionMenu />),
+      render: (t, r) => (<ActionMenu record={r} dispatchDelete={deletedSubsidiary} />),
     },
   ]
 
-  const data = [];
+  useEffect(() => {
+    if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
+  }, [subsidiaries.length]);
+
+  console.log(subsidiaries);
 
   return (
     <div className="generic-admin-table">
@@ -58,9 +68,27 @@ function AdminSubsidiariesList({
           ok
         </TabPane>
       </Tabs>
-      <Table columns={columns} dataSource={subsidiaries} locale={{ emptyText: 'Sin filiales' }} />
+      <Table
+        columns={columns}
+        dataSource={subsidiaries}
+        locale={{ emptyText: 'Sin filiales' }}
+        pagination={{ pageSize: 20 }}
+      />
     </div>
   )
 }
 
-export default AdminSubsidiariesList;
+function mapSateToProps({ subsidiary }) {
+  return {
+    subsidiaries: subsidiary.array,
+    fetching: subsidiary.fetching,
+    noSubsidiaries: subsidiary.noData,
+  };
+}
+
+export default connect(
+  mapSateToProps, {
+    deletedSubsidiary,
+    populateSubsidiaries,
+  }
+)(AdminSubsidiariesList);

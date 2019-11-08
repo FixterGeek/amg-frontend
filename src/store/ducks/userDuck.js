@@ -381,6 +381,7 @@ function reducer(state = userState, action) {
         case LOGIN_USER_ERROR:
             let error
             if (action.payload === "IncorrectPasswordError") error = "Nombre de usuario o contraseña incorrectos"
+            return { ...state, status: 'error', error, fetching: false }
         case CREATE_USER:
             return { ...state, fetching: true }
         case CREATE_USER_SUCCESS:
