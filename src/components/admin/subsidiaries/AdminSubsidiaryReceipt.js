@@ -41,13 +41,16 @@ function AdminSubsidiaryReceipt({
   const [usersInList, setUserInList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
+  console.log(usersInList);
+
   useEffect(() => {
     populateSubsidiaries();
     populateSubsidiaryPayments(params.id);
   }, []);
 
   useEffect(() => {
-    if (payment) {
+    if (payment && payment !== 'empty') {
+      console.log(payment);
       setWorkingOn(payment);
       setUserInList(payment.users);
     }

@@ -51,7 +51,7 @@ function PaymentCourse({
         ...data,
         user: userId,
         eventId: params.eventId,
-        coursesId: [courses.filter(cf => cf._id).map(c => c._id)] },
+        courseIds: courses.filter(cf => cf._id).map(c => c._id) },
         'course')
       .then(paymentData => paymentData.paid && setPaid(state => !state));
   };

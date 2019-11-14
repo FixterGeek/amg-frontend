@@ -59,36 +59,11 @@ function AdminSubsidiary({
         </div>
         {
           user.userType === 'Filial' && (
-            <Button line marginTop="0" onClick={() => setIsReceipt(s => !s)}>
+            <Button line marginTop="0" onClick={() => setIsReceipt(s => true)}>
               Subir comprobante AMG
             </Button>
           )
         }
-      </ContainerItem>
-      <ContainerItem className="admin-subsidiary-profile-info">
-        <div className="stats">
-          <StatsContainer title="Progreso" stats="65%" />
-          <StatsContainer title="Total de facturas emitidas" stats="0" />
-        </div>
-      </ContainerItem>
-      <ContainerItem>
-        <Tabs>
-          <TabPane key="1" tab="Miembros">
-            <UserList
-              noEditable
-              externalData={users.map(u => ({
-                name: `${u.basicData.name} ${u.basicData.dadSurname}`,
-                speciality: u.basicData.speciality || "Gastroenterología",
-                address: 'Emérito',
-                tags: ['activa'],
-                ...u,
-                }))}
-              />
-          </TabPane>
-          <TabPane key="2" tab="Historial de pagos">
-            <SubsidiaryPayments subId={subsidiary._id} />
-          </TabPane>
-        </Tabs>
       </ContainerItem>
       {
         isReceipt && <SubsidiaryReceipt
@@ -96,6 +71,37 @@ function AdminSubsidiary({
             onCancel={v => setIsReceipt(v)}
             filial={subsidiary}
           />
+      }
+      {
+        !isReceipt && (
+          <div>
+            <ContainerItem className="admin-subsidiary-profile-info">
+              <div className="stats">
+                <StatsContainer title="Progreso" stats="65%" />
+                <StatsContainer title="Total de facturas emitidas" stats="0" />
+              </div>
+            </ContainerItem>
+            <ContainerItem>
+              <Tabs>
+                <TabPane key="1" tab="Miembros">
+                  <UserList
+                    noEditable
+                    externalData={users.map(u => ({
+                      name: `${u.basicData.name} ${u.basicData.dadSurname}`,
+                      speciality: u.basicData.speciality || "Gastroenterología",
+                      address: 'Emérito',
+                      tags: ['activa'],
+                      ...u,
+                      }))}
+                    />
+                </TabPane>
+                <TabPane key="2" tab="Historial de pagos">
+                  <SubsidiaryPayments subId={subsidiary._id} />
+                </TabPane>
+              </Tabs>
+            </ContainerItem>
+          </div>
+        )
       }
     </section>
   );

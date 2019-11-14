@@ -11,7 +11,8 @@ import {
 import { Menu, Icon } from 'antd';
 
 import { 
-  HomeIcon, EventIcon, MagazineIcon, SourcesIcon, ProfileIcon
+  HomeIcon, EventIcon, MagazineIcon,
+  SourcesIcon, ProfileIcon, MapIcon,
 } from '../components/feed/reusables/Icons';
 import { logoutAction } from '../store/ducks/userDuck';
 
@@ -77,8 +78,16 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
         </Icon>
         <span>Configuración</span>
       </Item>
+      {
+        user.userType === 'Filial' && (
+          <Item key={7} onClick={() => link('/admin')}>
+            <Icon  component={MapIcon} />
+            <span>Filial Dashboard</span>
+          </Item>
+        )
+      }
       <Item
-        key={7}
+        key={8}
         onClick={() => logoutAction().then(() => history.push('/'))}
         style={{ position: 'absolute', bottom: '32px'  }} >
         <Icon>
