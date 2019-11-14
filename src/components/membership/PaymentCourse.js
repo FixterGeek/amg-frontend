@@ -15,6 +15,7 @@ function PaymentCourse({
   paymetFetching, userId,
   makePaymentAction,
   history, match: { params },
+  membershipType,
 }) {
   const { Title } = Typography;
   const { location } = history;
@@ -24,6 +25,9 @@ function PaymentCourse({
   const [paid, setPaid] = useState(false);
   const [paymentType, setPaymentType] = useState(null);
   const [oxxoOrder, setOxxoOrder] = useState(null)
+  let userCost = 'freeCost';
+  if (membershipType === 'Resident') userCost = 'residentCost';
+  if (membershipType === 'Socio') userCost = 'socioCost';
 
   useEffect(() => {
     if (courses.length === 0) history.push(`/dashboard/eventos/${params.eventId}`)
@@ -43,7 +47,12 @@ function PaymentCourse({
   };
 
   const handleSubmit = (data) => {
-    makePaymentAction({ ...data, user: userId, eventId: params.eventId }, 'coursePayment')
+    makePaymentAction({
+        ...data,
+        user: userId,
+        eventId: params.eventId,
+        coursesId: [courses.filter(cf => cf._id).map(c => c._id)] },
+        'course')
       .then(paymentData => paymentData.paid && setPaid(state => !state));
   };
 
@@ -54,7 +63,6 @@ function PaymentCourse({
       loading={paymetFetching}
     />
 
-
   return (
     <div className="dashboard-container">
       <ContainerItem className="dash-item-center">
@@ -62,7 +70,7 @@ function PaymentCourse({
         <Title>Pagar Curso</Title>
         <BuyDetail
           onAmount={handleBuy}
-          details={courses.map(item => ({ concept: item.title, cost: item.cost}))}
+          details={courses.filter(cf => cf._id).map(c => ({ concept: c.title, cost: c.cost[userCost]}))}
         />
         <PaymentCardForm
           onSubmit={handleSubmit}
@@ -81,6 +89,7 @@ function mapStateToProps({ course, payment: { payment }, user }) {
     courseFetching: course.fetching,
     paymetFetching: payment.fetching,
     userId: user._id,
+    membershipType: user.membershipStatus,
   };
 }
 

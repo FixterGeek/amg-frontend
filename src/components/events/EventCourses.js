@@ -17,8 +17,8 @@ function EventCourses({
 }) {
   const { Title } = Typography;
 
-  const [preCheckeds, setPrechckeds] = useState([]);
-  const [trasCheckeds, setTrasCheckeds] = useState([]);
+  const [preCheckeds, setPrechckeds] = useState({ _id: null });
+  const [trasCheckeds, setTrasCheckeds] = useState({ _id: null });
 
   useEffect(() => {
     if (!courses[0] && !noCourses) populateEventCoursesAction(params.id);
@@ -62,9 +62,8 @@ function EventCourses({
                     to={`/dashboard/eventos/${params.id}/cursos/${course._id}`}
                   />
                   <CourseCheck
-                    onChecked={
-                      checked => handleChecked({target: { checked, course } }, 'pre')
-                    }
+                    onClick={() => setPrechckeds(course)}
+                    checked={preCheckeds._id === course._id}
                   />
                 </div>
               ) : null
@@ -91,9 +90,8 @@ function EventCourses({
                     footer={course.location.city}
                   />
                   <CourseCheck
-                    onChecked={
-                      checked => handleChecked({target: { checked, course } }, 'tras')
-                    }
+                    onClick={() => setTrasCheckeds(course)}
+                    checked={trasCheckeds._id === course._id}
                   />
                 </div>
               ) : null
@@ -104,10 +102,10 @@ function EventCourses({
           <Link
             to={{
               pathname: `/dashboard/pago/evento/${params.id}/cursos`,
-              state: [...preCheckeds, ...trasCheckeds],
+              state: [preCheckeds, trasCheckeds],
             }}
           >
-            <Button width="100%" disabled={!preCheckeds[0] && !trasCheckeds[0]}>
+            <Button width="100%" disabled={!preCheckeds._id && !trasCheckeds._id}>
               Siguiente
             </Button>
           </Link>

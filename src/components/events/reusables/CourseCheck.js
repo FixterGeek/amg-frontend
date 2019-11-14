@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Icon } from 'antd';
 
-function CourseCheck({ onChecked }) {
-  const [checked, setChecked] = useState(false);
+function CourseCheck({ checked = false, onClick }) {
 
   const handleClick = () => {
-    setChecked(c => {
-      if (onChecked) onChecked(!c);
-      return !c;
-    });
+    if (onClick) onClick();
   };
 
   return (

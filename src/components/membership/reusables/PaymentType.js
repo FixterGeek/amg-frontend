@@ -46,6 +46,8 @@ function PaymentType({
     updateUserAction(formData);
   }
 
+  console.log(user);
+
   return (
     <div className="dashboard-container">
       { loading || user.fetching ? <Spinner fullScrren /> : null }
@@ -67,7 +69,7 @@ function PaymentType({
         </ContainerItem>
       </ContainerItem>
       <Modal
-        visible={!phone}
+        visible={!user.basicData.phone}
         footer={null}
       >
         <Title level={3}>Importante, agrega tu número telefónico para continuar.</Title>

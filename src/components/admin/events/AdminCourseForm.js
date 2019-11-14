@@ -24,7 +24,11 @@ function AdminCourseForm({
     courseType: 'Precongreso',
     event: eventId,
     title: null,
-    cost: null,
+    cost: {
+      freeCost: 0,
+      residentCost: 0,
+      socioCost: 0,
+    },
     description: [],
     startDate: null,
     endDate: null,
@@ -61,6 +65,8 @@ function AdminCourseForm({
     setCourseData(state => ({ ...state, [name]: value }));
   }
 
+  console.log(courseData);
+
   return (
     <div>
       <CreateAndUpdateManager 
@@ -95,10 +101,22 @@ function AdminCourseForm({
             label="Titulo"
           />
           <TextField
-            onChange={handleChange}
-            value={courseData.cost}
+            onChange={({ target }) => handleChange(target, 'freeCost')}
+            value={courseData.cost.freeCost}
             name="cost"
-            label="Costo"
+            label="Costo para usuarios Free"
+          />
+          <TextField
+            onChange={({ target }) => handleChange(target, 'residentCost')}
+            value={courseData.cost.residentCost}
+            name="cost"
+            label="Costo para socioa en entrenamiento"
+          />
+          <TextField
+            onChange={({ target }) => handleChange(target, 'socioCost')}
+            value={courseData.cost.socioCost}
+            name="cost"
+            label="Costo para socios"
           />
           <TextAreaField
             onChange={handleChange}

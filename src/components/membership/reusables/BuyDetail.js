@@ -14,10 +14,12 @@ function BuyDetail({ details, onAmount }) {
     acount: 0,
   });
 
+  console.log('DETAILS', details);
+
   useEffect(() => {
     let subamount = 0;
     details.map(detail => {
-      subamount += detail.cost;
+      if (detail.cost) subamount += detail.cost;
     });
     setAcount(state => {
       const numbers = {
@@ -41,12 +43,12 @@ function BuyDetail({ details, onAmount }) {
       <Title>Detallles de compra</Title>
       <div className="membership-reusables-buy-detail-list">
         <List>
-          { details.map(detail => (
+          { details.map(detail => detail.cost ? (
             <ListItem className="detail">
               <div>{ detail.concept }</div>
               <div>{ coinFormat(detail.cost) }</div>
             </ListItem>
-          )) }
+          ) : null ) }
           <ListItem className="lasts">
             <div>Subtotal</div>
             <div>{ coinFormat(amount.subamount) }</div>
