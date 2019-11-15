@@ -19,6 +19,8 @@ function PaymentsList({
   populateSubsidiaries,
 }) {
 
+  console.log(payments);
+
   const colums = [
     {
       title: 'Fecha',
@@ -43,7 +45,7 @@ function PaymentsList({
   }, [payments.length])
 
   return (
-    <Table columns={colums} dataSource={payments} />
+    <Table columns={colums} dataSource={payments[0] !== 'empty' ? payments : []} />
   );
 }
 

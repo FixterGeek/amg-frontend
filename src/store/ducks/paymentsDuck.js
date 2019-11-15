@@ -66,13 +66,12 @@ export const fetchingError = (error) => ({ type: FETCHING_ERROR, payload: error 
 export const workingOn = (working, name, value) => {
   if (name === 'chat') return {
     type: WORKING_ON,
-    payload: { ...working, chat: { messages: [...working.chat.messages, value] } }
+    payload: { ...working, chat: { description: value } }
   };
   return { type: WORKING_ON, payload: { ...working, [name]: value }}
 };
 
 export const setWorkingOn = (payment) => {
-  console.log('here!!!', payment);
   return { type: WORKING_ON, payload: payment };
 };
 

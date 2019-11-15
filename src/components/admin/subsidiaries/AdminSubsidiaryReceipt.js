@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import {
   Typography, AutoComplete, List,
   Avatar, Form, Button as AmgButton,
-  Icon, Empty, Switch
+  Icon, Empty, Switch, Input
 } from 'antd';
 
 import {
@@ -36,6 +36,7 @@ function AdminSubsidiaryReceipt({
 }) {
   const { Title } = Typography;
   const { Item } = List;
+  const { TextArea } = Input;
   const { params } = match;
 
   const [usersInList, setUserInList] = useState([]);
@@ -98,7 +99,7 @@ function AdminSubsidiaryReceipt({
       <ContainerItem className="dash-item-center">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Title level={3}>
-            { payment ? `Comprobante No. ${payment._id}` : 'Subir comprobante AMG' }
+            { payment && payment !== 'empty' ? `Comprobante No. ${payment._id}` : 'Subir comprobante AMG' }
           </Title>
           {
             user.userType === 'Admin' && (
@@ -117,6 +118,12 @@ function AdminSubsidiaryReceipt({
             className="receipt-image"
             label="Comprobante de pago"
             url={payment ? payment.recipetURL : null}
+          />
+        </ContainerItem>
+        <ContainerItem>
+          <TextArea
+            onChange={({ target }) => workingOn(working, 'chat', target.value)}
+            value={working.chat.description || null}          
           />
         </ContainerItem>
         <ContainerItem className="admin-subsidiary-receipt-content">
