@@ -121,10 +121,12 @@ function AdminSubsidiaryReceipt({
           />
         </ContainerItem>
         <ContainerItem>
-          <TextArea
-            onChange={({ target }) => workingOn(working, 'chat', target.value)}
-            value={working.chat.description || null}          
-          />
+          <Form.Item label="Descripción">
+            <TextArea
+              onChange={({ target }) => workingOn(working, 'chat', target.value)}
+              value={working.chat.description || null}          
+            />
+          </Form.Item>
         </ContainerItem>
         <ContainerItem className="admin-subsidiary-receipt-content">
           <div className="users-list">

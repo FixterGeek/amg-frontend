@@ -68,6 +68,7 @@ const fetchingError = () => ({ type: FETCHING_ERROR });
 
 export const workingOn = (working, name, value) => {
   const levels = name.split('.');
+  console.log(value);
   if (levels.length === 1) working[levels[0]] = value;
   if (levels.length === 2) working[levels[0]] = { ...working[levels[0]], [levels[1]]: value };
   if (levels.length === 3) working[levels[0]] = {

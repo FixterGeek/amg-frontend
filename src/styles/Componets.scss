@@ -577,6 +577,18 @@ $eventLeftWidth: 350px;
       min-height: 330px;
     }
   }
+
+  textarea {
+    border-radius: 0px;
+    background-color: $clouds;
+    border-color: $clouds;
+  }
+
+  .ant-form-item-label {
+    label {
+      font-weight: bold;
+    }
+  }
 }
 
 /* AdminDashboard */
