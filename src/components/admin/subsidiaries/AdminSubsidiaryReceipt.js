@@ -32,7 +32,7 @@ function AdminSubsidiaryReceipt({
   fetching, match, payment,
   populateSubsidiaries,
   populateSubsidiaryPayments,
-  user,
+  user, history
 }) {
   const { Title } = Typography;
   const { Item } = List;
@@ -86,6 +86,8 @@ function AdminSubsidiaryReceipt({
     createOrUpdateFilialPayment(data);
     setModalOpen(false);
   }
+
+  console.log(payment);
 
   return (
     <section className="admin-subsidiary-receipt">
@@ -155,20 +157,26 @@ function AdminSubsidiaryReceipt({
               }
               {
                 usersInList.map(u => (
-                  <Item key={u._id}>
+                  <Item key={u._id} >
                     <Item.Meta
                       avatar={<Avatar src={u.basicData.photoURL} />}
                       title={`${u.basicData.name} ${u.basicData.dadSurname}`}
                       description={u.email}
+                      style={{ cursor: 'pointer' }}
+                      onClick={user.userType === 'Admin' ? () => history.push(`/admin/users/${u._id}`) : null}
                     />
-                    <AmgButton
-                      type="link"
-                      style={{ color: '#e24c4c' }}
-                      onClick={() => setUserInList(arr => arr.filter(us => us._id !== u._id))}
-                    >
-                      Quitar
-                      <Icon type="close" />
-                    </AmgButton>
+                    {
+                      user.userType === 'Filial' && (
+                        <AmgButton
+                          type="link"
+                          style={{ color: '#e24c4c' }}
+                          onClick={() => setUserInList(arr => arr.filter(us => us._id !== u._id))}
+                        >
+                          Quitar
+                          <Icon type="close" />
+                        </AmgButton>
+                      )
+                    }
                   </Item>
                 ))
               }
@@ -181,7 +189,7 @@ function AdminSubsidiaryReceipt({
           /> */}
         </ContainerItem>
         {
-          !payment && (
+          payment === 'empty' ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button line onClick={handleCancel} >
                 Cancelar
@@ -190,7 +198,7 @@ function AdminSubsidiaryReceipt({
                 Siguiente
               </Button>
             </div>
-          )
+          ) : null
         }
       </ContainerItem>
     </section>
