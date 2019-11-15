@@ -15,7 +15,7 @@ function Button({
   let borderColorBtn = palette[bgColor];
   let textColotBtn = line ? palette[bgColor] : '#f5f8f9';
 
-  if (disabled) {
+  if (disabled && bgColor !== 'green') {
     bgColorBtn = palette.silver;
     borderColorBtn = palette.silver;
   }
