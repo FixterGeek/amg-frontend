@@ -12,7 +12,8 @@ function UserFilter({ usersArray, onResults }) {
   const [filteredUsers, setFilteredUsers] = useState(null);
 
   const handleFilter = (value) => {
-    console.log(value);
+    // console.log(value);
+    if (value.includes('No Aprobado')) value = [...value, 'Registrado']; 
     setCurrentFilter(value);
 
     if (!value[0]) {
