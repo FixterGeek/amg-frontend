@@ -31,7 +31,10 @@ function JustModal({
             { openComponent }
           </button>
         ) : (
-          <Button marginTop="0px" width="200px" onClick={() => setOpenModal(true)}>
+          <Button
+            marginTop="0px"
+            bgColor={buttonText === 'Editar módulo' ? 'yellow' : 'secondary'}
+            width="200px" onClick={() => setOpenModal(true)}>
             { buttonText }
           </Button>
         )
