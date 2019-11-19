@@ -458,6 +458,11 @@ $eventLeftWidth: 350px;
   }
 }
 
+/* Style LateralMenu */
+.admin-lateral-menu {
+  overflow-y: hidden;
+}
+
 /* Style AdminResources */
 .admin-resources {
   &-title {
