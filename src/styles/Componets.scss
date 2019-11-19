@@ -623,8 +623,12 @@ $eventLeftWidth: 350px;
 .admin-speakers-add-list {
   &-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     flex-direction: row-reverse;
+
+    div {
+      margin-right: $margin;
+    }
   }
 }
 
