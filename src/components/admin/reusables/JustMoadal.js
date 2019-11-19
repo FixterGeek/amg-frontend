@@ -7,7 +7,7 @@ import Button from '../../reusables/Button';
 
 function JustModal({
   buttonText, childElement, openComponent, close,
-  modalTitle, onClose
+  modalTitle, onClose, lineButton = false,
 }) {
   const [openModal, setOpenModal] = useState(false);
 
@@ -32,6 +32,7 @@ function JustModal({
           </button>
         ) : (
           <Button
+            line={lineButton}
             marginTop="0px"
             bgColor={buttonText === 'Editar módulo' ? 'yellow' : 'secondary'}
             width="200px" onClick={() => setOpenModal(true)}>

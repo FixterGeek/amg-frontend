@@ -1,6 +1,6 @@
 const colorPalette = {
   primary: '#28abd8',
-  secondary: '#1f2536',
+  secondary: '#022047',
   clouds: '#f5f8f9',
   silver: '#e5e5e5',
   green: '#4ce2a7',

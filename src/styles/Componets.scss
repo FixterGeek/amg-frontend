@@ -887,13 +887,24 @@ $eventLeftWidth: 350px;
 
 
 //  ADMIN ==>
+// style AdminSubsidiariedList
+.admin-subsidiaries-list {
+  .ant-table-tbody {
+    background-color: transparent!important;
+  }
+}
+
 // AdminSubsidiaries
 .admin-subsidiaries {
   padding: 0.1px;
 
   &-stats-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+
+    div {
+      margin: 0px $margin;
+    }
   }
 }
 

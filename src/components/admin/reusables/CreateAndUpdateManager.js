@@ -11,7 +11,7 @@ function CreateAndUpdateManager({
   isModal, openModalElement, modalTitle,
   onModalClose, status, successClose,
   errorClose, modalOpenText, onActionResponse,
-  onActionError,
+  onActionError, lineButton = false,
 }) {
   const [modalState, setModalState] = useState('close');
 
@@ -32,6 +32,7 @@ function CreateAndUpdateManager({
     <Fragment>
       { fetching && <Spinner fullScrren /> }
       <JustModal
+        lineButton={lineButton}
         modalTitle={modalTitle}
         buttonText={modalOpenText}
         openComponent={openModalElement || null}

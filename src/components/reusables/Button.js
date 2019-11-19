@@ -11,6 +11,7 @@ function Button({
   line, className, style,
   disabled, ...others
 }) {
+  console.log(line);
   let bgColorBtn = !line ? palette[bgColor] : 'transparent';
   let borderColorBtn = palette[bgColor];
   let textColotBtn = line ? palette[bgColor] : '#f5f8f9';

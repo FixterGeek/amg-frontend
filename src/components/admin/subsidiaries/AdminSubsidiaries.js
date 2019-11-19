@@ -27,14 +27,14 @@ function AdminSubsidiaries({
     <section className="admin-subsidiaries">
       { fetching && <Spinner fullScrren /> }
       <ContainerItem>
-        <Title>Filiales</Title>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Title>Filiales</Title>
+          <SubsidiaryForm isModal line={true} />
+        </div>
       </ContainerItem>
       <ContainerItem className="admin-subsidiaries-stats-container">
         <StatsContainer title="Progreso" stats="65%" />
-        <StatsContainer title="Total de facturas emitidas" stats="0" />
-      </ContainerItem>
-      <ContainerItem>
-          <SubsidiaryForm isModal />
+        <StatsContainer style={{ backgroundColor: '#fa6400' }} title="Total de facturas emitidas" stats="0" />
       </ContainerItem>
       <ContainerItem>
         <SubsidiariesList subsidiaries={subsidiaries} />

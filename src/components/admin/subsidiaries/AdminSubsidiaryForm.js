@@ -38,7 +38,7 @@ function AdminSubsidiaryForm({
     if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
   }, [subsidiaries]);
 
-  console.log(working);
+  // console.log(line);
 
   return (
     <section>
@@ -52,6 +52,7 @@ function AdminSubsidiaryForm({
         autoResetFromClose
         status={status}
         onModalClose={c => c ? resetWorkingOn() : null}
+        lineButton
       >
         <Form>
           <ImagePicker

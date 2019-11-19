@@ -59,7 +59,7 @@ function AdminSubsidiariesList({
   console.log(subsidiaries);
 
   return (
-    <div className="generic-admin-table">
+    <div className="generic-admin-table admin-subsidiaries-list">
       <Tabs type="card" className="generic-table-header">
         <TabPane tab={<Icon type="search" />} key="1">
           ok
@@ -73,6 +73,7 @@ function AdminSubsidiariesList({
         dataSource={subsidiaries}
         locale={{ emptyText: 'Sin filiales' }}
         pagination={{ pageSize: 20 }}
+        rowKey="_id"
       />
     </div>
   )
