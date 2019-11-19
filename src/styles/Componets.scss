@@ -173,6 +173,14 @@ $eventLeftWidth: 350px;
     }
   }
 
+  .ant-select-open {
+    .ant-select-arrow-icon {
+      svg {
+        transform: rotate(0deg);
+      }
+    } 
+  }
+
   .ant-select {
     margin-left: $margin;
     width: 100%;
