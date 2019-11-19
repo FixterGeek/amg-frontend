@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import AdminUsersList from './AdminUsersList';
 import { getUsers, deleteUserAction } from '../../store/ducks/users'
 
-let good = 1200
-let bad = 616
-
 function AdminUsers({
-    getUsers, deleteUserAction
+    getUsers, deleteUserAction, good = 0, bad = 0,
 }) {
 
     useEffect(() => {
@@ -41,8 +38,11 @@ function AdminUsers({
     )
 }
 
-function mapState(state) {
-    return {}
+function mapState({ users }) {
+    return {
+        good: users.array.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado').length,
+        bad: users.array.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado').length,
+    }
 }
 
 export default connect(mapState, { getUsers, deleteUserAction })(AdminUsers)
