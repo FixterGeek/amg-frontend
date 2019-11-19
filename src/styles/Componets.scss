@@ -469,7 +469,7 @@ $eventLeftWidth: 350px;
     .ant-tabs-bar {
       margin-bottom: 0px;
       padding-bottom: 1px;
-      border-bottom: 20px solid $secondary;
+      border-bottom: 20px solid $navy;
     }
 
     .ant-tabs-tab {
@@ -479,8 +479,8 @@ $eventLeftWidth: 350px;
     }
 
     .ant-tabs-tab-active {
-      background: $secondary!important;
-      border-color: $secondary!important;
+      background: $navy!important;
+      border-color: $navy!important;
       color: white!important;
     }
   }
