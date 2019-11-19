@@ -43,7 +43,7 @@ function AdminEvents({
             <article className="admin-main-header" >
                 <h1>Eventos</h1>
                 <Link to="/admin/eventos/edit">
-                    <Button>Agregar evento</Button>
+                    <Button line width="200px">Agregar evento</Button>
                 </Link>
             </article>
 

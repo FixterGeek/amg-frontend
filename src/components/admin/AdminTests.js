@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import {getTests, deleteTest} from '../../store/ducks/testsDuck'
 import {Link} from 'react-router-dom'
 
+import Button from '../reusables/Button';
+
 const AdminTests = ({tests=[],fetching, getTests}) => {
 
     useEffect(()=>{
@@ -20,7 +22,7 @@ const AdminTests = ({tests=[],fetching, getTests}) => {
             <article className="admin-main-header" >
                 <h1>Tests</h1>
                 <Link to="/admin/tests/new">
-                    <button className="admin-main-button">Agregar test</button>                    
+                    <Button line width="200px">Agregar test</Button>                    
                 </Link>                
             </article>
             <div>
