@@ -5,9 +5,11 @@ import { Typography } from 'antd';
 import NavBar from '../../organisms/NavBar';
 import Footer from './Footer';
 import MembersBlock from './reusables/MembersBlock';
+import Button from '../reusables/Button';
+import mesaspdf from '../../assets/Mesas-directivas-1935-2019.pdf';
 
 export function DirectivesTable() {
-  const { Title } = Typography;
+  const { Title, Text } = Typography;
   const data = [
     {
       year: '2019',
@@ -77,6 +79,16 @@ export function DirectivesTable() {
                 )
               })
             }
+          </div>
+          <div style={{ textAlign: 'center', display: 'flex', flexFlow: 'column', alignItems: 'center', marginTop: '32px' }}>
+            <Title level={3}>Mesas directivas</Title>
+            <Text strong style={{ width: '400px', display: 'inline-block', textAlign: 'center' }}>
+              Conoce todas las mesas directivas desde la fundación de la
+              Asociación Mexicana de Gastroenterología, A. C.
+            </Text>
+            <a href={mesaspdf} target="_blank">
+              <Button>Ver todas las mesas directivas</Button>
+            </a>
           </div>
       </div>
       <Footer />
