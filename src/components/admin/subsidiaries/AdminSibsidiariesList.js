@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Tabs, Icon, Table } from 'antd';
+import { Tabs, Icon, Table, Input } from 'antd';
 
 import {
   deletedSubsidiary,
@@ -17,6 +17,7 @@ function AdminSubsidiariesList({
   noSubsidiaries,
 }) {
   const { TabPane } = Tabs;
+  const { Search } = Input;
 
   const columns = [
     {
@@ -52,17 +53,28 @@ function AdminSubsidiariesList({
     },
   ]
 
+  const [filtereds, setFiltered] = useState(null);
+
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
   }, [subsidiaries.length]);
 
-  console.log(subsidiaries);
+  const handleSearch = (value) => {
+    const regex = new RegExp(value, 'i');
+    const f = subsidiaries.filter( s => regex.test(s.state));
+    setFiltered(f);
+  }
 
   return (
     <div className="generic-admin-table admin-subsidiaries-list">
       <Tabs type="card" className="generic-table-header">
         <TabPane tab={<Icon type="search" />} key="1">
-          ok
+          <div className="finder">
+            <Search
+              onChange={({ target }) => handleSearch(target.value)}
+              placeholder="Ingresa el nombre de la filial"
+            />
+          </div>
         </TabPane>
         <TabPane tab={<Icon type="filter" />} key="2">
           ok
@@ -70,7 +82,7 @@ function AdminSubsidiariesList({
       </Tabs>
       <Table
         columns={columns}
-        dataSource={subsidiaries}
+        dataSource={filtereds || subsidiaries}
         locale={{ emptyText: 'Sin filiales' }}
         pagination={{ pageSize: 20 }}
         rowKey="_id"

@@ -892,6 +892,13 @@ $eventLeftWidth: 350px;
   .ant-table-tbody {
     background-color: transparent!important;
   }
+
+  .finder {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    padding: 0px $largePadding;
+  }
 }
 
 // AdminSubsidiaries
