@@ -62,7 +62,7 @@ function AdminDashboard({
       <ContainerItem>
         <Title level={4}>Últimas afiliaciones</Title>
         {
-          currents.slice(0, 10).map(u => (
+          currents.reverse().slice(0, 10).map(u => (
             <SmallBoxItem
               key={u._id}
               title={`${u.basicData.name} ${u.basicData.dadSurname}`}

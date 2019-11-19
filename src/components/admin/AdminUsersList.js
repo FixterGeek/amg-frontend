@@ -169,6 +169,7 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
 }
 
 function mapState({ users }) {
+    // console.log(users.array.filter(u => u.userStatus === 'No Aprobado'));
     let list = users.array.map(u => {
         let user = {
             name: u.basicData.name + " " + u.basicData.dadSurname,

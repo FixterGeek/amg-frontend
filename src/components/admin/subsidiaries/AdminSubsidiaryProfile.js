@@ -51,10 +51,12 @@ function AdminSubsidiary({
     <section className="admin-subsidiary-profile">
       { fetching && <Spinner fullScrren /> }
       <ContainerItem style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           <Title>{ subsidiary.state }</Title>
           <Link to={{ pathname: `/admin/filiales/${subsidiary._id}/edit`, state: subsidiary }}>
-            Modificar datos
+            <Button line marginTop="0">
+              Modificar datos
+            </Button>
           </Link>
         </div>
         {
