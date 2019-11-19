@@ -26,19 +26,19 @@ function Invoices({
     if (invoicesStatus !== null) resetInvoicesStatus();
   }, [invoicesStatus])
 
-  console.log(invoicesStatus);
+  // console.log(invoicesStatus);
 
   return (
     <section className="admin-invoices">
       <ContainerItem className="admin-invoices-title">
-        <Title>Facturas</Title>
+        <Title style={{ display: 'inline-blocks', flexGrow: 1 }}>Facturas</Title>
         <Link to="/admin/invoices/fiscals">
-          <Button marginTop="0px">
+          <Button marginTop="0px" line width="200px">
             Datos fiscales
           </Button>
         </Link>
         <Link to="/admin/invoices/payments">
-          <Button marginTop="0px">
+          <Button marginTop="0px" line width="200px" style={{ marginLeft: '32px' }}>
             Pagos para facturar
           </Button>
         </Link>
