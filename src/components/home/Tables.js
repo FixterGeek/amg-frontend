@@ -25,7 +25,7 @@ export function DirectivesTable() {
       ]
     },
     {
-      year: '2017',
+      year: '2018',
       members: [
         { name: 'Dr. Aurelio López Colombo', position: 'Presidente'  },
         { name: 'Dr. Ramón I. Carmona Sánchez', position: 'Vicepresidente'  },
@@ -37,7 +37,7 @@ export function DirectivesTable() {
       ]
     },
     {
-      year: '2018',
+      year: '2017',
       members: [
         { name: 'Dr. Ramón I. Carmona Sánchez', position: 'Presidente'  },
         { name: 'Dr. Felipe Zamarripa Dorsey', position: 'Vicepresidente'  },
