@@ -30,7 +30,7 @@ function ModulesContent({
     {
       title: 'Número de asistentes',
       render: (text, record) => (
-        <span>{ record.students.length }</span>
+        <span>{ record.assistants ? record.assistants.length : record.students.length }</span>
       )
     },
     {
