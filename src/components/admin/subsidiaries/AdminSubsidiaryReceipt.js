@@ -189,7 +189,7 @@ function AdminSubsidiaryReceipt({
           /> */}
         </ContainerItem>
         {
-          payment === 'empty' ? (
+          user.userType === 'Filial' ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button line onClick={handleCancel} >
                 Cancelar
