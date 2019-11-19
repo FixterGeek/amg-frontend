@@ -22,9 +22,14 @@ function Feed({
   const { errorAlert, infoAlert } = useSweetAlert();
   const [loadingPost, setLoadingPost] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
+  const [lastEvent, setLastEvent] = useState({ _id: null });
   const { events: eventsList } = events;
   const { publications: pubs } = publications;
 
+
+  useEffect(() => {
+    if (eventsList.length > 0) setLastEvent(eventsList.reverse().pop());
+  }, [eventsList.length]);
 
   useEffect(() => {
     if (user.membershipStatus === 'Free') {
@@ -50,6 +55,7 @@ function Feed({
       .catch(() => errorAlert());
   }, []);
 
+  console.log(lastEvent);
 
   return (
     <div className="dashboard-container">
@@ -60,18 +66,18 @@ function Feed({
       <div className="feed-event">
         { loadingEvent && (<Spinner tip="Cargando evento..." />) }
         {
-          eventsList.length > 0 && (
+          lastEvent._id && (
             <Link to={{
-              pathname: `/dashboard/eventos/${eventsList[0]._id}`,
-              event: { ...eventsList[0] },
+              pathname: `/dashboard/eventos/${lastEvent._id}`,
+              event: { ...lastEvent },
             }}>
               <EventCover
                 size="large"
-                location={eventsList[0].location}
-                title={eventsList[0].title}
-                startDate={eventsList[0].startDate}
-                endDate={eventsList[0].endDate}
-                image={eventsList[0].mainImagesURLS[0]} />
+                location={lastEvent.location}
+                title={lastEvent.title}
+                startDate={lastEvent.startDate}
+                endDate={lastEvent.endDate}
+                image={lastEvent.mainImagesURLS[0]} />
             </Link>
           )
         }
