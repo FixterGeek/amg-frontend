@@ -72,7 +72,7 @@ function AdminDashboard({
           ))
         }
       </ContainerItem>
-      <AdminNotoficationsPanel slopes={slopes} />
+      <AdminNotoficationsPanel slopes={slopes.reverse()} />
     </section>
   );
 }
