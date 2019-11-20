@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import AdminUsersList from './AdminUsersList';
 import { getUsers, deleteUserAction } from '../../store/ducks/users'
+import Button from '../reusables/Button';
 
 function AdminUsers({
     getUsers, deleteUserAction, good = 0, bad = 0,
@@ -15,9 +16,9 @@ function AdminUsers({
         <section>
             <article className="admin-main-header">
                 <h1>Listado de socios</h1>
-                <button className="admin-main-button">
+                <Button width="200px" line>
                     Generar reporte
-                </button>
+                </Button>
             </article>
             <article className="admin-number-card-container">
                 <div style={{ background: "#1f2536" }} className="admin-number-card">

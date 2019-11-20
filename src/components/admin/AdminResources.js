@@ -53,7 +53,7 @@ function AdminResources({
       <ContainerItem className={`${baseClassName}-title`}>
         <Title>Recursos</Title>
         <Link to="/admin/resources/edit">
-          <Button marginTop="0px" line>
+          <Button marginTop="0px" line width="200px">
             Crear recurso ✚
           </Button>
         </Link>
