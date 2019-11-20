@@ -3,15 +3,22 @@ import { connect } from 'react-redux';
 
 import { Typography } from 'antd';
 
-import { selfPublicationsAction } from '../../store/ducks/publicationsDuck';
+import {
+  selfPublicationsAction,
+  deletePublication,
+} from '../../store/ducks/publicationsDuck';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import Tabs from './reusables/Tabs';
 import PostItem from '../feed/reusables/PostItem';
 import BasicInformationUser from './reusables/BasicInformationUser';
 import PaymentsTable from './PaymentsTable';
 import ConstanciesTable from './ConstanciesTable';
+import Spinner from '../reusables/Spinner';
 
-function MainProfile({ user, selfPublications, selfPublicationsAction }) {
+function MainProfile({
+  user, selfPublications, selfPublicationsAction,
+  deletePublication, fetching,
+}) {
   const { Title, Text } = Typography;
 
   const {
@@ -35,6 +42,7 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
 
   return (
     <div className="dashboard-container component-main-profile">
+      { fetching && <Spinner fullScrren /> }
       <Title>Perfil</Title>
       <BasicInformationUser user={user} editableLink />
 
@@ -50,7 +58,12 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
         <div>
           {
             selfPublications.map(post => (
-              <PostItem publication={post} />
+              <PostItem
+                key={post._id}
+                publication={post}
+                user={user._id}
+                deleteDispatch={deletePublication}
+              />
             ))
           }
         </div>
@@ -59,8 +72,16 @@ function MainProfile({ user, selfPublications, selfPublicationsAction }) {
   );
 }
 
-function mapStateToProps(state) {
-  return { selfPublications: state.publications.selfArray, user: state.user };
+function mapStateToProps({ publications, user }) {
+  return {
+    selfPublications: publications.selfArray,
+    user,
+    fetching: publications.fetching,
+  };
 }
 
-export default connect(mapStateToProps, { selfPublicationsAction })(MainProfile);
+export default connect(
+  mapStateToProps, {
+    selfPublicationsAction,
+    deletePublication,
+  })(MainProfile);
