@@ -76,7 +76,7 @@ function LoginForm({
       }
       <div>
         <Link to={!resetPassword ? '/login/reset' : '/login'}>
-          { resetPassword ? 'Ir al login' : '¿Olvidaste tu contraseña' }
+          { resetPassword ? 'Ir al login' : '¿Olvidaste tu contraseña?' }
         </Link>
       </div>
       <AmgButton
