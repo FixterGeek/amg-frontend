@@ -7,6 +7,7 @@ import ScrollIndicator from './reusables/ScrollIndicator';
 
 
 function SeccionMensual() {
+    document.title = 'Sesión Mensual | Asociación Mexicana de Gastroenterología';
     return (
         <section className="app">
             <NavBar />

@@ -29,6 +29,7 @@ import AMCD from '../../assets/AMCD.png';
 
 function Nosotros() {
     const { Item } = List;
+    document.title = 'Nosotros | Asociación Mexicana de Gastroenterología';
     return (
         <section className="app">
             <NavBar />

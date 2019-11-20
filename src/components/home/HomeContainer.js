@@ -22,6 +22,7 @@ import Footer from "./Footer";
 
 class HomeContainer extends Component {
   render() {
+    document.title = 'Gastro | Asociación Mexicana de Gastroenterología'
     return (
       <div className="app">
         <SemanaModal />

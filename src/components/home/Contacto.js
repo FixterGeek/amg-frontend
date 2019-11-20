@@ -9,6 +9,7 @@ import ScrollIndicator from './reusables/ScrollIndicator';
 const { Option } = Select;
 
 function Contacto() {
+    document.title = 'Contacto | Asociación Mexicana de Gastroenterología';
     return (
         <section className="app">
             <NavBar />

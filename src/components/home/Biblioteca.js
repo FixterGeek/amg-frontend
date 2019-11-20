@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import ScrollIndicator from './reusables/ScrollIndicator';
 
 function Biblioteca() {
+    document.title = 'Biblioteca | Asociación Mexicana de Gastroenterología'
     return (
         <section className="app">
             <NavBar />

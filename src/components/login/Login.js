@@ -18,6 +18,8 @@ function Login({ history }) {
     if (location.pathname.split('/')[2] === 'reset') setResetPassword(true)
   }, []);
 
+  document.title = 'Login | Asociación Mexicana de Gastroenterología';
+
   return (
     <div className="component-login">
       <div className="component-login-left">
