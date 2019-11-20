@@ -10,6 +10,7 @@ import { populateEventsAction } from '../../store/ducks/eventsDuck';
 import Spinner from '../reusables/Spinner';
 import EventsMonth from '../../molecules/Events/EventsMonth';
 import EventsCarousel from './EventsCarousel';
+import ContainerItem from '../reusables/ContainerItem';
 
 function EventsList({
   events, populateEventsAction, fetching,
@@ -49,17 +50,20 @@ function EventsList({
 
 
   return (
-    <div className="dashboard-container">
-      { loading || fetching ? <Spinner tip="Cargando eventos..." /> : null }
-      <Title>Eventos</Title>
-      <EventsCarousel events={events.events} />
-      <div>
-        {
-          state.byMonths.map((month, index) => (
-            <EventsMonth key={index} month={month.month} events={month.events} />
-          ))
-        }
-      </div>
+    <div className="dashboard-container ">
+      { loading || fetching ? <Spinner fullScrren /> : null }
+      
+      <ContainerItem className="dash-item-center">
+        <Title>Eventos</Title>
+        <EventsCarousel events={events.events} />
+        <div>
+          {
+            state.byMonths.map((month, index) => (
+              <EventsMonth key={index} month={month.month} events={month.events} />
+            ))
+          }
+        </div>
+      </ContainerItem>
     </div>
   );
 }

@@ -346,6 +346,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 1200px;
 
   &-button {
     appearance: none;
@@ -371,7 +372,7 @@
 
     @include for-size(tablet-landscape-up) {
       flex-flow: row;
-      justify-content: space-around;
+      justify-content: center;
     }
   }
 }
