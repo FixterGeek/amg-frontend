@@ -46,12 +46,14 @@ function ModalName({
     if (!st.residencies[0]) delete st.residencies;
     if (!st.internships[0]) delete st.internships;
     if (!st.followers[0]) delete st.followers;
+    if (!st.following[0]) delete st.following;
     if (!st.consultories[0]) delete st.consultories;
     if (!st.eventOrders[0]) delete st.eventOrders;
     if (!st.assistedEvents[0]) delete st.assistedEvents;
     if (!st.assistedActivities[0]) delete st.assistedActivities;
     if (!st.courseOrders[0]) delete st.courseOrders;
     if (!st.hospitalActivities[0]) delete st.hospitalActivities;
+    if (!st.renewals[0]) delete st.renewals;
 
 
     const formdata = toFormData({ ...st, basicData: { ...st.basicData, ...fullName } })
