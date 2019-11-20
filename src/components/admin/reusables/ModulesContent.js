@@ -64,7 +64,7 @@ function ModulesContent({
       title: 'Acciones',
       render: (text, record) => {
         return (
-          <div>
+          <div style={{ display: 'flex', flexFlow: 'row', alignItems: 'center' }}>
             <Popconfirm
               okText="SI"
               cancelText="NO"
@@ -73,7 +73,7 @@ function ModulesContent({
                 setActivities(activities.filter(activity => activity._id !== a._id))
               )}
             >
-              <Icon type="delete" />
+              <Icon type="delete" style={{ marginRight: '16px' }} />
             </Popconfirm>
             <JustModal
               openComponent={<Icon type="edit" />}

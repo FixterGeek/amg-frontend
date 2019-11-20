@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import XLSX from 'xlsx-chart';
 
 import { Tabs, Typography, Divider, Popconfirm } from 'antd';
 
@@ -45,10 +46,38 @@ function AdminEventEdit({
     }
   }, []);
 
+  const generateReport = () => {
+    const doc = new XLSX();
+    const opts = {
+      file: 'report.xlsx',
+      chart: 'column',
+      titles: [
+        "Title 1",
+        "Title 2",
+      ], fields: [
+        'Field 1',
+        'Field 2',
+      ],
+      data: {
+        "Title 1": {
+          "Field 1": 1,
+        },
+        "Title 2": {
+          "Field 1": 1,
+        }
+      }
+    };
+
+    doc.writeFile(opts, (error) => {
+      console.log(error);
+      console.log(opts.file);
+    })
+  };
+
   return (
     <div className="admin-event-form-container">
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Title>{ sectionTitle }</Title>
+        <Title style={{ display: 'inline-block', flexGrow: 1 }}>{ sectionTitle }</Title>
         {
           state._id && (
             <Popconfirm
@@ -57,12 +86,16 @@ function AdminEventEdit({
               title={`¿Eliminar ${state.title}?`}
               onConfirm={() => deleteEventAction(state._id).then(() => history.push('/admin/events'))}
             >
-              <Button bgColor="red" marginTop="0">
+              <Button bgColor="red" marginTop="0" line width="200px">
                 Eliminar
               </Button>
             </Popconfirm>
           )
         }
+        
+        {/* <Button line marginTop="0" style={{ marginLeft: '32px' }} >
+          Generar reporte de asistencia
+        </Button> */}
       </div>
       <ContainerItem style={{ position: 'relative' }}>
         { fetching && <Spinner fullScrren /> }

@@ -42,7 +42,8 @@
     "rxjs": "^6.5.2",
     "sweetalert2": "^8.13.4",
     "toastr": "^2.1.4",
-    "uniqid": "^5.0.3"
+    "uniqid": "^5.0.3",
+    "xlsx-chart": "^0.3.8"
   },
   "scripts": {
     "start": "react-app-rewired start",

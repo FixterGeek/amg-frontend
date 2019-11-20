@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import { Table, Tabs, Icon, Input } from 'antd';
 
@@ -9,8 +10,8 @@ function InvoicesTable() {
   const { Search } = Input;
 
   const data = [
-    { ref: 'ok', date: 'ok', concept: 'ok', amount: '100', method: 'oxxo' },
-    { ref: 'ok', date: 'ok', concept: 'ok', amount: '100', method: 'oxxo' },
+    { ref: '02384958829940837', date: moment().format('DD/MM/YYYY'), concept: 'Curso', amount: '100', method: 'oxxo' },
+    { ref: '02384958829940838', date: moment().format('DD/MM/YYYY'), concept: 'Curso', amount: '100', method: 'oxxo' },
   ]
 
   const columns = [

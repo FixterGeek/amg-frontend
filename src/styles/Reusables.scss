@@ -1465,6 +1465,13 @@
   background-color: $clouds;
   text-align: center;
 
+  .unfolow {
+    &:hover {
+      background-color: $red!important;
+      border-color: $red!important;
+    }
+  }
+
   .photo-container {
     display: flex;
     justify-content: center;
