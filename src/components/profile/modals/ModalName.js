@@ -17,15 +17,13 @@ function ModalName({
 }) {
   const { Title } = Typography;
 
-  const { errorAlert } = useSweetAlert();
-  const { updateUser } = useAmgService();
   const [open, setOpen] = useState(false);
   const { basicData = {} } = user;
   const { name, dadSurname, momSurname } = basicData;
   const [fullName, setFullName] = useState({
-    name,
-    dadSurname,
-    momSurname,
+    name: name || '',
+    dadSurname: dadSurname || '',
+    momSurname: momSurname || '',
   });
 
 
