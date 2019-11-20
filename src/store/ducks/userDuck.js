@@ -262,6 +262,7 @@ export const updateUserAction = (userData) => (dispatch) => {
     dispatch(updateUser());
     return update(userData)
         .then((data) => {
+            // console.log('UPDAYED!!!!', data);
             localStorage.user = JSON.stringify(data);
             dispatch(updateUserSuccess(data));
             useSweet().successAlert({ title: 'Datos actualizados' });
