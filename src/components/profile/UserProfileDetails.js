@@ -30,7 +30,8 @@ function UserProfileDetails({
     const { params } = match;
     const { slug } = params;
     if (slug) {
-      getUserBySlug(slug)
+      console.log(slug);
+      getUserBySlug(slug, `${slug}`.includes('@'))
         .then((data) => {
           if (!data[0]) {
             infoAlert({ text: 'El usuario que intentas buscar no existe' });
