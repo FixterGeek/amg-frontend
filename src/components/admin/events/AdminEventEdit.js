@@ -87,7 +87,7 @@ function AdminEventEdit({
               onConfirm={() => deleteEventAction(state._id).then(() => history.push('/admin/events'))}
             >
               <Button bgColor="red" marginTop="0" line width="200px">
-                Eliminar
+                Eliminar evento
               </Button>
             </Popconfirm>
           )
