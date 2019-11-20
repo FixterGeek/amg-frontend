@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { List, Checkbox } from 'antd';
+import { List, Checkbox, Input } from 'antd';
 
 import Button from '../../reusables/Button';
 
 function AdminSpeakersAddList({
   speakers, onSpeakers
 }) {
+  const { Search } = Input;
   const [addedSpeakers, setAddedSpeaker] = useState([]);
+  const [filtered, setFiltered] = useState(speakers);
 
   const handleChange = (target, speakerId, speaker) => {
     console.log(target.checked);
@@ -25,24 +27,37 @@ function AdminSpeakersAddList({
     if (onSpeakers) onSpeakers(spkrs);
   }
 
+  const handleSearch = (value) => {
+    console.log(value);
+    const regex = new RegExp(value, 'i');
+    const f = speakers.filter(s => regex.test(s.fullName));
+    setFiltered(f);
+  };
+
   return (
-    <List className="admin-speakers-add-list">
-      {
-        speakers.map(speaker => (
-          <List.Item key={speaker._id} className="admin-speakers-add-list-item">
-            { speaker.fullName }
-            <div>
-              <Checkbox
-                onChange={({ target }) => handleChange(target, speaker._id, speaker)}
-              />
-            </div>
-          </List.Item>
-        ))
-      }
-      <Button width="100%" htmlType="button" onClick={() => handleAdd()}>
-        Agregar ponentes seleccionados
-      </Button>
-    </List>
+    <div>
+      <Search
+        onChange={({ target }) => handleSearch(target.value)}
+        placeholder="Nombre del ponente"
+      />
+      <List className="admin-speakers-add-list">
+        {
+          filtered.map(speaker => (
+            <List.Item key={speaker._id} className="admin-speakers-add-list-item">
+              { speaker.fullName }
+              <div>
+                <Checkbox
+                  onChange={({ target }) => handleChange(target, speaker._id, speaker)}
+                />
+              </div>
+            </List.Item>
+          ))
+        }
+        <Button width="100%" htmlType="button" onClick={() => handleAdd()}>
+          Agregar ponentes seleccionados
+        </Button>
+      </List>
+    </div>
   );
 }
 
