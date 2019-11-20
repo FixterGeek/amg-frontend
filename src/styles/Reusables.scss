@@ -1067,11 +1067,18 @@
   }
 
   .ant-table-tbody {
-    background-color: $lightBlue;
+    background-color: transparent;
 
     tr {
       border-color: white;
     }
+  }
+
+  .finder {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0px $largePadding;
   }
 }
 

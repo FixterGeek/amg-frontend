@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Table, Tabs, Icon } from 'antd';
+import { Table, Tabs, Icon, Input } from 'antd';
 
 import InvoicesAction from './InvoicesAction';
 
 function InvoicesTable() {
   const { TabPane } = Tabs;
+  const { Search } = Input;
 
   const data = [
     { ref: 'ok', date: 'ok', concept: 'ok', amount: '100', method: 'oxxo' },
@@ -44,7 +45,11 @@ function InvoicesTable() {
     <div className="admin-reusables-invoices-table">
       <Tabs type="card">
         <TabPane tab={<Icon type="search" />} key="1">
-          ok
+          <div className="finder">
+            <Search
+              placeholder="Escribe el número de referencia"
+            />
+          </div>
         </TabPane>
         <TabPane tab={<Icon type="filter" />} key="2">
           ok
