@@ -29,7 +29,9 @@ function InvoicesTable() {
     },
     {
       title: 'Monto',
-      dataIndex: 'amount',
+      render: (t, r) => (
+        <span>{Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(r.amount)} MXN</span>
+      )
     },
     {
       title: 'Metodo de pago',

@@ -23,7 +23,9 @@ function PaymentsList({
   const columns = [
     { title: 'Usuario', dataIndex: 'user' },
     { title: 'Concepto', dataIndex: 'concept' },
-    { title: 'Monto', dataIndex: 'amount' },
+    { title: 'Monto', render: (t, r) => (
+      <span>{Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(r.amount)}</span>
+    )},
     {
       title: 'Fecha', dataIndex: 'createdAt',
       render: text => (

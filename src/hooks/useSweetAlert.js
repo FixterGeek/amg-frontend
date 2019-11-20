@@ -28,7 +28,7 @@ function useSweetAlert() {
 
   const successAlert = ({
     title = 'Listo!',
-    text = 'Operación exítosa',
+    text = 'Operación exitosa',
   }) => {
     sweet.fire({
       type: 'success',
