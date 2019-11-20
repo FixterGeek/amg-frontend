@@ -1,6 +1,11 @@
 /* eslint-disable object-curly-newline */
 import { getPublications } from '../../services/userServices';
-import { getSelfPublications, toPublish } from '../../services/publicationsServices';
+import {
+  getSelfPublications,
+  toPublish,
+  deletePost,
+} from '../../services/publicationsServices';
+import { successAction, errorAction } from './tools';
 
 const publicationState = {
   publications: [],
@@ -11,6 +16,10 @@ const publicationState = {
 };
 
 // Constants
+const PREFIX = 'PUBLICATIONS';
+const FETCHING = `${PREFIX}/FETCHING`;
+const FETCHING_ERROR = `${PREFIX}/FETCHING_ERROR`;
+const RESET_VALUES = `${PREFIX}/RESET_VALUES`;
 
 const POPULATE_PUBLICATIONS = 'POPULATE_PUBLICATIONS';
 const POPULATE_PUBLICATIONS_SUCCESS = 'POPULATE_PUBLICATIONS_SUCCESS';
@@ -24,8 +33,13 @@ const CREATE_PUBLICATION = 'CREATE_PUBLICATION';
 const CREATE_PUBLICATION_SUCCESS = 'CREATE_PUBLUCATION_SUCCESS';
 const CREATE_PUBLICATION_ERROR = 'CREATE_PUBLICATION_ERROR';
 
+const DELETE_PUBLICATION = 'DELETE_PUBLICATION';
+
 // actionCreaors
 // populate publications
+export const fetching = () => ({ type: FETCHING });
+export const fetchingError = (error) => ({ type: FETCHING_ERROR, payload: error });
+
 export function populatePublications() {
   return { type: POPULATE_PUBLICATIONS };
 }
@@ -63,6 +77,8 @@ export function createPublicationSuccess(publicationData) {
 export function createPublicationError(error) {
   return { type: CREATE_PUBLICATION_ERROR, payload: error };
 }
+
+const deletePublicationAction = (deletedPost) => ({ type: DELETE_PUBLICATION, payload: deletedPost });
 
 
 // Thunks
@@ -107,10 +123,30 @@ export const createPublicationAction = publicationData => (dispatch) => {
     });
 };
 
+// Delete publication
+export const deletePublication = (publicationId) => (dispatch) => {
+  console.log('Deleting', publicationId);
+  dispatch(fetching());
+  return deletePost(publicationId)
+    .then(deletedPost => successAction(
+      dispatch, deletePublicationAction, deletedPost, RESET_VALUES, false,
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_VALUES, 'No fue posible eliminar la publicación',
+    ));
+}
+
 
 // reducer
 function reducer(state = publicationState, action) {
   switch (action.type) {
+    case FETCHING:
+      return { ...state, fetching: true };
+    case FETCHING_ERROR:
+      return { ...state, status: 'error', error: action.payload };
+    case RESET_VALUES:
+      return { ...state, fetching: false, status: null };
+
     case POPULATE_PUBLICATIONS:
       return { ...state, fetching: true };
     case POPULATE_PUBLICATIONS_SUCCESS:
@@ -135,6 +171,13 @@ function reducer(state = publicationState, action) {
       };
     case CREATE_PUBLICATION_ERROR:
       return { ...state, adding: false, error: action.payload, status: 'error' };
+    /* Delete publication */
+    case DELETE_PUBLICATION:
+      return {
+        ...state, status: 'success',
+        selfArray: state.selfArray.filter(p => p._id !== action.payload._id),
+        publications: state.publications.filter(p => p._id !== action.payload._id),
+      };
     default:
       return state;
   }

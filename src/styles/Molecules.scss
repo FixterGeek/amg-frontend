@@ -113,6 +113,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+
+  &-options {
+    position: absolute;
+    right: $smallPadding;
+    i {
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    &-menu {
+      span {
+        cursor: pointer;
+        padding: $smallPadding;
+      }
+    }
+  }
 
   .files-items {
     margin-top: $padding;

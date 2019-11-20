@@ -7,7 +7,10 @@ import { Typography } from 'antd';
 
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { populateEventsAction } from '../../store/ducks/eventsDuck';
-import { populatePublicationsAction } from '../../store/ducks/publicationsDuck';
+import {
+  populatePublicationsAction,
+  deletePublication,
+} from '../../store/ducks/publicationsDuck';
 import EventCover from '../../molecules/EventCover';
 import PostItem from './reusables/PostItem';
 import Publisher from './Publisher';
@@ -15,7 +18,9 @@ import Spinner from '../reusables/Spinner';
 import AmgFinder from './FeedAmgFinder';
 
 function Feed({
-  events, publications, populateEventsAction, populatePublicationsAction, user, history
+  events, publications, populateEventsAction,
+  populatePublicationsAction, user, history,
+  fetching, deletePublication,
 }) {
   const { Title } = Typography;
 
@@ -39,23 +44,18 @@ function Feed({
   }, [user]);
 
   useEffect(() => {
-    setLoadingEvent(true);
     populateEventsAction()
-      .then(() => setLoadingEvent(false))
       .catch(() => {
-        setLoadingEvent(false);
         errorAlert();
       });
   }, []);
 
   useEffect(() => {
-    setLoadingPost(true);
     populatePublicationsAction()
-      .then(() => setLoadingPost(false))
       .catch(() => errorAlert());
   }, []);
 
-  console.log(lastEvent);
+  console.log(fetching);
 
   return (
     <div className="dashboard-container">
@@ -64,7 +64,7 @@ function Feed({
       </div>
       <AmgFinder />
       <div className="feed-event">
-        { loadingEvent && (<Spinner tip="Cargando evento..." />) }
+        { fetching && (<Spinner fullScrren />) }
         {
           lastEvent._id && (
             <Link to={{
@@ -88,7 +88,12 @@ function Feed({
       <div className="feed-publications">
         { loadingPost && (<Spinner tip="Cargando publicaciones..." />) }
         {
-          pubs.map(publication => <PostItem key={publication._id} publication={publication} />)
+          pubs.map(publication => <PostItem
+            key={publication._id}
+            publication={publication}
+            user={user._id}
+            deleteDispatch={deletePublication}
+          />)
         }
       </div>
     </div>
@@ -96,11 +101,19 @@ function Feed({
 }
 
 
-function mapStateToProps(state) {
-  return { events: state.events, user: state.user, publications: state.publications };
+function mapStateToProps({ events, user, publications }) {
+  return {
+    events,
+    user,
+    publications,
+    fetching: publications.fetching || events.fetching,
+  };
 }
 
 export default connect(
-  mapStateToProps,
-  { populateEventsAction, populatePublicationsAction },
+  mapStateToProps, {
+    populateEventsAction,
+    populatePublicationsAction,
+    deletePublication,
+  },
 )(Feed);

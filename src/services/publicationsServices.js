@@ -43,3 +43,13 @@ export const toPublish = async (publicationData) => {
     },
   }).then(({ data }) => data);
 };
+
+
+export const deletePost = (postId) => {
+  const token = localStorage.authToken;
+  return axios.delete(`${APIURL}/${postId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}

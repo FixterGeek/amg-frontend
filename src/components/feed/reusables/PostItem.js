@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import { Typography } from 'antd';
+import { Typography, Popover, Icon } from 'antd';
 
 import ImagePreview from '../../reusables/ImagePreview';
 import PostIcons from '../../../atoms/PostIcons';
@@ -11,7 +11,9 @@ import AttacFileItem from '../../reusables/AttachFileItem';
 import PublicationGallery from './PublicationGallery';
 
 
-function PostItem({ publication }) {
+function PostItem({
+  user: userId, publication, deleteDispatch,
+}) {
   const {
     text, updatedAt, _id, liked, imagesURLS = [], user = {}, docsURLS = [],
   } = publication;
@@ -30,8 +32,32 @@ function PostItem({ publication }) {
       ]`,
   });
 
+  const [visibleOptions, setVisibleOptions] = useState(false);
+
+  const handleDelete = () => {
+    console.log('Delete');
+    if (deleteDispatch) deleteDispatch(publication._id);
+  };
+
   return (
     <div className="post-item">
+      {
+        userId === publication.user._id && (
+          <div className="post-item-options">
+            <Popover placement="left"
+              content={
+                <div className="post-item-options-menu">
+                  <span onClick={() => handleDelete()}>
+                    Eliminar publicación <Icon type="delete" />
+                  </span>
+                </div>
+              }
+            >
+              <Icon type="more" />
+            </Popover>
+          </div>
+        )
+      }
       <div className="post-item-info">
         <div className="post-item-photo">
           <Link to={`/dashboard/perfil/publico/${user.slug}`}>
