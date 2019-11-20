@@ -82,6 +82,7 @@ function AdminEventEdit({
               speakers={speakers}
               addSpeaker={addSpeakerAction}
               eventId={state._id}
+              isModal
             />
             <Divider />
             <Title level={3}>Lista de ponentes</Title>

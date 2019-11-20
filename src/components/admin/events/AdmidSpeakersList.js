@@ -12,13 +12,15 @@ function AdminSpeakerList({ speakers }) {
       {
         speakers.map(speaker => {
           return (
-            <BoxItem
-              title={speaker.fullName}
-              subtitle={speaker.title}
-              footer={speaker.city}
-              leftIsImage
-              imageUrl={speaker.photoURL || defaultPhoto}
-            />
+            <div>
+              <BoxItem
+                title={speaker.fullName}
+                subtitle={speaker.title}
+                footer={speaker.city}
+                leftIsImage
+                imageUrl={speaker.photoURL || defaultPhoto}
+              />
+            </div>
           )
         })
       }

@@ -11,7 +11,7 @@ function CreateAndUpdateManager({
   isModal, openModalElement, modalTitle,
   onModalClose, status, successClose,
   errorClose, modalOpenText, onActionResponse,
-  onActionError, lineButton = false,
+  onActionError, lineButton = false, noSubmit = false,
 }) {
   const [modalState, setModalState] = useState('close');
 
@@ -42,6 +42,7 @@ function CreateAndUpdateManager({
           errorClose && status === 'error' ? true : false
         }
         childElement={
+          noSubmit ? <children.type {...children.props} /> :
           <children.type
             {...children.props}
             onSubmit={handleSubmit}
