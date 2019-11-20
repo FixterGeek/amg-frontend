@@ -80,7 +80,12 @@ export function DirectivesTable() {
               })
             }
           </div>
-          <div style={{ textAlign: 'center', display: 'flex', flexFlow: 'column', alignItems: 'center', marginTop: '32px' }}>
+          <div style={{
+            textAlign: 'center', display: 'flex',
+            flexFlow: 'column', alignItems: 'center',
+            marginTop: '32px', backgroundColor: '#f5f8f9',
+            padding: '16px', marginBottom: '32px'
+          }}>
             <Title level={3}>Mesas directivas</Title>
             <Text strong style={{ width: '400px', display: 'inline-block', textAlign: 'center' }}>
               Conoce todas las mesas directivas desde la fundación de la
