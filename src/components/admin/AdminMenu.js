@@ -54,9 +54,9 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
     return (
         <Menu
             style={{ height: "100vh" }}
-            inlineCollapsed defaultSelectedKeys={['1']} mode="inline" theme="dark" className="admin-lateral-menu">
+            inlineCollapsed mode="inline" theme="dark" className="admin-lateral-menu">
             <Item key={1} onClick={() => link('/admin/dashboard')}>
-                <Icon className={`${currentLocation ? null : 'menu-item-active'}`}>
+                <Icon className={`${currentLocation === 'dashboard' ? 'menu-item-active' : 'menu-item-inactive'}`}>
                     <FontAwesomeIcon icon={faHome} />
                 </Icon>
                 <span>Home</span>
@@ -74,7 +74,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
             {
                 user.userType === 'Admin' && (
                     <Item key={3} onClick={() => link('/admin/invoices')}>
-                        <Icon className={ currentLocation === 'facturas' ? 'menu-item-active' : '' }>
+                        <Icon className={ currentLocation === 'invoices' ? 'menu-item-active' : '' }>
                             <FontAwesomeIcon icon={faFileInvoiceDollar} />
                         </Icon>
                         <span>Facturas</span>
