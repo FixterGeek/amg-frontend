@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { Typography } from 'antd';
 
@@ -33,7 +34,11 @@ function Feed({
 
 
   useEffect(() => {
-    if (eventsList.length > 0) setLastEvent(eventsList.reverse().pop());
+    if (eventsList.length > 0) {
+      const sorted = eventsList.sort((a, b) => moment(b.startDate).diff(moment(a.startDate)));
+      // console.log(sorted[0]);
+      setLastEvent(sorted[0]);
+    }
   }, [eventsList.length]);
 
   useEffect(() => {
