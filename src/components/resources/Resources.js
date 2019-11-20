@@ -6,6 +6,9 @@ import ResourceItem from './reusables/ResourceItem'
 
 function Resources() {
   const { Title } = Typography;
+
+  document.title = 'Recursos | Asociación Mexicana de Gastroenterología'
+
   return (
     <div className="dashboard-container  component-resources">
       <Title>Recursos</Title>

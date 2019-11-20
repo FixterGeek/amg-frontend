@@ -48,6 +48,7 @@ function EventsList({
     }
   }, []);
 
+  document.title = 'Eventos | Asociación Mexicana de Gastroenterología'
 
   return (
     <div className="dashboard-container ">

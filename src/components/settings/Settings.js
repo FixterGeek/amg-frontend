@@ -17,6 +17,8 @@ function Settings({
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
   }, [subsidiaries.length]);
 
+  document.title = 'Ajustes | Asociación Mexicana de Gastroenterología'
+
   return (
     <div className="dashboard-container">
       <ContainerItem>

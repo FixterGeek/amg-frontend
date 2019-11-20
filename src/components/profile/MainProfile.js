@@ -39,6 +39,7 @@ function MainProfile({
     }
   }, []);
 
+  document.title = 'Perfil | Asociación Mexicana de Gastroenterología'
 
   return (
     <div className="dashboard-container component-main-profile">

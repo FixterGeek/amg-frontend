@@ -25,7 +25,6 @@ import Posts from '../components/resources/Posts';
 
 function DashBoardRouter() {
   const baseURL = '/dashboard';
-  document.title = 'Dashboard | Asociación Mexicana de Gastroenterología';
   return (
     <Switch>
       <Route path={`${baseURL}/perfil/publico/:slug`} component={UserProfilFollow} />

@@ -60,7 +60,7 @@ function Feed({
       .catch(() => errorAlert());
   }, []);
 
-  console.log(fetching);
+  document.title = 'Inicio | Asociación Mexicana de Gastroenterología'
 
   return (
     <div className="dashboard-container">
