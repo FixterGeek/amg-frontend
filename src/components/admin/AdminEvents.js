@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { getAdminEvents } from '../../store/ducks/eventsDuck'
+import { getAdminEvents, deleteEventAction } from '../../store/ducks/eventsDuck'
 import { emptyWorkingOn } from '../../store/ducks/adminDuck'
 import AdminEventCard from './AdminEventCard';
 import { Skeleton, Card } from 'antd'
@@ -13,7 +13,8 @@ function AdminEvents({
     activeEvents,
     inactiveEvents,
     fetching,
-    emptyWorkingOn
+    emptyWorkingOn,
+    deleteEventAction,
 }) {
 
     useEffect(() => {
@@ -28,6 +29,9 @@ function AdminEvents({
                 key={i}
                 {...event}
                 event={event}
+                deleteButton={event.status === 'draft'}
+                eventId={event._id}
+                dispatchDelete={deleteEventAction}
             />
         )
 
@@ -80,4 +84,10 @@ function mapState({ events }) {
     }
 }
 
-export default connect(mapState, { getAdminEvents, emptyWorkingOn })(AdminEvents)
+export default connect(
+    mapState, {
+        getAdminEvents,
+        emptyWorkingOn,
+        deleteEventAction,
+    }
+)(AdminEvents)

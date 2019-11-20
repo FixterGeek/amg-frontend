@@ -1,4 +1,4 @@
-import { getEvents, getEventsForUser } from '../../services/eventsServices';
+import { getEvents, getEventsForUser, deleteEvent, } from '../../services/eventsServices';
 import {
   switchMap,
   map,
@@ -31,6 +31,7 @@ const eventState = {
 
 // Constants
 const RESET_EVENTS_STATUS = 'PUBLIC/RESET_EVENTS_STATUS';
+const FETCHING_ERROR = 'EVENTS/FETCHING_ERROR';
 
 const POPULATE_EVENTS = 'POPULATE_EVENTS';
 const POPULATE_EVENTS_SUCCESS = 'POPULATE_EVENTS_SUCCESS';
@@ -44,9 +45,11 @@ const POPULATE_USER_EVENTS = 'POPULATE_USER_EVENTS';
 const POPULATE_USER_EVENTS_SUCCESS = 'POPULATE_USER_EVENTS_SUCCESS';
 const POPULATE_USER_EVENTS_ERROR = 'POPULATE_USER_EVENTS_ERROR';
 
+const DELETE_EVENT = 'EVENTS/DELETE_EVENT';
+
 
 // actionCreators
-
+const fetchingError = error => ({ type: FETCHING_ERROR, payload: error });
 export function getAdminEvents() {  
   return { type: GET_ADMIN_EVENTS };
 }
@@ -88,6 +91,8 @@ export function populateUserEventsSuccess(eventsArray) {
 export function populateUserEventsError(error) {
   return { type: POPULATE_USER_EVENTS_ERROR, payload: error };
 }
+
+const deleteEventA = (deletedEvent) => ({ type: DELETE_EVENT, payload: deletedEvent });
 
 // observable
 export function getAdminEventsEpic(action$, state$) {  
@@ -150,9 +155,26 @@ export const populateUserEventsAction = (userId) => (dispatch) => {
     })
 };
 
+export const deleteEventAction = (eventId) => (dispatch) => {
+  dispatch({ type: 'EVENTS/FETCHING' });
+  return deleteEvent(eventId)
+    .then(data => successAction(
+      dispatch, deleteEventA, data, RESET_EVENTS_STATUS, 'Evento eliminado',
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_EVENTS_STATUS, 'Error al eliminar el evento',
+    ))
+}
+
 function reducer(state = eventState, action) {
   switch (action.type) {
     /* RESET STATUS */
+    case 'EVENTS/FETCHING':
+      return { ...state, fetching: true };
+    case FETCHING_ERROR:
+      return {
+        ...state, fetching: false, status: 'error', error: action.payload,
+      }
     case RESET_EVENTS_STATUS:
       return { ...state, status: null, fetching: false };
     case GET_ADMIN_EVENTS:
@@ -177,6 +199,12 @@ function reducer(state = eventState, action) {
       };
     case POPULATE_USER_EVENTS_ERROR:
       return { ...state, fetching: false, status: 'error', error: action.payload };
+
+    case DELETE_EVENT:
+      return {
+        ...state, fetching: false, status: 'success',
+        array: state.array.filter(e => e._id !== action.payload._id)
+      };
     default:
       return state;
   }

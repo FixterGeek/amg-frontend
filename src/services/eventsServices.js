@@ -94,3 +94,12 @@ export const getEventsForUser = userId => {
     },
   }).then(({ data }) => data);
 };
+
+export const deleteEvent = (eventId) => {
+  const token = localStorage.authToken;
+  return axios.delete(`${APIURL}/${eventId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
