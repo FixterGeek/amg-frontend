@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -16,6 +16,8 @@ function BasicInformationUser({
 
   const { basicData = {}, followers, following, membershipStatus } = user;
   const { photoURL, name, dadSurname, momSurname, speciality } = basicData;
+
+  const [followText, setFollowText] = useState('Siguiendo')
 
 
   return (
@@ -49,13 +51,20 @@ function BasicInformationUser({
             </div>
           </div>
         ) : (
-          <Button
-            className={follow && 'unfolow'}
-            line={follow ? false : true}
-            width="180px"
-            onClick={() => followDispatch(user._id, !follow)}>
-            { follow ? 'Dejar de seguir' : 'Seguir' }
-          </Button>
+          <div
+            style={{ display: 'inline-block', margin: '32px' }}
+            onMouseOut={follow ? () => setFollowText('Siguiendo') : null}
+            onMouseEnter={follow ? () => setFollowText('Dejar de seguir') : null}>
+            <Button
+              marginBottom="0"
+              marginTop="0"
+              className={follow && 'unfolow'}
+              line={follow ? false : true}
+              width="180px"
+              onClick={() => followDispatch(user._id, !follow)}>
+              { follow ? followText : 'Seguir' }
+            </Button>
+          </div>
         )
       }
       {
