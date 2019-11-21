@@ -1,0 +1,18 @@
+{
+  "ZONA CENTRO": [
+    "Aguascalientes", "Colima", "Mexico", "Guanajuato",
+    "Hidalgo", "Jalisco", "Michoacan de Ocampo", "Morelos",
+    "Nayarit", "Queretaro de Arteaga", "San Luis Potosi",
+    "Zacatecas", "Ciudad de México"
+  ],
+  "ZONA NORTE": [
+    "Baja California", "Coahuila de Zaragoza", "Chihuahua",
+    "Durango", "Nuevo Leon", "Sinaloa", "Sonora", "Tamaulipas",
+    "Baja California Sur"
+  ],
+  "ZONA SUR": [
+    "Campeche", "Chiapas", "Guerrero", "Oaxaca",
+    "Puebla", "Quintana Roo", "Tabasco", "Veracruz-Llave",
+    "Yucatan", "Tlaxcala"
+  ] 
+}

@@ -9,6 +9,7 @@ import {
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
 import ActionMenu from './reusables/ActionMenu';
+import zones from './zones.json';
 
 
 function AdminSubsidiariesList({
@@ -31,7 +32,13 @@ function AdminSubsidiariesList({
     },
     {
       title: 'Zona',
-      dataIndex: 'state',
+      render: (t, r) => {
+        let z = null;
+        if (zones['ZONA CENTRO'].includes(r.state)) z = 'Zona Centro';
+        if (zones['ZONA NORTE'].includes(r.state)) z = 'Zona Norte';
+        if (zones['ZONA SUR'].includes(r.state)) z = 'Zona Sur';
+        return <span>{z}</span>
+      }
     },
     {
       title: 'Administradores',
