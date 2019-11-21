@@ -28,7 +28,7 @@ function SettingsMembership({
         )
       }
       {
-        !selectables[0] && !userIsInFilial ? <Title level={4}>Los información estará disponible cuando sean aprobadodos tus datos.</Title> : null
+        !selectables[0] && !userIsInFilial ? <Title level={4}>La información estará disponible cuando sean aprobadodos tus datos.</Title> : null
       }
       {
         selectables.includes('Socio') && !userIsInFilial ? (
