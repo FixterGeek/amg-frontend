@@ -21,7 +21,8 @@ function SubscribeButton({
 }) {
   console.log(eventObject);
   const { membershipStatus = 'Veterano', userStatus } = user;
-  let userPays = membershipStatus === 'Socio' && eventObject.cost.socioCost > 0;
+  let userPays = false;
+    if (eventObject.cost) userPays = membershipStatus === 'Socio' && eventObject.cost.socioCost > 0;
     if (membershipStatus === 'Residente' && (eventObject.cost && eventObject.cost.residentCost > 0)) userPays = true;
     if (membershipStatus === 'Free' && ( eventObject.cost && eventObject.cost.freeCost > 0)) userPays = true;
     if (membershipStatus === 'Veterano') userPays = false;

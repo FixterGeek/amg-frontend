@@ -58,14 +58,6 @@ function EventDetail({
     }
   }, []);
 
-  useEffect(() => {
-    if (userStatus === 'success') {
-      successAlert({
-        text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.'
-      });
-    } 
-  })
-
 
   return (
     <div className="dashboard-container event-detail">

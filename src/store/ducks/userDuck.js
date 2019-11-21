@@ -303,6 +303,7 @@ export const subscribeUserToEventAction = (eventId) => (dispatch) => {
             currentUser.assistedEvents = [...currentUser.assistedEvents, data._id];
             localStorage.user = JSON.stringify(currentUser);
             dispatch(subscribeUserToEventSuccess(currentUser));
+            useSweet().successAlert({ text: 'Hemos enviado la reservación a tu correo. Recuerda que también puedes consultarla desde mis eventos.' });
             return data;
         })
         .catch((error) => {
