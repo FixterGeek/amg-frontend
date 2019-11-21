@@ -39,6 +39,7 @@ function AdminSpeakersAddList({
       <Search
         onChange={({ target }) => handleSearch(target.value)}
         placeholder="Nombre del ponente"
+        style={{ marginTop: '32px' }}
       />
       <List className="admin-speakers-add-list">
         {
