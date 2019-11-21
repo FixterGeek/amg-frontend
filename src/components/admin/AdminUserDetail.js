@@ -13,7 +13,7 @@ import AdminUsersRecidences from './users/AdminUserResidences';
 
 function AdminUserDetail({
   user, status, fetching,
-  getAllUsers,
+  getAllUsers, curentUser,
 }) {
   const { infoAlert } = useSweet();
   const { Title } = Typography;
@@ -44,7 +44,7 @@ function AdminUserDetail({
             <TabPane key="2" tab="Estados">
               <UserStatusForm userId={user._id} />
             </TabPane>
-            <TabPane key="3" tab="Residencia">
+            <TabPane key="3" tab="Residencia" disabled={curentUser.filialAsAdmin}>
               <AdminUsersRecidences userId={user._id} />
             </TabPane>
           </Tabs>
@@ -54,11 +54,12 @@ function AdminUserDetail({
   );
 }
 
-function mapStateToProps({ users }, { match }) {
+function mapStateToProps({ users, user }, { match }) {
   const { params = {} } = match;
   console.log(users);
   return {
     user: users.array.filter(u => u._id === params.userId)[0] || { basicData: {} },
+    curentUser: user,
     status: users.status,
     fetching: users.fetching,
   };

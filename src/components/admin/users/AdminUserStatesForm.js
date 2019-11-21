@@ -20,6 +20,7 @@ function AdminUserStatesForm({
   writeWorkingOn,
   updateUser,
   populateSubsidiaries,
+  currentUser,
 }) {
   useEffect(() => {
     if (user._id) setWorkingOn(user);
@@ -122,16 +123,17 @@ function AdminUserStatesForm({
           />
         )
       }
-      <Button width="100%" htmlType="submit">
+      <Button width="100%" htmlType="submit" disabled={currentUser.filialAsAdmin}>
         Actualizar
       </Button>
     </Form>
   );
 }
 
-function mapStateToProps({ users, subsidiary }, { userId }) {
+function mapStateToProps({ user, users, subsidiary }, { userId }) {
   return {
     user: users.array.filter(u => u._id === userId)[0] || {},
+    currentUser: user,
     workingOn: users.workingOn,
     subsidiaries: subsidiary.array,
     noSubsidiaries: subsidiary.noData,
