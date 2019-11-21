@@ -76,6 +76,9 @@ function AdminUserStatesForm({
             onChange={value => writeWorkingOn('filialAsUser', value)}
             value={workingOn.filialAsUser}
           >
+            <OptionSelect key="-1" value={null}>
+              Sin filial
+            </OptionSelect>
             {
               subsidiaries.map(s => (
                 <OptionSelect key={s._id} value={s._id} >
