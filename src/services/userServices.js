@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
+import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 const APIURL = process.env.REACT_APP_BASE_API_URL;
@@ -32,6 +33,15 @@ export const getSelfUser = async () => {
     },
   }).then(({ data }) => data);
 };
+
+export const getUser = (userId) => {
+  const token = localStorage.authToken;
+  return axios.get(`${APIURL}/users/${userId}`, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
 
 
 export const getUserBySlug = async (slug, isEmail = false) => {

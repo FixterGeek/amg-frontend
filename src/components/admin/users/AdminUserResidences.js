@@ -41,7 +41,7 @@ function AdminUserResendences({
             <BoxItem
               noLeft
               title={r.speciality}
-              subtitle={r.institution}
+              subtitle={r.institution.name}
               footer={
                 r.endDate !== 'Actualidad'
                 ? `${moment(r.startData).format('DD/MM/YY')} - ${moment(r.endDate).format('DD/MM/YY')}`

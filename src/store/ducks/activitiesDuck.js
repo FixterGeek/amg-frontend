@@ -81,10 +81,10 @@ export const createActivityAction = activityData => (dispatch) => {
 
 
 // Populate activities
-export const populateActivitiesAction = () => (dispatch) => {
+export const populateActivitiesAction = (userId) => (dispatch) => {
   dispatch(populateActivities);
 
-  if (localStorage.activities) {
+  if (localStorage.activities && !userId) {
     const data = JSON.parse(localStorage.activities);
     const teachingActivities = data.filter(activity => activity.type === 'Docente');
     const hospitalActivities = data.filter(activity => activity.type === 'Hospitalaria');
@@ -94,7 +94,7 @@ export const populateActivitiesAction = () => (dispatch) => {
       array: data, teachingActivities, hospitalActivities, medicalSocieties, jobs,
     }));
   } else {
-    return getActivitiesForUser()
+    return getActivitiesForUser(userId)
       .then((data) => {
         const teachingActivities = data.filter(activity => activity.type === 'Docente');
         const hospitalActivities = data.filter(activity => activity.type === 'Hospitalaria');

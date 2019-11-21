@@ -3,7 +3,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable nonblock-statement-body-position */
 import { createEducation as create } from '../../services/educationsServices';
-import { getSelfUser } from '../../services/userServices';
+import { getSelfUser, getUser } from '../../services/userServices';
 import { uploadFile } from '../../tools/firebaseTools';
 
 const educationState = {
@@ -113,9 +113,9 @@ export const createEducationAction = (type, educationData) => async (dispatch) =
 };
 
 // Populate education
-export const populateEducationAction = () => (dispatch) => {
+export const populateEducationAction = (userId) => (dispatch) => {
   dispatch(populateEducation());
-  if (localStorage.education) {
+  if (localStorage.education && !userId) {
     const localEducation = JSON.parse(localStorage.education);
 
     dispatch(populateEducationSuccess({
@@ -126,8 +126,24 @@ export const populateEducationAction = () => (dispatch) => {
     return localEducation;
   }
 
+  console.log(userId);
+  if (userId) return getUser(userId)
+    .then((data) => {
+      console.log(data);
+      const { studies = [], residencies = [], internships = [] } = data;
+
+      localStorage.education = JSON.stringify({ studies, residencies, internships });
+      dispatch(populateEducationSuccess({ studies, residencies, internships }));
+      return data;
+    })
+    .catch((error) => {
+      dispatch(populateEducationError(error));
+      return error;
+    });
+
   return getSelfUser()
     .then((data) => {
+      console.log(data);
       const { studies = [], residencies = [], internships = [] } = data;
 
       localStorage.education = JSON.stringify({ studies, residencies, internships });
