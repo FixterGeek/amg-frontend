@@ -34,6 +34,7 @@ const paymetState = {
   status: null,
   errorMessage: null,
   workingOn: working,
+  receiptFile: null,
 };
 
 
@@ -43,6 +44,7 @@ const RESET_PAYMENT_STATUS = `${PREFIX}/RESET_PAYMENT_STATUS`;
 const FETCHING = `${PREFIX}/FETCHING`;
 const FETCHING_ERROR = `${PREFIX}/FETCHING_ERROR`;
 const WORKING_ON = `${PREFIX}/WORKING`;
+const RESET_WORKING_ON = `${PREFIX}/RESET_WOTKING_ON`;
 
 const MAKE_PAYMENT_SUCCESS = 'MAKE_PAYMENT_SUCCESS';
 const POPULATE_PAYMENTS_SUCCESS = 'POPPULATE_PAYMENTS_SUCCESS';
@@ -62,6 +64,8 @@ export const resetPaymentStatus = () => ({ type: RESET_PAYMENT_STATUS });
 export const fetching = () => ({ type: FETCHING });
 
 export const fetchingError = (error) => ({ type: FETCHING_ERROR, payload: error });
+
+export const resetWorkingOn = () => ({ type: RESET_WORKING_ON, payload: working });
 
 export const workingOn = (working, name, value) => {
   if (name === 'chat') return {
@@ -199,6 +203,8 @@ export function reducer(state = paymetState, action) {
       return { ...state, status: 'error', error: action.payload };
     case WORKING_ON:
       console.log(action.payload);
+      return { ...state, workingOn: action.payload };
+    case RESET_WORKING_ON:
       return { ...state, workingOn: action.payload };
 
     /* Make payment */

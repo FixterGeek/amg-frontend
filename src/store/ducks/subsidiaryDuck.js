@@ -66,6 +66,7 @@ const DELETE_SUBSIDIARY_SUCCCES = `${prefix}/DELETE_SUBSIDIARY_SUCCCES`;
 const fetching = () => ({ type: FETCHING });
 const fetchingError = () => ({ type: FETCHING_ERROR });
 
+
 export const workingOn = (working, name, value) => {
   const levels = name.split('.');
   console.log(value);
@@ -89,7 +90,7 @@ export const workingOn = (working, name, value) => {
 
 export const setWorkingOn = (working) => ({ type: SET_WORKING_ON, payload: working });
 
-export const resetWorkingOn = () => ({ type: SET_WORKING_ON, payload: working });
+export const resetWorkingOn = () => ({ type: RESET_WORKING_ON, payload: working });
 
 // successes
 const createSubsidiarySuccess = subsidiaryData => ({ type: CREATE_SUBSIDIARY_SUCCESS, payload: subsidiaryData });
@@ -160,6 +161,8 @@ export default function reducer(state = initialState, action) {
     /* generics */
     case RESET_SUBSIDIARY_STATUS:
       return { ...state, fetching: false, status: null };
+    case RESET_WORKING_ON:
+      return { ...state, workingOn: action.payload };
     case FETCHING:
       return { ...state, fetching: true };
     case FETCHING_ERROR:

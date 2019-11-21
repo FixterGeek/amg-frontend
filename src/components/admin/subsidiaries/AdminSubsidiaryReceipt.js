@@ -14,6 +14,7 @@ import {
   fetching as ft,
   populateSubsidiaryPayments,
   setWorkingOn,
+  resetWorkingOn,
 } from '../../../store/ducks/paymentsDuck';
 import { populateSubsidiaries } from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
@@ -32,7 +33,8 @@ function AdminSubsidiaryReceipt({
   fetching, match, payment,
   populateSubsidiaries,
   populateSubsidiaryPayments,
-  user, history
+  user, history, paymentStatus,
+  resetWorkingOn,
 }) {
   const { Title } = Typography;
   const { Item } = List;
@@ -41,8 +43,9 @@ function AdminSubsidiaryReceipt({
 
   const [usersInList, setUserInList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [resetImage, setResetImage] = useState(false);
 
-  console.log(usersInList);
+  // console.log(usersInList);
 
   useEffect(() => {
     populateSubsidiaries();
@@ -50,8 +53,16 @@ function AdminSubsidiaryReceipt({
   }, []);
 
   useEffect(() => {
+    // console.log(working);
+    if (!working._id && paymentStatus === 'success') {
+      resetWorkingOn();
+      setUserInList([]);
+    }
+  }, [paymentStatus]);
+
+  useEffect(() => {
     if (payment && payment !== 'empty') {
-      console.log(payment);
+      // console.log(payment);
       setWorkingOn(payment);
       setUserInList(payment.users);
     }
@@ -62,15 +73,16 @@ function AdminSubsidiaryReceipt({
   }, [usersInList.length])
 
   useEffect(() => {
+    console.log(filial);
     if (filial._id) workingOn(working, 'filial', filial._id);
-  }, [filial._id])
+  }, [filial])
 
   const handleCancel = () => {
     if (onCancel) onCancel(false);
   };
 
   const handleSwitch = (checked) => {
-    console.log(checked);
+    // console.log(checked);
     if (checked !== working.paid) handleSave('approve', !working.paid);
   };
 
@@ -80,6 +92,7 @@ function AdminSubsidiaryReceipt({
     const fbRef = `/filiales/${filial._id}/recibos/`;
 
     data.date = moment().toString();
+    data.filial = filial._id;
     if (working.receiptFile) data.recipetURL = await uploadFile(fbRef, working.receiptFile).then(url => url);
     if (paid === 'approve') data.paid = v;
   
@@ -87,7 +100,7 @@ function AdminSubsidiaryReceipt({
     setModalOpen(false);
   }
 
-  console.log(payment);
+  // console.log(payment);
 
   return (
     <section className="admin-subsidiary-receipt">
@@ -116,10 +129,13 @@ function AdminSubsidiaryReceipt({
         </div>
         <ContainerItem className="admin-subsidiary-receipt-receipt">
           <ImagePicker
-            onChange={file => workingOn(working, 'receiptFile', file)}
+            onChange={file => {
+              setResetImage(false);
+              workingOn(working, 'receiptFile', file)}}
             className="receipt-image"
             label="Comprobante de pago"
-            url={payment ? payment.recipetURL : null}
+            file={working.receiptFile}
+            url={payment && working._id ? payment.recipetURL : null}
           />
         </ContainerItem>
         <ContainerItem>
@@ -214,6 +230,7 @@ function mapStateToProps({ subsidiary, user, payment: { payment } }, { match }) 
     filial: subsidiary.array.filter(s => s._id === params.id)[0],
     payment: payment.subsidiaryPayments.filter(p => p._id === params.paymentId)[0],
     user,
+    paymentStatus: payment.status,
   }
 }
 
@@ -225,6 +242,7 @@ export default withRouter(
       createOrUpdateFilialPayment,
       populateSubsidiaries,
       populateSubsidiaryPayments,
+      resetWorkingOn,
     }
   )(AdminSubsidiaryReceipt)
 );
