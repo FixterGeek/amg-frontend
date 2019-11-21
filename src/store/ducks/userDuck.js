@@ -334,7 +334,7 @@ export const createUserAction = (userData) => (dispatch) => {
             return data
         })
         .catch((error) => {
-            console.log('AQUIIII!!!', error);
+            // console.log('AQUIIII!!!', error);
             dispatch(createUser(error));
             dispatch({ type: RESET_USER_STATUS });
             return error
@@ -382,7 +382,7 @@ function reducer(state = userState, action) {
             return { ...action.payload, fetching: false, isLogged: true }
         case LOGIN_USER_ERROR:
             let error
-            if (action.payload === "IncorrectPasswordError") error = "Nombre de usuario o contraseña incorrectos"
+            if (action.payload === "IncorrectPasswordError" || action.payload === "IncorrectUsernameError") error = "Nombre de usuario o contraseña incorrectos"
             return { ...state, status: 'error', error, fetching: false }
         case CREATE_USER:
             return { ...state, fetching: true }

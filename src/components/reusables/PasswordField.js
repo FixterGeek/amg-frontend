@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Form, Input } from 'antd';
 
-function PasswordField({ label, name, value, placeholder, onChange, ...rest }) {
+function PasswordField({
+  label, name, value,
+  validateStatus, errorMessage,
+  placeholder, onChange, ...rest
+}) {
   const { Item } = Form;
   const { Password } = Input;
 
@@ -11,7 +15,11 @@ function PasswordField({ label, name, value, placeholder, onChange, ...rest }) {
   }
 
   return (
-    <Item label={label} className="reusables-password-field">
+    <Item
+      label={label}
+      validateStatus={validateStatus}
+      help={errorMessage}
+      className="reusables-password-field">
       <Password
         onChange={handleChange}
         name={name}

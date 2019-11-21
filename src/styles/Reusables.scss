@@ -467,6 +467,7 @@
 /* Style TextField */
 .reusables-text-field {
   max-width: 445px;
+  width: 100%;
   label {
     font-weight: bold;
   }
@@ -732,6 +733,7 @@
 /* Style PasswordField */
 .reusables-password-field {
   max-width: 445px;
+  width: 100%;
   label {
     font-weight: bold;
   }
@@ -741,6 +743,33 @@
     background-color: $clouds;
     border-radius: 0px;
     border-color: $clouds;
+  }
+
+  .has-error {
+    .ant-input {
+      background-color: $clouds;
+      border-top-color: $clouds;
+      border-left-color: $clouds;
+      border-right-color: $clouds;
+      border-bottom: solid 2px $red;
+
+      &:hover {
+        border-color: $clouds;
+        box-shadow: none;
+      }
+
+      &:focus {
+        border-color: $clouds;
+      }
+    }
+  }
+
+  .ant-input-affix-wrapper {
+    .ant-input {
+      &:hover {
+        border-color: transparent;
+      }
+    }
   }
 }
 

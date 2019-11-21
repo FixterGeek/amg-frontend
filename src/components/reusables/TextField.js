@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Form, Input } from 'antd';
 
-function TextField({ label, name, value, placeholder, onChange, ...others }) {
+function TextField({
+  label, name, value, placeholder,
+  validateStatus, onChange,
+  errorMessage, ...others
+}) {
   const { Item } = Form;
 
   const handleChange = ({ target }) => {
@@ -10,7 +14,12 @@ function TextField({ label, name, value, placeholder, onChange, ...others }) {
     if (onChange) onChange({ target: { name, value } });
   }
   return (
-    <Item label={label} className="reusables-text-field">
+    <Item
+      label={label}
+      className="reusables-text-field"
+      hasFeedback
+      help={errorMessage}
+      validateStatus={validateStatus}>
       <Input
         name={name}
         value={value}

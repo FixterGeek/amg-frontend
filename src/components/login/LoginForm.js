@@ -3,7 +3,8 @@ import { withRouter, Link } from 'react-router-dom';
 
 import { resetPassword as resetService } from '../../services/userServices'
 import useSweet from  '../../hooks/useSweetAlert'
-import TextField from '../../molecules/TextFields';
+import TextField from '../reusables/TextField';
+import PasswordField from '../reusables/PasswordField';
 import AmgButton from '../../atoms/Button';
 import Spinner from '../../atoms/Spinner';
 
@@ -21,6 +22,8 @@ function LoginForm({
     email: null,
     password: null,
   });
+
+  console.log(error);
 
   useEffect(() => {
     if (isLogged) history.push("/dashboard/events")
@@ -62,7 +65,8 @@ function LoginForm({
         label="Correo" />
       {
         !resetPassword ? (
-          <TextField
+          <PasswordField
+            validateStatus={error && 'error'}
             password
             style={{ width: '100%' }}
             error={error}
