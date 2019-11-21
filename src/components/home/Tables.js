@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Typography } from 'antd';
 
@@ -66,6 +66,11 @@ export function DirectivesTable() {
       ]
     },
   ]
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="app home-tables">
       <NavBar className="home-tables-navbar" />
