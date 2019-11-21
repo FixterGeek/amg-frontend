@@ -51,6 +51,9 @@ function SignupGeneralDataForm({
 
   const [generals, setGeneral] = useState(generalsState);
   const [localLoading, setlocalLoading] = useState(false);
+  const allIsFill = generals.basicData.name !== null && generals.basicData.dadSurname !== null
+    && generals.email !== null && generals.password !== null && generals.basicData.birthDate !== null
+    && generals.basicData.address.state !== null && generals.basicData.speciality !== null;
 
   useEffect(() => {
     if (status === 'error') errorAlert({});
@@ -179,7 +182,7 @@ function SignupGeneralDataForm({
 
       {
         !hiddenButton && (
-          <Button htmlType="submit" width="100%">
+          <Button htmlType="submit" width="100%" disabled={!allIsFill}>
             Siguiente
           </Button>
         )
