@@ -79,7 +79,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
         <span>Configuración</span>
       </Item>
       {
-        user.userType === 'Filial' && (
+        user.filialAsAdmin === 'Filial' && (
           <Item key={7} onClick={() => link('/admin')}>
             <Icon  component={MapIcon} />
             <span>Filial Dashboard</span>
