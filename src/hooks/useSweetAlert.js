@@ -9,6 +9,9 @@ function useSweetAlert() {
       text,
       footer,
       confirmButtonText: 'Aceptar',
+      customClass: {
+        confirmButton: 'confirm-alert'
+      }
     });
   };
 
@@ -23,6 +26,9 @@ function useSweetAlert() {
       text,
       footer,
       confirmButtonText: 'Aceptar',
+      customClass: {
+        confirmButton: 'confirm-alert'
+      }
     });
   };
 
@@ -35,6 +41,9 @@ function useSweetAlert() {
       title,
       text,
       confirmButtonText: 'Aceptar',
+      customClass: {
+        confirmButton: 'confirm-alert'
+      }
     });
   }
 
