@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import toFormData from 'object-to-formdata';
 
-import { Typography, Icon, Button } from 'antd';
+import { Typography, Icon, Button, Form } from 'antd';
 
 import useSweetAlert from '../../../hooks/useSweetAlert';
 import fileToURL from '../../../tools/fileToURL';
@@ -128,22 +128,28 @@ function BasicData({
       <ModalName user={user} dispatch={dispatch} />
       <Title level={3}>{ membershipStatus }</Title>
       <Text>{ basicData.speciality }</Text>
-      <TransparentTextField
-        onChange={handleChange}
-        onClick={handleEdit}
-        placeholder="Lugar"
-        name="addressName"
-        disabled={!edits.addressName.edit}
-        value={address || placeOfBirth.addressName}
-        icon={edits.addressName.icon} />
-      <TransparentTextField
-        onChange={handleChange}
-        onClick={handleEdit}
-        placeholder="Número telefónico"
-        name="phone"
-        disabled={!edits.phone.edit}
-        value={phone || basicData.phone}
-        icon={edits.phone.icon} />
+      <div style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center' }}>
+        <strong style={{ marginRight: '8px'}}>Lugar:</strong>
+        <TransparentTextField
+          onChange={handleChange}
+          onClick={handleEdit}
+          placeholder="Lugar"
+          name="addressName"
+          disabled={!edits.addressName.edit}
+          value={address || placeOfBirth.addressName}
+          icon={edits.addressName.icon} />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center' }}>
+        <strong style={{ marginRight: '8px'}}>Número telefónico:</strong>
+        <TransparentTextField
+          onChange={handleChange}
+          onClick={handleEdit}
+          placeholder="5555555555"
+          name="phone"
+          disabled={!edits.phone.edit}
+          value={phone || basicData.phone}
+          icon={edits.phone.icon} />
+      </div>
     </DashboardContainerItem>
   );
 }
