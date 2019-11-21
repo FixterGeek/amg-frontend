@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
-import { Popconfirm, Icon } from 'antd';
+import { Popconfirm, Icon, Popover } from 'antd';
 
 export default function AdminEventCard({
     title,
@@ -19,20 +19,24 @@ export default function AdminEventCard({
     let cover = mainImagesURLS[0]
     if (!mainImagesURLS[0] || !regex.test(mainImagesURLS[0])) cover = "https://www.riotgames.com/darkroom/1440/b2b587d91d3c5d2922953ac62fbb2cb8:dfd0d5c2d07f981fb8cda29623b5e54e/paris.jpg"
     return (
-        <div>
-            <div>
+        <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', top: '20px', right: '40px' }}>
             {
                 deleteButton && (
-                    <Popconfirm style={{ color: 'red' }}
-                        okText="SI"
-                        cancelText="NO"
-                        title={`¿Eliminar ${title}?`}
-                        onConfirm={() => dispatchDelete ? dispatchDelete(eventId) : null}
-                    >
-                        <span style={{ cursor: 'pointer', color: 'red' }}>
-                            Eliminar <Icon type="delete" />
-                        </span>
-                    </Popconfirm>
+                        <Popover placement="left" content={(
+                            <Popconfirm style={{ color: 'red' }}
+                            okText="SI"
+                            cancelText="NO"
+                            title={`¿Eliminar ${title}?`}
+                            onConfirm={() => dispatchDelete ? dispatchDelete(eventId) : null}
+                        >
+                            <span style={{ cursor: 'pointer', color: 'red' }}>
+                                Eliminar <Icon type="delete" />
+                            </span>
+                        </Popconfirm>
+                    )}>
+                        <Icon type="more" style={{ fontSize: '1.6rem', color: 'white' }} />
+                    </Popover>
                 )
             }
             </div>
