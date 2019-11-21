@@ -74,10 +74,10 @@ function HomeContactForm() {
       <form action="?" method="POST" onSubmit={handleSubmit}>
         <div class="g-recaptcha" data-sitekey="6LfXl7sUAAAAANAztRRuFtdE19H_FSlduja29Qg-" />
           <br/>
-        <input type="submit" value="Verificar" />
+        <input type="submit" value="Verificar" style={{ display: 'none'}} />
       </form>
       {
-        !disabledSendButton && (
+        disabledSendButton && (
           <Button width="100%" disabled={disabledSendButton} onClick={handleSend}>
             Enviar
           </Button>
