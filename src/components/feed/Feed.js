@@ -29,17 +29,18 @@ function Feed({
   const [loadingPost, setLoadingPost] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
   const [lastEvent, setLastEvent] = useState({ _id: null });
-  const { events: eventsList } = events;
   const { publications: pubs } = publications;
+
+  console.log(events);
 
 
   useEffect(() => {
-    if (eventsList.length > 0) {
-      const sorted = eventsList.sort((a, b) => moment(b.startDate).diff(moment(a.startDate)));
+    if (events.length > 0) {
+      const sorted = events.sort((a, b) => moment(b.startDate).diff(moment(a.startDate)));
       // console.log(sorted[0]);
       setLastEvent(sorted[0]);
     }
-  }, [eventsList.length]);
+  }, [events.length]);
 
   useEffect(() => {
     if (user.membershipStatus === 'Free') {
@@ -108,7 +109,7 @@ function Feed({
 
 function mapStateToProps({ events, user, publications }) {
   return {
-    events,
+    events: events.array.filter(e => e.status === 'published'),
     user,
     publications,
     fetching: publications.fetching || events.fetching,

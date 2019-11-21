@@ -184,7 +184,7 @@ function reducer(state = eventState, action) {
     case GET_ADMIN_EVENTS_ERROR:
       return { ...state, status: "error", fetching: false, error: action.payload }
     case POPULATE_EVENTS_SUCCESS:
-      return { ...state, events: [...action.payload], fetching: false };
+      return { ...state, array: [...action.payload], fetching: false };
     case POPULATE_EVENTS_ERROR:
       return { ...state, fetching: false, error: true };
     case POPULATE_EVENTS:

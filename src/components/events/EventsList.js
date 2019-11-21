@@ -27,7 +27,7 @@ function EventsList({
   useEffect(() => {
     const byMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
       month,
-      events: events.events.filter(
+      events: events.filter(
         event => moment(event.startDate).month() === month,
       ),
     }));
@@ -35,10 +35,10 @@ function EventsList({
     setState({
       byMonths,
     });
-  }, [events.events]);
+  }, [events.length]);
 
   useEffect(() => {
-    if (events.events.length === 0) {
+    if (events.length === 0) {
       populateEventsAction()
         .then(() => setLoading(false))
         .catch(() => {
@@ -56,7 +56,7 @@ function EventsList({
       
       <ContainerItem className="dash-item-center">
         <Title>Eventos</Title>
-        <EventsCarousel events={events.events} />
+        <EventsCarousel events={events} />
         <div>
           {
             state.byMonths.map((month, index) => (
@@ -72,7 +72,7 @@ function EventsList({
 
 function mapStateToProps({ events }) {
   return {
-    events,
+    events: events.array.filter(e => e.status === 'published'),
     fetching: events.fetching,
   };
 }

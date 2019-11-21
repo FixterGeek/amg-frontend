@@ -10,7 +10,8 @@ import {
     faBell,
     faUsers,
     faFileInvoiceDollar,
-    faFileAlt
+    faFileAlt,
+    faArrowCircleLeft
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Menu, Icon } from 'antd';
@@ -131,6 +132,14 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
             } */}
             <Item
                 key={10}
+                onClick={() => link('/dashboard')}>
+                <Icon >
+                    <FontAwesomeIcon icon={faArrowCircleLeft} />
+                </Icon>
+                <span>Ir al dashboard</span>
+            </Item>
+            <Item
+                key={11}
                 onClick={() => logOut()}
                 style={{ position: 'absolute', bottom: '16px' }}>
                 <Icon
