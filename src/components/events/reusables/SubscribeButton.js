@@ -9,15 +9,21 @@ import {
 import Button from '../../reusables/Button';
 
 function SubscribeButton({
-  payable, user = {}, eventObject = {},
+  payable, user = {}, eventObject = {
+    cost: {
+      freeCost: 0,
+      residentCost: 0,
+      socioCost: 0,
+    }
+  },
   subscribeUserToActivityAction, subscribeUserToEventAction,
   assistedEvents, activityObject = {}, assistedActivities
 }) {
   console.log(eventObject);
   const { membershipStatus = 'Veterano', userStatus } = user;
   let userPays = membershipStatus === 'Socio' && eventObject.cost.socioCost > 0;
-    if (membershipStatus === 'Residente' && eventObject.cost.residenCost > 0) userPays = true;
-    if (membershipStatus === 'Free' && eventObject.cost.freeCost > 0) userPays = true;
+    if (membershipStatus === 'Residente' && (eventObject.cost && eventObject.cost.residentCost > 0)) userPays = true;
+    if (membershipStatus === 'Free' && ( eventObject.cost && eventObject.cost.freeCost > 0)) userPays = true;
     if (membershipStatus === 'Veterano') userPays = false;
 
   if (userStatus !== 'Aprobado') return (

@@ -25,7 +25,7 @@ class HomeContainer extends Component {
     document.title = 'Gastro | Asociación Mexicana de Gastroenterología'
     return (
       <div className="app">
-        <SemanaModal />
+        {/* <SemanaModal /> */}
         <NavBar />
         <section className="welcome">
           <div className="video-bg">
