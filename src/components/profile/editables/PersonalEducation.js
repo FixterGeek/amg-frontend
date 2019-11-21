@@ -16,7 +16,7 @@ function PersonalEducation({ user, externalUser = null, createEducationAction })
 
   const handleSave = () => {
     if (education.type === 'Estudios') createEducationAction('studies', education);
-    if (education.type === 'Recidencia') createEducationAction('residences', education);
+    if (education.type === 'Residencia') createEducationAction('residences', education);
     if (education.type === 'Internado') createEducationAction('internships', education);
     setOpen(false);
   };

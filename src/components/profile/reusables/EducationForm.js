@@ -41,7 +41,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
 
   useEffect(() => {
     if (type === 'Estudios') onChange({ type, ...study })
-    if (type === 'Recidencia') onChange({ type, ...residence })
+    if (type === 'Residencia') onChange({ type, ...residence })
     if (type === 'Internado') onChange({ type, ...internship })
   }, [study, residence, internship])
 
@@ -84,7 +84,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
 
   const handleCreateInstitutions = ({ data, type }) => {
     if (type === 'Estudios') setStudy({ ...study, institution: data._id })
-    if (type === 'Recidencia') setResidence({ ...residence, institution: data._id })
+    if (type === 'Residencia') setResidence({ ...residence, institution: data._id })
     if (type === 'Internado') setInternship({ ...internship, institution: data._id })
   }
 
@@ -97,7 +97,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
         value={type}
       >
         {
-          ['Estudios', 'Recidencia', 'Internado'].map((opt, index) => (
+          ['Estudios', 'Residencia', 'Internado'].map((opt, index) => (
             <OptionSelect key={index} value={opt}>
               { opt }
             </OptionSelect>
@@ -175,7 +175,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
       }
 
       {
-        type === 'Recidencia' && (
+        type === 'Residencia' && (
           <div>
             <TextField
               onChange={handleResidence}
@@ -184,7 +184,7 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
               label="Especialidad"
             />
             <CreateInstitution
-              onResult={(error, data) => handleCreateInstitutions({ type: 'Recidencia', data })}
+              onResult={(error, data) => handleCreateInstitutions({ type: 'Residencia', data })}
               forceTypes={['Hospital']}
               disabledOwn
             />
