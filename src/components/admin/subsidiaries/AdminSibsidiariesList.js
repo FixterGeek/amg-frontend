@@ -9,6 +9,7 @@ import {
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
 import ActionMenu from './reusables/ActionMenu';
+import ChecboxField from '../../reusables/CheckboxField';
 import zones from './zones.json';
 
 
@@ -72,6 +73,16 @@ function AdminSubsidiariesList({
     setFiltered(f);
   }
 
+  const handleFilter = filter => {
+    const f = subsidiaries.filter(s => {
+      if (!filter[0]) return true;
+      if (zones[`${filter[0]}`.toUpperCase()].includes(s.state)) return true;
+      return false;
+    })
+
+    setFiltered(f);
+  }
+
   return (
     <div className="generic-admin-table admin-subsidiaries-list">
       <Tabs type="card" className="generic-table-header">
@@ -84,7 +95,16 @@ function AdminSubsidiariesList({
           </div>
         </TabPane>
         <TabPane tab={<Icon type="filter" />} key="2">
-          ok
+          <div className="filters-container">
+            <ChecboxField
+              onChange={f => handleFilter(f)}
+              label="Zona:"
+              containerClassName="filters"
+              checks={['Zona Centro', 'Zona Norte', 'Zona Sur']}
+              sameValue
+              onlyOne
+            />
+          </div>
         </TabPane>
       </Tabs>
       <Table

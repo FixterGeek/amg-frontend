@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Form, Checkbox } from 'antd';
 
 function CheckboxField({
   label, checks, value,
   onChange, name, containerClassName,
-  groupClassName, checksGroup
+  groupClassName, checksGroup, sameValue,
+  onlyOne,
 }) {
   const { Item } = Form;
   const { Group } = Checkbox;
 
+  const [val, setVal] = useState([]);
+
   const handleChange = (valuesArray) => {
-    if (onChange) onChange(valuesArray, name)
+    if (onChange) onChange(valuesArray, name);
+    if (sameValue) {
+      if (onlyOne) setVal(valuesArray[0]);
+      else setVal(valuesArray);
+    }
   }
 
   return (
     <Item label={label} className={`reusables-checkbox-field ${containerClassName}`}>
-      <Group onChange={handleChange} value={value} className={`${groupClassName}`}>
+      <Group onChange={handleChange} value={sameValue ? val : value} className={`${groupClassName}`}>
         {
           checks && checks.map((check, index) => (
             <Checkbox value={check.value || check} key={index}>

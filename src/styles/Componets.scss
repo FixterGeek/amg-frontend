@@ -893,6 +893,21 @@ $eventLeftWidth: 350px;
     background-color: transparent!important;
   }
 
+  .filters-container {
+    padding: $largePadding;
+    padding-bottom: $smallPadding;
+    .filters {
+      background-color: white;
+      padding: $smallPadding;
+      .ant-checkbox-group {
+        display: flex;
+        flex-flow: row;
+        width: 100%;
+        margin-left: $largeMargin;
+      }
+    }
+  }
+
   .finder {
     display: flex;
     align-items: center;
