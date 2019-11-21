@@ -46,7 +46,7 @@ function AdminEventCoversForm({
       <div className="admin-events-event-covers-large">
         <ImagePicker
           onChange={file => handleChange({ target: { name: 'mainImages', value: file } })}
-          label="Imagen grande"
+          label="Imagen grande (recomendado 1250x550)"
           url={state.mainImagesURLS[0] || null}
         />
       </div>
