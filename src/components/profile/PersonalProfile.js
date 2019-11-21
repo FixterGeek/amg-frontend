@@ -100,8 +100,8 @@ function PersonalProfile({
             <BoxItem
               noLeft
               key={internship._id}
-              title={internship.institution.name}
-              subtitle={internship.institution.name || ' '}
+              title={internship.institution.name || 'Internado'}
+              subtitle={internship.institution.name || 'Internado'}
               footer={
                 `${moment(internship.startDate).format('MMMM[ de ]YYYY')}
                   -
