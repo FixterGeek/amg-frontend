@@ -32,11 +32,9 @@ function MainProfile({
 
 
   useEffect(() => {
-    if (!selfPublications[0]) {
       selfPublicationsAction()
         .then(data => console.log(data))
         .catch(error => console.log(error));
-    }
   }, []);
 
   document.title = 'Perfil | Asociación Mexicana de Gastroenterología'
