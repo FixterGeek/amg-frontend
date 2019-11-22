@@ -36,11 +36,11 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
 
       <ContainerItem>
         <Title level={3}>Educación profesional</Title>
-        <Link to="/dashboard">
+        {/* <Link to="/dashboard">
           <Button width="100%" htmlType="button">
             Omitir siguientes pasos
           </Button>
-        </Link>
+        </Link> */}
         <ContainerItem>
           {
             studies.length === 0 && (

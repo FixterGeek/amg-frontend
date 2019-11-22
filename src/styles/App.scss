@@ -40,12 +40,12 @@ body {
 }
 
 .confirm-alert {
-  background-color: $secondary;
-  height: 50px;
+  background-color: $navy!important;
+  height: 50px!important;
   padding-right: $padding;
   padding-left: $padding;
   font-weight: normal;
-  color: white;
+  color: white!important;
   font-size: 1rem;
   border-radius: 0px;
   width: 200px;
