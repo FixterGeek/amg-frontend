@@ -4,7 +4,7 @@ import Proptypes from 'prop-types';
 import BoxItem from '../../reusables/BoxItem';
 
 function AdminSpeakerList({ speakers }) {
-  const defaultPhoto = 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79';
+  const defaultPhoto = 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a';
 
   return (
     <div>

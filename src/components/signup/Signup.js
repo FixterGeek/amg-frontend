@@ -37,6 +37,10 @@ function Signup({
     }
   }, [])
 
+  useEffect(() => {
+    if (user.id) history.push('/dashboard');
+  }, [user]);
+
   return (
     <div className="signup">
       <Stepper current={currents[currentLocation]} />
