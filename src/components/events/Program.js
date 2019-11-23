@@ -26,7 +26,7 @@ function Program({ history, user }) {
     const id = pathname.split('/')[3];
 
     setLoading(true);
-    getSingleEvent(id)
+    if (id) getSingleEvent(id)
       .then((data) => {
         setEvent(data);
         setLoading(false);

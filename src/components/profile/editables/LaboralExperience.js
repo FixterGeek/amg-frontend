@@ -21,6 +21,7 @@ function LaboralExperience({
   const [open, setOpen] = useState(false);
   const [activity, setActivity] = useState();
   const [lastInstitution, setLastInstitution] = useState();
+  const [reset, setReset] = useState(false);
 
   const handleResult = (error, data) => {
     if (data) {
@@ -33,7 +34,9 @@ function LaboralExperience({
   };
 
   const handleSave = () => {
-    createActivityAction(activity);
+    createActivityAction(activity).then(() => {
+      setReset(true);
+    })
     setOpen(false);
   };
 
@@ -61,6 +64,7 @@ function LaboralExperience({
           activitiesOptions={activitiesOptions}
           defaultType={defaultType}
           hiddenType={hiddenType}
+          reset={reset}
         />
         <CreateInstitution user={user} onResult={handleResult} />
       </Modal>

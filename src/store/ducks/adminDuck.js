@@ -339,8 +339,8 @@ export function addActivityAction(item) {
                 return res.data
             })
             .catch(e => {
-                dispatch(addActivityError(e.response.data.message))
-                toastr.error(e.response.data.message)
+                dispatch(addActivityError(e.response ? e.response.data.message : e))
+                toastr.error(e.response ? e.response.data.message : 'Error al crear')
                 return e
             })
 
@@ -407,7 +407,7 @@ export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
 // Update activity
 export const updateEventActivityAction = (activityId, activityData) => (dispatch) => {
     dispatch(updateEventActivity())
-    return patchEventActivity(activityId, activityData)
+    return patchEventActivity(activityId, { ...activityData, speakers: activityData.speakers.map(s => ({ _id: s._id })) })
         .then((data) => {
             dispatch(updateEventActivitySuccess(data));
             dispatch({ type: GET_SINGLE_EVENT, payload: data.event })

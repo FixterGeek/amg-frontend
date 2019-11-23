@@ -15,16 +15,22 @@ import SelectField, { OptionSelect } from '../../reusables/SelectField';
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
   lastInstitution, disabledOwn, fetching, activityFetching,
-  activitiesOptions = [], defaultType, hiddenType
+  activitiesOptions = [], defaultType, hiddenType,
+  reset
 }) {
-  const [activity, setActivity] = useState({
+  const initialState = {
     user: '',
     institution: null,
     institutionOwner: '',
     type: null,
     startDate: null,
     endDate: null,
-  });
+  }
+  const [activity, setActivity] = useState(initialState);
+
+  useEffect(() => {
+    setActivity(initialState);
+  }, [reset]);
 
 
   useEffect(() => {
