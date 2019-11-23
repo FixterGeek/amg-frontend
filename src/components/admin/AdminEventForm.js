@@ -184,7 +184,7 @@ function AdminEventForm({
     }
 
     function uploadModule(list) {
-        console.log("si", list)
+        // console.log("si", list)
         // return
         let module = list[0]
         // AGREGA EL MALDITO EVENTO

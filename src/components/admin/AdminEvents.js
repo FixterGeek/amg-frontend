@@ -75,8 +75,8 @@ function AdminEvents({
 function mapState({ events }) {
     let activeEvents = events.array.filter(e => e.status === "published")
     let inactiveEvents = events.array.filter(e => e.status === "draft" && e.location.type !== 'Course')
-    console.log("activos", activeEvents)
-    console.log("inactivos", inactiveEvents)
+    // console.log("activos", activeEvents)
+    // console.log("inactivos", inactiveEvents)
     return {
         activeEvents,
         inactiveEvents,
