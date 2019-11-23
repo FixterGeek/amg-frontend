@@ -1,9 +1,8 @@
 import React, {Component, useState} from 'react';
-import NavBar from "../../organisms/NavBar";
-import TextField from "../../molecules/TextFields";
+import NavBar from "../../../organisms/NavBar";
+import TextField from "../../../molecules/TextFields";
 import {Select} from "antd";
 import { message} from 'antd';
-import InputField from "../../atoms/data_entry/InputField";
 
 const baseURL = process.env.REACT_APP_BASE_API_URL;
 
@@ -36,20 +35,8 @@ class HomeContactForm extends Component {
 
   render() {
     return (
-        <section className="app">
-          <NavBar/>
-          <section className="sesion">
-            <div className="cover">
-              <div className="descript">
-                <h1>
-                  CONTACT
-                  <span>O</span>
-                </h1>
-              </div>
-            </div>
-          </section>
-          <section className="form-contacto">
-            <h2 className="titles">¿Qué podemos hacer por ti?</h2>
+        <section className="">
+
             <form onSubmit={this.sendForm}>
               <TextField
                   width="100%"
@@ -84,7 +71,6 @@ class HomeContactForm extends Component {
             </form>
           </section>
 
-        </section>
     );
   }
 }
