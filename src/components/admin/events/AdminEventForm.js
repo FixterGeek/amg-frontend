@@ -16,7 +16,7 @@ import { uploadFile } from '../../../tools/firebaseTools';
 import estados from '../estados.json'
 
 function AdminEventForm({
-  state, setState, saveDraftEvent,
+  state, setState, saveDraftEvent, history,
 }) {
   const [uploadLoading, setUploadLoading] = useState(false);
   const handleChange = ({ target }, sub) => {
@@ -105,7 +105,7 @@ function AdminEventForm({
     const eventData = normalizeData(st);
     const form = new FormData();
     const formData = transformToFormData(form, eventData.normalizedData);
-    saveDraftEvent({ body: formData, id: eventData.id });
+    saveDraftEvent({ body: formData, id: eventData.id }, history)
   }
 
   const normalizeData = (eventData) => {
@@ -118,7 +118,7 @@ function AdminEventForm({
     return { normalizedData, id };
   }
 
-  console.log(state);
+  // console.log(state);
 
   return (
     <Form onSubmit={handleSave} className="admin-events-event-form">

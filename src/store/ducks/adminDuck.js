@@ -123,10 +123,11 @@ function removeModuleSuccess(payload) {
 }
 
 
-export function saveDraftEvent(event) {
+export function saveDraftEvent(event, history) {
     return {
         type: SAVE_DRAFT_EVENT,
-        payload: event
+        payload: event,
+        history,
     }
 }
 export function saveDraftEventSuccess(event) {
@@ -264,14 +265,15 @@ export function saveDraftEventEpic(action$, state$) {
                     )
                 )
             }
-            console.log("Es nuevo", action.payload)
+            // console.log("Es nuevo", action.payload)
             return concat(
                 //of(setFetchingUser()),
                 ajax.post(baseURL + "events", action.payload.body, { "Authorization": token }).pipe(
                     map(resp => {
-                        console.log(resp)
+                        // console.log(resp)
                         //localStorage.authToken = resp.response.token
                         toastr.success("Nuevo Evento Guardado")
+                        if (action.history) action.history.push(`/admin/eventos/edit/${resp.response._id}`)
                         return saveDraftEventSuccess({ ...resp.response, new: true })
                     }),
                     //delay(5000),

@@ -47,7 +47,7 @@ function AdminCourseForm({
     permisosURLS: [],
   }
 
-  const [courseData, setCourseData] = useState(existingData || initialCourseData);
+  const [courseData, setCourseData] = useState(initialCourseData);
 
   useEffect(() => {
     console.log(existingData);
@@ -64,8 +64,6 @@ function AdminCourseForm({
 
     setCourseData(state => ({ ...state, [name]: value }));
   }
-
-  console.log(courseData);
 
   return (
     <div>

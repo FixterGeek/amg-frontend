@@ -17,6 +17,7 @@ import { successAction, errorAction } from './tools';
 
 const courseState = {
   array: [],
+  currentEventId: null,
   noData: false,
   fetching: false,
   status: null,
@@ -25,6 +26,7 @@ const courseState = {
 
 /* Constants */
 const RESET_COURSES_SATUS = 'RESET_COURSES_STATUS';
+const RESET_COURSE_ARRAY = 'RESET_COURSE_ARRAY';
 
 const POPULATE_EVENT_COURSES = 'POPULATE_EVENT_COURSES';
 const POPULATE_EVENT_COURSES_SUCCESS = 'POPULATE_EVENT_COURSES_SUCCESS';
@@ -69,6 +71,7 @@ const DELETE_ACTIVITY_COURSE_ERROR = 'COURSE/DELETE_ACTIVITY_COURSE_ERROR';
 
 /* Actios Creators */
 export const resetCoursesStatus = () => ({ type: RESET_COURSES_SATUS });
+export const resetCourseArray = () => ({ type: RESET_COURSES_SATUS });
 
 // Ppopulate Events Courses
 function populateEventCourses() {
@@ -298,6 +301,8 @@ export default function reducer(state = courseState, action) {
     /* RESET */
     case RESET_COURSES_SATUS:
       return { ...state, fetching: false, status: null };
+    case RESET_COURSE_ARRAY:
+      return { ...state, array: [] };
     /* Populate event course */
     case POPULATE_EVENT_COURSES:
       return { ...state, fetching: true };

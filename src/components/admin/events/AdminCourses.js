@@ -21,7 +21,7 @@ function AdminCourses({
 
   useEffect(() => {
     const { params } = match;
-    if (courses.length === 0 && !noCourses) populateEventCoursesAction(params.id);
+    populateEventCoursesAction(params.id);
   }, [courses.length]);
 
   console.log(courses);

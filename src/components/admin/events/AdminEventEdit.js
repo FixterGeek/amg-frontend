@@ -108,6 +108,7 @@ function AdminEventEdit({
               state={state}
               setState={setState}
               saveDraftEvent={saveDraftEvent}
+              history={history}
             />
           </TabPane>
           <TabPane key="2" tab="Ponentes" disabled={!state._id}>
