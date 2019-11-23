@@ -5,9 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faPowerOff,
-    faHome,
     faCalendar,
-    faBell,
     faUsers,
     faFileInvoiceDollar,
     faFileAlt,
@@ -16,7 +14,7 @@ import {
 
 import { Menu, Icon } from 'antd';
 
-import { SourcesIcon, EventIcon, MapIcon } from '../feed/reusables/Icons';
+import { SourcesIcon, EventIcon, MapIcon, HomeIcon } from '../feed/reusables/Icons';
 import useSweetAlert from '../../hooks/useSweetAlert';
 import { logoutAction } from '../../store/ducks/userDuck';
 // import { populateUserAction } from '../store/ducks/userDuck';
@@ -57,17 +55,19 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
             style={{ height: "100vh" }}
             inlineCollapsed mode="inline" theme="dark" className="admin-lateral-menu">
             <Item key={1} onClick={() => link('/admin/dashboard')}>
-                <Icon className={`${currentLocation === 'dashboard' ? 'menu-item-active' : 'menu-item-inactive'}`}>
-                    <FontAwesomeIcon icon={faHome} />
-                </Icon>
+                <Icon
+                    component={HomeIcon}
+                    className={`${currentLocation === 'dashboard' ? 'menu-item-active' : 'menu-item-inactive'}`}
+                />
                 <span>Home</span>
             </Item>
             {
                 user.userType === 'Admin' && (
                     <Item key={2} onClick={() => link('/admin/events')}>
-                        <Icon className={ currentLocation === 'events' ? 'menu-item-active' : '' }>
-                            <FontAwesomeIcon icon={faCalendar} />
-                        </Icon>
+                        <Icon
+                            component={EventIcon}
+                            className={ currentLocation === 'events' ? 'menu-item-active' : '' }
+                        />
                         <span>Eventos</span>
                     </Item>
                 )

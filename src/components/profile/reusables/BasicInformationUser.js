@@ -25,7 +25,10 @@ function BasicInformationUser({
       {
         editableLink && (
           <Link to="/dashboard/perfil/editar">
-            <Icon className="edit" type="edit" />
+            <div className="edit">
+              <span style={{ fontSize: '1rem', marginRight: '8px' }}>Editar perfil</span>
+              <Icon type="edit" />
+            </div>
           </Link>
         )
       }

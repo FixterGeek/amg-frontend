@@ -61,8 +61,8 @@ function EventDetail({
 
   return (
     <div className="dashboard-container event-detail">
-      { !state._id && <Spinner /> }
-      { userFetching && <Spinner /> }
+      { !state._id && <Spinner fullScrren /> }
+      { userFetching && <Spinner fullScrren /> }
       <div className="title">
         <Title>{state.title}</Title>
       </div>
