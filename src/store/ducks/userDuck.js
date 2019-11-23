@@ -20,6 +20,7 @@ import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
 import useSweet from '../../hooks/useSweetAlert';
+import { errorAction } from './tools';
 
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 
@@ -334,10 +335,10 @@ export const createUserAction = (userData) => (dispatch) => {
             return data
         })
         .catch((error) => {
-            // console.log('AQUIIII!!!', error);
-            dispatch(createUser(error));
-            dispatch({ type: RESET_USER_STATUS });
-            return error
+            console.log('AQUIIII!!!', error.response);
+            return errorAction(
+                dispatch, createUserError, error, RESET_USER_STATUS, 'Error al registrar',
+            )
         })
 }
 
@@ -359,7 +360,7 @@ export const followUserAction = (userId, followType) => (dispatch) => {
             return data;
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
             dispatch(followUserError(error));
             return error;
         })
@@ -369,7 +370,7 @@ export const followUserAction = (userId, followType) => (dispatch) => {
 function reducer(state = userState, action) {
     switch (action.type) {
         case RESET_USER_STATUS:
-            return { ...state, status: null }
+            return { ...state, status: null, fetching: false }
         case UPDATE_USER:
             return { ...state, fetching: true };
         case UPDATE_USER_SUCCESS:
