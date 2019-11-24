@@ -120,13 +120,14 @@ function AdminEventEdit({
             />
             <Divider />
             <Title level={3}>Lista de ponentes</Title>
-            <AdminSpeakersList speakers={speakers} />
+            <AdminSpeakersList speakers={speakers} event={state} />
           </TabPane>
           <TabPane key="3" tab="Programa" disabled={!state._id}>
             <AdminEventModules
               addModule={addModuleAction}
               modules={modules}
               eventId={state._id}
+              event={state}
               updateEventActivityAction={updateEventActivityAction}
               removeActivityAction={removeActivityAction}
               removeModuleAction={removeModuleAction}

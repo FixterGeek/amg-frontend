@@ -21,7 +21,7 @@ function ImagePreview({
     )
   }
 
-  console.log(isVideo)
+  // console.log(isVideo)
 
   return (
     <div

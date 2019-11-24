@@ -1,9 +1,12 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-import BoxItem from '../../reusables/BoxItem';
+import { Icon, Popover } from 'antd';
 
-function AdminSpeakerList({ speakers }) {
+import BoxItem from '../../reusables/BoxItem';
+import AdminSpeakerForm from './AdminSpeakerForm';
+
+function AdminSpeakerList({ speakers, event }) {
   const defaultPhoto = 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a';
 
   return (
@@ -11,7 +14,7 @@ function AdminSpeakerList({ speakers }) {
       {
         speakers.map(speaker => {
           return (
-            <div>
+            <div style={{ position: 'relative' }}>
               <BoxItem
                 title={speaker.fullName}
                 subtitle={speaker.title}
@@ -19,6 +22,9 @@ function AdminSpeakerList({ speakers }) {
                 leftIsImage
                 imageUrl={speaker.photoURL || defaultPhoto}
               />
+              <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+                <AdminSpeakerForm isModal existingData={speaker} event={event} />
+              </div>
             </div>
           )
         })

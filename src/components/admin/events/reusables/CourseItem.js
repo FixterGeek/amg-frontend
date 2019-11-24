@@ -43,6 +43,7 @@ function AdminCoursesItem({
               currentEvent.modules.map(module => (
                 <ModulesContent
                   isForCourse
+                  eventSpeakers={currentEvent.speakers}
                   module={module}
                   eventId={currentEvent._id}
                   updateEventActivityAction={addOrUpdateActivityCourse}

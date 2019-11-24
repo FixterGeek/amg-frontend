@@ -12,10 +12,9 @@ import AmgButton from '../../reusables/Button';
 function ModulesContent({
   module, eventId, updateEventActivityAction,
   removeActivity, removeModule, moduleForm,
-  isForCourse, onResult
+  isForCourse, onResult, eventSpeakers = [],
 }) {
   const { Title } = Typography;
-  console.log(module);
   const [activities, setActivities] = useState(module.activities || []);
 
   const columns = [
@@ -49,12 +48,15 @@ function ModulesContent({
               )}
             />
             <List>
-              {record.speakers.map(speaker => (
-                <List.Item>
-                  { speaker.fullName }
-                  <Icon type="delete" onClick={() => deleteSpeakers(record, speaker)} />
-                </List.Item>
-              ))}
+              {record.speakers.map(s => {
+                const speaker = eventSpeakers.filter(sp => sp._id === s._id)[0];
+                return (
+                  <List.Item>
+                    { speaker.fullName }
+                    <Icon type="delete" onClick={() => deleteSpeakers(record, speaker)} />
+                  </List.Item>
+                )
+              })}
             </List>
           </div>
         )
@@ -107,6 +109,8 @@ function ModulesContent({
     currentActivity.speakers = noDeteleteSpeakers;
     updateEventActivityAction(currentActivity._id, currentActivity);
   }
+
+  console.log(eventSpeakers);
 
   return (
     <ContainerItem className="admin-reusables-modules-content">

@@ -246,6 +246,7 @@ export function saveDraftEventEpic(action$, state$) {
         //filter(({ payload }) => typeof payload === "object" && payload.password !== "" && payload.email !== ""),
         withLatestFrom(state$.pipe(pluck('user'))),
         switchMap(([action, { token }]) => {
+            console.log(action.payload);
             if (action.payload.id) {
                 return concat(
                     //of(setFetchingUser()),

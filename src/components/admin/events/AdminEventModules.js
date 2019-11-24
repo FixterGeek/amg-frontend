@@ -12,6 +12,7 @@ import Button from '../../reusables/Button';
 function AdminEventModules({
   addModule, modules, eventId,
   updateEventActivityAction, removeActivityAction, removeModuleAction,
+  event = {}
 }) {
   const { Title } = Typography;
 
@@ -27,6 +28,7 @@ function AdminEventModules({
       {
         modules.map(module => (
           <ModuleContent
+            eventSpeakers={event.speakers}
             module={module}
             eventId={eventId}
             updateEventActivityAction={updateEventActivityAction}
