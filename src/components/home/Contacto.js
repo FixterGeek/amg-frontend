@@ -8,7 +8,10 @@ import ScrollIndicator from './reusables/ScrollIndicator';
 
 const { Option } = Select;
 
-function Contacto() {
+function Contacto({history}) {
+
+
+
     document.title = 'Contacto | Asociación Mexicana de Gastroenterología';
     return (
         <section className="app">
@@ -26,7 +29,7 @@ function Contacto() {
             </section>
             <section className="form-contacto">
                 <h2 className="titles">¿Qué podemos hacer por ti?</h2>
-                <ContactForm />
+                <ContactForm history={history} />
             </section>
             <Footer/>
         </section>
