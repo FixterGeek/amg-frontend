@@ -12,6 +12,7 @@ import AdminInvoices from './invoices/AdminInvoices';
 import AdminInvoicesForm from './invoices/AdminInvoicesForm';
 import AdminInvoicesFiscalData from './invoices/AdminInvoicesFiscalData';
 import AdminInvoicesPayment from './invoices/AdminInvoicesPayments';
+import AdminManualInvoiceForm from './invoices/ManualInvoiceForm';
 import AdminEventsEdit from './events/AdminEventEdit';
 import AdminSubsidiaries from './subsidiaries/AdminSubsidiaries';
 import AdminSubsidiaryProfile from './subsidiaries/AdminSubsidiaryProfile';
@@ -34,6 +35,7 @@ function AdminRouter() {
       <Route path="/admin/filiales/:id" component={AdminSubsidiaryProfile} />
       <Route exact path="/admin/filiales" component={AdminSubsidiaries} />
       {/* Invoices */}
+      <Route path="/admin/invoices/crear" component={AdminManualInvoiceForm} />
       <Route exact path="/admin/invoices/payments" component={AdminInvoicesPayment} />
       <Route exact path="/admin/invoices/fiscals" component={AdminInvoicesFiscalData} />
       <Route exact path="/admin/invoices/edit" component={AdminInvoicesForm} />

@@ -37,9 +37,12 @@ function Invoices({
             Datos fiscales
           </Button>
         </Link>
-        <Link to="/admin/invoices/payments">
-          <Button marginTop="0px" line width="200px" style={{ marginLeft: '32px' }}>
+        <Link to="/admin/invoices/crear">
+          {/* <Button marginTop="0px" line width="200px" style={{ marginLeft: '32px' }}>
             Pagos para facturar
+          </Button> */}
+          <Button marginTop="0px" line width="200px" style={{ marginLeft: '32px' }}>
+            Facturar
           </Button>
         </Link>
       </ContainerItem>
