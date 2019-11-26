@@ -218,12 +218,10 @@ export function getSingleEventEpic(action$, state$) {
         //filter(({ payload }) => typeof payload === "object" && payload.password !== "" && payload.email !== ""),
         withLatestFrom(state$.pipe(pluck('user'))),
         switchMap(([action, { token }]) => {
-            console.log(action.payload)
             return concat(
                 //of(setFetchingUser()),
                 ajax.get(`${baseURL}events/${action.payload}/`, { "Authorization": token }).pipe(
                     map(resp => {
-                        console.log(resp)
                         //localStorage.authToken = resp.response.token
                         return getSingleEventSuccess({ ...resp.response, status: null })
                     }),

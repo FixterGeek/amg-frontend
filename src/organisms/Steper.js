@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 function Steper({ history }) {
   const { location } = history;
 
-  console.log(location);
 
   const { pathname } = location;
 

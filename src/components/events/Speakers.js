@@ -18,8 +18,6 @@ function Speakers({ history }) {
     if (!event._id) setEvent({ ...event, ...location.state })
   }, [location.state]);
 
-  console.log(event)
-
 
   return (
     <div className="dashboard-container">

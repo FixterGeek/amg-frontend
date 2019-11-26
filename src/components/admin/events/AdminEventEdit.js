@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import XLSX from 'xlsx-chart';
+import { Parser } from 'json2csv';
 
 import { Tabs, Typography, Divider, Popconfirm } from 'antd';
 
@@ -15,6 +15,7 @@ import {
   removeModuleAction,
   deleteEventAction,
 } from '../../../store/ducks/adminDuck';
+import { getAllUsers } from '../../../store/ducks/users';
 import ContainerItem from '../../reusables/ContainerItem';
 import Spinner from '../../reusables/Spinner';
 import AdminEventForm from './AdminEventForm';
@@ -31,7 +32,8 @@ function AdminEventEdit({
   saveDraftEvent, getSingleEvent, addSpeakerAction,
   speakers, fetching, addModuleAction,
   modules, updateEventActivityAction, removeActivityAction,
-  removeModuleAction, deleteEventAction
+  removeModuleAction, deleteEventAction,
+  getAllUsers, users,
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -43,35 +45,43 @@ function AdminEventEdit({
     if (params.id) {
       setSectionTitle('Modificar evento');
       getSingleEvent(params.id);
+      getAllUsers();
     }
   }, []);
 
-  const generateReport = () => {
-    const doc = new XLSX();
-    const opts = {
-      file: 'report.xlsx',
-      chart: 'column',
-      titles: [
-        "Title 1",
-        "Title 2",
-      ], fields: [
-        'Field 1',
-        'Field 2',
-      ],
-      data: {
-        "Title 1": {
-          "Field 1": 1,
-        },
-        "Title 2": {
-          "Field 1": 1,
-        }
-      }
-    };
+  console.log(state);
 
-    doc.writeFile(opts, (error) => {
-      console.log(error);
-      console.log(opts.file);
-    })
+  const generateReport = () => {
+    const fields = [
+      { label: 'Nombre', value: 'name' },
+      { label: 'Apellido paterno', value: 'dadSurname' },
+      { label: 'Apellido materno', value: 'momSurname' },
+      { label: 'Correo electronico', value: 'email' },
+      { label: 'Membresía', value: 'membership' },
+      { label: 'Especialidad', value: 'speciality' },
+      { label: 'Lugar de nacimiento', value: 'place' },
+      { label: 'Fecha de inscripción', value: 'createdDate' }
+    ]
+
+    const data = users.map(u => ({
+      name: u.basicData.name,
+      dadSurname: u.basicData.dadSurname,
+      momSurname: u.basicData.momSurname,
+      email: u.email,
+      membership: u.membershipStatus === 'Free' ? 'No socio' : u.membershipStatus === 'Residente' ? 'Socio en entrenamiento' : u.membershipStatus === 'Veterano' ? 'Emérito' : 'Socio',
+      speciality: u.basicData.speciality,
+      place: u.basicData.placeOfBirth.state || u.address.state,
+      _id: u._id,
+    })).filter(u => state.assistants.includes(u._id));
+
+    const jsonP = new Parser({ fields });
+    const csv = jsonP.parse(data);
+    
+    const he = document.createElement('a');
+    he.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    he.target = '_blank';
+    he.download = `${state.title}_asistencia.csv`;
+    he.click();
   };
 
   return (
@@ -93,9 +103,14 @@ function AdminEventEdit({
           )
         }
         
-        {/* <Button line marginTop="0" style={{ marginLeft: '32px' }} >
+        <Button
+          onClick={() => generateReport()}
+          line
+          marginTop="0"
+          style={{ marginLeft: '32px' }}
+          htmlType="button" >
           Generar reporte de asistencia
-        </Button> */}
+        </Button>
       </div>
       <ContainerItem style={{ position: 'relative' }}>
         { fetching && <Spinner fullScrren /> }
@@ -154,12 +169,14 @@ function AdminEventEdit({
   );
 }
 
-function mapStateToProps({ admin }) {
+function mapStateToProps({ admin, users }) {
+  console.log(users);
   return {
     state: admin.workingOn,
     speakers: admin.workingOn.speakers,
-    fetching: admin.workingOn.fetching,
+    fetching: admin.workingOn.fetching || users.fetching,
     modules: admin.workingOn.modules,
+    users: users.array,
   }
 }
 
@@ -174,5 +191,6 @@ export default connect(
     removeActivityAction,
     removeModuleAction,
     deleteEventAction,
+    getAllUsers,
   }
 )(AdminEventEdit);

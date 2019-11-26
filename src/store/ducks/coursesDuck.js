@@ -142,7 +142,6 @@ const deleteActivityCourseError = error => ({ type: DELETE_ACTIVITY_COURSE_ERROR
 
 /* Thunk */
 export const populateEventCoursesAction =  eventId => (dispatch) => {
-  console.log(eventId);
   dispatch(populateEventCourses());
   return getCoursesForEvent(eventId)
     .then((coursesArray) => {

@@ -33,7 +33,6 @@ function AdminUserDetail({
 
   useEffect(() => {
     if (user._id) {
-      console.log(user._id);
       populateEducationAction(user._id);
       populateActivitiesAction(user._id);
     }

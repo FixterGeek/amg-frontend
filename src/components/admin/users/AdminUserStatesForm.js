@@ -35,8 +35,6 @@ function AdminUserStatesForm({
     updateUser({ ...workingOn, revisionDate: moment().toString() });
   };
 
-  console.log(subsidiaries);
-
   return (
     <Form className="admin-users-states-form" onSubmit={handleSubmit}>
       { subsidiaryFetching && <Spinner fullScrren /> }

@@ -63,7 +63,7 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
             key: 'tags',
             dataIndex: 'tags',
             render: (tags = []) => {
-                console.log('A tag', tags)
+                // console.log('A tag', tags)
                 return (
                     <span>
                         {tags.map(tag => {
@@ -128,7 +128,7 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
         setFiltered(resultsArray);
     }
 
-    console.log(list);
+    // console.log(list);
 
     return (
         <section>

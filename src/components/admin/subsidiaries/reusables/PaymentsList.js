@@ -19,8 +19,6 @@ function PaymentsList({
   populateSubsidiaries,
 }) {
 
-  console.log(payments);
-
   const colums = [
     {
       title: 'Fecha',

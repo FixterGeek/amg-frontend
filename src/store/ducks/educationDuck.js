@@ -66,7 +66,6 @@ export function populateEducationError(error) {
 export const createEducationAction = (type, educationData) => async (dispatch) => {
   dispatch(createEducation());
   const { user, titleFile, ceduleFile, certificateFile } = educationData;
-  console.log(type)
 
   if (type === 'studies' || type === 'residences') {
     if (titleFile) await uploadFile(`users/${user}/docs`, titleFile)
@@ -106,7 +105,6 @@ export const createEducationAction = (type, educationData) => async (dispatch) =
       return data;
     })
     .catch(({ response }) => {
-      console.log(response)
       dispatch(createEducationError(response));
       return response;
     });
@@ -126,10 +124,8 @@ export const populateEducationAction = (userId) => (dispatch) => {
     return localEducation;
   }
 
-  console.log(userId);
   if (userId) return getUser(userId)
     .then((data) => {
-      console.log(data);
       const { studies = [], residencies = [], internships = [] } = data;
 
       localStorage.education = JSON.stringify({ studies, residencies, internships });
@@ -143,7 +139,6 @@ export const populateEducationAction = (userId) => (dispatch) => {
 
   return getSelfUser()
     .then((data) => {
-      console.log(data);
       const { studies = [], residencies = [], internships = [] } = data;
 
       localStorage.education = JSON.stringify({ studies, residencies, internships });

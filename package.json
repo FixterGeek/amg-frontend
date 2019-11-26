@@ -16,6 +16,7 @@
     "get-urls": "^9.1.0",
     "grabity": "^1.0.5",
     "html-to-image": "^0.1.1",
+    "json2csv": "^4.5.4",
     "jspdf": "^1.5.3",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",

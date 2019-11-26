@@ -31,8 +31,6 @@ function Feed({
   const [lastEvent, setLastEvent] = useState({ _id: null });
   const { publications: pubs } = publications;
 
-  console.log(events);
-
 
   useEffect(() => {
     if (events.length > 0) {

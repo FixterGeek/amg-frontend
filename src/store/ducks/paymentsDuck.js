@@ -101,7 +101,6 @@ export const makePaymentAction = (paymentData, paymentType = 'event') => (dispat
   dispatch(fetching());
   return payment(paymentData, paymentType)
     .then(({ conektaOrder, payment }) => {
-      console.log(conektaOrder);
       useSweet().successAlert({ text: conektaOrder.payment_status === 'paid' ? 'Pago realizado' : 'Pago pendiente' });
       dispatch(makePaymentSuccess({payment, conektaPaid: conektaOrder.payment_status}));
       return {payment, conektaOrder};
@@ -202,7 +201,6 @@ export function reducer(state = paymetState, action) {
     case FETCHING_ERROR:
       return { ...state, status: 'error', error: action.payload };
     case WORKING_ON:
-      console.log(action.payload);
       return { ...state, workingOn: action.payload };
     case RESET_WORKING_ON:
       return { ...state, workingOn: action.payload };

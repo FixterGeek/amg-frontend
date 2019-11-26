@@ -14,8 +14,6 @@ function BuyDetail({ details, onAmount }) {
     acount: 0,
   });
 
-  console.log('DETAILS', details);
-
   useEffect(() => {
     let subamount = 0;
     details.map(detail => {

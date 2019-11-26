@@ -26,7 +26,7 @@ function OxxoOrder({ oxxoOrder }) {
       });
   };
 
-  console.log(oxxoOrder);
+  // console.log(oxxoOrder);
 
   return (
     <div className="dashboard-container">

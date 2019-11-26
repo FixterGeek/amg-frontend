@@ -102,7 +102,6 @@ function Publisher({
     createPublicationAction(formData).then(() => setPublication(initialPublications));
   };
 
-  console.log(publication);
 
   return (
     <ContainerItem className="feed-publisher" style={{ position: 'relative' }}>
@@ -146,7 +145,6 @@ function Publisher({
       <div className="feed-publisher-previews">
         { 
           imagesVideos.slice(0, 5).map((item, index) => {
-            console.log(item);
             if (imagesVideos.length > 5 && index === 4) {
               return (
                 <MediaGallery

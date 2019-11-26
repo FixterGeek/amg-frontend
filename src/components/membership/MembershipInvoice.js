@@ -39,7 +39,6 @@ function MembershipInvoice({
     makePaymentInvoiceAction(paymentData._id);
   };
 
-  console.log(paymentFetching);
 
   return (
     <div className="dashboard-container">

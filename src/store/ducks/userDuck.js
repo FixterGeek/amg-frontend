@@ -231,7 +231,6 @@ export function loginUserEpic(action$) {
                     //delay(5000),
                     takeUntil(action$.pipe(ofType("CANCEL"))),
                     catchError(err => {
-                        console.log("ero", err)
                         return of(loginUserError(err.response.name))
                     })
                 )
@@ -335,7 +334,6 @@ export const createUserAction = (userData) => (dispatch) => {
             return data
         })
         .catch((error) => {
-            console.log('AQUIIII!!!', error.response);
             return errorAction(
                 dispatch, createUserError, error, RESET_USER_STATUS, 'Error al registrar',
             )

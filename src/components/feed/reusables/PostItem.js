@@ -35,7 +35,6 @@ function PostItem({
   const [visibleOptions, setVisibleOptions] = useState(false);
 
   const handleDelete = () => {
-    console.log('Delete');
     if (deleteDispatch) deleteDispatch(publication._id);
   };
 

@@ -19,7 +19,6 @@ function SubscribeButton({
   subscribeUserToActivityAction, subscribeUserToEventAction,
   assistedEvents, activityObject = {}, assistedActivities
 }) {
-  console.log(eventObject);
   const { membershipStatus = 'Veterano', userStatus } = user;
   let userPays = false;
     if (eventObject.cost) userPays = membershipStatus === 'Socio' && eventObject.cost.socioCost > 0;

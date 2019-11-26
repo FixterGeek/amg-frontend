@@ -115,7 +115,7 @@ function mapSateToProps({ users, user, subsidiary }, { match = {} }) {
   const { params = {} } = match;
   let subs = {}
   if (subsidiary.array[0]) subs = subsidiary.array.filter(s => s._id === params.id)[0];
-  console.log(subsidiary);
+  // console.log(subsidiary);
   let us = []
   if (subs) us = users.array.filter(u => {
     if (u.address && u.address.state === subs.state) return true;

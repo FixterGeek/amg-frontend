@@ -52,8 +52,6 @@ function RangeDatePicker({
     setDate({ ...dates, [name]: moment.toString() });
   };
 
-  console.log(dates);
-
   return (
     <div className="reusable-component-range-picker">
       <Item label={label}>

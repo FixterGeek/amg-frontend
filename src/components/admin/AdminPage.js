@@ -11,8 +11,6 @@ function Admin({ history, user }) {
         if (!(user.userType === 'Admin' || user.filialAsAdmin)) history.push('/dashboard');
     }, []);
 
-    console.log(history);
-
     return (
         <div className="admin-page-container">
             <section className="admin-page-menu-container" >

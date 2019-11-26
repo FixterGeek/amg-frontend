@@ -42,10 +42,6 @@ export default function SpeakerModal({
     let [openModal, setOpenModal] = useState(false)
 
 
-    useEffect(() => {
-        console.log(speaker)
-    }, [speaker])
-
     function onChange({ target: { name, value } }) {
         setSpeaker({ ...speaker, [name]: value })
     }

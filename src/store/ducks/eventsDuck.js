@@ -111,7 +111,6 @@ export function getAdminEventsEpic(action$, state$) {
           //delay(5000),
           //takeUntil(action$.pipe(ofType("CANCEL"))),
           catchError(err => {
-            console.log("ero", err)
             return of(getAdminEventsError(err))
           })
         )
@@ -148,7 +147,6 @@ export const populateUserEventsAction = (userId) => (dispatch) => {
       );
     })
     .catch((error) => {
-      console.log(error);
       return errorAction(
         dispatch, populateUserEventsError, error, RESET_EVENTS_STATUS, 'Tue eventos no estan disponibles'
       );

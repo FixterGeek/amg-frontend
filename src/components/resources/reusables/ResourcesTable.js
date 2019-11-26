@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -16,6 +16,7 @@ function ResourcesTable({
   const { Search } = Input;
 
   const { errorAlert } = useSweet();
+  const [filtered, setFiltered] = useState(null);
 
   const handleSearch = (value) => {
     if (onSearch) onSearch(value)
@@ -27,12 +28,25 @@ function ResourcesTable({
       .catch(error => errorAlert({}));
   }
 
+  const handleWriteSearch = (value) => {
+    const regex = new RegExp(value, 'i');
+    const f = data.filter(d => {
+      if (regex.test(d.title)) return true;
+      if (regex.test(d.subtitle)) return true;
+      if (regex.test(d.authors)) return true;
+      return false;
+    });
+
+    setFiltered(f[0] ? f : data);
+  };
+
   const columns = [
     {
       key: 'resource',
       title: (
         <div className="reusables-resources-table-finder">
           <Search
+            onChange={({ target }) => handleWriteSearch(target.value)}
             onSearch={handleSearch}
             placeholder="¿Buscas algo?"
           />
@@ -83,7 +97,7 @@ function ResourcesTable({
     <div className="reusables-resources-table">
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={filtered || data}
         rowKey="_id"
         locale={{ emptyText }}
       />

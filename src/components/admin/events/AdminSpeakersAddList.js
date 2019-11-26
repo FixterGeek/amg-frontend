@@ -13,7 +13,6 @@ function AdminSpeakersAddList({
   const [filtered, setFiltered] = useState(speakers);
 
   const handleChange = (target, speakerId, speaker) => {
-    console.log(target.checked);
     if (target.checked) {
       if (!addedSpeakers.includes(speakerId)) setAddedSpeaker([...addedSpeakers, speakerId]);
     } else {
@@ -28,7 +27,6 @@ function AdminSpeakersAddList({
   }
 
   const handleSearch = (value) => {
-    console.log(value);
     const regex = new RegExp(value, 'i');
     const f = speakers.filter(s => regex.test(s.fullName));
     setFiltered(f);

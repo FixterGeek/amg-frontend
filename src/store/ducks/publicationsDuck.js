@@ -125,7 +125,6 @@ export const createPublicationAction = publicationData => (dispatch) => {
 
 // Delete publication
 export const deletePublication = (publicationId) => (dispatch) => {
-  console.log('Deleting', publicationId);
   dispatch(fetching());
   return deletePost(publicationId)
     .then(deletedPost => successAction(

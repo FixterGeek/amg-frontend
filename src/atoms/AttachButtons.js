@@ -20,11 +20,11 @@ function AttachButtons(props) {
   };
 
   const handleFile = (file) => {
-    console.log(file);
+    // console.log(file);
     dispatch(updatePublications({ file, fileType: file.type.split('/')[1] }));
   };
 
-  console.log(file, fileType);
+  // console.log(file, fileType);
   return (
     <div className="attach-buttons">
       <div>

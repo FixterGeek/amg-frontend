@@ -37,8 +37,6 @@ function Program({ history, user }) {
       });
   }, []);
 
-  console.log(user);
-
   return (
     <div className="events-program dashboard-container">
       { loading && <Spinner tip="Cargando programa..." /> }

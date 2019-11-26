@@ -23,8 +23,6 @@ function LoginForm({
     password: null,
   });
 
-  console.log(error);
-
   useEffect(() => {
     if (isLogged) history.push("/dashboard/events")
   }, [isLogged]);

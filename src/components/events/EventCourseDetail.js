@@ -20,7 +20,6 @@ function EventCourseDetail({
 
   useEffect(() => {
     const currentCourse = courses.filter(c => c._id === params.courseId);
-    console.log(currentCourse);
     if (currentCourse.length === 0) populateEventCoursesAction(params.eventId);
     else setCourse(state => ({...state, ...currentCourse[0]}));
   }, [params.eventId, params.courseId, courses.length]);
@@ -33,7 +32,6 @@ function EventCourseDetail({
         <ContainerItem>
           {
             course.modules.map(module => {
-              console.log(typeof module);
               if (typeof module === 'string') return null
               return (
                 <ContainerItem> 

@@ -24,7 +24,7 @@ function AdminCourses({
     populateEventCoursesAction(params.id);
   }, [courses.length]);
 
-  console.log(courses);
+  // console.log(courses);
 
   return (
     <div className="admin-courses">
