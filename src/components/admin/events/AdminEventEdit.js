@@ -120,7 +120,7 @@ function AdminEventEdit({
             />
             <Divider />
             <Title level={3}>Lista de ponentes</Title>
-            <AdminSpeakersList speakers={speakers} event={state} />
+            <AdminSpeakersList speakers={speakers} event={state} saveDraftEvent={saveDraftEvent} />
           </TabPane>
           <TabPane key="3" tab="Programa" disabled={!state._id}>
             <AdminEventModules

@@ -21,7 +21,7 @@ function AdminEventModules({
       <ContainerItem className="editable-section-header">
         <Title level={3}>Módulos y atividades</Title>
         <JustModal
-          buttonText="Agregar modulo ✚"
+          buttonText="Agregar modúlo ✚"
           childElement={<AdminModuleForm eventId={eventId} addModule={addModule} />}
         />
       </ContainerItem>

@@ -50,12 +50,13 @@ function ModulesContent({
             <List>
               {record.speakers.map(s => {
                 const speaker = eventSpeakers.filter(sp => sp._id === s._id)[0];
-                return (
+                if (speaker) return (
                   <List.Item>
                     { speaker.fullName }
                     <Icon type="delete" onClick={() => deleteSpeakers(record, speaker)} />
                   </List.Item>
                 )
+                return null
               })}
             </List>
           </div>

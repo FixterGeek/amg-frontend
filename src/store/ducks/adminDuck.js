@@ -43,6 +43,7 @@ let GET_SINGLE_EVENT = "GET_SINGLE_EVENT"
 let GET_SINGLE_EVENT_SUCCESS = "GET_SINGLE_EVENT_SUCCESS"
 let GET_SINGLE_EVENT_ERROR = "GET_SINGLE_EVENT_ERROR"
 let UPDATE_WORKING_ON = "UPDATE_WORKING_ON"
+const RESET_ADMIN = "RESET_ADMIN_VALUES";
 
 const ADD_MODULE = "ADD_MODULE"
 const ADD_MODULE_ERROR = "ADD_MODULE_ERROR"
@@ -224,7 +225,7 @@ export function getSingleEventEpic(action$, state$) {
                     map(resp => {
                         console.log(resp)
                         //localStorage.authToken = resp.response.token
-                        return getSingleEventSuccess({ ...resp.response })
+                        return getSingleEventSuccess({ ...resp.response, status: null })
                     }),
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),
@@ -441,6 +442,8 @@ function draftEvents(
     action
 ) {
     switch (action.type) {
+        case RESET_ADMIN:
+            return { ...state, fetching: false, status: "idle" }
         case SAVE_DRAFT_EVENT_SUCCESS:
             return { ...action.payload, status: "success" }
         case SAVE_DRAFT_EVENT_ERROR:

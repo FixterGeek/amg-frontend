@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Form } from 'antd';
+import { Form, Icon } from 'antd';
 
 import { addSPeaker, saveDraftEvent } from '../../../store/ducks/adminDuck';
 import useSweet from '../../../hooks/useSweetAlert';
@@ -18,7 +18,8 @@ import { uploadFile } from '../../../tools/firebaseTools'
 function AdminSpeakerForm({
   addSpeaker, speakers, eventId,
   isModal, existingData = {},
-  event: ev, saveDraftEvent,
+  event: ev, saveDraftEvent, status,
+  drafStatus,
 }) {
   const initialState = {
     _id: existingData._id || null,
@@ -69,7 +70,11 @@ function AdminSpeakerForm({
         saveDraftEvent({ body: formData, id: ev._id });
         setLocalLoading(false);
       }
-      else addSpeaker(eventId, st);
+      else {
+        delete st._id
+        addSpeaker(eventId, st);
+        setLocalLoading(false);
+      }
     }
   }
 
@@ -107,16 +112,24 @@ function AdminSpeakerForm({
     return formData
   }
 
-  console.log(ev);
-
-  // console.log('state', state);
-  // console.log('existing', existingData);
+  console.log(drafStatus, status);
 
   return (
     <FormManager
       isModal={isModal}
-      modalOpenText={existingData ? 'Actualizar ponente' : 'Agregar ponente'}
+      modalOpenText={existingData && existingData._id ? 'Actualizar ponente' : 'Agregar ponente'}
       onModalClose={() => setState(initialState)}
+      status={
+        drafStatus === 'success' || status === 'success' ? 'success' :
+        drafStatus === 'error' || status === 'error' ? 'error' : null
+      }
+      openModalElement={
+        existingData ?
+        <div style={{ color: '#28abd8' }}>Editar <Icon type="edit" /></div>
+        : null
+      }
+      successClose
+      errorClose
       lineButton
       noSubmit
     >
@@ -170,6 +183,8 @@ function mapStateToProps({ admin }) {
   // console.log(admin);
   return {
     admin,
+    status: admin.workingOn.status,
+    drafStatus: admin.draftEvents.status,
   }
 }
 
