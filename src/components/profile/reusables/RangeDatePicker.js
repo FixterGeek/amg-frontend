@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import M from 'moment';
 
 import { DatePicker, Button, Input, Icon } from 'antd';
 
@@ -23,6 +23,7 @@ function RangeDatePicker({
   };
 
   const [current, setCurrent] = useState();
+  const [errorDate, setErrorDate] = useState(null);
   const [dates, setDate] = useState({
     startDate: null,
     endDate: null,
@@ -40,7 +41,18 @@ function RangeDatePicker({
   };
 
   const handleDate = (moment, name) => {
-    setDate({ ...dates, [name]: moment });
+    if (name === 'endDate' && dates.startDate) {
+      const valid = M(moment).diff(M(dates.startDate)) > 0;
+      if (valid) {
+        setDate(d => ({ ...d, [name]: moment }));
+        setErrorDate(null);
+      }
+      else {
+        setErrorDate('La fecha de termino es menor a la de inicio.');
+        setDate(d => ({ ...d, endDate: null }));
+      }
+    }
+    if (name === 'startDate') setDate({ ...dates, [name]: moment });
   };
 
   return (
@@ -78,6 +90,8 @@ function RangeDatePicker({
             ) :
             onlyMonth ? (
               <MonthPicker
+                className={errorDate ? 'error' : null}
+                disabled={!dates.startDate}
                 onChange={moment => handleDate(moment, 'endDate')}
                 value={dates.endDate}
                 renderExtraFooter={ () => (
@@ -91,6 +105,8 @@ function RangeDatePicker({
               />
             ) : (
               <DatePicker
+                className={errorDate ? 'error' : null}
+                disabled={!dates.startDate}
                 onChange={moment => handleDate(moment, 'endDate')}
                 value={dates.endDate}
                 renderExtraFooter={ () => (
@@ -106,6 +122,11 @@ function RangeDatePicker({
           }
         </div>
       </div>
+      {
+        errorDate && (
+          <div className="error">{errorDate}</div>
+        )
+      }
     </div>
   );
 }

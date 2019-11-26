@@ -135,6 +135,15 @@
     font-weight: bold;
   }
 
+  .error {
+    input {
+      border-color: transparent;
+      border-bottom: 2px solid $red;
+    }
+
+    color: $red;
+  }
+
   &-container {
     display: flex;
     align-items: center;
