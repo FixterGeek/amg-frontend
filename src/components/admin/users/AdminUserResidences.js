@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
+import { Icon } from 'antd';
+
 import { getResidencesForUser } from '../../../services/residencesServices';
 
 import useSweet from '../../../hooks/useSweetAlert';
@@ -37,7 +39,7 @@ function AdminUserResendences({
       { loading && <Spinner fullScrren /> }
       {
         residences.map(r => (
-          <div>
+          <div style={{ position: 'relative' }}>
             <BoxItem
               noLeft
               title={r.speciality}
@@ -48,12 +50,21 @@ function AdminUserResendences({
                 : `${moment(r.startDate).format('DD/MM/YY')} - Actualidad`
               }
             />
-            <div>
-              <a href={r.certificadoURLS[0] || '#'} target="_blank">
-                <Button width="100%" disabled={!r.certificadoURLS[0]}>
-                  { r.certificadoURLS[0] ? 'Ver certificado' : 'No hay certificado' }
-                </Button>
-              </a>
+            <div style={{ position: 'absolute', right: 0, marginRight: '16px', top: '16px' }}>
+              {
+                r.certificadoURLS[0] && (
+                  <a
+                    style={{
+                      backgroundColor: '#022047', width: '40px', height: '40px',
+                      display: 'flex', borderRadius: '50%', justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    href={r.certificadoURLS[0] || '#'}
+                    target="_blank">
+                    <Icon type="file-text" style={{ color: 'white', fontSize: '1.4rem' }}  /> 
+                  </a>
+                )
+              }
             </div>
           </div>
         ))
