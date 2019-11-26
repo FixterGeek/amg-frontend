@@ -66,7 +66,7 @@ function AdminDashboard({
             <SmallBoxItem
               key={u._id}
               title={`${u.basicData.name} ${u.basicData.dadSurname}`}
-              rigth={`${moment(u.revisionDate).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}
+              rigth={`${moment(u.createdAt).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}
               to={`/admin/users/${u._id}`}
             />
           ))
