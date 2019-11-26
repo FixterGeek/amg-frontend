@@ -124,7 +124,7 @@ function AdminSpeakerForm({
         drafStatus === 'error' || status === 'error' ? 'error' : null
       }
       openModalElement={
-        existingData ?
+        existingData && existingData._id ?
         <div style={{ color: '#28abd8' }}>Editar <Icon type="edit" /></div>
         : null
       }
