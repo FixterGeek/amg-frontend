@@ -10,18 +10,20 @@ import logo from '../../assets/log.png'
 
 function FeedAmgFinder({ history }) {
   const [results, setResult] = useState([]);
+  const [noData, setNoData] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = (value) => {
     setLoading(true);
     findUsers(value).then((usersArray) => {
       setResult(usersArray);
+      setNoData(!usersArray.length > 0);
       setLoading(false);
     });
   }
 
   const handleChange = (value) => {
-    history.push(`/dashboard/perfil/publico/${value}`, { state: { isEmail: value.includes('@') }})
+    if(value !== 'no-user') history.push(`/dashboard/perfil/publico/${value}`, { state: { isEmail: value.includes('@') }})
   }
 
   return (
@@ -36,6 +38,7 @@ function FeedAmgFinder({ history }) {
         onSearch={handleSearch}
         onChange={handleChange}
         placeholder="Buscar colegas"
+        notFoundContent={noData ? 'Usuario no encontrado' : 'Encuentra colegas'}
       >
         {
           results.map(r => (
@@ -47,6 +50,12 @@ function FeedAmgFinder({ history }) {
               {`${r.basicData.name} ${r.basicData.dadSurname} ${r.basicData.momSurname || ''}`}
             </Select.Option>
           ))
+        }
+        {
+          noData &&
+          <Select.Option key="no-user" value="no-user">
+            Usuario no encontrado
+          </Select.Option>
         }
       </Select>
     </div>
