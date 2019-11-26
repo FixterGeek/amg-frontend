@@ -913,6 +913,9 @@ $eventLeftWidth: 350px;
     align-items: center;
     height: 72px;
     padding: 0px $largePadding;
+    input {
+      border-radius: 0px!important;
+    }
   }
 }
 
@@ -932,6 +935,9 @@ $eventLeftWidth: 350px;
 
 // AdminSubsidiaryProfile
 .admin-subsidiary-profile {
+  .ant-tabs-top-bar {
+    margin-bottom: 0px;
+  }
   &-info {
     display: flex;
 

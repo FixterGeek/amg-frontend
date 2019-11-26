@@ -54,8 +54,8 @@ function AdminDashboard({
         </div>
         <div>
           <Pie data={[
-            { name: 'al corriente', stat: currents.length },
-            { name: 'pendientes', stat: slopes.length },
+            { name: 'Al corriente', stat: currents.length },
+            { name: 'Pendientes', stat: slopes.length },
           ]} />
         </div>
       </ContainerItem>

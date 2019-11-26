@@ -66,7 +66,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                     <Item key={2} onClick={() => link('/admin/events')}>
                         <Icon
                             component={EventIcon}
-                            className={ currentLocation === 'events' ? 'menu-item-active' : '' }
+                            className={ currentLocation === 'events' || currentLocation === 'eventos' ? 'menu-item-active' : '' }
                         />
                         <span>Eventos</span>
                     </Item>

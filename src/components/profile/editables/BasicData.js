@@ -66,7 +66,7 @@ function BasicData({
           },
         },
       }).then((data) => {
-        console.log(data);
+        // console.log(data);
       }).catch(() => errorAlert());
     }
   };
@@ -122,7 +122,7 @@ function BasicData({
               type="primary" />
           )
         }
-        <ProfilePhoto photoURL={temporalPhoto || basicData.photoURL} />
+        <ProfilePhoto photoURL={temporalPhoto || basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'} />
       </div>
 
       <ModalName user={user} dispatch={dispatch} />

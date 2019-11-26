@@ -30,7 +30,7 @@ function PersonalProfile({
 
   const { errorAlert } = useSweet();
   const { basicData = {}, membershipStatus = null, photo = null } = user;
-  const { photoURL = null, speciality = null } = basicData;
+  const { photoURL = 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a', speciality = null } = basicData;
 
   useEffect(() => {
     if (userStatus === 'error' || studiesStatus === 'error' || activitiesStatus === 'error') {
@@ -62,7 +62,7 @@ function PersonalProfile({
       <BasicData
         photoFile={photo}
         dispatch={updateUserAction}
-        photoURL={photoURL}
+        photoURL={photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44ax'}
         user={user}
         membershipStatus={membershipStatus}
         speciality={speciality} />

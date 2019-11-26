@@ -65,7 +65,7 @@ function PostItem({
               url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'}
               containerStyle={{
                 maxWidth: '80px', maxHeight: '80px', borderStyle: 'none',
-                backgroundColor: '#1f2536'
+                backgroundColor: '#f5f8f9'
               }}
               imageStyle={{ maxWidth: '120px', maxHeight: '120px' }}
               alt={`${basicData.name} ${basicData.dadSurname}`}

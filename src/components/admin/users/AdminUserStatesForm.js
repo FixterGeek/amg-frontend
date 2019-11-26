@@ -97,7 +97,7 @@ function AdminUserStatesForm({
           <Radio value="Free">No socio</Radio>
           <Radio value="Residente">Socio en entrenamiento</Radio>
           <Radio value="Socio">Socio</Radio>
-          <Radio value="Veterano">Veterano</Radio>
+          <Radio value="Veterano">Emérito</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item label="Estado de registro">

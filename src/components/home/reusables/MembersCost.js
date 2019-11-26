@@ -6,7 +6,7 @@ function MembersCost() {
     <div className="home-members-costs">
       <div className="cards">
         <Card
-          membershipType="Nuevo ingreso"
+          membershipType="Nuevo socio"
           membershipCostDisplay="$4,750.00"
           onlyHeader
         />
@@ -16,12 +16,12 @@ function MembersCost() {
           onlyHeader
         />
         <Card
-          membershipType="Titulares"
+          membershipType="Titular"
           membershipCostDisplay="$1,625.00"
           onlyHeader
         />
         <Card
-          membershipType="Eméritos"
+          membershipType="Emérito"
           onlyHeader
         />
       </div>

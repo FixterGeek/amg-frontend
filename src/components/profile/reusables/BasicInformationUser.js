@@ -24,16 +24,17 @@ function BasicInformationUser({
     <ContainerItem className="profile-reusables-basic-information-user">
       {
         editableLink && (
-          <Link to="/dashboard/perfil/editar">
-            <div className="edit">
-              <span style={{ fontSize: '1rem', marginRight: '8px' }}>Editar perfil</span>
-              <Icon type="edit" />
-            </div>
+          <Link
+            to="/dashboard/perfil/editar"
+            style={{ position: 'absolute', top: '-32px', right: 0 }}>
+            <Button width="200px" line>
+              Editar perfil <Icon type="edit" />
+            </Button>
           </Link>
         )
       }
       <div className="photo-container">
-        <ProfilePhoto photoURL={photoURL} />
+        <ProfilePhoto photoURL={photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'} />
       </div>
       <Title level={4}>{`${name} ${dadSurname} ${momSurname}`}</Title>
       <Text className="info-item">{ membershipStatus }</Text>

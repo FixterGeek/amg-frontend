@@ -59,7 +59,7 @@ function AdminResources({
         </Link>
       </ContainerItem>
       <ContainerItem>
-          <Title level={3}>Ultimos recursos</Title>
+          <Title level={3}>Últimos recursos</Title>
       </ContainerItem>
       <ContainerItem style={{ position: 'relative' }}>
         { fetching || localLoading ? <Spinner /> : null }

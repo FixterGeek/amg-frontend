@@ -26,7 +26,7 @@ function FeedAmgFinder({ history }) {
 
   return (
     <div className="feed-amg-finder">
-      { loading && <Spinner fullScrren /> }
+      {/* { loading && <Spinner fullScrren /> } */}
       <img src={logo} height="50" />
       <Select
         suffixIcon={<Icon type="search" />}
@@ -35,11 +35,15 @@ function FeedAmgFinder({ history }) {
         defaultActiveFirstOption={false}
         onSearch={handleSearch}
         onChange={handleChange}
+        placeholder="Buscar colegas"
       >
         {
           results.map(r => (
             <Select.Option key={r._id} value={r.slug || r.email} className="feed-amg-finder-result">
-              <ImagePreview url={r.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'} />
+              <ImagePreview
+                imageStyle={!r.basicData.photoURL ? { maxHeight: '20px', maxWidth: '20px' } : null}
+                containerStyle={{ backgroundColor: '#f5f8f9' }}
+                url={r.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'} />
               {`${r.basicData.name} ${r.basicData.dadSurname} ${r.basicData.momSurname || ''}`}
             </Select.Option>
           ))

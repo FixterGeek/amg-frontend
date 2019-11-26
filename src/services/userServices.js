@@ -100,7 +100,7 @@ export const getUserByFilter = (filter) => {
 
 export const findUsers = (value) => {
   const token = localStorage.authToken;
-  return axios.get(`${APIURL}/users?query={"$or": [{"basicData.name": {"$regex":"${value}", "$options": "i"}}, {"basicData.dadSurname": {"$regex":"${value}", "$options": "i"}}]}&limit=10`, {
+  return axios.get(`${APIURL}/users?query={"$or": [{"basicData.name": {"$regex":"${value}", "$options": "i"}}, {"basicData.dadSurname": {"$regex":"${value}", "$options": "i"}}]}&limit=8`, {
     headers: {
       Authorization: token,
     }

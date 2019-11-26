@@ -393,7 +393,8 @@ $profilePhotoSize: 120px;
 .profile-photo {
   width: $profilePhotoSize;
   height: $profilePhotoSize;
-  background-color: $secondary;
+  background-color: $clouds;
+  border: solid 1px white;
 
   &-none {
     font-size: 6rem;
