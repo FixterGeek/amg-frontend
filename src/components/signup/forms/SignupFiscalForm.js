@@ -15,7 +15,7 @@ import estados from '../../admin/estados.json';
 function SignupFiscalForm({
   user, dispatch, loading,
   status, resetStatus, history,
-  noTerms, noRedirect
+  noTerms, noRedirect, firstTime,
 }) {
   const { Title } = Typography;
 
@@ -51,6 +51,7 @@ function SignupFiscalForm({
       const upUser = user;
       upUser.fiscalData.rfc = fiscalData.rfc;
       upUser.fiscalData.address = { ...fiscalData }
+      if (firstTime) upUser.userStatus = 'Pendiente';
       dispatch({ ...upUser });
     }
   }, [acceptedTerms]);
