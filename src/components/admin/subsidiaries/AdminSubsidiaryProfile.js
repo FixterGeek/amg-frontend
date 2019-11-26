@@ -54,7 +54,6 @@ function AdminSubsidiary({
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           <Title>{ subsidiary.state }</Title>
           <Link
-            style={{ marginRight: '16px' }}
             to={{ pathname: `/admin/filiales/${subsidiary._id}/edit`, state: subsidiary }}>
             <Button line marginTop="0">
               Modificar datos
