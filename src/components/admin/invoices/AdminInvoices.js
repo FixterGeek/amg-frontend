@@ -7,6 +7,7 @@ import { Typography } from 'antd';
 import {
   populateInvoicesAction,
   resetInvoicesStatus,
+  populateExternalInvoices,
 } from '../../../store/ducks/invoicesDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
@@ -15,18 +16,20 @@ import InvoicesTable from './reusables/InvoicesTable';
 function Invoices({
   invoices, noInvoices, populateInvoicesAction,
   invoicesFetching, invoicesStatus, resetInvoicesStatus,
+  populateExternalInvoices,
 }) {
   const { Title } = Typography;
 
   useEffect(() => {
     if (!invoices[0] && !noInvoices) populateInvoicesAction();
+    populateExternalInvoices();
   }, [])
 
   useEffect(() => {
     if (invoicesStatus !== null) resetInvoicesStatus();
   }, [invoicesStatus])
 
-  // console.log(invoicesStatus);
+  console.log(invoices);
 
   return (
     <section className="admin-invoices">
@@ -66,5 +69,6 @@ export default connect(
   mapStateToProps, {
     populateInvoicesAction,
     resetInvoicesStatus,
+    populateExternalInvoices,
   }
 )(Invoices);

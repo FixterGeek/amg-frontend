@@ -58,7 +58,7 @@ function PersonalProfile({
 
   return (
     <div className="dashboard-container component-main-profile relative">
-      { userFetching && <Spinner /> }
+      { userFetching && <Spinner fullScrren /> }
       <BasicData
         photoFile={photo}
         dispatch={updateUserAction}

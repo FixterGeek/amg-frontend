@@ -29,3 +29,12 @@ export const getDataFacturacion = (fiscalData) => {
     },
   }).then(({ data }) => data);
 }
+
+export const getInvoices = () => {
+  const token = localStorage.authToken;
+  return axios.get(BASE_API, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}

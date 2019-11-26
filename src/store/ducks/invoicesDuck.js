@@ -1,8 +1,10 @@
 import {
   getDataFacturacion,
   makeInvoice,
+  getInvoices,
 } from '../../services/invoicesServices';
 import useSweet from '../../hooks/useSweetAlert';
+import { errorAction, successAction } from './tools';
 
 const invoicesState = {
   array: [],
@@ -13,7 +15,10 @@ const invoicesState = {
 }
 
 /* Constants */
+const PREFIX = 'INVOICES';
 const RESET_INVOICES_STATUS = 'RESET_INVOICES_STATUS';
+const FETCHING = `${PREFIX}/FETCHING`;
+const FETCHING_ERROR = `${PREFIX}/FETCHING_ERROR`;
 
 const POPULATE_FISCAL_DATA = 'POPULATE_FISCAL_DATA';
 const POPULATE_FISCAL_DATA_SUCCESS = 'POPULATE_FISCAL_DATA_SUCCESS';
@@ -23,6 +28,8 @@ const POPULATE_INVOICES = 'POPULATE_INVOICES';
 const POPULATE_INVOICES_SUCCESS = 'POPULATE_INVOICES_SUCCESS';
 const POPULATE_INVOICES_ERROR = 'POPULATE_INVOICES_ERROR';
 
+const POPULATE_EXTERNAL_INVOICES = `${PREFIX}/POPULATE_EXTERNAL_INVOICES`;
+
 const CREATE_INVOICE = 'CREATE_INVOICE';
 const CREATE_INVOICE_SUCCESS = 'CREATE_INVOICE_SUCCESS';
 const CREATE_INVOICE_ERROR = 'CREATE_INVOICE_ERROR';
@@ -30,14 +37,13 @@ const CREATE_INVOICE_ERROR = 'CREATE_INVOICE_ERROR';
 
 /* Actions creators */
 //  Reset invoices status
-export function resetInvoicesStatus() {
-  return { type: RESET_INVOICES_STATUS }
-}
+export const resetInvoicesStatus = () => ({ type: RESET_INVOICES_STATUS });
+export const fetching = () => ({ type: FETCHING });
+export const fetchingError = error => ({ type: FETCHING_ERROR, payload: error });
+
 
 // Populate fiscal data
-export function populateFiscalData() {
-  return { type: POPULATE_FISCAL_DATA };
-}
+export const populateFiscalData = () => ({ type: POPULATE_FISCAL_DATA });
 
 export function populateFiscalDataSuccess(fiscalData) {
   return { type: POPULATE_FISCAL_DATA_SUCCESS, payload: fiscalData };
@@ -72,6 +78,10 @@ export function createInvoiceSuccess(invoiceData) {
 export function createInvoiceError(error) {
   return { type: CREATE_INVOICE_ERROR, payload: error };
 }
+
+const populateExternalInvoicesAction = (invoicesData) => ({
+  type: POPULATE_EXTERNAL_INVOICES, payload: invoicesData,
+})
 
 
 /* Thunks */
@@ -122,12 +132,30 @@ export const createInvoiceAction = paymentId => (dispatch) => {
 }
 
 
+// Populate externals
+export const populateExternalInvoices = () => (dispatch) => {
+  dispatch(fetching());
+  return getInvoices()
+    .then(data => successAction(
+      dispatch, populateExternalInvoicesAction, data, RESET_INVOICES_STATUS, false,
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_INVOICES_STATUS, 'Facturas no disponibles'
+    ));
+};
+
+
 /* Reduceer */
 export default function reducer(state = invoicesState, action) {
   switch (action.type) {
     /* Reset status */
     case RESET_INVOICES_STATUS:
-      return { ...state, status: null };
+      return { ...state, status: null, fetching: false };
+    case FETCHING:
+      return { ...state, fetching: true };
+    case FETCHING_ERROR:
+      return { ...state, status: 'error', fetching: false, error: action.payload };
+
     case POPULATE_FISCAL_DATA:
       return { ...state, fetching: true };
     case POPULATE_FISCAL_DATA_SUCCESS:
@@ -155,6 +183,10 @@ export default function reducer(state = invoicesState, action) {
       }
     case CREATE_INVOICE_ERROR:
       return { ...state, fetching: false, status: 'error' };
+    
+    case POPULATE_EXTERNAL_INVOICES:
+      console.log(action.payload);
+      return { ...state, status: 'success', array: action.payload }
     default:
       return state;
   }

@@ -30,7 +30,6 @@ function UserProfileDetails({
     const { params } = match;
     const { slug } = params;
     if (slug) {
-      console.log(slug);
       getUserBySlug(slug, `${slug}`.includes('@'))
         .then((data) => {
           if (!data[0]) {
@@ -64,7 +63,7 @@ function UserProfileDetails({
 
   return (
     <div className="dashboard-container  relative">
-      { loading || userFetching ? <Spinner /> : null }
+      { loading || userFetching ? <Spinner fullScrren /> : null }
       { userData._id && (
         <BasicInformationUser
           user={userData}
