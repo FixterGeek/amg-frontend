@@ -223,7 +223,7 @@ export function getSingleEventEpic(action$, state$) {
                 ajax.get(`${baseURL}events/${action.payload}/`, { "Authorization": token }).pipe(
                     map(resp => {
                         //localStorage.authToken = resp.response.token
-                        return getSingleEventSuccess({ ...resp.response, status: null })
+                        return getSingleEventSuccess({ ...resp.response, s: 'success' })
                     }),
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),

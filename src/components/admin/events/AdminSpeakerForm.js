@@ -183,7 +183,7 @@ function mapStateToProps({ admin }) {
   // console.log(admin);
   return {
     admin,
-    status: admin.workingOn.status,
+    status: admin.workingOn.s || admin.workingOn.status,
     drafStatus: admin.draftEvents.status,
   }
 }

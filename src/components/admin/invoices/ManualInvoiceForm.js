@@ -30,7 +30,7 @@ function ManualInvoiceForm() {
   return (
     <section>
       <ContainerItem>
-        <Title>Factutar</Title>
+        <Title>Facturar</Title>
       </ContainerItem>
       <ContainerItem>
         <Form>

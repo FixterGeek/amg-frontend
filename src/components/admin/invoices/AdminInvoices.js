@@ -45,7 +45,7 @@ function Invoices({
             Pagos para facturar
           </Button> */}
           <Button marginTop="0px" line width="200px" style={{ marginLeft: '32px' }}>
-            Facturar
+            Generar factura
           </Button>
         </Link>
       </ContainerItem>
