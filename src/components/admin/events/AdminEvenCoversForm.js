@@ -31,7 +31,7 @@ function AdminEventCoversForm({
     const form = new FormData();
 
     const formData = transformToFormData(form, normalizedData.normalizedData);
-    saveDraftEvent({ body: formData, id: normalizeDate.id });
+    saveDraftEvent({ body: formData, id: eventId });
   }
 
   return (
@@ -51,7 +51,7 @@ function AdminEventCoversForm({
         />
       </div>
       <Button width="100%" htmlType="submit"> 
-        Agregar portadas
+        { state.mainImagesURLS[0] || state.thumbnailImagesURLS[0] ? 'Actualizar portadas' : 'Agregar portadas' }
       </Button>
     </Form>
   );

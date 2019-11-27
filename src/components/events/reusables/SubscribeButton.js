@@ -32,6 +32,8 @@ function SubscribeButton({
     </Button>
   )
 
+  console.log(assistedEvents);
+
   if (assistedEvents.includes(eventObject._id) || assistedActivities.includes(activityObject._id)) {
     return (
       <Button disabled bgColor="green" width="100%">

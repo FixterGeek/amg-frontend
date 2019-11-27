@@ -9,7 +9,6 @@ import useSweet from '../../../hooks/useSweetAlert';
 import ContainerItem from '../../reusables/ContainerItem';
 import Spinner from '../../reusables/Spinner';
 import BoxItem from '../../reusables/BoxItem';
-import Button from '../../reusables/Button';
 import Title from 'antd/lib/typography/Title';
 
 function AdminUserResendences({

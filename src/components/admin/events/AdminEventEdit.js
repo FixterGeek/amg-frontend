@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Parser } from 'json2csv';
+import moment from 'moment';
 
 import { Tabs, Typography, Divider, Popconfirm } from 'antd';
 
@@ -49,7 +50,6 @@ function AdminEventEdit({
     }
   }, []);
 
-  console.log(state);
 
   const generateReport = () => {
     const fields = [
@@ -63,16 +63,22 @@ function AdminEventEdit({
       { label: 'Fecha de inscripción', value: 'createdDate' }
     ]
 
-    const data = users.map(u => ({
-      name: u.basicData.name,
-      dadSurname: u.basicData.dadSurname,
-      momSurname: u.basicData.momSurname,
-      email: u.email,
-      membership: u.membershipStatus === 'Free' ? 'No socio' : u.membershipStatus === 'Residente' ? 'Socio en entrenamiento' : u.membershipStatus === 'Veterano' ? 'Emérito' : 'Socio',
-      speciality: u.basicData.speciality,
-      place: u.basicData.placeOfBirth.state || u.address.state,
-      _id: u._id,
-    })).filter(u => state.assistants.includes(u._id));
+    
+
+    const data = users.filter(u => state.assistants.map(a => a.user).includes(u._id))
+      .map(u => {
+        const date = state.assistants.filter(a => a.user === u._id)[0].date;
+        return {
+        name: u.basicData.name,
+        dadSurname: u.basicData.dadSurname,
+        momSurname: u.basicData.momSurname,
+        email: u.email,
+        membership: u.membershipStatus === 'Free' ? 'No socio' : u.membershipStatus === 'Residente' ? 'Socio en entrenamiento' : u.membershipStatus === 'Veterano' ? 'Emérito' : 'Socio',
+        speciality: u.basicData.speciality,
+        place: u.basicData.placeOfBirth.state || u.basicData.address.state,
+        _id: u._id,
+        createdDate: moment(Number(date)).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY'),
+      }})
 
     const jsonP = new Parser({ fields });
     const csv = jsonP.parse(data);
@@ -83,6 +89,8 @@ function AdminEventEdit({
     he.download = `${state.title}_asistencia.csv`;
     he.click();
   };
+
+
 
   return (
     <div className="admin-event-form-container">
@@ -155,6 +163,7 @@ function AdminEventEdit({
             <AdminEventCoversForm
               saveDraftEvent={saveDraftEvent}
               state={state}
+              eventId={state._id}
             />
           </TabPane>
           <TabPane key="6" tab="Mapa" disabled={!state._id}>
@@ -170,7 +179,6 @@ function AdminEventEdit({
 }
 
 function mapStateToProps({ admin, users }) {
-  console.log(users);
   return {
     state: admin.workingOn,
     speakers: admin.workingOn.speakers,

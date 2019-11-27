@@ -7,12 +7,11 @@ import AdminCourseForm from '../AdminCourseForm';
 
 function CourseDetail({ courseData, deleteAction }) {
   const { Item } = List;
-  const { Text } = Typography;
 
   const {
     title, startDate, endDate,
     startTime, endTime, description,
-    _id: courseId, cost
+    cost
   } = courseData;
 
   const Date = () => {
