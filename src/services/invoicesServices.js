@@ -32,7 +32,7 @@ export const getDataFacturacion = (fiscalData) => {
 
 export const getInvoices = () => {
   const token = localStorage.authToken;
-  return axios.get(BASE_API, {
+  return axios.get(APIURL, {
     headers: {
       Authorization: token,
     },

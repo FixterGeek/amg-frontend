@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Typography } from 'antd';
 
@@ -10,6 +11,7 @@ import PaymentCardForm from './reusables/PaymentCardForm';
 import BuyDetail from './reusables/BuyDetail';
 import OxxoOrder from './reusables/OxxoOrder';
 import PaymentType from './reusables/PaymentType';
+import Button from '../reusables/Button';
 
 function PaymentCourse({
   paymetFetching, userId,
@@ -22,7 +24,7 @@ function PaymentCourse({
 
   const [courses, setCourses] = useState(location.state ? [...location.state] : []);
   const [amount, setAmount] = useState({});
-  const [paid, setPaid] = useState(false);
+  const [paid, setPaid] = useState({ paid: false });
   const [paymentType, setPaymentType] = useState(null);
   const [oxxoOrder, setOxxoOrder] = useState(null)
   let userCost = 'freeCost';
@@ -53,7 +55,7 @@ function PaymentCourse({
         eventId: params.eventId,
         courseIds: courses.filter(cf => cf._id).map(c => c._id) },
         'course')
-      .then(paymentData => paymentData.paid && setPaid(state => !state));
+      .then(paymentData => setPaid(paymentData));
   };
 
   if (oxxoOrder) return <OxxoOrder oxxoOrder={oxxoOrder} />
@@ -76,8 +78,17 @@ function PaymentCourse({
           onSubmit={handleSubmit}
           amount={amount.amount || null}
           concept={`Cursos`}
-          paid={paid}
+          paid={paid.paid}
         />
+        { 
+          paid.paid ? (
+            <Link to={{ pathname: `/dashboard/pagos/${paid._id}/facturar`, state: paid }}>
+              <Button width="100%" htmlType="button" marginTop="0">
+                Facturar pago
+              </Button>
+            </Link>
+          ) : null 
+        }
       </ContainerItem>
     </div>
   );

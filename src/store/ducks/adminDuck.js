@@ -251,7 +251,6 @@ export function saveDraftEventEpic(action$, state$) {
                     //of(setFetchingUser()),
                     ajax.patch(baseURL + "events/" + action.payload.id, action.payload.body, { "Authorization": token }).pipe(
                         map(resp => {
-                            console.log(resp)
                             //localStorage.authToken = resp.response.token
                             toastr.success("Evento Guardado")
                             return saveDraftEventSuccess({ ...resp.response })
