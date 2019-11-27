@@ -6,6 +6,9 @@ export function successAction(dispatch, action, actionPayload, resetConstant, su
     title: 'Listo!',
     text: successMessage,
     confirmButtonText: 'Aceptar',
+    customClass: {
+      confirmButton: 'confirm-alert'
+    }
   });
   dispatch(action(actionPayload));
   dispatch({ type: resetConstant });
