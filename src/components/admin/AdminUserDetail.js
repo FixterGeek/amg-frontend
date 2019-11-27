@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { Typography, Tabs } from 'antd';
+import { Typography, Tabs, Icon } from 'antd';
 
 import { populateEducationAction } from '../../store/ducks/educationDuck';
 import { populateActivitiesAction } from '../../store/ducks/activitiesDuck';
@@ -42,10 +42,10 @@ function AdminUserDetail({
     if (!user._id && status === 'success') infoAlert({ text: 'Los datos del usuario no estan disponibles' });
   }, [user])
 
-  console.log(studies, residencies, internships, activities);
+  console.log(studies);
 
   return (
-    <section>
+    <section className="admin-user-detail">
       { fetching && <Spinner fullScrren /> }
       <ContainerItem className="dash-item-center">
         <ContainerItem>
@@ -65,17 +65,37 @@ function AdminUserDetail({
             <TabPane key="4" tab="Estudios" disabled={curentUser.filialAsAdmin}>
               {
                 studies.map(study => (
-                  <BoxItem
-                    noLeft
-                    key={study._id}
-                    title={study.major || study.institution.name}
-                    subtitle={study.institution.name || ' '}
-                    footer={
-                      `${moment(study.startDate).format('MMMM[ de ]YYYY')}
-                        -
-                      ${study.endDate === 'Actualidad' ? 'Actualidad' : moment(study.endDate).format('MMMM[ de ]YYYY')}`
-                    }
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <BoxItem
+                      noLeft
+                      key={study._id}
+                      title={study.major || study.institution.name}
+                      subtitle={study.institution.name || ' '}
+                      footer={
+                        `${moment(study.startDate).format('MMMM[ de ]YYYY')}
+                          -
+                        ${study.endDate === 'Actualidad' ? 'Actualidad' : moment(study.endDate).format('MMMM[ de ]YYYY')}`
+                      }
+                    />
+                    <div className="docs-container">
+                      {
+                        study.tituloURLS.map(t => (
+                          <a href={t} target="_blank" className="doc">
+                            <Icon type="file-text" />
+                            <div className="label">Título</div>
+                          </a>
+                        ))
+                      }
+                      {
+                        study.tituloURLS.map(c => (
+                          <a href={c} target="_blank" className="doc">
+                            <Icon type="file-text" />
+                            <div className="label">Cédula</div>
+                          </a>
+                        ))
+                      }
+                    </div>
+                  </div>
                 ))
               }
             </TabPane>

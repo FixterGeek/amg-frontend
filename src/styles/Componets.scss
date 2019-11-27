@@ -887,6 +887,43 @@ $eventLeftWidth: 350px;
 
 
 //  ADMIN ==>
+// Style AdminUserDetail
+.admin-user-detail {
+  .docs-container {
+    position: absolute;
+    padding-top: $smallPadding;
+    min-height: 40px;
+    top: 0;
+    right: $padding;
+    display: flex;
+
+    .doc {
+      display: flex;
+      flex-flow: column;
+      margin-left: $margin;
+      align-items: center;
+
+      i {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        background-color: $navy;
+        color: white;
+        font-size: 1.4rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+
+      .label {
+        font-size: 0.6rem;
+        color: $navy;
+        margin-top: $smallMargin;
+      }
+    }
+  }
+}
+
 // style AdminSubsidiariedList
 .admin-subsidiaries-list {
   .ant-table-tbody {

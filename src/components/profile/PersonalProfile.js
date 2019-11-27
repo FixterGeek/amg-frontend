@@ -55,6 +55,8 @@ function PersonalProfile({
     updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
   };
 
+  console.log(studies);
+
 
   return (
     <div className="dashboard-container component-main-profile relative">
@@ -81,8 +83,10 @@ function PersonalProfile({
             <BoxItem
               noLeft
               key={study._id}
-              title={study.major || study.institution.name}
-              subtitle={study.institution.name || ' '}
+              title={
+                study.institution ? study.institution.name
+                : study.major ? study.major : 'Educación' }
+              subtitle={study.institution ? study.institution.name : ' '}
               footer={
                 `${moment(study.startDate).format('MMMM[ de ]YYYY')}
                   -
