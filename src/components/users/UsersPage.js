@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as usersActions from '../../store/ducks/users'
@@ -14,7 +14,6 @@ const UsersPage = (props) => {
         const query = JSON.stringify({userStatus:'Aprobado'})
         props.usersActions.getUsers()        
     },[])        
-    console.log(users)
     return (
         <>
             <div className="admin-event-form-container">

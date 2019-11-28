@@ -4,15 +4,12 @@ import toFormData from 'object-to-formdata';
 
 import { Modal, Typography, Icon } from 'antd';
 
-import { writeUser } from '../../../store/actions';
 import { updateUserAction } from '../../../store/ducks/userDuck';
-import useSweetAlert from '../../../hooks/useSweetAlert';
-import useAmgService from '../../../hooks/services/useAmgService';
 import TextField from '../../../molecules/TextFields';
 import Spinner from '../../reusables/Spinner';
 
 function ModalName({
-  user, dispatch, updateUserAction,
+  user, updateUserAction,
   fetching,
 }) {
   const { Title } = Typography;
@@ -57,9 +54,7 @@ function ModalName({
 
 
     const formdata = toFormData({ ...st, basicData: { ...st.basicData, ...fullName } })
-    updateUserAction(formdata)
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
+    updateUserAction(formdata);
   };
 
   return (
@@ -103,7 +98,7 @@ function mapStateToProps({ user }) {
 }
 
 export default connect(
-  null, {
+  mapStateToProps, {
     updateUserAction,
   }
 )(ModalName);

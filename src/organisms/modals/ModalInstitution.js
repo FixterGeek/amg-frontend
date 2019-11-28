@@ -5,7 +5,6 @@ import { Button, Modal, Typography } from 'antd';
 
 import Input from '../../molecules/data-entrie/Input';
 import SelectField from '../../molecules/SelectField';
-import FilePicker from '../../atoms/FilePicker';
 
 function ModalInstitution() {
   const { Title } = Typography;
@@ -13,13 +12,6 @@ function ModalInstitution() {
   const { register, handleSubmit, watch, errors } = useForm();
   const [open, setOpen] = useState(false);
 
-
-  const handleSave = (data) => {
-    console.log(data);
-  };
-
-  console.log(watch(['zipCode', 'outdoorNumber']));
-  console.log(errors);
 
   return (
     <div>

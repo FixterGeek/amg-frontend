@@ -16,7 +16,7 @@ import FormManager from '../reusables/CreateAndUpdateManager';
 import { uploadFile } from '../../../tools/firebaseTools'
 
 function AdminSpeakerForm({
-  addSpeaker, speakers, eventId,
+  addSpeaker, eventId,
   isModal, existingData = {},
   event: ev, saveDraftEvent, status,
   drafStatus,
@@ -36,7 +36,6 @@ function AdminSpeakerForm({
 
   const [photoURL, setPhotoURL] = useState(null);
 
-  // console.log(existingData);
   useEffect(() => {
     if (existingData && !state._id) setState(existingData);
   }, []);
@@ -63,7 +62,6 @@ function AdminSpeakerForm({
       });
     else {
       if (st._id) {
-        console.log(ev._id);
         const eventData = normalizeData({ ...ev, speakers: ev.speakers.map(s => s._id === st._id ? st : s), id: ev._id });
         const form = new FormData();
         const formData = transformToFormData(form, eventData.normalizedData);
@@ -79,8 +77,6 @@ function AdminSpeakerForm({
   }
 
   const normalizeData = (eventData) => {
-    // console.log(eventData);
-    // const normalizedData = { ...eventData }
     delete eventData.modules;
     delete eventData.assistants;
     delete eventData.courses;
@@ -111,8 +107,6 @@ function AdminSpeakerForm({
     }
     return formData
   }
-
-  console.log(drafStatus, status);
 
   return (
     <FormManager
@@ -180,7 +174,6 @@ function AdminSpeakerForm({
 }
 
 function mapStateToProps({ admin }) {
-  // console.log(admin);
   return {
     admin,
     status: admin.workingOn.s || admin.workingOn.status,

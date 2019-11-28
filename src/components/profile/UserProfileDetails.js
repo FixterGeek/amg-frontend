@@ -59,8 +59,6 @@ function UserProfileDetails({
     setFollowingsId(idArray);
   }, [followingUsers]);
 
-  console.log(followingsId);
-
   return (
     <div className="dashboard-container  relative">
       { loading || userFetching ? <Spinner fullScrren /> : null }

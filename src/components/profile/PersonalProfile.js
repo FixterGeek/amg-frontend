@@ -55,8 +55,6 @@ function PersonalProfile({
     updateUserAction({ ...user, basicData: { ...user.basicData, bio } });
   };
 
-  console.log(studies);
-
 
   return (
     <div className="dashboard-container component-main-profile relative">

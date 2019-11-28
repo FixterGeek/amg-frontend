@@ -111,8 +111,6 @@ function ModulesContent({
     updateEventActivityAction(currentActivity._id, currentActivity);
   }
 
-  console.log(eventSpeakers);
-
   return (
     <ContainerItem className="admin-reusables-modules-content">
       <Title level={4}>{ `Módulo: ${module.title}` }</Title>

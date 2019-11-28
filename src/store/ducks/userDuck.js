@@ -252,7 +252,6 @@ export const loginUserAction = (auth) => (dispatch) => {
             return data
         })
         .catch(err => {
-            console.log(err)
             dispatch(loginUserError(err))
         })
 }
@@ -262,7 +261,6 @@ export const updateUserAction = (userData) => (dispatch) => {
     dispatch(updateUser());
     return update(userData)
         .then((data) => {
-            // console.log('UPDAYED!!!!', data);
             localStorage.user = JSON.stringify(data);
             dispatch(updateUserSuccess(data));
             useSweet().successAlert({ title: 'Datos actualizados' });
@@ -289,7 +287,6 @@ export const subscribeUserToActivityAction = (eventId) => (dispatch) => {
             return data;
         })
         .catch((error) => {
-            console.log(error)
             dispatch(subscribeUserToActivityError(error));
             return error;
         })
@@ -341,7 +338,6 @@ export const createUserAction = (userData) => (dispatch) => {
 }
 
 export const followUserAction = (userId, followType) => (dispatch) => {
-    console.log(followType);
     dispatch(followUser());
     return follow(userId)
         .then((data) => {
@@ -358,7 +354,6 @@ export const followUserAction = (userId, followType) => (dispatch) => {
             return data;
         })
         .catch((error) => {
-            // console.log(error);
             dispatch(followUserError(error));
             return error;
         })

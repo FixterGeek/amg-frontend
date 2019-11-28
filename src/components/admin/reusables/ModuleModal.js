@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import TextField from '../../../molecules/TextFields'
 import {
@@ -12,10 +12,6 @@ export default function ModuleModal({
 }) {
     let [item, setItem] = useState({})
     let [error, setError] = useState(null)
-
-    useEffect(() => {
-        //console.log(item)
-    }, [item])
 
     function onChange({ target: { name, value } }) {
         setItem({ ...item, [name]: value })
@@ -41,7 +37,6 @@ export default function ModuleModal({
     function addItem() {
         if (!validate()) return
         let u = { ...item }
-        console.log(u)
         onFinish(u)
         onCancel()
     }

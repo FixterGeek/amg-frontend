@@ -52,8 +52,6 @@ function PaymentsList({
     if (!payments[0] && !noPayments) populateAdminPaymentsAction();
   }, [])
 
-  console.log(payments);
-
   return (
     <div>
       { paymentsFetching || invoiceFetching ? <Spinner fullScreen /> : null }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { getUserByFilter } from '../../../services/userServices';
 import CheckboxField from '../../reusables/CheckboxField';
 
 /**
@@ -12,7 +11,6 @@ function UserFilter({ usersArray, onResults }) {
   const [filteredUsers, setFilteredUsers] = useState(null);
 
   const handleFilter = (value) => {
-    // console.log(value);
     if (value.includes('No Aprobado')) value = [...value, 'Registrado']; 
     setCurrentFilter(value);
 

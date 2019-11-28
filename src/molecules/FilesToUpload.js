@@ -1,18 +1,15 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import fileToURL from '../tools/fileToURL';
-import { updatePublications } from '../store/actions';
 import FilePicker from '../atoms/FilePicker';
 import Spinner from '../atoms/Spinner';
 
 function FilesToUpload({ type, publications, dispatch }) {
-  console.log(publications);
   const { imagesVideos, files } = publications;
   const [state, setState] = useState({});
 
@@ -45,8 +42,7 @@ function FilesToUpload({ type, publications, dispatch }) {
             );
           })
         ) : (
-          files.map((file, index) => {
-            console.log(file);
+          files.map((file) => {
             return (
               <div className="file-preview">
                 <div className="remove-file">✖</div>

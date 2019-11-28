@@ -212,7 +212,6 @@ export function getUsersEpic(action$, state$) {
         }).pipe(
           map(resp => getAllUsersSuccess(resp.response)),
           catchError(err => {
-            console.log("ero", err)
             return of(getAllUsersError(err))
           })
         )

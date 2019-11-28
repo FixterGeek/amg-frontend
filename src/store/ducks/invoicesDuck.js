@@ -185,7 +185,6 @@ export default function reducer(state = invoicesState, action) {
       return { ...state, fetching: false, status: 'error' };
     
     case POPULATE_EXTERNAL_INVOICES:
-      console.log(action.payload);
       return { ...state, status: 'success', array: action.payload }
     default:
       return state;

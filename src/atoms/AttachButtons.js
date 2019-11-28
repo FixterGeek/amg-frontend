@@ -16,15 +16,13 @@ function AttachButtons(props) {
     dispatch(updatePublications({ image: imageFile }));
     toBase64(imageFile).then((base64) => {
       dispatch(updatePublications({ image64: base64 }));
-    }).catch(error => console.log(error));
+    }).catch(error => error);
   };
 
   const handleFile = (file) => {
-    // console.log(file);
     dispatch(updatePublications({ file, fileType: file.type.split('/')[1] }));
   };
 
-  // console.log(file, fileType);
   return (
     <div className="attach-buttons">
       <div>
@@ -34,7 +32,7 @@ function AttachButtons(props) {
             minWidth: 300, maxWidth: 1400, minHeight: 300, maxHeight: 1400,
           }}
           onChange={image => handleImage(image)}
-          onError={error => console.log(error)}
+          onError={error => error}
         >
           <FontAwesomeIcon icon={faImage} />
         </FilePicker>
@@ -46,7 +44,7 @@ function AttachButtons(props) {
             minWidth: 300, maxWidth: 1400, minHeight: 300, maxHeight: 1400,
           }}
           onChange={file => handleFile(file)}
-          onError={error => console.log(error)}
+          onError={error => error}
         >
           <FontAwesomeIcon icon={faPaperclip} />
         </FilePicker>

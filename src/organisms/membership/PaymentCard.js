@@ -1,11 +1,10 @@
 /* eslint-disable no-lonely-if */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Typography } from 'antd';
 
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import TextField from '../../molecules/TextFields';
-import MonthPicker from '../../molecules/MonthPicker';
 import Button from '../../atoms/Button';
 
 function PaymentCard() {
@@ -33,7 +32,6 @@ function PaymentCard() {
   const { Conekta } = window;
 
   function validateCardData(name, value) {
-    console.log(value);
     let valid = true;
     let e = { ...initialMessages };
     let w = { ...initialMessages };
@@ -87,8 +85,6 @@ function PaymentCard() {
       default:
         break;
     }
-
-    console.log(e, w);
 
     setErrors({ errors, ...e });
     setWarning({ warnings, ...w });

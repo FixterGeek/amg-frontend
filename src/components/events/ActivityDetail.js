@@ -52,7 +52,7 @@ function ActivityDetail({
       if (!history.location.state) {
         await getSingleActivity(id).then(({ data }) => {
           setActivity({ ...data });
-        }).catch(({ response }) => console.log(response));
+        }).catch(({ response }) => response);
       } else {
         setActivity({ ...history.location.state });
       }

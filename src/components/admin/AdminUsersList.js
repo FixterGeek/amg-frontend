@@ -66,7 +66,6 @@ function AdminUsersList({
             key: 'tags',
             dataIndex: 'tags',
             render: (tags = []) => {
-                // console.log('A tag', tags)
                 return (
                     <span>
                         {tags.map(tag => {
@@ -187,7 +186,6 @@ function AdminUsersList({
 }
 
 function mapState({ users }) {
-    // console.log(users.array.filter(u => u.userStatus === 'No Aprobado'));
     let list = users.array.map(u => {
         let user = {
             name: u.basicData.name + " " + u.basicData.dadSurname,

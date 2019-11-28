@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import TextField from '../../../molecules/TextFields'
 import {
@@ -22,12 +22,7 @@ export default function ActivityModal({
     let [error, setError] = useState(null)
     let [galleryOpen, setGalleryOpen] = useState(false)
 
-    useEffect(() => {
-        //console.log(item)
-    }, [item])
-
     function onChange({ target: { name, value } }) {
-        console.log(name,value)
         setItem({ ...item, [name]: value })
     }
 
@@ -51,7 +46,6 @@ export default function ActivityModal({
     function addItem() {
         if (!validate()) return
         let u = { ...item }
-        console.log(u)
         onFinish(u)
         onCancel()
     }
@@ -160,7 +154,6 @@ export default function ActivityModal({
                     <Select
                         placeholder="Selecciona el ponente"
                         onChange={fullName => {
-                            console.log(fullName)
                             let speaker = speakers.find(s => s.fullName === fullName)
                             if (speaker) setItem({ ...item, speakers: [speaker] })
                         }}

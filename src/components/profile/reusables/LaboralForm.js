@@ -35,9 +35,7 @@ function LaboralForm({
 
   useEffect(() => {
     if (!institutionsArray[0]) {
-      populateInstitutionsAction()
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
+      populateInstitutionsAction();
     }
   }, []);
 
@@ -67,8 +65,6 @@ function LaboralForm({
   const handleDate = (moments) => {
     setActivity({ ...activity, startDate: moments[0].toString(), endDate: moments[1].toString() });
   };
-
-  console.log(activitiesOptions);
 
 
   return (

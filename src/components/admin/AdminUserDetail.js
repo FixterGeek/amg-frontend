@@ -42,8 +42,6 @@ function AdminUserDetail({
     if (!user._id && status === 'success') infoAlert({ text: 'Los datos del usuario no estan disponibles' });
   }, [user])
 
-  console.log(studies);
-
   return (
     <section className="admin-user-detail">
       { fetching && <Spinner fullScrren /> }
@@ -142,7 +140,6 @@ function AdminUserDetail({
 
 function mapStateToProps({ users, user, activities, education }, { match }) {
   const { params = {} } = match;
-  // console.log(users);
   return {
     user: users.array.filter(u => u._id === params.userId)[0] || { basicData: {} },
     curentUser: user,

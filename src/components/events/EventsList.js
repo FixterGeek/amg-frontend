@@ -50,8 +50,6 @@ function EventsList({
 
   document.title = 'Eventos | Asociación Mexicana de Gastroenterología';
 
-  console.log(events);
-
   return (
     <div className="dashboard-container ">
       { loading || fetching ? <Spinner fullScrren /> : null }

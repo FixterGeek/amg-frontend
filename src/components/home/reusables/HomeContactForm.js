@@ -1,5 +1,4 @@
-import React, {Component, useState} from 'react';
-import NavBar from "../../../organisms/NavBar";
+import React, {Component} from 'react';
 import TextField from "../../../molecules/TextFields";
 import {Select} from "antd";
 import { message} from 'antd';
@@ -24,7 +23,6 @@ class HomeContactForm extends Component {
       headers: {"Content-Type": "application/json"},
       method: 'post'
     }).then(res => {
-      /*   console.log(this.state)*/
       res.json()
     })
         .then(resp => {

@@ -7,7 +7,6 @@ import { Tabs as Tbs } from 'antd';
 import DashboardContainerItem from '../../../atoms/DashboardContainerItem';
 
 function Tabs({ headers, componentContent }) {
-  console.log(headers);
   const { TabPane } = Tbs;
   return (
     <DashboardContainerItem className="reusable-tabs">

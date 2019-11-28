@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import toFormData from 'object-to-formdata';
 
 import { Form, Switch } from 'antd';
 
@@ -117,8 +116,6 @@ function AdminEventForm({
     delete normalizedData._id;
     return { normalizedData, id };
   }
-
-  // console.log(state);
 
   return (
     <Form onSubmit={handleSave} className="admin-events-event-form">

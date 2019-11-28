@@ -20,11 +20,9 @@ function ActivitiesList({ event, getLocalActivity}) {
               <div>
                 {
                   modul.activities.map((activityId) => {
-                    console.log(activityId);
                     let activity = null;
                     if (!activityId._id) activity = getLocalActivity(activityId)[0];
                     else activity = activityId;
-                    console.log(activity);
                     return (
                       <ActivityItem
                         key={activity._id}

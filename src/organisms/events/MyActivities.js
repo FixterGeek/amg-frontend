@@ -19,7 +19,7 @@ function MyActivities({ user }) {
     if (!activities[0] && user._id) {
       getActivitiesForUser(user._id).then(({ data }) => {
         setActivities({ ...data });
-      }).catch(({ response }) => console.log(response));
+      }).catch(({ response }) => response);
     }
   }, []);
 

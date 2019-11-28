@@ -17,8 +17,6 @@ function AdminSpeakerList({ speakers, event, saveDraftEvent }) {
   };
 
   const normalizeData = (eventData) => {
-    // console.log(eventData);
-    // const normalizedData = { ...eventData }
     delete eventData.modules;
     delete eventData.assistants;
     delete eventData.courses;

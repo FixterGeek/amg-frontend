@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import toFormData from 'object-to-formdata';
 
-import { Typography, Icon, Button, Form } from 'antd';
+import { Typography, Icon, Button } from 'antd';
 
 import useSweetAlert from '../../../hooks/useSweetAlert';
 import fileToURL from '../../../tools/fileToURL';
@@ -65,8 +65,6 @@ function BasicData({
             addressName: address,
           },
         },
-      }).then((data) => {
-        // console.log(data);
       }).catch(() => errorAlert());
     }
   };
@@ -96,9 +94,7 @@ function BasicData({
   const savePhoto = () => {
     const formData = toFormData({ basicData, photo: photoFile }, { nulls: true });
 
-    dispatch(formData)
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
+    dispatch(formData);
   };
 
   return (

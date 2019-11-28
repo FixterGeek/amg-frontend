@@ -228,7 +228,6 @@ export function getSingleEventEpic(action$, state$) {
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),
                     catchError(err => {
-                        console.log("ero", err)
                         return of(getSingleEventError(err))
                     })
                 )
@@ -245,7 +244,6 @@ export function saveDraftEventEpic(action$, state$) {
         //filter(({ payload }) => typeof payload === "object" && payload.password !== "" && payload.email !== ""),
         withLatestFrom(state$.pipe(pluck('user'))),
         switchMap(([action, { token }]) => {
-            console.log(action.payload);
             if (action.payload.id) {
                 return concat(
                     //of(setFetchingUser()),
@@ -258,19 +256,16 @@ export function saveDraftEventEpic(action$, state$) {
                         //delay(5000),
                         //takeUntil(action$.pipe(ofType("CANCEL"))),
                         catchError(err => {
-                            console.log("ero", err)
                             return of(saveDraftEventError(err))
                         })
                     )
                 )
             }
-            // console.log("Es nuevo", action.payload)
+
             return concat(
                 //of(setFetchingUser()),
                 ajax.post(baseURL + "events", action.payload.body, { "Authorization": token }).pipe(
                     map(resp => {
-                        // console.log(resp)
-                        //localStorage.authToken = resp.response.token
                         toastr.success("Nuevo Evento Guardado")
                         if (action.history) action.history.push(`/admin/eventos/edit/${resp.response._id}`)
                         return saveDraftEventSuccess({ ...resp.response, new: true })
@@ -278,7 +273,6 @@ export function saveDraftEventEpic(action$, state$) {
                     //delay(5000),
                     //takeUntil(action$.pipe(ofType("CANCEL"))),
                     catchError(err => {
-                        console.log("ero", err)
                         toastr.error("Ocurrio un error, vulve a intentar")
                         return of(saveDraftEventError(err))
                     })
@@ -397,7 +391,6 @@ export const addSpeakerAction = (eventId, speakerData) => (dispatch) => {
             return data;
         })
         .catch((error) => {
-            console.log(error);
             dispatch(addSPeakerError(error));
             return error;
         })

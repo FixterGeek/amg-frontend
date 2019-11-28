@@ -10,12 +10,10 @@ import {
   resetWorkingOn,
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
-import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import ImagePicker from '../../reusables/ImagePicker';
 import Button from '../../reusables/Button';
-import Spinner from '../../reusables/Spinner';
 import FormManager from '../reusables/CreateAndUpdateManager';
 
 import banks from './reusables/banks.json';
@@ -37,8 +35,6 @@ function AdminSubsidiaryForm({
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
     if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
   }, [subsidiaries]);
-
-  // console.log(line);
 
   return (
     <section>

@@ -45,15 +45,12 @@ function AdminSubsidiaryReceipt({
   const [modalOpen, setModalOpen] = useState(false);
   const [resetImage, setResetImage] = useState(false);
 
-  // console.log(usersInList);
-
   useEffect(() => {
     populateSubsidiaries();
     populateSubsidiaryPayments(params.id);
   }, []);
 
   useEffect(() => {
-    // console.log(working);
     if (!working._id && paymentStatus === 'success') {
       resetWorkingOn();
       setUserInList([]);
@@ -62,7 +59,6 @@ function AdminSubsidiaryReceipt({
 
   useEffect(() => {
     if (payment && payment !== 'empty') {
-      // console.log(payment);
       setWorkingOn(payment);
       setUserInList(payment.users);
     }
@@ -73,7 +69,6 @@ function AdminSubsidiaryReceipt({
   }, [usersInList.length])
 
   useEffect(() => {
-    console.log(filial);
     if (filial._id) workingOn(working, 'filial', filial._id);
   }, [filial])
 
@@ -82,7 +77,6 @@ function AdminSubsidiaryReceipt({
   };
 
   const handleSwitch = (checked) => {
-    // console.log(checked);
     if (checked !== working.paid) handleSave('approve', !working.paid);
   };
 
@@ -99,8 +93,6 @@ function AdminSubsidiaryReceipt({
     createOrUpdateFilialPayment(data);
     setModalOpen(false);
   }
-
-  // console.log(payment);
 
   return (
     <section className="admin-subsidiary-receipt">

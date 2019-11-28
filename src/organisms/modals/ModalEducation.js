@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { Modal, Typography, Button as Btn } from 'antd';
+import { Modal, Typography } from 'antd';
 
-import { writeUser } from '../../store/actions';
 import useSweetAlert from '../../hooks/useSweetAlert';
 import useAmgService from '../../hooks/services/useAmgService';
 import TextField from '../../molecules/TextFields';
@@ -11,10 +10,6 @@ import DatePicker from '../../molecules/DatePicker';
 import ModalInstitution from './ModalInstitution';
 
 function ModalEducation({ userId, studies }) {
-  const { Title } = Typography;
-
-  const { errorAlert } = useSweetAlert();
-  const { updateUser } = useAmgService();
   const [open, setOpen] = useState(false);
   const [studie, setStudie] = useState({
     user: '',
@@ -37,8 +32,6 @@ function ModalEducation({ userId, studies }) {
   const handleSave = () => {
     //
   };
-
-  console.log(studie);
 
   return (
     <div>

@@ -21,8 +21,6 @@ function ImagePreview({
     )
   }
 
-  // console.log(isVideo)
-
   return (
     <div
       className="reusables-image-preview"

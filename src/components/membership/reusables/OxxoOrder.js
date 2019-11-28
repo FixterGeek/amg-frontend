@@ -26,8 +26,6 @@ function OxxoOrder({ oxxoOrder }) {
       });
   };
 
-  // console.log(oxxoOrder);
-
   return (
     <div className="dashboard-container">
       <ContainerItem className="dash-item-center">

@@ -68,7 +68,6 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
         
     }    
     const handleChange=(e, keyQuestion)=>{
-        // console.log(keyQuestion)
         const question = {...test.questions[keyQuestion]}        
         question.question = e.target.value
         test.questions.splice(keyQuestion,1,question)
@@ -77,7 +76,6 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
     }  
 
     const handleChangeAnswer=(e,keyQuestion, keyAnswer)=>{
-        // console.log(keyAnswer,keyQuestion)
         const question = {...test.questions[keyQuestion]}                            
         question.answers[keyAnswer] = e.target.value           
         test.questions.splice(keyQuestion,1,question)

@@ -21,20 +21,9 @@ function MainProfile({
 }) {
   const { Title, Text } = Typography;
 
-  const {
-    basicData = {}, membershipStatus = '', followers = [],
-    following = [],
-  } = user;
-  const {
-    photoURL = '', name = '', dadSurname = '',
-    momSurname = '', speciality = '',
-  } = basicData;
-
 
   useEffect(() => {
-      selfPublicationsAction()
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
+      selfPublicationsAction();
   }, []);
 
   document.title = 'Perfil | Asociación Mexicana de Gastroenterología'

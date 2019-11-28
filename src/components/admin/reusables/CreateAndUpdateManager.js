@@ -3,7 +3,6 @@ import Proptypes from 'prop-types';
 
 import Spinner from '../../reusables/Spinner';
 import JustModal from './JustMoadal';
-import Button from '../../reusables/Button';
 
 function CreateAndUpdateManager({
   children, createAndUpdateAction, payloadData,
@@ -25,8 +24,6 @@ function CreateAndUpdateManager({
       .then(data => onActionResponse && onActionResponse(data))
       .catch(error => onActionError && onActionError(error));
   };
-
-  console.log('render');
 
   if (isModal) return (
     <Fragment>

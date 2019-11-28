@@ -9,7 +9,6 @@ import {
   resetInvoicesStatus,
 } from '../../../store/ducks/invoicesDuck';
 import useSweet from '../../../hooks/useSweetAlert';
-import { dataFacturacion, getDataFacturacion } from '../../../services/invoicesServices';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
 import DocumentField from '../../reusables/DocumentField';
@@ -18,7 +17,7 @@ import Button from '../../reusables/Button';
 import { uploadFile } from '../../../tools/firebaseTools';
 
 function AdminInvoicesFiscalData({
-  fiscalData, fiscalDataFetching, fiscalDataStatus,
+  fiscalData, fiscalDataStatus,
   populateFiscalDataAction, resetInvoicesStatus,
 }) {
   const { Title } = Typography;
@@ -64,12 +63,6 @@ function AdminInvoicesFiscalData({
     const key = null;
     if (state.cerfile) cer = await uploadFile('/fiscal-data/', state.cerfile).then(url => url);
     if (state.keyfile) cer = await uploadFile('/fiscal-data/', state.keyfile).then(url => url);
-
-    console.log(cer, key);
-    // const formData = toFormData({ ...state }, { nulls: true });
-    // dataFacturacion(formData)
-    //   .then((data) => console.log(data))
-    //   .catch(error => console.log(error));
   }
 
   return (

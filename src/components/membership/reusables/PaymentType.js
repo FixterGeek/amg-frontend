@@ -46,8 +46,6 @@ function PaymentType({
     updateUserAction(formData);
   }
 
-  console.log(user);
-
   return (
     <div className="dashboard-container">
       { loading || user.fetching ? <Spinner fullScrren /> : null }

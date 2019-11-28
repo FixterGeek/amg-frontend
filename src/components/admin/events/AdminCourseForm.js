@@ -15,7 +15,7 @@ import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import estados from '../estados.json';
 
 function AdminCourseForm({
-  course, fetching, status,
+  fetching, status,
   createOrUpdateEventCourseAction,
   existingData, actionType = 'create',
   location = {}, eventId, dataPersistence,
@@ -50,7 +50,6 @@ function AdminCourseForm({
   const [courseData, setCourseData] = useState(initialCourseData);
 
   useEffect(() => {
-    console.log(existingData);
     if (existingData) setCourseData(state => ({ ...state, ...existingData }))
   }, [existingData])
 

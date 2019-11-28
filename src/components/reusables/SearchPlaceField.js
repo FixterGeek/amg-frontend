@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import SearchField from './SearchField';
-import ColumnGroup from 'antd/lib/table/ColumnGroup';
 
 function SearchPlaceField() {
   useEffect(() => {
@@ -46,7 +45,6 @@ function SearchPlaceField() {
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
             if (!place.geometry) {
-              console.log("Returned place contains no geometry");
               return;
             }
             var icon = {
@@ -87,9 +85,8 @@ function SearchPlaceField() {
     const map = new google.maps.Map(document.getElementById('map'), {center: mexico, zoom: 15});
     const service = new google.maps.places.PlacesService(map);
     service.findPlaceFromQuery(request, (results, status) => {
-      console.log(results, status);
+      // 
     });
-    console.log(value);
   }
 
   return (

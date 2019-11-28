@@ -13,8 +13,7 @@ import {
 } from  '../../../store/ducks/coursesDuck';
 
 function AdminCourses({
-  courses, fetching, status,
-  noCourses, match, event,
+  courses, match, event,
   populateEventCoursesAction,
 }) {
   const { Title } = Typography;
@@ -23,8 +22,6 @@ function AdminCourses({
     const { params } = match;
     populateEventCoursesAction(params.id);
   }, [courses.length]);
-
-  // console.log(courses);
 
   return (
     <div className="admin-courses">

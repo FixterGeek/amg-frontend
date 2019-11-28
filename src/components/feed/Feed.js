@@ -27,8 +27,6 @@ function Feed({
   const { Title } = Typography;
 
   const { errorAlert, infoAlert } = useSweetAlert();
-  const [loadingPost, setLoadingPost] = useState(false);
-  const [loadingEvent, setLoadingEvent] = useState(false);
   const [lastEvent, setLastEvent] = useState({ _id: null });
   const { publications: pubs } = publications;
 
@@ -36,7 +34,6 @@ function Feed({
   useEffect(() => {
     if (events.length > 0) {
       const sorted = events.sort((a, b) => moment(b.startDate).diff(moment(a.startDate)));
-      // console.log(sorted[0]);
       setLastEvent(sorted[0]);
     }
   }, [events.length]);
@@ -90,7 +87,6 @@ function Feed({
           <Publisher />
         </div>
         <div className="feed-publications">
-          { loadingPost && (<Spinner tip="Cargando publicaciones..." />) }
           {
             pubs.map(publication => <PostItem
               key={publication._id}
