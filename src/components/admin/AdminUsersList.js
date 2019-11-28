@@ -67,10 +67,15 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
                 return (
                     <span>
                         {tags.map(tag => {
-                            let color = tag.length > 6 ? 'volcano' : 'green';
-                            if (tag === 'nuevo') {
-                                color = 'blue';
-                            }
+                            let color = 'lime';
+                            if (tag === 'Registrado') color = 'magenta';
+                            if (tag === 'Pendiente') color = 'gold';
+                            if (tag === 'No Aprobado') color = 'red';
+                            if (tag === 'Inactivo') color = 'cyan';
+                            if (tag === 'Free') color = 'volcano';
+                            if (tag === 'Residente') color = 'green';
+                            if (tag === 'Socio') color = 'blue';
+                            if (tag === 'Veterano') color = 'purple';
                             return (
                                 <Tag color={color} key={tag}>
                                     {tag.toUpperCase()}
@@ -175,7 +180,7 @@ function mapState({ users }) {
             name: u.basicData.name + " " + u.basicData.dadSurname,
             speciality: u.basicData.speciality || "Gastroenterología",
             address: 'Emérito',
-            tags: ['activa'],
+            tags: [u.userStatus, u.membershipStatus],
         }
         user = { ...user, ...u }
         return user
