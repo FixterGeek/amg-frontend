@@ -1,19 +1,43 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import toFormData from 'object-to-formdata';
+
 import AdminUsersList from './AdminUsersList';
-import { getUsers, deleteUserAction } from '../../store/ducks/users'
+import {
+    getUsers, deleteUserAction,
+    updateUser
+} from '../../store/ducks/users'
 import Button from '../reusables/Button';
+import Spinner from '../reusables/Spinner';
 
 function AdminUsers({
     getUsers, deleteUserAction, good = 0, bad = 0,
+    fetching, updateUser,
 }) {
 
     useEffect(() => {
         getUsers()
     }, [])
 
+    const handleUserActivate = (status, user) => {
+        const excludeKeys = [
+            'assistedActivities', 'assistedEvents', 'consultories',
+            'courseOrders', 'enrolledActivities', 'enrolledCourses',
+            'eventOrders', 'followers', 'following',
+            'hospitalActivities', 'internships', 'medicalSocieties',
+            'membersWhoRecommend', 'renewals', 'residencies',
+            'studies', 'teachingActivities', 'workedAtInstitutions',
+        ]
+        user.userStatus = status;
+        Object.keys(user).map(key => {
+            if (excludeKeys.includes(key)) delete user[key];
+        })
+        updateUser(user);
+    };
+
     return (
         <section>
+            { fetching && <Spinner fullScrren /> }
             <article className="admin-main-header">
                 <h1>Listado de socios</h1>
                 <Button width="200px" line>
@@ -32,7 +56,10 @@ function AdminUsers({
             </article>
 
             <article className="admin-users-list-container">
-                <AdminUsersList deleteAction={deleteUserAction} />
+                <AdminUsersList
+                    deleteAction={deleteUserAction}
+                    onActive={handleUserActivate}
+                />
             </article>
 
         </section>
@@ -43,7 +70,13 @@ function mapState({ users }) {
     return {
         good: users.array.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado').length,
         bad: users.array.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado').length,
+        fetching: users.fetching,
     }
 }
 
-export default connect(mapState, { getUsers, deleteUserAction })(AdminUsers)
+export default connect(
+    mapState, {
+        getUsers,
+        deleteUserAction,
+        updateUser,
+    })(AdminUsers)

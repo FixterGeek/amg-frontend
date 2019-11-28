@@ -93,16 +93,19 @@ function AdminUsersList({
             title: 'Acciones',
             key: 'action',
             render: (text, record) => {
-                const { tags = [] } = record;
+                let { tags = [] } = record;
                 if (noEditable) return 'Acciones no disponibles'
                 return (
                     <span>
                         <Switch
-                            onChange={handleActive}
+                            onChange={v => {
+                                tags = ['Inactivo', tags[1]];
+                                handleActive(v, record);
+                            }}
                             style={{ minWidth: '122px' }}
                             checkedChildren="Cuenta activa"
                             unCheckedChildren="Cuenta inactiva"
-                            defaultChecked={tags[0] === "Aprobado"}
+                            checked={tags[0] === "Aprobado"}
                         />
                         <Divider type="vertical" />
                         <Popconfirm
@@ -142,8 +145,8 @@ function AdminUsersList({
         setFiltered(resultsArray);
     }
 
-    const handleActive = (status) => {
-        if (onActive) onActive(status ? 'Aprobado' : 'Inactiva');
+    const handleActive = (status, user) => {
+        if (onActive) onActive(status ? 'Aprobado' : 'Inactivo', user);
     }
 
     return (
@@ -175,7 +178,6 @@ function AdminUsersList({
             </div>
             <div>
                 <Table
-                    loading={fetching}
                     locale={{ emptyText: "Sin usuarios" }}
                     columns={columns} dataSource={filtered} />
             </div>
