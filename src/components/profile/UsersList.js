@@ -39,7 +39,10 @@ function UserList({
                   <Avatar
                     shape="square"
                     size={180}
-                    src={u.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
+                    src={
+                      u.basicData.photoURL && u.basicData.photoURL != 'null'
+                        ? u.basicData.photoURL
+                        : 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
                   />
                   <Link className="data" to={`/dashboard/perfil/publico/${u.slug || u.email}`}>
                     <span>{ `${u.basicData.name} ${u.basicData.dadSurname}` }</span>

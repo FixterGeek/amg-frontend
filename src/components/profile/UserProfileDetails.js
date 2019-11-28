@@ -55,7 +55,7 @@ function UserProfileDetails({
   }, []);
 
   useEffect(() => {
-    const idArray = followingUsers.map(item => item._id);
+    const idArray = followingUsers.map(item => item._id || item);
     setFollowingsId(idArray);
   }, [followingUsers]);
 
