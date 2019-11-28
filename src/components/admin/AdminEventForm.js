@@ -1,11 +1,8 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import TextField from '../../molecules/TextFields'
 import {
     TimePicker,
     Select,
-    Modal,
-    Skeleton,
     Spin
 } from 'antd'
 import Upload from './reusables/Upload'
@@ -13,10 +10,6 @@ import estados from './estados.json'
 import moment from 'moment'
 import SpeakerModal from './reusables/SpeakerModal';
 import DatePicker from '../../molecules/DatePicker'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faTrash,
-} from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
 import {
     saveDraftEvent,
@@ -37,7 +30,6 @@ import SearchPlaceField from '../reusables/SearchPlaceField';
 import Swal from 'sweetalert2'
 
 let { Option } = Select
-const { Dragger } = Upload;
 
 // COMPONENT
 function AdminEventForm({
@@ -57,9 +49,6 @@ function AdminEventForm({
     deleteEventAction
 }) {
 
-    let [imageUrl, setImageUrl] = useState(null)
-    let [loading, setLoading] = useState(false)
-    let [speakerModal, setSpeakerModal] = useState(true)
     let [header, setHeader] = useState("Nuevo Evento")
 
     useEffect(() => {

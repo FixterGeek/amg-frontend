@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
+
+import { logoutAction } from '../store/ducks/userDuck';
+import useSweet from '../hooks/useSweetAlert';
 
 import Feed from '../components/feed/Feed';
 import EventsList from '../components/events/EventsList';
@@ -24,8 +29,20 @@ import Posts from '../components/resources/Posts';
 import UserList from '../components/profile/UsersList';
 
 
-function DashBoardRouter() {
+function DashBoardRouter({
+  userStatus, logoutAction, history,
+}) {
   const baseURL = '/dashboard';
+  const { infoAlert } = useSweet();
+
+  useEffect(() => {
+    if (userStatus === 'Inactivo') {
+      logoutAction();
+      history.push('/');
+      infoAlert({ text: 'Tu cuenta fue desactivada de forma temporal.' });
+    }
+  }, [userStatus]);
+
   return (
     <Switch>
       <Route path={`${baseURL}/perfil/publico/:slug`} component={UserProfilFollow} />
@@ -58,4 +75,14 @@ function DashBoardRouter() {
   );
 }
 
-export default DashBoardRouter;
+function mapStateToProps({ user }) {
+  return {
+    userStatus: user.userStatus,
+  }
+}
+
+export default withRouter(connect(
+  mapStateToProps, {
+    logoutAction
+  }
+)(DashBoardRouter));
