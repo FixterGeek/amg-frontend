@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 
 import { Table, Tabs, Icon, Input } from 'antd';
 
 import InvoicesAction from './InvoicesAction';
 
-function InvoicesTable() {
+function InvoicesTable({
+  invoices,
+}) {
   const { TabPane } = Tabs;
   const { Search } = Input;
 
@@ -17,7 +19,7 @@ function InvoicesTable() {
   const columns = [
     {
       title: 'No. de referencia',
-      dataIndex: 'ref',
+      dataIndex: 'uuid',
     },
     {
       title: 'Fecha',
@@ -30,7 +32,7 @@ function InvoicesTable() {
     {
       title: 'Monto',
       render: (t, r) => (
-        <span>{Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(r.amount)} MXN</span>
+        <span>{Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(r.total)} MXN</span>
       )
     },
     {
@@ -43,6 +45,14 @@ function InvoicesTable() {
     }
   ];
 
+  const [filtered, setFiltered] = useState(null);
+
+  const handleSearch = (value) => {
+    const regex = new RegExp(value, 'i');
+    const f = invoices.filter(i => regex.test(i.uuid));
+    setFiltered(f[0] ? f : invoices);
+  };
+
 
   return (
     <div className="admin-reusables-invoices-table">
@@ -50,6 +60,7 @@ function InvoicesTable() {
         <TabPane tab={<Icon type="search" />} key="1">
           <div className="finder">
             <Search
+              onChange={({ target }) => handleSearch(target.value)}
               placeholder="Escribe el número de referencia"
             />
           </div>
@@ -58,7 +69,7 @@ function InvoicesTable() {
           ok
         </TabPane>
       </Tabs>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={filtered || invoices} />
     </div>
   );
 }

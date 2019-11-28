@@ -12,6 +12,7 @@ import {
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
 import InvoicesTable from './reusables/InvoicesTable';
+import Spinner from '../../reusables/Spinner';
 
 function Invoices({
   invoices, noInvoices, populateInvoicesAction,
@@ -33,6 +34,7 @@ function Invoices({
 
   return (
     <section className="admin-invoices">
+      { invoicesFetching && <Spinner fullScrren /> }
       <ContainerItem className="admin-invoices-title">
         <Title style={{ display: 'inline-blocks', flexGrow: 1 }}>Facturas</Title>
         <Link to="/admin/invoices/fiscals">
@@ -50,7 +52,7 @@ function Invoices({
         </Link>
       </ContainerItem>
       <ContainerItem>
-        <InvoicesTable />
+        <InvoicesTable invoices={ invoices && invoices.data ? invoices.data.invoices : [] } />
       </ContainerItem>
     </section>
   );
