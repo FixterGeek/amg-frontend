@@ -36,7 +36,10 @@ const data = [
     },
 ];
 
-function AdminUsersList({ list = data, fetching, deleteAction, externalData, noEditable }) {
+function AdminUsersList({
+    list = data,fetching, deleteAction,
+    externalData, noEditable, onActive
+}) {
 
     const columns = [
         {
@@ -94,7 +97,13 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
                 if (noEditable) return 'Acciones no disponibles'
                 return (
                     <span>
-                        Cuenta activa <Switch defaultChecked={tags[0] === "activa"} />
+                        <Switch
+                            onChange={handleActive}
+                            style={{ minWidth: '122px' }}
+                            checkedChildren="Cuenta activa"
+                            unCheckedChildren="Cuenta inactiva"
+                            defaultChecked={tags[0] === "Aprobado"}
+                        />
                         <Divider type="vertical" />
                         <Popconfirm
                             title={`¿Eliminar a ${record.basicData.name} ${record.basicData.dadSurname}?`}
@@ -133,7 +142,9 @@ function AdminUsersList({ list = data, fetching, deleteAction, externalData, noE
         setFiltered(resultsArray);
     }
 
-    // console.log(list);
+    const handleActive = (status) => {
+        if (onActive) onActive(status ? 'Aprobado' : 'Inactiva');
+    }
 
     return (
         <section>
