@@ -43,16 +43,16 @@ function BasicInformationUser({
       {
         !nonOwn ? (
           <div className="follows">
-            <div>
+            <Link to={`/dashboard/usuario/${user._id}/seguidores`}>
               Seguidores
               <span>{ followers && followers.length }</span>
-            </div>
-            <div>
+            </Link>
+            <Link to={`/dashboard/usuario/${user._id}/siguiendo`}>
               Sigues
               <span>
                 { following && following.length }
               </span>
-            </div>
+            </Link>
           </div>
         ) : (
           <div

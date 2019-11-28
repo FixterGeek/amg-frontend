@@ -261,6 +261,39 @@ $eventLeftWidth: 350px;
   background-color: $clouds;
 }
 
+/* ProfileUserList */
+.profile-user-list {
+  &-list {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+
+    @include for-size(tablet-portrait-up) {
+      grid-template-columns: 33.3% 33.3% 33.3%;
+    }
+
+    @include for-size(desktop-up) {
+      grid-template-columns: 25% 25% 25% 25%;
+    }
+
+    @include for-size(big-desktop-up) {
+      grid-template-columns: 20% 20% 20% 20% 20%;
+    }
+
+    .item {
+      display: flex;
+      justify-content: center;
+      .ant-avatar-square {
+        margin: $margin;
+        border-radius: 0px;
+      }
+      .content {
+        position: relative;
+      }
+    }
+  }
+}
+
 
   /*MainProfile*/
   .component-main-profile, .component-personal-profile {
@@ -291,7 +324,7 @@ $eventLeftWidth: 350px;
       display: flex;
       width: 100%;
 
-      div {
+      a {
         width: 50%;
         box-sizing: border-box;
         border-top: solid 5px white;
@@ -300,6 +333,8 @@ $eventLeftWidth: 350px;
         align-items: center;
         justify-content: center;
         padding: $padding;
+        color: $textPrimary;
+        cursor: pointer;
 
         &:first-child {
           border-right: 2px solid white;

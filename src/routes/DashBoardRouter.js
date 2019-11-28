@@ -21,6 +21,7 @@ import MembershipInvoice from '../components/membership/MembershipInvoice';
 import Resources from '../components/resources/Resources';
 import Guides from '../components/resources/Guides';
 import Posts from '../components/resources/Posts';
+import UserList from '../components/profile/UsersList';
 
 
 function DashBoardRouter() {
@@ -50,6 +51,9 @@ function DashBoardRouter() {
       <Route excat path={`${baseURL}/recursos`} component={Resources} />
       <Route exact path={`${baseURL}/settings/`} component={Settings} />
       <Route exact path={`${baseURL}`} component={Feed} />
+      {/* User */}
+      <Route exact path={`${baseURL}/usuario/:userId/seguidores`} component={UserList} />
+      <Route exact path={`${baseURL}/usuario/:userId/siguiendo`} component={UserList} />
     </Switch>
   );
 }
