@@ -19,7 +19,7 @@ function AdminEventModules({
   return (
     <div className="admin-event-modules">
       <ContainerItem className="editable-section-header">
-        <Title level={3}>Módulos y atividades</Title>
+        <Title level={3}>Módulos y actividades</Title>
         <JustModal
           buttonText="Agregar modúlo ✚"
           childElement={<AdminModuleForm eventId={eventId} addModule={addModule} />}
