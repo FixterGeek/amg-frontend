@@ -1,15 +1,14 @@
 import {
     login, updateUser as update, signup,
     followUser as follow,
+    getSelfUser,
 } from '../../services/userServices'
 import { activitySubscribe, assistAnEvent } from '../../services/eventsServices';
 import {
     switchMap,
     map,
-    debounceTime,
     filter,
     catchError,
-    delay,
     takeUntil,
     withLatestFrom,
     pluck,
@@ -20,7 +19,7 @@ import { ajax } from 'rxjs/ajax'
 import { concat, of, EMPTY } from 'rxjs'
 import { ofType } from 'redux-observable';
 import useSweet from '../../hooks/useSweetAlert';
-import { errorAction } from './tools';
+import { errorAction, successAction } from './tools';
 
 const baseAuthURL = process.env.REACT_APP_BASE_AUTH_API;
 
@@ -67,6 +66,8 @@ const userState = {
 
 
 // Constants
+let FETCHING = "USER/FETCHING";
+let FETCHING_ERROR = "USER/FETCHING_ERROR";
 let RESET_USER_STATUS = 'RESET_USER_STATUS';
 let CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS"
 let CREATE_USER = "CREATE_USER"
@@ -88,8 +89,15 @@ let SUBSCRIBE_USER_TO_EVENT_ERROR ="SUBSCRIBE_USER_TO_EVENT_ERROR"
 let FOLLOW_USER = 'FOLLOW_USER'
 let FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS'
 let FOLLOW_USER_ERROR = 'FOLLOW_USER_ERROR'
+let POPULATE_FOLLOWS_USERS = 'POPULATE_FOLLOWS_USERS';
 
 // actionCreators
+export const fetching = () => ({ type: FETCHING });
+export const fetchingError = error => ({ type: FETCHING_ERROR, payload: error });
+
+export const populateFollowsAction = ({ following, followers }) => ({
+    type: POPULATE_FOLLOWS_USERS, payload: { following, followers },
+})
 export function resetUserStatus() {
     return { type: RESET_USER_STATUS };
 }
@@ -359,11 +367,30 @@ export const followUserAction = (userId, followType) => (dispatch) => {
         })
 }
 
+export const populateFollows = follows => (dispatch) => {
+    dispatch(fetching());
+    return getSelfUser()
+        .then(data => successAction(
+            dispatch, populateFollowsAction, data, RESET_USER_STATUS, false,
+        ))
+        .catch(error => errorAction(
+            dispatch, fetchingError, error, RESET_USER_STATUS, 'Ocurrio un error',
+        ));
+}
+
 // reducer
 function reducer(state = userState, action) {
     switch (action.type) {
         case RESET_USER_STATUS:
             return { ...state, status: null, fetching: false }
+        case FETCHING_ERROR:
+            return {
+                ...state, fetching: false, status: 'error', error: action.payload,
+            }
+        case FETCHING:
+            return {
+                ...state, fetching: true,
+            }
         case UPDATE_USER:
             return { ...state, fetching: true };
         case UPDATE_USER_SUCCESS:
@@ -412,6 +439,12 @@ function reducer(state = userState, action) {
             }
         case FOLLOW_USER_ERROR:
             return { ...state, fetching: false, status: 'error', error: action.payload };
+        case POPULATE_FOLLOWS_USERS:
+            return {
+                ...state, followers: action.payload.followers,
+                following: action.payload.following,
+                status: 'success',
+            }
         default:
             return state;
     }

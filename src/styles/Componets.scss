@@ -284,11 +284,46 @@ $eventLeftWidth: 350px;
       display: flex;
       justify-content: center;
       .ant-avatar-square {
-        margin: $margin;
         border-radius: 0px;
+        border: 1px solid $clouds;
       }
       .content {
         position: relative;
+        margin: $margin;
+
+        .data {
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          flex-flow: column;
+          padding: $smallPadding;
+          background-color: rgba(0, 0, 0, 0.1);
+          justify-content: flex-end;
+
+          span {
+            color: white;
+            min-width: 0;
+            text-overflow: ellipsis;
+
+            &:first-child {
+              font-size: 0.8rem;
+              font-weight: bold;
+            }
+
+            &:last-child {
+              font-size: 0.75rem;
+            }
+          }
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+          }
+        }
       }
     }
   }

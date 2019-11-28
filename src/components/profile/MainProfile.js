@@ -7,6 +7,9 @@ import {
   selfPublicationsAction,
   deletePublication,
 } from '../../store/ducks/publicationsDuck';
+import {
+  populateFollows,
+} from '../../store/ducks/userDuck';
 import DashboardContainerItem from '../../atoms/DashboardContainerItem';
 import Tabs from './reusables/Tabs';
 import PostItem from '../feed/reusables/PostItem';
@@ -17,13 +20,14 @@ import Spinner from '../reusables/Spinner';
 
 function MainProfile({
   user, selfPublications, selfPublicationsAction,
-  deletePublication, fetching,
+  deletePublication, fetching, populateFollows,
 }) {
   const { Title, Text } = Typography;
 
 
   useEffect(() => {
       selfPublicationsAction();
+      populateFollows();
   }, []);
 
   document.title = 'Perfil | Asociación Mexicana de Gastroenterología'
@@ -64,7 +68,7 @@ function mapStateToProps({ publications, user }) {
   return {
     selfPublications: publications.selfArray,
     user,
-    fetching: publications.fetching,
+    fetching: publications.fetching || user.fetching,
   };
 }
 
@@ -72,4 +76,5 @@ export default connect(
   mapStateToProps, {
     selfPublicationsAction,
     deletePublication,
+    populateFollows,
   })(MainProfile);

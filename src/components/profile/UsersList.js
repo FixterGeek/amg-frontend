@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Typography, Avatar } from 'antd';
 
+import { getUser } from '../../services/userServices';
 import ContainerItem from '../reusables/ContainerItem';
 
 function UserList({
@@ -13,7 +15,16 @@ function UserList({
   const { location } = history;
 
   const type = location.pathname.split('/').pop();
-  const iterableUsers = ['1', '2', '3', '4', '5'] // || type === 'seguidores' ? user.followers : user.following;
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUser(params.userId)
+      .then(data => {
+        if (type === 'seguidores') setUsers(data.followers);
+        else setUsers(data.following);
+      })
+  }, [users.length])
 
   return (
     <div className="dashboard-container profile-user-list">
@@ -22,10 +33,18 @@ function UserList({
 
         <ContainerItem className="profile-user-list-list">
           {
-            iterableUsers.map(u => (
+            users.map(u => (
               <div className="item">
                 <div className="content">
-                  <Avatar shape="square" size={168} />
+                  <Avatar
+                    shape="square"
+                    size={180}
+                    src={u.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
+                  />
+                  <Link className="data" to={`/dashboard/perfil/publico/${u.slug || u.email}`}>
+                    <span>{ `${u.basicData.name} ${u.basicData.dadSurname}` }</span>
+                    <span>{u.basicData.address.state || u.basicData.speciality}</span>
+                  </Link>
                 </div>
               </div>
             ))
