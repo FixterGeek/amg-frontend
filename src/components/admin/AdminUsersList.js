@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Icon, Divider, Tag, Switch, Input, Popconfirm } from 'antd';
+import {
+    Table, Icon, Divider,
+    Tag, Switch, Input,
+    Popconfirm, Avatar
+} from 'antd';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -37,7 +41,7 @@ const data = [
 ];
 
 function AdminUsersList({
-    list = data,fetching, deleteAction,
+    list = data, fetching, deleteAction,
     externalData, noEditable, onActive
 }) {
 
@@ -48,7 +52,18 @@ function AdminUsersList({
             key: 'name',
             render: (text, record) => {
                 if (noEditable) return <span>{text}</span>
-                return <Link to={`/admin/users/${record._id}`}>{text}</Link>
+                return <Link to={`/admin/users/${record._id}`}>
+                    <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
+                        <Avatar
+                            style={{ marginTop: '6px', backgroundColor: '#fafafa' }}
+                            src={record.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
+                        />
+                        <div style={{ display: 'flex', flexFlow: 'column', marginLeft: '16px' }}>
+                            <strong style={{ color: '#333' }}>{ text }</strong>
+                            <span style={{ color: '#333' }}>{ record.email }</span>
+                        </div>
+                    </div>
+                </Link>
             },
         },
         {
@@ -104,7 +119,7 @@ function AdminUsersList({
                             style={{ minWidth: '122px' }}
                             checkedChildren="Cuenta activa"
                             unCheckedChildren="Cuenta inactiva"
-                            checked={tags[0] === "Aprobado"}
+                            checked={!(tags[0] === "Inactivo")}
                         />
                         <Divider type="vertical" />
                         <Popconfirm
@@ -171,7 +186,7 @@ function AdminUsersList({
                     onSearch={onSearch}
                     onChange={onChange}
                     size="large"
-                    placeholder="Ingresa nombre" allowClear />
+                    placeholder="Ingresa nombre o correo electrónico" allowClear />
                     : <UserFilter usersArray={list} onResults={handleFilterResults} />
                 }
             </div>
