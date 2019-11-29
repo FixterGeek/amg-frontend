@@ -102,10 +102,12 @@ export const createEducationAction = (type, educationData) => async (dispatch) =
       localStorage.education = JSON.stringify({ ...localEducation, ...education });
 
       dispatch(createEducationSuccess(education));
+      dispatch(resetEducationStatus());
       return data;
     })
     .catch(({ response }) => {
       dispatch(createEducationError(response));
+      dispatch(resetEducationStatus());
       return response;
     });
 };
@@ -121,6 +123,7 @@ export const populateEducationAction = (userId) => (dispatch) => {
       internships: localEducation.internships,
       residencies: localEducation.residencies,
     }));
+    dispatch(resetEducationStatus());
     return localEducation;
   }
 
@@ -130,10 +133,12 @@ export const populateEducationAction = (userId) => (dispatch) => {
 
       localStorage.education = JSON.stringify({ studies, residencies, internships });
       dispatch(populateEducationSuccess({ studies, residencies, internships }));
+      dispatch(resetEducationStatus());
       return data;
     })
     .catch((error) => {
       dispatch(populateEducationError(error));
+      dispatch(resetEducationStatus());
       return error;
     });
 
@@ -143,10 +148,12 @@ export const populateEducationAction = (userId) => (dispatch) => {
 
       localStorage.education = JSON.stringify({ studies, residencies, internships });
       dispatch(populateEducationSuccess({ studies, residencies, internships }));
+      dispatch(resetEducationStatus());
       return data;
     })
     .catch((error) => {
       dispatch(populateEducationError(error));
+      dispatch(resetEducationStatus());
       return error;
     });
 };
@@ -162,7 +169,11 @@ export default function reducer(state = educationState, action) {
     case CREATE_EDUCATION:
       return { ...state, fetching: true };
     case CREATE_EDUCATION_SUCCESS:
-      return { ...state, fetching: false, status: 'success', ...action.payload };
+      return {
+        ...state, fetching: false,
+        status: 'success',
+        ...action.payload
+      };
     case CREATE_EDUCATION_ERROR:
       return { ...state, fetching: false, error: action.payload, status: 'error' };
     /* Populate education */

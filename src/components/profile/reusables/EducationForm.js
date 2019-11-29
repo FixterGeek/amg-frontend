@@ -8,11 +8,15 @@ import RangeDatePicker from '../reusables/RangeDatePicker';
 import DatePicker from '../../reusables/DatePickerField';
 import DocumentField from '../../reusables/DocumentField';
 import CreateInstitution from '../reusables/CreateInstitutionModal';
+import FormManager from '../../admin/reusables/CreateAndUpdateManager';
+import Button from '../../reusables/Button';
 
-function EducationForm({ user, institutions, onChange, populateInstitutionsAction }) {
-  const [type, setType] = useState('Estudios');
-  const [study, setStudy] = useState({
-    user: '',
+function EducationForm({
+  user, institutions, onChange, populateInstitutionsAction,
+  isModal = true, onSave, status
+}) {
+  const initialStudy = {
+    user: user._id,
     major: null,
     institution: null,
     startDate: null,
@@ -21,22 +25,27 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     professionalLicence: null,
     ceduleFile: null,
     titleFile: null,
-  })
-  const [residence, setResidence] = useState({
-    user: '',
+  }
+  const initialResidence = {
+    user: user._id,
     speciality: null,
     institution: null,
     startDate: null,
     endDate: null,
     specialityLicenceCopy: null,
     certificateFile: null,
-  });
-  const [internship, setInternship] = useState({
-    user: '',
+  }
+  const initialInternship = {
+    user: user._id,
     institution: null,
     startDate: null,
     endDate: null,
-  })
+  }
+
+  const [type, setType] = useState('Estudios');
+  const [study, setStudy] = useState(initialStudy);
+  const [residence, setResidence] = useState(initialResidence);
+  const [internship, setInternship] = useState(initialInternship);
 
 
   useEffect(() => {
@@ -88,168 +97,185 @@ function EducationForm({ user, institutions, onChange, populateInstitutionsActio
     if (type === 'Internado') setInternship({ ...internship, institution: data._id })
   }
 
-
   return (
-    <form>
-      <SelectField
-        onChange={value => setType(value)}
-        label="Tipo de educación"
-        value={type}
-      >
+    <FormManager
+      noSubmit
+      isModal={isModal}
+      status={status}
+      successClose
+      errorClose
+      lineButton
+      modalOpenText="Agregar ✚"
+      onModalClose={() => {
+        setInternship(initialInternship);
+        setResidence(initialResidence);
+        setStudy(initialStudy);
+      }}
+    >
+      <form>
+        <SelectField
+          onChange={value => setType(value)}
+          label="Tipo de educación"
+          value={type}
+        >
+          {
+            ['Estudios', 'Residencia', 'Internado'].map((opt, index) => (
+              <OptionSelect key={index} value={opt}>
+                { opt }
+              </OptionSelect>
+            ))
+          }
+        </SelectField>
+        
         {
-          ['Estudios', 'Residencia', 'Internado'].map((opt, index) => (
-            <OptionSelect key={index} value={opt}>
-              { opt }
-            </OptionSelect>
-          ))
+          type === 'Estudios' && (
+            <div>
+              <TextField
+                onChange={handleStudy}
+                value={study.major}
+                name="major"
+                label="Carrera"
+              />
+
+              {/* Modal for create institution */}
+              <CreateInstitution
+                onResult={(error, data) => handleCreateInstitutions({ type: 'Estudios', data })}
+                forceTypes={['Escuela']}
+                disabledOwn
+              />
+
+              <SelectField
+                label="Institución"
+                onChange={value => handleStudy({ target: { value, name: 'institution' } })}
+                value={study.institution}>
+                {
+                  institutions.filter(intn => intn.type === 'Escuela').map(institution => (
+                    <OptionSelect key={institution._id} value={institution._id}>
+                      { institution.name }
+                    </OptionSelect>
+                  ))
+                }
+              </SelectField>
+              <RangeDatePicker
+                onChange={moments => handleStudy({ target: { moments, name: 'period' } })}
+                dateOne={study.startDate}
+                dateTwo={study.endDate}
+                onlyMonth
+                format="MM/YYYY"
+                label="Periodo de estudios"
+              />
+              {
+                study.endDate !== 'Actualidad' && study.endDate !== null ? (
+                  <DatePicker
+                    onChange={moment => handleStudy({ target: { value: moment.toString(), name: 'receptionDate' } })}
+                    value={study.receptionDate}
+                    name="receptionDate"
+                    label="Fecha de titulación"
+                  />
+                ) : null
+              }
+              <TextField
+                onChange={handleStudy}
+                value={study.professionalLicence}
+                name="professionalLicence"
+                label="No. de cédula profesional"
+              />
+              <DocumentField
+                label="Cédula profesional"
+                fileTypes="forDocsAndImages"
+                onFile={file => setStudy({ ...study, ceduleFile: file })}
+                document={study.ceduleFile}
+              />
+              <DocumentField
+                label="Título profesional"
+                fileTypes="forDocsAndImages"
+                onFile={file => setStudy({ ...study, titleFile: file })}
+                document={study.titleFile}
+              />
+            </div>
+          )
         }
-      </SelectField>
-      
-      {
-        type === 'Estudios' && (
-          <div>
-            <TextField
-              onChange={handleStudy}
-              value={study.major}
-              name="major"
-              label="Carrera"
-            />
 
-            {/* Modal for create institution */}
-            <CreateInstitution
-              onResult={(error, data) => handleCreateInstitutions({ type: 'Estudios', data })}
-              forceTypes={['Escuela']}
-              disabledOwn
-            />
+        {
+          type === 'Residencia' && (
+            <div>
+              <TextField
+                onChange={handleResidence}
+                value={residence.speciality}
+                name="speciality"
+                label="Especialidad"
+              />
+              <CreateInstitution
+                onResult={(error, data) => handleCreateInstitutions({ type: 'Residencia', data })}
+                forceTypes={['Hospital']}
+                disabledOwn
+              />
+              <SelectField
+                label="Institución"
+                onChange={value => handleResidence({ target: { value, name: 'institution' } })}
+                value={residence.institution}>
+                {
+                  institutions.filter(intn => intn.type === 'Hospital').map(institution => (
+                    <OptionSelect key={institution._id} value={institution._id}>
+                      { institution.name }
+                    </OptionSelect>
+                  ))
+                }
+              </SelectField>
+              <RangeDatePicker
+                onChange={moments => handleResidence({ target: { moments, name: 'period' } })}
+                onlyMonth
+                format="MM/YYYY"
+                dateOne={residence.startDate}
+                dateTwo={residence.endDate}
+                label="Periodo de estudios"
+              />
+              <DocumentField
+                label="Copia de certificado"
+                fileTypes="forDocsAndImages"
+                document={residence.certificateFile}
+                onFile={file => setResidence({ ...residence, certificateFile: file })}
+              />
+            </div>
+          )
+        }
 
-            <SelectField
-              label="Institución"
-              onChange={value => handleStudy({ target: { value, name: 'institution' } })}
-              value={study.institution}>
-              {
-                institutions.filter(intn => intn.type === 'Escuela').map(institution => (
-                  <OptionSelect key={institution._id} value={institution._id}>
-                    { institution.name }
-                  </OptionSelect>
-                ))
-              }
-            </SelectField>
-            <RangeDatePicker
-              onChange={moments => handleStudy({ target: { moments, name: 'period' } })}
-              dateOne={study.startDate}
-              dateTwo={study.endDate}
-              onlyMonth
-              format="MM/YYYY"
-              label="Periodo de estudios"
-            />
-            {
-              study.endDate !== 'Actualidad' && study.endDate !== null ? (
-                <DatePicker
-                  onChange={moment => handleStudy({ target: { value: moment.toString(), name: 'receptionDate' } })}
-                  value={study.receptionDate}
-                  name="receptionDate"
-                  label="Fecha de titulación"
-                />
-              ) : null
-            }
-            <TextField
-              onChange={handleStudy}
-              value={study.professionalLicence}
-              name="professionalLicence"
-              label="No. de cédula profesional"
-            />
-            <DocumentField
-              label="Cédula profesional"
-              fileTypes="forDocsAndImages"
-              onFile={file => setStudy({ ...study, ceduleFile: file })}
-              document={study.ceduleFile}
-            />
-            <DocumentField
-              label="Título profesional"
-              fileTypes="forDocsAndImages"
-              onFile={file => setStudy({ ...study, titleFile: file })}
-              document={study.titleFile}
-            />
-          </div>
-        )
-      }
-
-      {
-        type === 'Residencia' && (
-          <div>
-            <TextField
-              onChange={handleResidence}
-              value={residence.speciality}
-              name="speciality"
-              label="Especialidad"
-            />
-            <CreateInstitution
-              onResult={(error, data) => handleCreateInstitutions({ type: 'Residencia', data })}
-              forceTypes={['Hospital']}
-              disabledOwn
-            />
-            <SelectField
-              label="Institución"
-              onChange={value => handleResidence({ target: { value, name: 'institution' } })}
-              value={residence.institution}>
-              {
-                institutions.filter(intn => intn.type === 'Hospital').map(institution => (
-                  <OptionSelect key={institution._id} value={institution._id}>
-                    { institution.name }
-                  </OptionSelect>
-                ))
-              }
-            </SelectField>
-            <RangeDatePicker
-              onChange={moments => handleResidence({ target: { moments, name: 'period' } })}
-              onlyMonth
-              format="MM/YYYY"
-              dateOne={residence.startDate}
-              dateTwo={residence.endDate}
-              label="Periodo de estudios"
-            />
-            <DocumentField
-              label="Copia de certificado"
-              fileTypes="forDocsAndImages"
-              document={residence.certificateFile}
-              onFile={file => setResidence({ ...residence, certificateFile: file })}
-            />
-          </div>
-        )
-      }
-
-      {
-        type === 'Internado' && (
-          <div>
-            <CreateInstitution
-              onResult={(error, data) => handleCreateInstitutions({ type: 'Internado', data })}
-              forceTypes={['Hospital']}
-              disabledOwn
-            />
-            <SelectField
-              label="Institución"
-              onChange={value => handleInternship({ target: { value, name: 'institution' } })}
-              value={internship.institution}>
-              {
-                institutions.filter(intn => intn.type === 'Hospital').map(institution => (
-                  <OptionSelect key={institution._id} value={institution._id}>
-                    { institution.name }
-                  </OptionSelect>
-                ))
-              }
-            </SelectField>
-            <RangeDatePicker
-              onChange={moments => handleInternship({ target: { moments, name: 'period' } })}
-              onlyMonth
-              format="MM/YYYY"
-              dateOne={internship.startDate}
-              dateTwo={internship.endDate}
-              label="Periodo de estudios"
-            />
-          </div>
-        )
-      }
-    </form>
+        {
+          type === 'Internado' && (
+            <div>
+              <CreateInstitution
+                onResult={(error, data) => handleCreateInstitutions({ type: 'Internado', data })}
+                forceTypes={['Hospital']}
+                disabledOwn
+              />
+              <SelectField
+                label="Institución"
+                onChange={value => handleInternship({ target: { value, name: 'institution' } })}
+                value={internship.institution}>
+                {
+                  institutions.filter(intn => intn.type === 'Hospital').map(institution => (
+                    <OptionSelect key={institution._id} value={institution._id}>
+                      { institution.name }
+                    </OptionSelect>
+                  ))
+                }
+              </SelectField>
+              <RangeDatePicker
+                onChange={moments => handleInternship({ target: { moments, name: 'period' } })}
+                onlyMonth
+                format="MM/YYYY"
+                dateOne={internship.startDate}
+                dateTwo={internship.endDate}
+                label="Periodo de estudios"
+              />
+            </div>
+          )
+        }
+        <Button width="100%" onClick={() => onSave ? onSave() : null}>
+          Guardar
+        </Button>
+      </form>
+    </FormManager>
   );
 }
 

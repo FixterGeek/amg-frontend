@@ -46,7 +46,7 @@ function SignupTeachingForm({ activities, loading, status, resetStatus }) {
 
   return (
     <div style={{ position: 'relative' }}>
-      { loading && <Spinner /> }
+      { loading && <Spinner fullScrren /> }
 
       <LaboralExperience
         title="Actividades docentes"

@@ -6,7 +6,7 @@ import { DatePicker, Button, Input, Icon, Form } from 'antd';
 import DatePickerField from '../reusables/DatePickerField';
 
 function RangeDatePicker({
-  label, onChange, values, placeholder,
+  label, onChange, values = [null, null], placeholder,
   format, onlyMonth, datesArray,
 }) {
   const { Item } = Form;
@@ -24,8 +24,8 @@ function RangeDatePicker({
   const [current, setCurrent] = useState();
   const [errorDate, setErrorDate] = useState(null);
   const [dates, setDate] = useState({
-    startDate: null,
-    endDate: null,
+    startDate: values[0],
+    endDate: values[1],
   });
 
   useEffect(() => {
@@ -38,11 +38,11 @@ function RangeDatePicker({
 
   }, [dates, current]);
 
-  useEffect(() => {
-    if (values && !dates.startDate) {
-      setDate({ startDate: values[0], endDate: values[1] });
-    }
-  }, [values]);
+  // useEffect(() => {
+  //   if (values) {
+  //     setDate({ startDate: values[0], endDate: values[1] });
+  //   }
+  // }, [values]);
 
 
   const handleCurrent = (current) => {

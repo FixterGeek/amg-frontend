@@ -6,7 +6,7 @@ import {
   resetUserStatus,
   updateUserAction,
 } from '../../store/ducks/userDuck';
-import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
+import { populateEducationAction } from '../../store/ducks/educationDuck';
 import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
 import { populateSubsidiaries } from '../../store/ducks/subsidiaryDuck';
 import Stepper from './SignupStepper';
@@ -19,7 +19,7 @@ import SignupFiscalForm from './forms/SignupFiscalForm';
 function Signup({
   user, createUserAction, resetUserStatus,
   fetching, status, history, match,
-  education, populateEducationAction, resetEducationStatus,
+  education, populateEducationAction,
   activities, populateActivitiesAction, resetActivitiesStatus,
   activitiesFetching, activitiesStatus, updateUserAction,
   educationFetching, educationStatus, subsidiaries,
@@ -63,7 +63,6 @@ function Signup({
             <EducationForm
               user={user}
               education={education}
-              resetStatus={resetEducationStatus}
               loading={educationFetching}
               status={educationStatus}
             />
@@ -127,7 +126,6 @@ export default connect(
     createUserAction,
     resetUserStatus,
     populateEducationAction,
-    resetEducationStatus,
     populateActivitiesAction,
     resetActivitiesStatus,
     updateUserAction,

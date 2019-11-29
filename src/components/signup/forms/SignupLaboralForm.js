@@ -27,7 +27,7 @@ function SignupLaboralForm({ jobActivities, loading, status, resetStatus }) {
 
   return (
     <div style={{ position: 'relative' }}>
-      { loading && <Spinner /> }
+      { loading && <Spinner fullScrren /> }
       <LaboralExperience
         title="Datos laborales"
         activitiesOptions={['Laboral']}

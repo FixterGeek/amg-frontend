@@ -24,13 +24,12 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
       errorAlert({});
       resetStatus();
     }
-    if (status === 'success') resetStatus();
   }, [status]);
 
   return (
     <div style={{ position: 'relative' }}>
       {
-        loading && <Spinner />
+        loading && <Spinner fullScrren />
       }
       <PersonalEducation externalUser={user} />
 

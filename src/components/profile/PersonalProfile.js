@@ -7,7 +7,7 @@ import { Typography } from 'antd';
 import useSweet from '../../hooks/useSweetAlert';
 import { updateUserAction, resetUserStatus } from '../../store/ducks/userDuck';
 import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
-import { populateEducationAction, resetEducationStatus } from '../../store/ducks/educationDuck';
+import { populateEducationAction } from '../../store/ducks/educationDuck';
 import Spinner from '../reusables/Spinner';
 import BasicData from './editables/BasicData';
 import PersonalBio from './editables/PersonalBio';
@@ -24,7 +24,7 @@ function PersonalProfile({
   studiesFetching, studiesStatus, userFetching,
   userStatus, activitiesFetching, activitiesStatus,
   /* For resets status */
-  resetActivitiesStatus, resetEducationStatus, resetUserStatus,
+  resetActivitiesStatus, resetUserStatus,
 }) {
   const { Title } = Typography;
 
@@ -37,12 +37,10 @@ function PersonalProfile({
       errorAlert({ title: 'Error al actualizar.' });
       resetActivitiesStatus();
       resetUserStatus();
-      resetEducationStatus();
     } 
     if (userStatus === 'success' || studiesStatus === 'success' || activitiesStatus === 'success') {
       resetActivitiesStatus();
       resetUserStatus();
-      resetEducationStatus();
     }
   }, [userStatus, studiesStatus, activitiesStatus])
 
@@ -179,7 +177,6 @@ export default connect(
     populateActivitiesAction,
     populateEducationAction,
     resetActivitiesStatus,
-    resetEducationStatus,
     resetUserStatus,
   },
 )(PersonalProfile);

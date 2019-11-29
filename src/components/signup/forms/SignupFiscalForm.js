@@ -64,7 +64,7 @@ function SignupFiscalForm({
 
   return (
     <Form style={{ position: 'relative' }}>
-      { loading && <Spinner /> }
+      { loading && <Spinner fullScrren /> }
       <ContainerItem>
         <Title>Datos fiscales</Title>
       </ContainerItem>
