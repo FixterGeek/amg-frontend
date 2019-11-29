@@ -12,16 +12,15 @@ import CreateInstitution from '../reusables/CreateInstitutionModal';
 import LaboralForm from '../reusables/LaboralForm';
 
 function LaboralExperience({
-  user, createActivityAction, pushLastInstitution,
+  user, createActivityAction,
   title, activitiesOptions, defaultType,
-  hiddenType
+  hiddenType, status,
 }) {
   const { Title } = Typography;
 
   const [open, setOpen] = useState(false);
   const [activity, setActivity] = useState();
   const [lastInstitution, setLastInstitution] = useState();
-  const [reset, setReset] = useState(false);
 
   const handleResult = (error, data) => {
     if (data) {
@@ -34,9 +33,7 @@ function LaboralExperience({
   };
 
   const handleSave = () => {
-    createActivityAction(activity).then(() => {
-      setReset(true);
-    })
+    createActivityAction(activity);
     setOpen(false);
   };
 
@@ -44,37 +41,27 @@ function LaboralExperience({
     <ContainerItem className="component-profile-laboral-experience">
       <div className="component-profile-laboral-experience-header">
         <Title>{ title }</Title>
-        <Button onClick={() => setOpen(true)} marginTop="0px" width="180px" line>
-          Agregar ✚
-        </Button>
-      </div>
-
-      <Modal
-        visible={open}
-        onOk={handleSave}
-        onCancel={() => setOpen(false)}
-        okButtonProps={{ className: 'amg-button amg-button-secondary' }}
-        cancelButtonProps={{ className: 'amg-button amg-button-outline-secondary' }}
-        okText="Aceptar"
-        cancelText="Cancelar"
-      >
         <LaboralForm
           lastInstitution={lastInstitution}
           onChange={handleForm}
           activitiesOptions={activitiesOptions}
           defaultType={defaultType}
           hiddenType={hiddenType}
-          reset={reset}
+          status={status}
+          institutionComponent={
+            <CreateInstitution user={user} onResult={handleResult} />
+          }
+          onSave={handleSave}
         />
-        <CreateInstitution user={user} onResult={handleResult} />
-      </Modal>
+      </div>
     </ContainerItem>
   );
 }
 
 function mapStateToProps({ activities, user }) {
+  console.log(activities);
   return {
-    activities,
+    status: activities.status,
     user
   };
 }

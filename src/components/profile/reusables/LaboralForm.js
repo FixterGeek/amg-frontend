@@ -10,27 +10,26 @@ import RangeDatePicker from './RangeDatePicker';
 import Label from '../../../atoms/data-entry/Label';
 import Spinner from '../../reusables/Spinner';
 import SelectField, { OptionSelect } from '../../reusables/SelectField';
+import FormManager from '../../admin/reusables/CreateAndUpdateManager';
+import Button from '../../reusables/Button';
 
 
 function LaboralForm({
   user, institutionsArray, populateInstitutionsAction, onChange,
   lastInstitution, disabledOwn, fetching, activityFetching,
   activitiesOptions = [], defaultType, hiddenType,
-  reset
+  status, isModal = true, onSave,
+  institutionComponent,
 }) {
   const initialState = {
-    user: '',
+    user: user._id,
     institution: null,
     institutionOwner: '',
-    type: null,
+    type: defaultType || null,
     startDate: null,
     endDate: null,
   }
   const [activity, setActivity] = useState(initialState);
-
-  useEffect(() => {
-    setActivity(initialState);
-  }, [reset]);
 
 
   useEffect(() => {
@@ -68,74 +67,89 @@ function LaboralForm({
 
 
   return (
-    <form className="relative">
-      { activityFetching || fetching ?  <Spinner /> : null }
-      <SelectField
-        label="Institución"
-        value={activity.institution}
-        onChange={(value, event) => handleChange({ target: { name: 'institution', value, event } })}>
-        {
-          institutionsArray.map((institution, index) => (
-            <OptionSelect key={institution._id} value={institution._id} index={index}>
-              { institution.name }
-            </OptionSelect>
-          ))
-        }
-      </SelectField>
+    <FormManager
+      isModal={isModal}
+      noSubmit
+      lineButton
+      modalOpenText="Agregar ✚"
+      status={status}
+      successClose
+      errorClose
+      onModalClose={() => setActivity(initialState)}
+    >
+      <form className="relative">
+        <SelectField
+          label="Institución"
+          value={activity.institution}
+          onChange={(value, event) => handleChange({ target: { name: 'institution', value, event } })}>
+          {
+            institutionsArray.map((institution, index) => (
+              <OptionSelect key={institution._id} value={institution._id} index={index}>
+                { institution.name }
+              </OptionSelect>
+            ))
+          }
+        </SelectField>
+        { institutionComponent }
 
-      <div>
-        <Label>Institución propia</Label>
+        <div>
+          <Label>Institución propia</Label>
+          {
+            !disabledOwn && (
+              <Checkbox
+                disabled
+                style={{ marginLeft: '8px' }}
+                checked={activity.institutionOwner === user._id} />
+            )
+          }
+        </div>
         {
-          !disabledOwn && (
-            <Checkbox
-              disabled
-              style={{ marginLeft: '8px' }}
-              checked={activity.institutionOwner === user._id} />
+          !hiddenType && (
+            <SelectField
+              onChange={value => handleChange({ target: { value, name: 'type' } })}
+              value={activity.type}
+              label="Tipo de actividad" >
+                {
+                  activitiesOptions.map((option, index) => (
+                    <OptionSelect key={index} value={option.value || option}>
+                      { option.label || option }
+                    </OptionSelect>
+                  ))
+                }
+            </SelectField>
           )
         }
-      </div>
-      {
-        !hiddenType && (
-          <SelectField
-            onChange={value => handleChange({ target: { value, name: 'type' } })}
-            value={activity.type}
-            label="Tipo de actividad" >
-              {
-                activitiesOptions.map((option, index) => (
-                  <OptionSelect key={index} value={option.value || option}>
-                    { option.label || option }
-                  </OptionSelect>
-                ))
-              }
-          </SelectField>
-        )
-      }
-      {
-        activity.type === 'Hospitalaria' || activity.type === 'Docente' || activity.type === 'Laboral' ? (
-          <TextField
-            onChange={handleChange}
-            name="charge"
-            value={activity.charge}
-            label="Cargo" />
-        ) : null
-      }
-      {
-        activity.type === 'Docente' && (
-          <TextField
-            onChange={handleChange}
-            name="subject"
-            value={activity.subject}
-            label="Materia" />
-        )
-      }
-      <RangeDatePicker
-        onChange={handleDate}
-        format="MM/YYYY"
-        onlyMonth
-        label="Periodo"
-        dateOne={activity.startDate}
-        dateTwo={activity.endDate} />
-    </form>
+        {
+          activity.type === 'Hospitalaria' || activity.type === 'Docente' || activity.type === 'Laboral' ? (
+            <TextField
+              onChange={handleChange}
+              name="charge"
+              value={activity.charge}
+              label="Cargo" />
+          ) : null
+        }
+        {
+          activity.type === 'Docente' && (
+            <TextField
+              onChange={handleChange}
+              name="subject"
+              value={activity.subject}
+              label="Materia" />
+          )
+        }
+        <RangeDatePicker
+          onChange={handleDate}
+          format="MM/YYYY"
+          onlyMonth
+          label="Periodo"
+          dateOne={activity.startDate}
+          dateTwo={activity.endDate} />
+        
+        <Button width="100%" onClick={() => onSave ? onSave() : null}>
+          Guardar
+        </Button>
+      </form>
+    </FormManager>
   );
 }
 

@@ -71,10 +71,12 @@ export const createActivityAction = activityData => (dispatch) => {
       dispatch(createActivitySuccess({
         data, teachingActivity, hospitalActivity, medicalSociety, job,
       }));
+      dispatch(resetActivitiesStatus());
       return data;
     })
     .catch(({ response }) => {
       dispatch(createActivityError(response));
+      dispatch(resetActivitiesStatus());
       return response;
     });
 };
@@ -93,6 +95,7 @@ export const populateActivitiesAction = (userId) => (dispatch) => {
     dispatch(populateActivitiesSuccess({
       array: data, teachingActivities, hospitalActivities, medicalSocieties, jobs,
     }));
+    dispatch(resetActivitiesStatus());
   } else {
     return getActivitiesForUser(userId)
       .then((data) => {
@@ -105,10 +108,12 @@ export const populateActivitiesAction = (userId) => (dispatch) => {
         dispatch(populateActivitiesSuccess({
           array: data, teachingActivities, hospitalActivities, medicalSocieties, jobs,
         }));
+        dispatch(resetActivitiesStatus());
         return data;
       })
       .catch(({ response }) => {
         dispatch(populateActivitiesError(response.data.message));
+        dispatch(resetActivitiesStatus());
       });
   }
 };

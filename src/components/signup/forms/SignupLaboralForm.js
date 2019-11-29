@@ -3,8 +3,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
-import { Typography } from 'antd';
-
 import useSweet from '../../../hooks/useSweetAlert';
 import LaboralExperience from '../../profile/editables/LaboralExperience';
 import ContainerItem from '../../reusables/ContainerItem';
@@ -12,17 +10,14 @@ import BoxItem from '../../reusables/BoxItem';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
 
-function SignupLaboralForm({ jobActivities, loading, status, resetStatus }) {
-  const { Title } = Typography;
+function SignupLaboralForm({ jobActivities, loading, status }) {
 
   const { errorAlert } = useSweet();
 
   useEffect(() => {
     if (status === 'error') {
       errorAlert({});
-      resetStatus();
     }
-    if (status === 'success') resetStatus();
   }, [status]);
 
   return (

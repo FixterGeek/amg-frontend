@@ -22,9 +22,7 @@ function SignupTeachingForm({ activities, loading, status, resetStatus }) {
   useEffect(() => {
     if (status === 'error') {
       errorAlert({});
-      resetStatus();
     }
-    if (status === 'success') resetStatus();
   }, [status])
 
   const RenderActivity = ({activity}) => {

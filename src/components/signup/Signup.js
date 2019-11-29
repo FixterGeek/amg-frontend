@@ -7,7 +7,7 @@ import {
   updateUserAction,
 } from '../../store/ducks/userDuck';
 import { populateEducationAction } from '../../store/ducks/educationDuck';
-import { populateActivitiesAction, resetActivitiesStatus } from '../../store/ducks/activitiesDuck';
+import { populateActivitiesAction } from '../../store/ducks/activitiesDuck';
 import { populateSubsidiaries } from '../../store/ducks/subsidiaryDuck';
 import Stepper from './SignupStepper';
 import GeneralDataForm from './forms/SignupGeneralDataForm';
@@ -20,7 +20,7 @@ function Signup({
   user, createUserAction, resetUserStatus,
   fetching, status, history, match,
   education, populateEducationAction,
-  activities, populateActivitiesAction, resetActivitiesStatus,
+  activities, populateActivitiesAction,
   activitiesFetching, activitiesStatus, updateUserAction,
   educationFetching, educationStatus, subsidiaries,
 }) {
@@ -72,7 +72,6 @@ function Signup({
           currentLocation === 'docentes' && (
             <SignupTeachingForm
               activities={activities}
-              resetStatus={resetActivitiesStatus}
               loading={activitiesFetching}
               status={activitiesStatus}
             />
@@ -84,7 +83,6 @@ function Signup({
               jobActivities={activities.jobs}
               loading={activitiesFetching}
               status={activitiesStatus}
-              resetStatus={resetActivitiesStatus}
             />
           )
         }
@@ -127,7 +125,6 @@ export default connect(
     resetUserStatus,
     populateEducationAction,
     populateActivitiesAction,
-    resetActivitiesStatus,
     updateUserAction,
     populateSubsidiaries,
   }
