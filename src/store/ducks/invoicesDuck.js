@@ -2,6 +2,7 @@ import {
   getDataFacturacion,
   makeInvoice,
   getInvoices,
+  cancelInvoice,
 } from '../../services/invoicesServices';
 import useSweet from '../../hooks/useSweetAlert';
 import { errorAction, successAction } from './tools';
@@ -33,6 +34,8 @@ const POPULATE_EXTERNAL_INVOICES = `${PREFIX}/POPULATE_EXTERNAL_INVOICES`;
 const CREATE_INVOICE = 'CREATE_INVOICE';
 const CREATE_INVOICE_SUCCESS = 'CREATE_INVOICE_SUCCESS';
 const CREATE_INVOICE_ERROR = 'CREATE_INVOICE_ERROR';
+
+const CANCEL_INVOICE = `${PREFIX}/CANCEL_INVOICE`;
 
 
 /* Actions creators */
@@ -82,6 +85,10 @@ export function createInvoiceError(error) {
 const populateExternalInvoicesAction = (invoicesData) => ({
   type: POPULATE_EXTERNAL_INVOICES, payload: invoicesData,
 })
+
+const cancelInvoiceAction = canceledInvoice => ({
+  type: CANCEL_INVOICE, payload: canceledInvoice,
+});
 
 
 /* Thunks */
@@ -145,6 +152,18 @@ export const populateExternalInvoices = () => (dispatch) => {
 };
 
 
+export const cancelInvoiceThunk = invoiceId => (dispatch) => {
+  dispatch(fetching());
+  return cancelInvoice(invoiceId)
+    .then((data) => successAction(
+      dispatch, cancelInvoiceAction, data, RESET_INVOICES_STATUS, 'Factura cancelada',
+    ))
+    .catch(error => errorAction(
+      dispatch, fetchingError, error, RESET_INVOICES_STATUS, 'Error al cancelar',
+    ));
+}
+
+
 /* Reduceer */
 export default function reducer(state = invoicesState, action) {
   switch (action.type) {
@@ -185,7 +204,9 @@ export default function reducer(state = invoicesState, action) {
       return { ...state, fetching: false, status: 'error' };
     
     case POPULATE_EXTERNAL_INVOICES:
-      return { ...state, status: 'success', array: action.payload }
+      return { ...state, status: 'success', array: action.payload };
+    case CANCEL_INVOICE:
+      return { ...state, status: 'success', array: state.array.filter(i => i.uuid !== action.payload.uuid) };
     default:
       return state;
   }

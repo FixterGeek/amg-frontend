@@ -41,7 +41,7 @@ function InvoicesTable({
     },
     {
       title: 'Acciones',
-      render: () => <InvoicesAction />,
+      render: (t, r) => <InvoicesAction invoice={r} />,
     }
   ];
 

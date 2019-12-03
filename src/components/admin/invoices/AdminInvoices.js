@@ -30,7 +30,7 @@ function Invoices({
     if (invoicesStatus !== null) resetInvoicesStatus();
   }, [invoicesStatus])
 
-  console.log(invoices);
+  console.log(invoicesFetching);
 
   return (
     <section className="admin-invoices">

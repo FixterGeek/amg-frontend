@@ -38,3 +38,13 @@ export const getInvoices = () => {
     },
   }).then(({ data }) => data);
 }
+
+
+export const cancelInvoice = (invoiceId) => {
+  const token = localStorage.authToken;
+  return axios.patch(`${APIURL}/cancel/${invoiceId}`, null, {
+    headers: {
+      Authorization: token,
+    }
+  }).then(({ data }) => data);
+};

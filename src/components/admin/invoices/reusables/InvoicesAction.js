@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
-import { Icon, Menu, Popover } from 'antd';
+import { connect } from 'react-redux';
 
-function InvoicesAction() {
+import { Icon, Popconfirm, Popover } from 'antd';
+
+import { cancelInvoiceThunk } from '../../../../store/ducks/invoicesDuck';
+
+function InvoicesAction({
+  invoice, cancelInvoiceThunk,
+}) {
   const baseClass = 'admin-invoices-reusables-invoices-action';
-  const { Item } = Menu;
 
-  const [menuVisible, setMenuVisible] = useState('invisible');
+  console.log(invoice);
 
-  const MoreMenu = () => {
+  const MoreMenu = ({ inv }) => {
     return (
-      <Menu>
-        <Item>
+      <div>
+        <div>
           Enviar por correo
-        </Item>
-        <Item>
-          Cancelar factura
-        </Item>
-      </Menu>
+        </div>
+        <Popconfirm
+          okText="SI"
+          cancelText="NO"
+          title={`¿Cancelar ${inv}?`}
+          onConfirm={() => cancelInvoiceThunk(inv)}
+        >
+          <div>
+            Cancelar factura
+          </div>
+        </Popconfirm>
+      </div>
     );
   };
 
@@ -24,12 +36,16 @@ function InvoicesAction() {
     <div className={`${baseClass}`}>
       <Icon type="download" />
       <div className="more-menu-container">
-        <Popover content={<MoreMenu />} placement="left">
-          <Icon type="more" onClick={() => setMenuVisible('visible')} />
+        <Popover content={<MoreMenu inv={invoice.uuid} />} placement="left">
+          <Icon type="more" />
         </Popover>
       </div>
     </div>
   );
 }
 
-export default InvoicesAction;
+export default connect(
+  null, {
+    cancelInvoiceThunk,
+  }
+)(InvoicesAction);
