@@ -18,8 +18,8 @@ function InvoicesTable({
 
   const columns = [
     {
-      title: 'No. de referencia',
-      dataIndex: 'uuid',
+      title: 'Folio',
+      dataIndex: 'folio',
     },
     {
       title: 'Fecha',
@@ -49,7 +49,7 @@ function InvoicesTable({
 
   const handleSearch = (value) => {
     const regex = new RegExp(value, 'i');
-    const f = invoices.filter(i => regex.test(i.uuid));
+    const f = invoices.filter(i => regex.test(i.folio));
     setFiltered(f[0] ? f : invoices);
   };
 
