@@ -95,7 +95,7 @@ function AdminEventEdit({
   return (
     <div className="admin-event-form-container">
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', flexFlow: 'column' }}>
+        <div style={{ display: 'flex', flexFlow: 'column', flexGrow: 1 }}>
           <Title style={{ display: 'inline-block', flexGrow: 1 }}>{ sectionTitle }</Title>
           <span>Fecha de creación: {`${moment(state.createdAt).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}</span>
         </div>
