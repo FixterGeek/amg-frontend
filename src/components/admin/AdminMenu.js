@@ -117,7 +117,11 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
                     () => link(user.filialAsAdmin ? `/admin/filiales/${user.filialAsAdmin}` :'/admin/filiales')
                 }
             >
-                <Icon component={MapIcon} />
+                <Icon
+                    className={currentLocation === 'filiales' ? 'menu-item-active' : ''}
+                    component={MapIcon}
+                    style={{ marginLeft: '16px' }}
+                />
                 <span>Filiales</span>
             </Item>
             {/* {
