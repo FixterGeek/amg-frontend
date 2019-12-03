@@ -10,8 +10,6 @@ function InvoicesAction({
 }) {
   const baseClass = 'admin-invoices-reusables-invoices-action';
 
-  console.log(invoice);
-
   const MoreMenu = ({ inv }) => {
     return (
       <div>

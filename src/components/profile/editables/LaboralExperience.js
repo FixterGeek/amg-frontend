@@ -59,7 +59,6 @@ function LaboralExperience({
 }
 
 function mapStateToProps({ activities, user }) {
-  console.log(activities);
   return {
     status: activities.status,
     user

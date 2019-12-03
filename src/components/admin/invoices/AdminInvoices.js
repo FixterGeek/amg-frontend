@@ -28,9 +28,7 @@ function Invoices({
 
   useEffect(() => {
     if (invoicesStatus !== null) resetInvoicesStatus();
-  }, [invoicesStatus])
-
-  console.log(invoicesFetching);
+  }, [invoicesStatus]);
 
   return (
     <section className="admin-invoices">

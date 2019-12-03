@@ -17,6 +17,7 @@ function ResourcesTable({
 
   const { errorAlert } = useSweet();
   const [filtered, setFiltered] = useState(null);
+  const [textEmpty, setTextEmpty] = useState(emptyText);
 
   const handleSearch = (value) => {
     if (onSearch) onSearch(value)
@@ -37,7 +38,8 @@ function ResourcesTable({
       return false;
     });
 
-    setFiltered(f[0] ? f : data);
+    setFiltered(value ? f : data);
+    if (value && !f[0]) setTextEmpty(t => `${emptyText} con: "${value}"`)
   };
 
   const columns = [
@@ -99,7 +101,7 @@ function ResourcesTable({
         columns={columns}
         dataSource={filtered || data}
         rowKey="_id"
-        locale={{ emptyText }}
+        locale={{ emptyText: textEmpty }}
       />
     </div>
   )
