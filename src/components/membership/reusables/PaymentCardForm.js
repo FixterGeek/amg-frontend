@@ -89,7 +89,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
           w = { ...w, expiration: 'El formato de fecha debe ser mm/yy' };
         } else {
           // eslint-disable-next-line no-lonely-if
-          if (!Conekta.card.validateExpirationDate(`${value}`.slice(0, 2), `${value}`.slice(2, 4))) {
+          if (!Conekta.card.validateExpirationDate(`${value}`.slice(0, 2), `${value}`.slice(3, 5))) {
             valid.push(false);
             e = { ...e, expiration: 'La fecha no es valida' };
           }
@@ -127,7 +127,10 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
     const { value, name } = target;
     let val = value;
 
-    if (name === 'expiration' && String(value).length > 4) val = value.slice(0, 3);
+    if (name === 'expiration' && String(value).length === 2) {
+      if (Number(`${value}`.slice(0,2))) val = `${value}/`;
+    }
+    if (name === 'expiration' && String(value).length > 5) val = value.slice(0, 4);
     if (name === 'ccv' && String(value).length > 3) val = value.slice(0, 2);
     setCard({ ...card, [name]: val });
     validateCardData(name, val);
@@ -140,7 +143,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
       card: {
         number: card.number,
         name: card.name,
-        exp_year: card.expiration.slice(2, 4),
+        exp_year: card.expiration.slice(3, 5),
         exp_month: card.expiration.slice(0, 2),
         cvc: card.ccv,
       }
