@@ -62,7 +62,11 @@ function AdminSubsidiary({
         </div>
         {
           user.userType === 'Filial' && (
-            <Button line marginTop="0" onClick={() => setIsReceipt(s => true)}>
+            <Button
+              style={{ marginLeft: '32px' }}
+              line
+              marginTop="0"
+              onClick={() => setIsReceipt(s => true)}>
               Subir comprobante AMG
             </Button>
           )

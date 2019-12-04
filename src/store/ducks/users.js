@@ -158,9 +158,20 @@ export function setWorkingOn(userData) {
 // thunks
 
 export const getAllUsers = (query) => (dispatch, getState) => {
+  const { user } = getState();
   dispatch(getUsers());
   return usersService.getAllUsers(query)
-    .then(response => dispatch(getAllUsersSuccess(response)))
+    .then(response => {
+      if (user.filialAsAdmin) {
+        const d = response.filter(u => 
+          u.filialAsUser === user.filialAsAdmin ||
+          u.basicData.address.state === user.basicData.address.state
+        )
+        dispatch(updateUserSucces(d))
+        return d;
+      }
+      dispatch(getAllUsersSuccess(response))
+    })
     .catch(error => error)
 }
 

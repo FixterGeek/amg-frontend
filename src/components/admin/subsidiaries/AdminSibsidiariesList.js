@@ -8,15 +8,20 @@ import {
   deletedSubsidiary,
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
+import {
+  getAllUsers
+} from '../../../store/ducks/users';
 import ActionMenu from './reusables/ActionMenu';
 import ChecboxField from '../../reusables/CheckboxField';
+import Spinner from '../../reusables/Spinner';
 import zones from './zones.json';
 
 
 function AdminSubsidiariesList({
   subsidiaries, deletedSubsidiary,
   populateSubsidiaries, fetching,
-  noSubsidiaries,
+  noSubsidiaries, getAllUsers,
+  users,
 }) {
   const { TabPane } = Tabs;
   const { Search } = Input;
@@ -53,7 +58,12 @@ function AdminSubsidiariesList({
     {
       title: 'Miembros asignados',
       dataIndex: 'members',
-      render: (text, record) => (<span>{ record.users.length }</span>),
+      render: (text, record) => (
+        <span>{
+          users.filter(u =>
+            u.address.state === record.state || u.filialAsUser === record._id || u.basicData.address.state === record.state).length
+        }</span>
+      ),
     },
     {
       title: 'Acciones',
@@ -62,6 +72,10 @@ function AdminSubsidiariesList({
   ]
 
   const [filtereds, setFiltered] = useState(null);
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
@@ -85,6 +99,9 @@ function AdminSubsidiariesList({
 
   return (
     <div className="generic-admin-table admin-subsidiaries-list">
+      {
+        fetching && <Spinner fullScrren />
+      }
       <Tabs type="card" className="generic-table-header">
         <TabPane tab={<Icon type="search" />} key="1">
           <div className="finder">
@@ -118,11 +135,12 @@ function AdminSubsidiariesList({
   )
 }
 
-function mapSateToProps({ subsidiary }) {
+function mapSateToProps({ subsidiary, users }) {
   return {
     subsidiaries: subsidiary.array,
-    fetching: subsidiary.fetching,
+    fetching: users.fetching,
     noSubsidiaries: subsidiary.noData,
+    users: users.array,
   };
 }
 
@@ -130,5 +148,6 @@ export default connect(
   mapSateToProps, {
     deletedSubsidiary,
     populateSubsidiaries,
+    getAllUsers,
   }
 )(AdminSubsidiariesList);
