@@ -12,11 +12,12 @@ import Spinner from '../reusables/Spinner';
 
 function AdminUsers({
     getUsers, deleteUserAction, good = 0, bad = 0,
-    fetching, updateUser,
+    fetching, updateUser, userType, history
 }) {
 
     useEffect(() => {
         getUsers()
+        if (userType !== 'Admin') history.push('/admin');
     }, [])
 
     const handleUserActivate = (status, user) => {
@@ -66,11 +67,12 @@ function AdminUsers({
     )
 }
 
-function mapState({ users }) {
+function mapState({ users, user }) {
     return {
         good: users.array.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado').length,
         bad: users.array.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado').length,
         fetching: users.fetching,
+        userType: user.userType,
     }
 }
 

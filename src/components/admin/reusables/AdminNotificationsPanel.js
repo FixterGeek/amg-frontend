@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Icon } from 'antd';
 
-function AdminNotificationsPanel({ slopes = [] }) {
+function AdminNotificationsPanel({ user = { userType: 'Filial' }, slopes = [] }) {
   const { Title } = Typography;
 
   return (
@@ -17,10 +17,14 @@ function AdminNotificationsPanel({ slopes = [] }) {
           <div className="item" key={index}>
             <span>Afiliación pendiente</span>
             <span>{ `${s.basicData.name} ${s.basicData.dadSurname}` }</span>
-            <Link to={`/admin/users/${s._id}`}>
-              Ver
-              <Icon type="eye" style={{ marginLeft: 8 }} />
-            </Link>
+            {
+              user.usertType === 'Admin' && (
+                <Link to={`/admin/users/${s._id}`}>
+                  Ver
+                  <Icon type="eye" style={{ marginLeft: 8 }} />
+                </Link>
+              )
+            }
           </div>
         ))
       }

@@ -22,12 +22,14 @@ function AdminUserDetail({
   internships, activities,
   populateActivitiesAction,
   populateEducationAction,
+  history
 }) {
   const { infoAlert } = useSweet();
   const { Title } = Typography;
   const { TabPane } = Tabs;
 
   useEffect(() => {
+    if (user.userType !== 'Admin') return history.push('/admin/dashboard')
     getAllUsers();
   }, []);
 

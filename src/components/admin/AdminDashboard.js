@@ -17,7 +17,7 @@ function AdminDashboard({
   users, currents, slopes,
   event = { assistants: [] }, fetching,
   getAdminEvents,
-  getAllUsers,
+  getAllUsers, user,
 }) {
   const { Title, Text } = Typography;
 
@@ -72,12 +72,12 @@ function AdminDashboard({
           ))
         }
       </ContainerItem>
-      <AdminNotoficationsPanel slopes={slopes.reverse()} />
+      <AdminNotoficationsPanel slopes={slopes.reverse()} user={user} />
     </section>
   );
 }
 
-function mapStateToProps({ users, events }) {
+function mapStateToProps({ users, events, user }) {
   let tmp = 365;
   let event = { assistants: [] };
   events.array.map(e => {
@@ -91,6 +91,7 @@ function mapStateToProps({ users, events }) {
   });
 
   return {
+    user,
     users,
     currents: users.array.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado'),
     slopes: users.array.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado'),
