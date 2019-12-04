@@ -6,6 +6,7 @@ import { Typography } from 'antd';
 
 import { getAllUsers } from '../../store/ducks/users';
 import { getAdminEvents } from '../../store/ducks/eventsDuck';
+import { populateSubsidiaries } from '../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../reusables/ContainerItem';
 import AdminNotoficationsPanel from './reusables/AdminNotificationsPanel';
 import StatContainer from './reusables/StatsContainer';
@@ -18,10 +19,12 @@ function AdminDashboard({
   event = { assistants: [] }, fetching,
   getAdminEvents,
   getAllUsers, user,
+  populateSubsidiaries,
 }) {
   const { Title, Text } = Typography;
 
   useEffect(() => {
+    populateSubsidiaries();
     getAllUsers();
     getAdminEvents();
   }, []);
@@ -62,7 +65,7 @@ function AdminDashboard({
       <ContainerItem>
         <Title level={4}>Últimas afiliaciones</Title>
         {
-          users.array.reverse().slice(0, 10).map(u => (
+          users.reverse().slice(0, 10).map(u => (
             <SmallBoxItem
               key={u._id}
               title={`${u.basicData.name} ${u.basicData.dadSurname}`}
@@ -77,7 +80,7 @@ function AdminDashboard({
   );
 }
 
-function mapStateToProps({ users, events, user }) {
+function mapStateToProps({ users, events, user, subsidiary }) {
   let tmp = 365;
   let event = { assistants: [] };
   events.array.map(e => {
@@ -90,13 +93,24 @@ function mapStateToProps({ users, events, user }) {
     }
   });
 
+  let usersForFilial = null;
+
+  if (user.filialAsAdmin) {
+    const sub = subsidiary.array.filter(s => s._id === user.filialAsAdmin).pop();
+    if (sub) usersForFilial = users.array.filter(u =>
+      u.filialAsUser === sub._id || u.address.state === sub.state || u.basicData.address.state === sub.state
+    )
+  }
+
+  const iterable = usersForFilial || users.array;
+
   return {
     user,
-    users,
-    currents: users.array.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado'),
-    slopes: users.array.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado'),
+    users: iterable,
+    currents: iterable.filter(u => (u.membershipStatus === 'Socio' || u.membershipStatus === 'Residente') && u.userStatus === 'Aprobado'),
+    slopes: iterable.filter(u => u.membershipStatus === 'Free' || u.userStatus === 'Registrado'),
     event,
-    fetching: users.fetching || events.fetching,
+    fetching: users.fetching || events.fetching || subsidiary.fetching,
   };
 }
 
@@ -104,5 +118,6 @@ export default connect(
   mapStateToProps, {
     getAllUsers,
     getAdminEvents,
+    populateSubsidiaries,
   }
 )(AdminDashboard);
