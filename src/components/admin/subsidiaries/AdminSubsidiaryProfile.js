@@ -53,15 +53,19 @@ function AdminSubsidiary({
       <ContainerItem style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           <Title>{ subsidiary.state }</Title>
-          <Link
-            to={{ pathname: `/admin/filiales/${subsidiary._id}/edit`, state: subsidiary }}>
-            <Button line marginTop="0">
-              Modificar datos
-            </Button>
-          </Link>
+          {
+            !isReceipt && (
+              <Link
+                to={{ pathname: `/admin/filiales/${subsidiary._id}/edit`, state: subsidiary }}>
+                <Button line marginTop="0">
+                  Modificar datos
+                </Button>
+              </Link>
+            )
+          }
         </div>
         {
-          user.userType === 'Filial' && (
+          user.userType === 'Filial' && !isReceipt ? (
             <Button
               style={{ marginLeft: '32px' }}
               line
@@ -69,7 +73,7 @@ function AdminSubsidiary({
               onClick={() => setIsReceipt(s => true)}>
               Subir comprobante AMG
             </Button>
-          )
+          ) : null
         }
       </ContainerItem>
       {
