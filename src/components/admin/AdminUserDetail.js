@@ -29,7 +29,7 @@ function AdminUserDetail({
   const { TabPane } = Tabs;
 
   useEffect(() => {
-    if (user.userType !== 'Admin') return history.push('/admin/dashboard')
+    if (curentUser.userType !== 'Admin') return history.push('/admin/dashboard')
     getAllUsers();
   }, []);
 
