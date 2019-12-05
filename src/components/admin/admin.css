@@ -30,6 +30,9 @@
     padding: 20px 32px;
     min-height: 80px;
 }
+.admin-users-list-bar .ant-input {
+    border-radius: 0px;
+}
 .admin-users-list-container{
     margin-right: 30px;
 }
