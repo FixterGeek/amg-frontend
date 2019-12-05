@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import TextField from "../../../molecules/TextFields";
+import TextField from "../../reusables/TextField";
+import TextAreaField from '../../reusables/TextAreaField';
 import {Select} from "antd";
 import { message} from 'antd';
 
@@ -64,6 +65,12 @@ class HomeContactForm extends Component {
                 <Option value="Técnico" name="tecnico" >Técnico</Option>
               </Select>
               <br/>
+              <TextAreaField
+                label="¿En que podemos ayudarte?"
+                onChange={(v) => this.onChange((v))}
+                name="text"
+                value={this.state.text}
+              />
               <br/>
               <button style={{width: "100%"}} className="btn-blue-dark">Enviar</button>
             </form>
