@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Typography } from 'antd';
+import { Typography, Spin, Icon } from 'antd';
 
+import { getPayments } from '../../../services/paymentServices';
 import {
   populateSubsidiaries,
 } from '../../../store/ducks/subsidiaryDuck';
@@ -18,9 +19,34 @@ function AdminSubsidiaries({
 }) {
   const { Title } = Typography;
 
+  const [loadingPayments, setLoadingPayments] = useState(false);
+
+  const [stats, setStats] = useState({
+    total: [],
+    progress: 0,
+  })
+
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
     if (!userIsAdmin) history.push('/dashboard');
+    setLoadingPayments(true);
+    getPayments().then((data) => {
+      const fp = data.filter(p => p.filial);
+      const totalUsers = [];
+      fp.map(p => {
+        p.users.map(u => {
+          totalUsers.push(u);
+        })
+      })
+
+      setStats(s => ({
+        ...s,
+        total: fp,
+        progress:
+          (totalUsers.filter(u => u.userStatus === 'Aprobado' || u.membershipStatus !== 'Free').length/totalUsers.length)*100
+      }));
+      setLoadingPayments(false);
+    })
   }, []);
 
   return (
@@ -33,8 +59,16 @@ function AdminSubsidiaries({
         </div>
       </ContainerItem>
       <ContainerItem className="admin-subsidiaries-stats-container">
-        <StatsContainer title="Progreso" stats="65%" />
-        <StatsContainer style={{ backgroundColor: '#fa6400' }} title="Total de facturas emitidas" stats="0" />
+        <StatsContainer title="Progreso" stats={`${stats.progress}%`} />
+        <StatsContainer
+          style={{ backgroundColor: '#fa6400' }}
+          title="Total de comprobantes subidos por filiales"
+          stats={
+            !stats.total[0] && loadingPayments ?
+              <Spin indicator={<Icon type="loading" />} />
+            : stats.total.length
+          }
+        />
       </ContainerItem>
       <ContainerItem>
         <SubsidiariesList subsidiaries={subsidiaries} />
