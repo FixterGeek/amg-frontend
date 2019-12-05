@@ -174,7 +174,7 @@ function AdminSubsidiaryReceipt({
                       onClick={user.userType === 'Admin' ? () => history.push(`/admin/users/${u._id}`) : null}
                     />
                     {
-                      user.userType === 'Filial' && (
+                      user.filialAsAdmin && (
                         <AmgButton
                           type="link"
                           style={{ color: '#e24c4c' }}
@@ -197,7 +197,7 @@ function AdminSubsidiaryReceipt({
           /> */}
         </ContainerItem>
         {
-          user.userType === 'Filial' ? (
+          user.filialAsAdmin ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button line onClick={handleCancel} >
                 Cancelar

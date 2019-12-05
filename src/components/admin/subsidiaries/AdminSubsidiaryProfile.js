@@ -70,7 +70,7 @@ function AdminSubsidiary({
           }
         </div>
         {
-          user.userType === 'Filial' && !isReceipt ? (
+          user.filialAsAdmin && !isReceipt ? (
             <Button
               style={{ marginLeft: '32px' }}
               line

@@ -69,7 +69,7 @@ function AdminUserStatesForm({
         )
       }
       {
-        workingOn.userType === 'Filial' && (
+        workingOn.userType === 'Member' && (
           <SelectField
             label="Como miembro para la filial de:"
             onChange={value => writeWorkingOn('filialAsUser', value)}
