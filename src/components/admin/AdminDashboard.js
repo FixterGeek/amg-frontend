@@ -62,19 +62,23 @@ function AdminDashboard({
           ]} />
         </div>
       </ContainerItem>
-      <ContainerItem>
-        <Title level={4}>Últimas afiliaciones</Title>
-        {
-          users.reverse().slice(0, 10).map(u => (
-            <SmallBoxItem
-              key={u._id}
-              title={`${u.basicData.name} ${u.basicData.dadSurname}`}
-              rigth={`${moment(u.createdAt).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}
-              to={`/admin/users/${u._id}`}
-            />
-          ))
-        }
-      </ContainerItem>
+      {
+        !user.filialAsAdmin && (
+          <ContainerItem>
+            <Title level={4}>Últimas afiliaciones</Title>
+            {
+              users.reverse().slice(0, 10).map(u => (
+                <SmallBoxItem
+                  key={u._id}
+                  title={`${u.basicData.name} ${u.basicData.dadSurname}`}
+                  rigth={`${moment(u.createdAt).format('dddd[ ]DD[ de ]MMMM[ de ]YYYY')}`}
+                  to={`/admin/users/${u._id}`}
+                />
+              ))
+            }
+          </ContainerItem>
+        )
+      }
       <AdminNotoficationsPanel slopes={slopes.reverse()} user={user} />
     </section>
   );

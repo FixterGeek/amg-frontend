@@ -52,7 +52,7 @@ function LateralMenu({ history, user, populateUserAction, logoutAction }) {
 
     return (
         <Menu
-            style={{ height: "100vh" }}
+            style={{ height: "100vh", overflowX: 'hidden' }}
             inlineCollapsed mode="inline" theme="dark" className="admin-lateral-menu">
             <Item key={1} onClick={() => link('/admin/dashboard')}>
                 <Icon
