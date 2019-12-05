@@ -33,7 +33,7 @@ function MembershipPaymentCard({
       errorAlert({ title: 'No fue posible procesar el pago' });
       resetPaymentStatus();
     }
-  }, paymentStatus);
+  }, [paymentStatus]);
 
   useEffect(() => {
     if (paymentType === 'oxxo') makePaymentAction({
@@ -51,7 +51,13 @@ function MembershipPaymentCard({
     paymentData.subscriptionType = type;
 
     makePaymentAction(paymentData, 'subscription')
-      .then(data => setPaidData({ ...data }));
+      .then(data => {
+        setPaidData({ ...data.payment });
+        if (data.payment.paid) {
+          history.push('/dashboard');
+          successAlert({ text: `Adquiriste el plan ${type}` })
+        }
+      });
   };
 
   if (oxxoOrder) return <OxxoOrder oxxoOrder={oxxoOrder} />
