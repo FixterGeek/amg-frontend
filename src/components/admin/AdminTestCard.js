@@ -13,8 +13,10 @@ export default function AdminTestCard({title, date, beginingTime, endTime, _id, 
                 {/* <div className="buttons">
                     <span onClick={()=>removeTest(_id)}><FontAwesomeIcon icon={faTrash} /> Eliminar</span>
                 </div> */}
-                <h3>{title}</h3>                
-                <p>{moment(date).format('LL')}{moment(beginingTime).format('LL')} {moment(endTime).format('LL')}</p>
+                <div className="text-card-content">
+                    <h3>{title}</h3>                
+                    <p>{moment(date).format('LL')}{moment(beginingTime).format('LL')} {moment(endTime).format('LL')}</p>
+                </div>
             </div>
         </Link>
     )
