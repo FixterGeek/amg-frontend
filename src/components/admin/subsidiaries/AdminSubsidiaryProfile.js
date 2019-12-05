@@ -88,7 +88,15 @@ function AdminSubsidiary({
           <div>
             <ContainerItem className="admin-subsidiary-profile-info">
               <div className="stats">
-                <StatsContainer title="Progreso" stats="65%" />
+                <StatsContainer
+                  title="Progreso"
+                  stats={
+                    `${Math.round(users.filter(u =>
+                      u.userStatus === 'Aprobado' && u.membershipStatus !== 'Free'
+                    ).length/
+                    users.length  * 100)}%` || '0%'
+                  }
+                />
                 <StatsContainer title="Total de facturas emitidas" stats="0" />
               </div>
             </ContainerItem>
