@@ -18,7 +18,7 @@ function AdminNotificationsPanel({ user = { userType: 'Filial' }, slopes = [] })
             <span>Afiliación pendiente</span>
             <span>{ `${s.basicData.name} ${s.basicData.dadSurname}` }</span>
             {
-              user.usertType === 'Admin' && (
+              user.userType === 'Admin' && (
                 <Link to={`/admin/users/${s._id}`}>
                   Ver
                   <Icon type="eye" style={{ marginLeft: 8 }} />
