@@ -11,6 +11,9 @@ import {
 import {
   getAllUsers,
 } from '../../../store/ducks/users';
+import {
+  populateSubsidiaryPayments
+} from '../../../store/ducks/paymentsDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import ImagePreview from '../../reusables/ImagePreview';
 import StatsContainer from '../reusables/StatsContainer';
@@ -21,13 +24,14 @@ import Button from '../../reusables/Button';
 import SubsidiaryReceipt from './AdminSubsidiaryReceipt';
 import SubsidiaryPayments from './reusables/PaymentsList';
 
-import paymentsData from './reusables/virtualPayments.json'
-
 function AdminSubsidiary({
   user, history, subsidiaries,
   subsidiary, noSubsidiaries,
   populateSubsidiaries,
   fetching, users, getAllUsers,
+  populateSubsidiaryPayments,
+  match : { params },
+  subsidiaryPayments
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
@@ -45,6 +49,7 @@ function AdminSubsidiary({
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
     getAllUsers();
+    populateSubsidiaryPayments(params.id);
   }, []);
 
   return (
@@ -97,7 +102,10 @@ function AdminSubsidiary({
                     users.length  * 100)}%` || '0%'
                   }
                 />
-                <StatsContainer title="Total de facturas emitidas" stats="0" />
+                <StatsContainer
+                  title="Total de comprobantes subidos"
+                  stats={subsidiaryPayments.length}
+                />
               </div>
             </ContainerItem>
             <ContainerItem>
@@ -126,7 +134,7 @@ function AdminSubsidiary({
   );
 }
 
-function mapSateToProps({ users, user, subsidiary }, { match = {} }) {
+function mapSateToProps({ users, user, subsidiary, payment: { payment } }, { match = {} }) {
   const { params = {} } = match;
   let subs = {}
   if (subsidiary.array[0]) subs = subsidiary.array.filter(s => s._id === params.id)[0];
@@ -143,7 +151,8 @@ function mapSateToProps({ users, user, subsidiary }, { match = {} }) {
     subsidiaries: subsidiary.array,
     noSubsidiaries: subsidiary.noData,
     subsidiary: subsidiary.array.filter(s => s._id === params.id)[0] || {},
-    fetching: user.fetching || subsidiary.fetching,
+    fetching: user.fetching || subsidiary.fetching || users.fetching || payment.fetching,
+    subsidiaryPayments: payment.subsidiaryPayments,
   }
 }
 
@@ -151,5 +160,6 @@ export default connect(
   mapSateToProps, {
     populateSubsidiaries,
     getAllUsers,
+    populateSubsidiaryPayments,
   }
 )(AdminSubsidiary);
