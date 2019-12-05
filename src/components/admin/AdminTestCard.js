@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default function AdminTestCard({title, date, beginingTime, endTime, _id, event, removeTest}) {    
-    let cover ="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg"
+    let cover ="https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fdefault-test.jpeg?alt=media&token=bdfd1cbb-9653-4a3c-ae7b-c94eeb06bb77"
     if(event && event.mainImagesURLS && event.mainImagesURLS[0]) cover = event.mainImagesURLS[0]
     return (
         <Link to={`/admin/tests/edit/${_id}`}>

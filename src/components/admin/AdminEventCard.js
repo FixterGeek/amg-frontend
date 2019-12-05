@@ -17,7 +17,7 @@ export default function AdminEventCard({
     let { city, state } = location
     let regex = /^https?:\/\//
     let cover = mainImagesURLS[0]
-    if (!mainImagesURLS[0] || !regex.test(mainImagesURLS[0])) cover = "https://www.riotgames.com/darkroom/1440/b2b587d91d3c5d2922953ac62fbb2cb8:dfd0d5c2d07f981fb8cda29623b5e54e/paris.jpg"
+    if (!mainImagesURLS[0] || !regex.test(mainImagesURLS[0])) cover = "https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fdefault-event.jpeg?alt=media&token=e0067a86-2ea7-4471-88f7-3bf36ab25878"
     return (
         <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: '20px', right: '40px' }}>
