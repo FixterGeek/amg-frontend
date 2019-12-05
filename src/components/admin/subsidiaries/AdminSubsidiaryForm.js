@@ -31,6 +31,9 @@ function AdminSubsidiaryForm({
   const { pathname = '' } = location;
   const { params = {} } = match;
 
+  const banksArray = Object.keys(banks).map(key => banks[key][0]);
+  const banksAlphabetically = banksArray.sort((a, b) => a.localeCompare(b));
+
   useEffect(() => {
     if (!subsidiaries[0] && !noSubsidiaries) populateSubsidiaries();
     if (subsidiaries[0] && params.id) setWorkingOn(subsidiaries.filter(s => s._id === params.id)[0]);
@@ -98,9 +101,9 @@ function AdminSubsidiaryForm({
             value={working.bankData.bank}
             label="Entidad bancaria" >
             {
-              Object.keys(banks).map(key => (
-                <OptionSelect key={key} value={banks[key][0]}>
-                  { banks[key][0] }
+              banksAlphabetically.map(b => (
+                <OptionSelect key={b} value={b}>
+                  { b }
                 </OptionSelect>
               ))
             }
