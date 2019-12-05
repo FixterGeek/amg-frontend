@@ -41,10 +41,10 @@ function NavBar({ className }) {
             <div className="movil dropdown">
                 <img className="bars" src={menu} alt="bar-icon"/>
                 <div className="dropdown-content">
-                    <Link to="/semana-nacional">
+                    {/* <Link to="/semana-nacional">
                         <p>Semana Nacional</p>
                         <hr className="blue-line"/>
-                    </Link>
+                    </Link> */}
                     <Link to="/biblioteca">
                         <p>Biblioteca</p>
                     </Link>
