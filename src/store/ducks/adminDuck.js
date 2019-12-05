@@ -6,20 +6,13 @@ import axios from 'axios'
 import {
     switchMap,
     map,
-    debounceTime,
-    filter,
     catchError,
-    delay,
-    takeUntil,
     withLatestFrom,
-    pluck,
-    tap,
-    ignoreElements
+    pluck
 } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
-import { concat, of, EMPTY } from 'rxjs'
+import { concat, of } from 'rxjs'
 import { ofType } from 'redux-observable';
-import { allSettled } from 'q';
 import {
     addSpeakerToEvent,
     patchEventActivity,
