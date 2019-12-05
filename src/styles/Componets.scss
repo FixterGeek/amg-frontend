@@ -874,7 +874,12 @@ $eventLeftWidth: 350px;
   padding: $largePadding;
   background-color: $clouds;
   display: flex;
+  flex-flow: column;
   justify-content: center;
+
+  @include for-size(tablet-landscape-up) {
+    flex-flow: row;
+  }
 }
 
 .terms-and-conditions {
