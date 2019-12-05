@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import TextField from "../molecules/TextFields";
+import TextField from "../components/reusables/TextField";
 import AmgButton from "../atoms/Button";
 
 export default () => {

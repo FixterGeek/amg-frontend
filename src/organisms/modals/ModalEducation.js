@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
-import { Modal, Typography } from 'antd';
+import { Modal } from 'antd';
 
-import useSweetAlert from '../../hooks/useSweetAlert';
-import useAmgService from '../../hooks/services/useAmgService';
-import TextField from '../../molecules/TextFields';
+import TextField from '../../components/reusables/TextField';
 import Button from '../../atoms/Button';
 import DatePicker from '../../molecules/DatePicker';
 import ModalInstitution from './ModalInstitution';

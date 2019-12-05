@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import TextField from '../../molecules/TextFields'
-import {TimePicker,Select, Icon,Skeleton, DatePicker} from 'antd'
+import TextField from '../reusables/TextField';
+import {Select, DatePicker} from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
