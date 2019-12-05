@@ -43,70 +43,75 @@ function MembershipInvoice({
   return (
     <div className="dashboard-container">
       { paymentFetching && <Spinner fullScrren /> }
-      <Title>Facturar</Title>
-      <ContainerItem>
-        <List>
-          <Item>
-            <Text strong>{`Concepto: `}</Text>
-            { paymentData.concept }
-          </Item>
-          <Item>
-            <Text strong>{`Monto: `}</Text>
-            { paymentData.amount }
-          </Item>
-          <Item>
-            <Text strong>{`Fecha: `}</Text>
-            { moment(paymentData.date).format('DD/MM/YYYY') }
-          </Item>
-          <Item>
-            <Text strong>{`Tipo de pago: `}</Text>
-            { paymentData.paymentType }
-          </Item>
-          <Item>
-            <Text strong>{`RFC: `}</Text>
-            { fiscalData.rfc }
-          </Item>
-          <Item>
-            <Text strong>{`Dirección: `}</Text>
-            { fiscalData.address.street }
-          </Item>
-          <Item>
-            <Text strong>{`Colonia: `}</Text>
-            { fiscalData.address.colony }
-          </Item>
-          <Item>
-            <Text strong>{`Código postal: `}</Text>
-            { fiscalData.address.zipCode }
-          </Item>
-          <Item>
-            <Text strong>{`Ciudad: `}</Text>
-            { fiscalData.address.city }
-          </Item>
-          <Item>
-            <Text strong>{`Estado: `}</Text>
-            { fiscalData.address.state }
-          </Item>
-        </List>
-        <JustModal
-          openComponent={<a>Modificar datos fiscales</a>}
-          childElement={
-            <FiscalForm
-              user={user}
-              dispatch={updateUserAction}
-              resetStatus={resetUserStatus}
-              loading={userFetching}
-              status={userStatus}
-              history={history}
-              noTerms
-              noRedirect
+      <ContainerItem className="dash-item-center">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Title>Facturar</Title>
+          <JustModal
+            lineButton
+            buttonText="Modificar datos fiscales"
+            childElement={
+              <FiscalForm
+                user={user}
+                dispatch={updateUserAction}
+                resetStatus={resetUserStatus}
+                loading={userFetching}
+                status={userStatus}
+                history={history}
+                noTerms
+                noRedirect
+              />
+            }
+            close={userStatus !== 'success'}
             />
-          }
-          close={userStatus !== 'success'}
-        />
+        </div>
+        <ContainerItem>
+          <List>
+            <Item>
+              <Text strong>{`Concepto: `}</Text>
+              { paymentData.concept }
+            </Item>
+            <Item>
+              <Text strong>{`Monto: `}</Text>
+              { paymentData.amount }
+            </Item>
+            <Item>
+              <Text strong>{`Fecha: `}</Text>
+              { moment(paymentData.date).format('DD/MM/YYYY') }
+            </Item>
+            <Item>
+              <Text strong>{`Tipo de pago: `}</Text>
+              { paymentData.paymentType }
+            </Item>
+            <Item>
+              <Text strong>{`RFC: `}</Text>
+              { fiscalData.rfc }
+            </Item>
+            <Item>
+              <Text strong>{`Dirección: `}</Text>
+              { fiscalData.address.street }
+            </Item>
+            <Item>
+              <Text strong>{`Colonia: `}</Text>
+              { fiscalData.address.colony }
+            </Item>
+            <Item>
+              <Text strong>{`Código postal: `}</Text>
+              { fiscalData.address.zipCode }
+            </Item>
+            <Item>
+              <Text strong>{`Ciudad: `}</Text>
+              { fiscalData.address.city }
+            </Item>
+            <Item>
+              <Text strong>{`Estado: `}</Text>
+              { fiscalData.address.state }
+            </Item>
+          </List>
+        </ContainerItem>
+        <Button width="100%" htmlType="button" onClick={() => handleInvoice()}>
+          Generar Factura
+        </Button>
       </ContainerItem>
-      <Button width="100%" htmlType="button" onClick={() => handleInvoice()}>
-        Generar Factura
-      </Button>
     </div>
   );
 }
