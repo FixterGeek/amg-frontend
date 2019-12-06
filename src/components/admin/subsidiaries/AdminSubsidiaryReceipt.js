@@ -142,6 +142,7 @@ function AdminSubsidiaryReceipt({
           <div className="users-list">
             <Form.Item label="Buscar y agregar usuario">
               <AutoComplete
+                style={{ width: '100%' }}
                 onChange={v => {
                   setUserInList(u => [users.filter(us => us._id === v)[0], ...u])
                 }}
@@ -202,7 +203,9 @@ function AdminSubsidiaryReceipt({
               <Button line onClick={handleCancel} >
                 Cancelar
               </Button>
-              <Button onClick={() => setModalOpen(true)}>
+              <Button
+                disabled={!working.receiptFile}
+                onClick={() => setModalOpen(true)}>
                 Siguiente
               </Button>
             </div>

@@ -25,7 +25,7 @@ import SubsidiaryReceipt from './AdminSubsidiaryReceipt';
 import SubsidiaryPayments from './reusables/PaymentsList';
 
 function AdminSubsidiary({
-  user, history, subsidiaries,
+  user, subsidiaries,
   subsidiary, noSubsidiaries,
   populateSubsidiaries,
   fetching, users, getAllUsers,
@@ -35,14 +35,6 @@ function AdminSubsidiary({
 }) {
   const { Title } = Typography;
   const { TabPane } = Tabs;
-
-  const columns = [
-    { title: 'No. de referencia', dataIndex: 'reference' },
-    { title: 'Concepto', dataIndex: 'concept' },
-    { title: 'Monto', dataIndex: 'amount' },
-    { title: 'Método de pago' },
-    { title: 'Fecha', render: (t, r) =>  <span>{ moment(r.date).format('DD/MM/YYYY') }</span>}
-  ];
 
   const [isReceipt, setIsReceipt] = useState(false);
 

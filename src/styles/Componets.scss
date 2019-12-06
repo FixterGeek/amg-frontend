@@ -634,7 +634,6 @@ $eventLeftWidth: 350px;
     display: flex;
     .users-list {
       flex-grow: 1;
-      padding-right: $padding;
     }
   }
 
@@ -644,7 +643,10 @@ $eventLeftWidth: 350px;
     border-color: $clouds;
     background-color: $clouds;
     background: $clouds!important;
-    width: 445px;
+  }
+
+  .ant-form-item-children {
+    min-width: 100%;
   }
 
   .ant-btn {
