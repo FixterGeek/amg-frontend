@@ -222,10 +222,11 @@
 .admin-test-rage-date {
     display: flex;
     justify-content: space-between;
+    max-width: 400px;
 }
 
 .admin-test-rage-date div {
-    max-width: 212px;
+    max-width: 203px;
     display: flex;
     align-items: center;
 }
@@ -237,6 +238,7 @@
 
 .admin-test-rage-date span {
     max-width: 192px;
+    margin: 0 5px;
 }
 
 .admin-form-group{
