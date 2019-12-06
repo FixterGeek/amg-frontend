@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import TextField from '../reusables/TextField';
-import {Select, DatePicker} from 'antd'
+import {Select, DatePicker, Typography, Popconfirm } from 'antd'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
@@ -8,6 +8,8 @@ import { writingTest, saveTest, getSingleTest, resetTest, deleteTest } from '../
 import toastr from 'toastr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faSave} from '@fortawesome/free-solid-svg-icons';
+import Button from '../reusables/Button';
+import Spinner from '../reusables/Spinner';
 
 
 const { Option } = Select
@@ -15,7 +17,7 @@ const { Option } = Select
 
 const AdminTestForm = ({history, match, location, fetching, test, events, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest, deleteTest}) => {
     
-
+    const { Title } = Typography;
     const [header, setHeader] = useState("Crear Test")
     //const [test, setTest] = useState(testMock)
 
@@ -60,15 +62,30 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
         history.push('/admin/tests')
     }
 
-    if(fetching)return <p>Loading</p>
     return (
         <div className="admin-event-form-container">
+            { fetching && <Spinner fullScrren /> }
             <div className="admin-form-header">
-                <h1>{header}</h1>
-                <div>
-                    <button onClick={(e)=>handleSubmit(e,true)}>Guardar como borrador <FontAwesomeIcon icon={faSave} /></button>
-                    {/* {test._id && <button disabled style={{ color: "white", background: "red" }} onClick={removeTest} >Eliminar Test</button>} */}
-                </div>
+                <Title style={{ flexGrow: 1 }}>{header}</Title>
+                <Popconfirm
+                    placement="bottom"
+                    okText="SI"
+                    cancelText="NO"
+                    title={`¿Eliminar ${test.title}?`}
+                    onConfirm={() => removeTest()}
+                >
+                    <Button
+                        htmlType="button"
+                        line
+                        bgColor="red"
+                        width="200px"
+                        style={{ marginRight: 32 }}>
+                        Eliminar test
+                    </Button>
+                </Popconfirm>
+                <Button onClick={(e)=>handleSubmit(e,true)} line>
+                    Guardar como borrador <FontAwesomeIcon icon={faSave} />
+                </Button>
             </div>
             <div className="admin-form-two-columns-container">
 
@@ -85,7 +102,7 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         onChange={(value)=>handleSelect(value, 'event')}                    
                         style={{ width: 400 }}
                         defaultValue={(test.event && test.event._id)? test.event._id:test.event? test.event:'Elige un evento'}>
-                        {events.map((event, key) => (
+                        {events.filter(e => e.status === 'published').map((event, key) => (
                             <Option key={key} value={event._id} >{event.title}</Option>
                         ))}
                     </Select>
@@ -114,24 +131,31 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                 </div> */}
                 <div className="admin-form-group">    
                     <b>Horario disponible</b>
-                    <b>De</b>
-                    <DatePicker
-                        className="test-input"
-                        onChange={m => handleDate(m, "startTime")}
-                        placeholder="Inicio"
-                        format="LLLL"
-                        style={{ width: 400 }}
-                        value={test.startTime ? moment(test.startTime) : null}
-                    />
-                    <b>A</b>        
-                    <DatePicker
-                        className="test-input"
-                        onChange={m => handleDate(m, "endTime")}
-                        placeholder="Final"
-                        format="LLLL"
-                        style={{ width: 400 }}
-                        value={test.endTime ? moment(test.endTime) : null}
-                    />
+                    <div className="admin-test-rage-date">
+                        <div>
+                            <b>De</b>
+                            <DatePicker
+                                className="test-input"
+                                onChange={m => handleDate(m, "startTime")}
+                                placeholder="Inicio"
+                                format="LLLL"
+                                style={{ width: 400 }}
+                                value={test.startTime ? moment(test.startTime) : null}
+                            />
+                        </div>
+                        <div>
+                            <b>A</b>        
+                            <DatePicker
+                                className="test-input"
+                                onChange={m => handleDate(m, "endTime")}
+                                placeholder="Final"
+                                format="LLLL"
+                                style={{ width: 400 }}
+                                value={test.endTime ? moment(test.endTime) : null}
+                            />
+                        </div>
+                    </div>
+                    
                     </div>
                 
                     <div className="admin-form-group">    
@@ -147,12 +171,14 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                     </Select>
                     </div>
 
-                    <div className="admin-form-group">    
-                
-                        <input      
+                    <div className="admin-form-group" style={{ minWidth: 404 }}>
+                        <Button width="100%" htmlType="submit">
+                            Siguiente
+                        </Button>   
+                        {/* <input      
                             style={{ width: 400 }}              
                             className="admin-form-submit-button"
-                            type="submit" value="Siguiente" />
+                            type="submit" value="Siguiente" /> */}
                     </div>
             </form>
             </div>

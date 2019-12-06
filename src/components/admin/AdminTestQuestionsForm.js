@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from 'react'
-import TextField from '../../molecules/TextFields'
-import {Select} from 'antd'
-import moment from 'moment'
+import { Typography } from 'antd'
 import {connect} from 'react-redux'
 import { getAdminEvents } from '../../store/ducks/eventsDuck'
 import { writingTest, saveTest, getSingleTest, resetTest } from '../../store/ducks/testsDuck'
 import QuestionFormInput from './QuestionFormInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faSave, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom'
 
-
-const { Option } = Select
+import Button from '../reusables/Button';
 
 
 const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, getAdminEvents, saveTest, getSingleTest, resetTest}) => {
-        
+    const { Title } = Typography;        
 
     useEffect(() => {        
         getAdminEvents()
@@ -96,8 +93,10 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
                     Volver                
                 </Link>
             <div className="admin-form-header">
-                <h1>Preguntas del test {test.title}</h1>                
-                <button onClick={(e)=>handleSubmit(e)}>Guardar como borrador </button>
+                <Title>Preguntas del test {test.title}</Title>                
+                <Button onClick={(e)=>handleSubmit(e)} line>
+                    Guardar como borrador
+                </Button>
             </div>
             <div>
                 <QuestionFormInput
@@ -110,7 +109,9 @@ const AdminTestQuestionsForm = ({history, match, fetching, test, writingTest, ge
                     handleChangeAnswer={handleChangeAnswer}
                     deleteQuestion={deleteQuestion}/>
                 <div className="tests-right-button">
-                    <button className="admin-main-button" style={{width:250}} onClick={addQuestion}>Nueva pregunta <FontAwesomeIcon icon={faPlus} /></button>
+                    <Button width="200px" line onClick={addQuestion}>
+                        Nueva pregunta ✚
+                    </Button>
                 </div>                
                 <div className="tests-center-button">
                     <button className="admin-form-submit-button" onClick={(e)=>handleSubmit(e,true)}>Publicar</button>
