@@ -6,10 +6,14 @@ import {Link} from 'react-router-dom'
 
 import Button from '../reusables/Button';
 
-const AdminTests = ({tests=[],fetching, getTests}) => {
+const AdminTests = ({
+    tests=[],fetching, getTests, userIsAdmin,
+    history
+}) => {
 
     useEffect(()=>{
         getTests()
+        if (!userIsAdmin) history.push('/admin/dashboard')
     },[])
 
     const removeTest=(testId)=>{        
@@ -34,10 +38,11 @@ const AdminTests = ({tests=[],fetching, getTests}) => {
     )
 }
 
-function mapStateToProps({tests}){    
+function mapStateToProps({ tests, user }){    
     return{
         tests:tests.tests,
-        fetching:tests.fetching
+        fetching:tests.fetching,
+        userIsAdmin: user.userType === 'Admin'
     }
 }
 
