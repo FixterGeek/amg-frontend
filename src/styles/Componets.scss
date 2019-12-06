@@ -625,9 +625,11 @@ $eventLeftWidth: 350px;
 // Admin ===>
 /* Styles AdminSubsidiaryReceipt */
 .admin-subsidiary-receipt {
+  max-width: 1200px;
+  margin: 0 auto;
   &-receipt {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   &-content {
@@ -1049,6 +1051,8 @@ $eventLeftWidth: 350px;
 
 // AdminSubsidiaryProfile
 .admin-subsidiary-profile {
+  max-width: 1200px;
+  margin: 0 auto;
   .ant-tabs-top-bar {
     margin-bottom: 0px;
   }
