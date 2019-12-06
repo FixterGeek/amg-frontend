@@ -588,6 +588,7 @@ Footer*/
 
 .desk {
     display: block;
+    min-height: 100%;
 }
 
 .mobile {
