@@ -48,3 +48,12 @@ export const cancelInvoice = (invoiceId) => {
     }
   }).then(({ data }) => data);
 };
+
+export const manualInvoice = (invoiceData) => {
+  const token = localStorage.authToken;
+  return axios.post(`${APIURL}/new`, invoiceData, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
