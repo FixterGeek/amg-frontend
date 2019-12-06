@@ -75,6 +75,8 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                     onConfirm={() => removeTest()}
                 >
                     <Button
+                        marginBottom="0px"
+                        marginTop="0px"
                         htmlType="button"
                         line
                         bgColor="red"
@@ -83,7 +85,11 @@ const AdminTestForm = ({history, match, location, fetching, test, events, writin
                         Eliminar test
                     </Button>
                 </Popconfirm>
-                <Button onClick={(e)=>handleSubmit(e,true)} line>
+                <Button
+                    marginBottom="0px"
+                    marginTop="0px"
+                    onClick={(e)=>handleSubmit(e,true)}
+                    line >
                     Guardar como borrador <FontAwesomeIcon icon={faSave} />
                 </Button>
             </div>

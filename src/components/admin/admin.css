@@ -190,6 +190,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 64px;
+}
+
+.admin-form-header h1 {
+    margin-bottom: 0!important;
 }
 .admin-form-submit-button:hover{
     font-size: 1.1rem;
@@ -223,7 +228,6 @@
     max-width: 212px;
     display: flex;
     align-items: center;
-    
 }
 
 .admin-test-rage-date b {
