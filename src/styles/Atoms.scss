@@ -229,8 +229,8 @@ $inputHeight: 50px;
   }
 
   &-primary {
-    background-color: $primary;
-    border-color: $primary;
+    background-color: $navy;
+    border-color: $navy;
   }
 
   &-danger {
@@ -242,6 +242,12 @@ $inputHeight: 50px;
     background-color: white;
     border-color: $secondary;
     color: $secondary;
+  }
+
+  &-outline-primary {
+    background-color: transparent;
+    border-color: $navy;
+    color: $navy;
   }
 }
 

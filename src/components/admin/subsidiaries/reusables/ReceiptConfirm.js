@@ -12,6 +12,8 @@ function ReceiptConfirm({ users, onConfirm, onCancel , visible = false }) {
 
   return (
     <Modal
+      okButtonProps={{ className: 'amg-button amg-button-primary' }}
+      cancelButtonProps={{ className: 'amg-button  amg-button-outline-primary'}}
       visible={visible}
       onCancel={() => onCancel(false)}
       onOk={handleConfirm}
