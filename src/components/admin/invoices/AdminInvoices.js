@@ -17,7 +17,7 @@ import Spinner from '../../reusables/Spinner';
 function Invoices({
   invoices, noInvoices, populateInvoicesAction,
   invoicesFetching, invoicesStatus, resetInvoicesStatus,
-  populateExternalInvoices,
+  populateExternalInvoices, userIsAdmin, history
 }) {
   const { Title } = Typography;
 
@@ -28,6 +28,7 @@ function Invoices({
 
   useEffect(() => {
     if (invoicesStatus !== null) resetInvoicesStatus();
+    if (!userIsAdmin) history.push('/admin/dashboard');
   }, [invoicesStatus]);
 
   return (
@@ -56,12 +57,13 @@ function Invoices({
   );
 }
 
-function mapStateToProps({ invoice }) {
+function mapStateToProps({ invoice, user }) {
   return {
     invoices: invoice.array,
     noInvoices: invoice.noData,
     invoicesFetching: invoice.fetching,
     invoicesStatus: invoice.status,
+    userIsAdmin: user.userType === 'Admin',
   }
 }
 
