@@ -43,7 +43,10 @@ function PaymentsList({
   }, [payments.length])
 
   return (
-    <Table columns={colums} dataSource={payments[0] !== 'empty' ? payments : []} />
+    <Table
+      columns={colums}
+      dataSource={payments[0] !== 'empty' ? payments.sort((a, b) => moment(b.date).diff(moment(a.date))) : []}
+    />
   );
 }
 
