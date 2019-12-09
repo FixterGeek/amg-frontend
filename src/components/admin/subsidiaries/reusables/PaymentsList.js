@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import { Table, Tag } from 'antd';
+import { Table, Tag, Avatar } from 'antd';
 
 import {
   populateSubsidiaryPayments,
@@ -31,6 +31,31 @@ function PaymentsList({
     {
       title: 'Filial',
       render: (t, r) => (<span>{r.filial.state}</span>)
+    },
+    {
+      title: 'Usuario(s)',
+      render: (t, r) => (
+        <div>
+          {
+            r.users.map(u => (
+              <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'flex-start' }}>
+                <Avatar
+                  src={u.basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
+                  style={{ backgroundColor: '#e8e8e8' }}
+                />
+                <div style={{ display: 'flex', flexFlow: 'column' }}>
+                  <span style={{ marginLeft: 4 }}>
+                    <strong>
+                      {`${u.basicData.name} ${u.basicData.dadSurname}`}
+                    </strong>
+                  </span>
+                  <span style={{ marginLeft: 4, fontSize: '0.8rem' }}>{u.email}</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      ),
     },
     {
       title: 'Acciones',
