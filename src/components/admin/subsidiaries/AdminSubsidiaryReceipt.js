@@ -20,7 +20,6 @@ import { populateSubsidiaries } from '../../../store/ducks/subsidiaryDuck';
 import ContainerItem from '../../reusables/ContainerItem';
 import Button from '../../reusables/Button';
 import ImagePicker from '../../reusables/ImagePicker';
-import Chat from '../../reusables/Chat';
 import Spinner from '../../reusables/Spinner';
 import ReceiptConfirm from './reusables/ReceiptConfirm';
 import { uploadFile } from '../../../tools/firebaseTools';
@@ -90,7 +89,7 @@ function AdminSubsidiaryReceipt({
     if (working.receiptFile) data.recipetURL = await uploadFile(fbRef, working.receiptFile).then(url => url);
     if (paid === 'approve') data.paid = v;
   
-    createOrUpdateFilialPayment(data);
+    createOrUpdateFilialPayment(data).then(() => history.push(`/admin/filiales/${params.id}`))
     setModalOpen(false);
   }
 

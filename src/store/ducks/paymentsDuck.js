@@ -136,9 +136,12 @@ export const createOrUpdateFilialPayment = (paymentData) => (dispatch) => {
     ));
 
   return patchPaymentForSubsidiary(paymentData._id, paymentData)
-    .then(data => successAction(
-      dispatch, updatePaymentForFilialSuccess, data, RESET_PAYMENT_STATUS, 'Pago aprobado',
-    ))
+    .then(data => {
+      console.log(data);
+      successAction(
+        dispatch, updatePaymentForFilialSuccess, data, RESET_PAYMENT_STATUS, data.paid ? 'Pago aprobado' : 'Pago declinado',
+      )}
+    )
     .catch(error => errorAction(
       dispatch, fetchingError, error, RESET_PAYMENT_STATUS, 'No fue posible actualizar el pago',
     ));
