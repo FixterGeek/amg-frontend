@@ -5,7 +5,7 @@ import { Form, Input } from 'antd';
 function TextField({
   label, name, value, placeholder,
   validateStatus, onChange,
-  errorMessage, ...others
+  errorMessage, dots = true, ...others
 }) {
   const { Item } = Form;
 
@@ -15,6 +15,7 @@ function TextField({
   }
   return (
     <Item
+      colon={dots}
       label={label}
       className="reusables-text-field"
       hasFeedback

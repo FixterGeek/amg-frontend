@@ -39,15 +39,17 @@ class HomeContactForm extends Component {
             <form onSubmit={this.sendForm}>
               <TextField
                   width="100%"
+                  dots={false}
                   value={this.state.mail}
                   onChange={this.onChange}
-                  errorMessage={"La dirección de correo no es correcta"}
+                  // errorMessage={"La dirección de correo no es correcta"}
                   name="mail"
                   type="email"
                   label="¿Cuál es tu correo?"
                   marginBottom="0px" />
               <TextField
                   width="100%"
+                  dots={false}
                   value={this.state.nombre}
                   onChange={this.onChange}
                   name="nombre"
@@ -66,6 +68,7 @@ class HomeContactForm extends Component {
               </Select>
               <br/>
               <TextAreaField
+                dots={false}
                 label="¿En que podemos ayudarte?"
                 onChange={(v) => this.onChange((v))}
                 name="text"

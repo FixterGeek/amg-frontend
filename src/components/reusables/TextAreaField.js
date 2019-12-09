@@ -6,7 +6,7 @@ import { Form, Input } from 'antd';
 function TextAreaField({
   label, onChange, value,
   placeholder, styles, name,
-  rows
+  rows, dots = true,
 }) {
   const { Item } = Form;
   const { TextArea } = Input;
@@ -16,7 +16,7 @@ function TextAreaField({
   };
 
   return (
-    <Item label={label} className="reusables-text-area-field">
+    <Item colon={dots} label={label} className="reusables-text-area-field">
       <TextArea
         onChange={handleChange}
         value={value}
