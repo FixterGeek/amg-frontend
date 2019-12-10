@@ -305,17 +305,21 @@
 .test-input{    
     box-sizing: border-box;
     min-height: 50px;
-    padding: 10px 30px;
+    padding: 10px 0px;
     width:100%;
     border:none;
     background-color:#f5f8f9;
     outline: none !important;
+    margin: 0;
+
 }
 .test-input div, .test-input input{
     background: transparent;    
     border:none;
     outline: none !important;
     width: 100%;
+    padding-left: 2px!important;
+    padding-right: 2px!important;
 }
 
 .test-question-form{
