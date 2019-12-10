@@ -493,8 +493,15 @@ Footer*/
     text-align: center;
 }
 .form-contacto form{
-    width: 100%;
+    min-width: 200px;
 }
+
+@media (min-width: 600px) {
+    .form-contacto form{
+        min-width: 442px;
+    }
+}
+
 .left{
     margin-right: 40px;
 }
