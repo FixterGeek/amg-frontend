@@ -6,7 +6,7 @@ import { Typography, Tabs, Icon } from 'antd';
 
 import { populateEducationAction } from '../../store/ducks/educationDuck';
 import { populateActivitiesAction } from '../../store/ducks/activitiesDuck';
-import { getAllUsers } from '../../store/ducks/users';
+import { getAllUsers, updateUser } from '../../store/ducks/users';
 import useSweet from '../../hooks/useSweetAlert';
 import ContainerItem from '../reusables/ContainerItem';
 import Spinner from '../reusables/Spinner';
@@ -22,7 +22,7 @@ function AdminUserDetail({
   internships, activities,
   populateActivitiesAction,
   populateEducationAction,
-  history
+  history, updateUser,
 }) {
   const { infoAlert } = useSweet();
   const { Title } = Typography;
@@ -54,7 +54,13 @@ function AdminUserDetail({
         <ContainerItem>
           <Tabs>
             <TabPane key="1" tab="Datos generales">
-              <UserGeneralDataForm user={user} hiddenButton noPassword />
+              <UserGeneralDataForm
+                user={user}
+                noPassword
+                buttonText="Actualizar" 
+                noPush
+                dispatch={updateUser}
+              />
             </TabPane>
             <TabPane key="2" tab="Estados">
               <UserStatusForm userId={user._id} />
@@ -159,5 +165,6 @@ export default connect(
     getAllUsers,
     populateEducationAction,
     populateActivitiesAction,
+    updateUser
   }
 )(AdminUserDetail);

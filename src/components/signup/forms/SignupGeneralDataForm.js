@@ -18,7 +18,9 @@ import estados from '../../admin/estados.json';
 function SignupGeneralDataForm({
   user, dispatch, loading,
   status, history, noPassword,
-  hiddenButton, subsidiaries
+  hiddenButton, subsidiaries,
+  buttonText = 'Siguiente',
+  noPush,
 }) {
   const { Title } = Typography;
 
@@ -57,7 +59,7 @@ function SignupGeneralDataForm({
 
   useEffect(() => {
     if (status === 'error') errorAlert({});
-    if (status === 'success') history.push('/signup/educacion')
+    if (status === 'success' && !noPush) history.push('/signup/educacion');
   }, [status]);
 
   useEffect(() => {
@@ -102,7 +104,11 @@ function SignupGeneralDataForm({
       const userData = generals;
       userData.basicData.photoURL = url;
       dispatch(userData);
-    } else history.push('/signup/educacion')
+    } else {
+      const userData = generals;
+      if (user._id && noPush) dispatch(userData).then(() => setlocalLoading(false));
+      if (!noPush) history.push('/signup/educacion');
+    }
   }
 
   return (
@@ -183,7 +189,7 @@ function SignupGeneralDataForm({
       {
         !hiddenButton && (
           <Button htmlType="submit" width="100%" disabled={!allIsFill}>
-            Siguiente
+            { buttonText }
           </Button>
         )
       }
