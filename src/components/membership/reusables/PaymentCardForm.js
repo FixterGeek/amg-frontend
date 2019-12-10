@@ -5,33 +5,61 @@ import { Typography } from 'antd';
 
 import useSweet from '../../../hooks/useSweetAlert';
 import DashboardContainerItem from '../../reusables/ContainerItem';
-import TextField from '../../../molecules/TextFields';
+import TextField from '../../reusables/TextField';
+import SelectField, { OptionSelect } from '../../reusables/SelectField';
 import Button from '../../reusables/Button';
 import Spinner from '../../reusables/Spinner';
+import moment from 'moment';
 
 function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
   const { Title } = Typography;
   const { errorAlert } = useSweet();
 
+  const [years, setYears] = useState([]);
+
   const initialMessages = {
     name: '',
     number: '',
-    expiration: '',
+    expiration: {
+      month: '',
+      year: '',
+    },
     ccv: '',
     phone: phone || null,
+    exp: [null, null]
   }
+
+  const months = [
+    { label: '01 | Enero', value: 1 },
+    { label: '02 | Febrero', value: 2 },
+    { label: '03 | Marzo', value: 3 },
+    { label: '04 | Abril', value: 4 },
+    { label: '05 | Mayo', value: 5 },
+    { label: '06 | Junio', value: 6 },
+    { label: '07 | Julio', value: 7 },
+    { label: '08 | Agosto', value: 8 },
+    { label: '09 | Septiembre', value: 9 },
+    { label: '10 | Octubre', value: 10 },
+    { label: '11 | Noviembre', value: 11 },
+    { label: '12 | Diciembre', value: 12 },
+  ]
 
   const [isValid, setIsValid] = useState(false);
   const [errors, setErrors] = useState({
     name: '',
     number: '',
-    expiration: '',
+    expiration: {
+      month: '',
+      year: '',
+    },
     ccv: '',
   });
   const [warnings, setWarning] = useState({ ...initialMessages });
   const [success, setSuccess] = useState({ ...initialMessages });
   const [card, setCard] = useState({ ...initialMessages });
   const [loading, setLoading] = useState(false);
+
+  const allIsFill = card.name && card.number && card.expiration.month && card.expiration.year && card.ccv;
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -43,6 +71,14 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
       Conekta.setPublicKey('key_FGFhHyz9UV5786QGdKmTcEw')
     }
   }, []);
+
+  useEffect(() => {
+    const range = [];
+    for (let index = Number(moment().format('YYYY')); index < (Number(moment().format('YYYY')) + 50); index++) {
+      range.push(index);
+    }
+    setYears(range);
+  }, [])
 
 
   useEffect(() => {
@@ -127,12 +163,9 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
     const { value, name } = target;
     let val = value;
 
-    if (name === 'expiration' && String(value).length === 2) {
-      if (Number(`${value}`.slice(0,2))) val = `${value}/`;
-    }
-    if (name === 'expiration' && String(value).length > 5) val = value.slice(0, 4);
     if (name === 'ccv' && String(value).length > 3) val = value.slice(0, 2);
-    setCard({ ...card, [name]: val });
+    if (name === 'month' || name === 'year') setCard({ ...card, expiration: { ...card.expiration, [name]: val }});
+    else setCard({ ...card, [name]: val });
     validateCardData(name, val);
   };
 
@@ -143,8 +176,8 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
       card: {
         number: card.number,
         name: card.name,
-        exp_year: card.expiration.slice(3, 5),
-        exp_month: card.expiration.slice(0, 2),
+        exp_year: card.expiration.year,
+        exp_month: card.expiration.month,
         cvc: card.ccv,
       }
     };
@@ -189,11 +222,11 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
               name="number"
               label="Número de tarjeta"
               error={errors.number}
-              errorMessage={errors.number}
-              warning={warnings.number}
-              warningMessage={warnings.number}
-              success={success.number}
-              successMessage={success.number}
+              errorMessage={errors.number || warnings.number || success.number}
+              validateStatus={
+                errors.number ? 'error' : warnings.number ? 'warning' :
+                  success.number ? 'success' : null
+              }
             />
           </div>
           <div>
@@ -207,13 +240,42 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
             />
           </div>
           <div className="payment-card-container">
-            <TextField
+            {/* <TextField
               error={errors.expiration}
               errorMessage={errors.expiration}
               onChange={handleCard}
               label="Fecha de expiración"
               value={card.expiration}
-              name="expiration" />
+              name="expiration" /> */}
+            <div className="exp-fields">
+              <SelectField
+                label="Mes exp"
+                onChange={value => handleCard({ target: { name: 'month', value } })}
+                value={card.expiration.month}
+              >
+                {
+                  months.map(month => (
+                    <OptionSelect key={month.label} value={month.value}>
+                      { month.label }
+                    </OptionSelect>
+                  ))
+                }
+              </SelectField>
+
+              <SelectField
+                label="Año exp"
+                onChange={value => handleCard({ target: { name: 'year', value } })}
+                value={card.expiration.year}
+              >
+                {
+                  years.map(y => (
+                    <OptionSelect key={y} value={y}>
+                      { y }
+                    </OptionSelect>
+                  ))
+                }
+              </SelectField>
+            </div>
             <TextField
               value={card.ccv}
               onChange={handleCard}
@@ -245,7 +307,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
           />
           <Button
             htmlType="submit"
-            disabled={!isValid || loading || paid}
+            disabled={!isValid || loading || paid || !allIsFill}
             width="100%" >
             Pagar
           </Button>

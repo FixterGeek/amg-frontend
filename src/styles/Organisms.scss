@@ -230,6 +230,17 @@ $menuBarWidth: 59px;
   &-container {
     display: flex;
     justify-content: space-between;
+
+    .exp-fields {
+      flex-grow: 1;
+      min-width: 60%;
+      display: flex;
+
+      .reusables-select-field {
+        margin-right: 8px;
+        flex-grow: 1;
+      }
+    }
   }
 }
 

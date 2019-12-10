@@ -519,6 +519,10 @@
 .reusables-select-field {
   max-width: 445px;
 
+  .ant-form-item-label {
+    margin-bottom: -4px;
+  }
+
   label {
     font-weight: bold;
   }
