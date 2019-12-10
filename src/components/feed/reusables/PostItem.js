@@ -15,13 +15,13 @@ function PostItem({
   user: userId, publication, deleteDispatch,
 }) {
   const {
-    text, updatedAt, _id, liked, imagesURLS = [], user = {}, docsURLS = [],
+    text, updatedAt, createdAt, _id, liked, imagesURLS = [], user = {}, docsURLS = [],
   } = publication;
   const { basicData = {} } = user || {};
   const { photoURL = null, name = '', dadSurname = '' } = basicData;
   const { Title, Text } = Typography;
 
-  const date = moment(updatedAt).local('es');
+  const date = moment(createdAt).local('es');
   const momentDate = moment().calendar(date, {
     sameDay: `[Hoy a las ${date.format('h:mm a')}]`,
     nextDay: `[Ayer a las ${date.format('h:mm a')}]`,
