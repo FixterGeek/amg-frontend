@@ -203,7 +203,7 @@ function AdminSubsidiaryReceipt({
                 Cancelar
               </Button>
               <Button
-                disabled={!working.receiptFile}
+                disabled={!working.receiptFile || !usersInList[0]}
                 onClick={() => setModalOpen(true)}>
                 Siguiente
               </Button>
