@@ -75,8 +75,8 @@ function AdminUserDetail({
                     <BoxItem
                       noLeft
                       key={study._id}
-                      title={study.major || study.institution.name}
-                      subtitle={study.institution.name || ' '}
+                      title={study.major || study.institution ? study.institution.name : '' }
+                      subtitle={study.institution ? study.institution.name : ''}
                       footer={
                         `${moment(study.startDate).format('MMMM[ de ]YYYY')}
                           -
@@ -111,8 +111,8 @@ function AdminUserDetail({
                   <BoxItem
                     noLeft
                     key={internship._id}
-                    title={internship.institution.name || 'Internado'}
-                    subtitle={internship.institution.name || 'Internado'}
+                    title={internship.institution ? internship.institution.name : 'Internado'}
+                    subtitle={internship.institution ? internship.institution.name : 'Internado'}
                     footer={
                       `${moment(internship.startDate).format('MMMM[ de ]YYYY')}
                         -
