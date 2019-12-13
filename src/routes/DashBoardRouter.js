@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import moment from 'moment';
 
 import { logoutAction } from '../store/ducks/userDuck';
+import { getUser } from '../services/userServices';
 import useSweet from '../hooks/useSweetAlert';
 
 import Feed from '../components/feed/Feed';
@@ -32,6 +33,7 @@ import UserList from '../components/profile/UsersList';
 
 function DashBoardRouter({
   userStatus, logoutAction, history,
+  userId, memberShipStatus,
 }) {
   const baseURL = '/dashboard';
   const { infoAlert } = useSweet();
@@ -59,6 +61,14 @@ function DashBoardRouter({
         history.push('/login');
       }
     }
+
+    getUser(userId)
+      .then((userRes) => {
+        if (userRes.memberShipStatus === 'Free' && memberShipStatus !== userRes.memberShipStatus) {
+          logoutAction();
+          history.push('/login');
+        }
+      })
   }, []);
 
   return (
@@ -96,6 +106,8 @@ function DashBoardRouter({
 function mapStateToProps({ user }) {
   return {
     userStatus: user.userStatus,
+    userId: user._id,
+    memberShipStatus: user.memberShipStatus,
   }
 }
 
