@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
+import moment from 'moment';
 
 import { logoutAction } from '../store/ducks/userDuck';
 import useSweet from '../hooks/useSweetAlert';
@@ -42,6 +43,23 @@ function DashBoardRouter({
       infoAlert({ text: 'Tu cuenta fue desactivada de forma temporal.' });
     }
   }, [userStatus]);
+
+  useEffect(() => {
+    // token verification
+    const token = localStorage.authToken;
+    if (!token) history.push('/')
+    if (token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace('-', '+').replace('_', '/');
+      const tokenData = JSON.parse(window.atob(base64));
+      const { exp } = tokenData;
+      const diff = moment().isAfter(moment.unix(exp));
+      if (diff) {
+        logoutAction();
+        history.push('/login');
+      }
+    }
+  }, []);
 
   return (
     <Switch>

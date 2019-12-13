@@ -38,7 +38,8 @@ function ManualInvoiceForm({
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    setState(s => ({ ...s, [name]: value }));
+    if (name === 'amountNoIva') setState(s => ({ ...s, [name]: Number(value) }));
+    else setState(s => ({ ...s, [name]: value }));
   };
 
   const handleSubmit = (event) => {
