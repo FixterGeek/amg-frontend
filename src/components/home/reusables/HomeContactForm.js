@@ -4,6 +4,8 @@ import TextAreaField from '../../reusables/TextAreaField';
 import {Select} from "antd";
 import { message} from 'antd';
 
+import Button from '../../reusables/Button';
+
 const baseURL = process.env.REACT_APP_BASE_API_URL;
 
 const { Option } = Select;
@@ -13,16 +15,20 @@ class HomeContactForm extends Component {
 
   state = {
     error:"",
+    captchaIsChecked: false,
   }
 
   componentDidMount() {
     const capchaScript = document.createElement('script');
-    capchaScript.src = "https://www.google.com/recaptcha/api.js";
+    capchaScript.src = "https://www.google.com/recaptcha/api.js?data";
 
     document.body.appendChild(capchaScript);
     
     capchaScript.onload = (e) => {
-      console.log('capcha load', e);
+      window.setState = this.setState;
+      window.handleCaptcha = function(res) {
+        if (res) window.checkedCaptcha = true;
+      }
     }
   }
 
@@ -30,8 +36,14 @@ class HomeContactForm extends Component {
 
   sendForm = e => {
     e.preventDefault()
+    const captchaResponse = window.grecaptcha.getResponse();
+
+    console.log(captchaResponse);
+
+    if (!captchaResponse) return message.error('Resulve el captcha');
+
     fetch(`${baseURL}/contact`, {
-      body: JSON.stringify(this.state),
+      body: JSON.stringify({ ...this.state, captchaResponse}),
       headers: {"Content-Type": "application/json"},
       method: 'post'
     }).then(res => {
@@ -43,11 +55,18 @@ class HomeContactForm extends Component {
         })
   }
 
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   //?mail=&nombre=&text=&g-recaptcha-response=03AOLTBLTBxuflWMzNXoCSHp_sSIC3cJx4VCLpyrhyIF1c2ncGd14QF0umTuoBnrlys6F63_H2PU4xYmbW6kGgwrKLMWPYRagZx8D8LxdiwpS3giPZZ1-KnxuoEUjfrHoXF9DaurpA9imycW1F1bDglJyoQDIPjwMRfEmlK8j5W1BlPZiUEqGu2twG4Ra0ZoXT0PXVPhQ0sMyRsGlzTcisk3LHe1RM8neNai4_fXsWGSTqepkHJVBLOkq3gSsPMw6O8LzncBR6Ce9l4BMCmslcND_TbilmF5Jjnsjj5S4esMz_30tgMKTPAKxbAhwEwDGX0XOw1GOILq0umj6BN4FVwGWfCfIc1_0_x0Z6PkAabnhFI6jxkU3s6Wd2RP4SFuinEuehcwCLHZ1xuIjLHT81VOUyYrpavkZ_rWc1H2N2vg9EWKytCP8g9esdjdt-HqZ63idJNjd3D-XVKxLjc6CX1w_cJ2s7b6vFXtBoJGZMX4wyKZLsQ4lXQWbqP2H3_pUR3NgFssA_D2yY
+  //   console.log();
+  // }
+
   render() {
+    console.log(this.state);
     return (
         <section className="">
 
-            <form onSubmit={this.sendForm}>
+            <form onSubmit={this.sendForm} action="?">
               <TextField
                   width="100%"
                   dots={false}
@@ -87,9 +106,19 @@ class HomeContactForm extends Component {
               />
               <br/>
               <br />
-                <div className="g-recaptcha" data-sitekey="" />
+                <div
+                  className="g-recaptcha"
+                  data-sitekey="6LfXl7sUAAAAANAztRRuFtdE19H_FSlduja29Qg-"
+                  data-callback="handleCaptcha"
+                />
                 <br />
-                <input type="submit" value="Submit" />              <button style={{width: "100%"}} className="btn-blue-dark">Enviar</button>
+                <Button
+                  htmlType="submit"
+                  width="100%"
+                  disabled={!this.state.mail || !this.state.nombre || !this.state.asunto || !this.state.text}
+                >
+                  Enviar
+                </Button>
             </form>
           </section>
 
