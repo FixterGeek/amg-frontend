@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 
 import { Typography, Descriptions } from 'antd';
 
+import useSweet from '../../hooks/useSweetAlert';
+import { getSelfUser } from '../../services/userServices';
 import MembershipCard from '../membership/reusables/MerbershipCard';
+import Spinner from '../reusables/Spinner';
 
 function SettingsMembership({
   membershipStatus, userStatus, selectables = [],
@@ -10,14 +14,43 @@ function SettingsMembership({
 }) {
   const { Title } = Typography;
 
+  const [discount, setDiscount] = useState(4750);
+  const [loading, setLoading] = useState(true);
+  const { errorAlert } = useSweet();
+
   const { bankData = {
     bank: '',
     CLABE: '',
     accountNumber: '',
   }} = filial;
 
+  useEffect(() => {
+    getSelfUser()
+    .then(selfUser => {
+      const { renewals: payments } = selfUser;
+      const onlyPaided = payments.filter(p => p.paid);
+      const orderByDate = onlyPaided.sort((a, b) => moment(a.createdAt).diff(moment(b.createdAt)));
+
+      if (orderByDate.length === 1) setDiscount(3250);
+
+      if (orderByDate.length === 16) setDiscount(1625);
+
+      if (orderByDate.length > 25) setDiscount(0);
+
+      setLoading(false);
+    })
+    .catch(error => {
+      console.log(error);
+      errorAlert({ text: 'Ocúrrio un problema con las membresias' })
+      setLoading(false);
+    });
+  }, []);
+
   if (userStatus === 'Aprobado') return (
     <div className="settings-membership">
+      {
+        loading && <Spinner fullScrren />
+      }
       {
         userIsInFilial && (
           <Descriptions title="Datos bancarios de tu filial">
@@ -34,8 +67,8 @@ function SettingsMembership({
         selectables.includes('Socio') && !userIsInFilial ? (
           <MembershipCard
             membershipType="Socio"
-            membershipCostDisplay="$4750"
-            membershipCost={4750}
+            membershipCostDisplay={`$${discount}`}
+            membershipCost={discount}
             points={[
               'Acceso total a los beneficios de la plataforma GASTRO',
               'Inscripción a todos los eventos sin costo incluyendo ECOS y SENAGA',
