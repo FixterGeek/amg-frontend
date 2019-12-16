@@ -106,11 +106,13 @@ class HomeContactForm extends Component {
               />
               <br/>
               <br />
-                <div
-                  className="g-recaptcha"
-                  data-sitekey="6LfXl7sUAAAAANAztRRuFtdE19H_FSlduja29Qg-"
-                  data-callback="handleCaptcha"
-                />
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div
+                    className="g-recaptcha"
+                    data-sitekey="6LfXl7sUAAAAANAztRRuFtdE19H_FSlduja29Qg-"
+                    data-callback="handleCaptcha"
+                  />
+                </div>
                 <br />
                 <Button
                   htmlType="submit"
