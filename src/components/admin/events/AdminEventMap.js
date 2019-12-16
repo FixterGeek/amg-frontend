@@ -14,9 +14,10 @@ import { uploadFile } from '../../../tools/firebaseTools';
 function AdminEventMap({
   state, saveDraftEvent,
 }) {
+  const { location = { coordinates: [null, null] } } = state;
   const initialCoordinates = {
-    latitude: null,
-    longitude: null,
+    latitude: location.coordinates[0],
+    longitude: location.coordinates[1],
   }
   const [coordinates, setCoordinates] = useState(initialCoordinates);
   const [imageForMobiles, setMobilImage] = useState(null);
@@ -72,7 +73,7 @@ function AdminEventMap({
         </Button>
       </Form>
       <ContainerItem>
-        <MapLocation zoom={9} marckeable onCoordinates={handleCoordinates} />
+        <MapLocation zoom={13} marckeable onCoordinates={handleCoordinates} coordinates={coordinates} />
       </ContainerItem>
     </div>
   );
