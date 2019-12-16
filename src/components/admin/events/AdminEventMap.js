@@ -5,9 +5,11 @@ import { Form } from 'antd';
 import MapLocation from '../../events/reusables/MapLocation';
 import ContainerItem from '../../reusables/ContainerItem';
 import TextField from '../../reusables/TextField';
+import ImagePicker from '../../reusables/ImagePicker';
 import Button from '../../reusables/Button';
 
 import { normalizeDate, transformToFormData } from './tools';
+import { uploadFile } from '../../../tools/firebaseTools';
 
 function AdminEventMap({
   state, saveDraftEvent,
@@ -17,6 +19,7 @@ function AdminEventMap({
     longitude: null,
   }
   const [coordinates, setCoordinates] = useState(initialCoordinates);
+  const [imageForMobiles, setMobilImage] = useState(null);
 
   const handleCoordinates = (coordinatesArray) => {
     setCoordinates({
@@ -30,10 +33,13 @@ function AdminEventMap({
     setCoordinates({ ...coordinates, [name]: value });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    let mapImage = null;
+    if (imageForMobiles) await uploadFile(`events/${state._id}/map-images/`, imageForMobiles)
+      .then(url => mapImage = url);
     const st = { ...state };
-    st.location = { ...state.location, coordinates: [coordinates.latitude, coordinates.longitude] };
+    st.location = { ...state.location, mapImage, coordinates: [coordinates.latitude, coordinates.longitude] };
     const normalizedData = normalizeDate(st);
     const form = new FormData();
 
@@ -56,6 +62,10 @@ function AdminEventMap({
           name="longitude"
           label="Longitud"
           value={coordinates.longitude}
+        />
+        <ImagePicker
+          label="Imagen de mapa solo para mobiles"
+          onChange={file => setMobilImage(file)}
         />
         <Button width="100%" htmlType="submit">
           Agregar ubicación
