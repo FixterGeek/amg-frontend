@@ -15,6 +15,17 @@ class HomeContactForm extends Component {
     error:"",
   }
 
+  componentDidMount() {
+    const capchaScript = document.createElement('script');
+    capchaScript.src = "https://www.google.com/recaptcha/api.js";
+
+    document.body.appendChild(capchaScript);
+    
+    capchaScript.onload = (e) => {
+      console.log('capcha load', e);
+    }
+  }
+
   onChange = e => this.setState({[e.target.name]: e.target.value})
 
   sendForm = e => {
@@ -75,7 +86,10 @@ class HomeContactForm extends Component {
                 value={this.state.text}
               />
               <br/>
-              <button style={{width: "100%"}} className="btn-blue-dark">Enviar</button>
+              <br />
+                <div className="g-recaptcha" data-sitekey="" />
+                <br />
+                <input type="submit" value="Submit" />              <button style={{width: "100%"}} className="btn-blue-dark">Enviar</button>
             </form>
           </section>
 
