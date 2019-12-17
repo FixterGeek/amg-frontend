@@ -40,6 +40,7 @@ function DashBoardRouter({
 
   useEffect(() => {
     if (userStatus === 'Inactivo') {
+      console.log(userStatus);
       logoutAction();
       history.push('/');
       infoAlert({ text: 'Tu cuenta fue desactivada de forma temporal.' });

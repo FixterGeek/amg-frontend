@@ -233,6 +233,7 @@ export function loginUserEpic(action$) {
                 of(setFetchingUser()),
                 ajax.post(baseAuthURL + "/login", action.payload, { 'Content-Type': 'application/json' }).pipe(
                     map(resp => {
+                        localStorage.authToken = resp.response.token
                         return loginUserSuccess({ ...resp.response.user, token: resp.response.token })
                     }),
                     //delay(5000),
