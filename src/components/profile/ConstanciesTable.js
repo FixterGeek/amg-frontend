@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import jsPDF from 'jspdf';
 
 import { Table } from 'antd';
 
+import useSweet from '../../hooks/useSweetAlert';
 import Spinner from '../reusables/Spinner';
 import { getBlob } from '../../tools/fileToURL';
 
-import {
-  populateUserEventsAction
-} from '../../store/ducks/eventsDuck';
+import { getSelfUser } from '../../services/userServices';
 
 function ConstanciesTable({
-  events, fetching, userId,
-  populateUserEventsAction,
+  fetching, userId,
   userName,
 }) {
+  const { errorAlert } = useSweet();
+
+  const [events, setEvents] = useState([]);
+
   const certificateGenerator = (image, name, userName) => {
     if (image) getBlob(image).then((blob) => {
       const { base64 } = blob;
@@ -60,7 +62,13 @@ function ConstanciesTable({
   ];
 
   useEffect(() => {
-    populateUserEventsAction(userId);
+    getSelfUser()
+      .then((data) => {
+        setEvents(data.assistedEvents);
+      })
+      .catch((error) => {
+        errorAlert({ text: 'No fue posible recuperar tus constancias' })
+      })
   }, []);
 
   return (
@@ -86,7 +94,5 @@ function mapStateToProps({ events, user }) {
 }
 
 export default connect(
-  mapStateToProps, {
-    populateUserEventsAction,
-  }
+  mapStateToProps, null
 )(ConstanciesTable);
