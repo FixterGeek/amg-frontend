@@ -13,7 +13,7 @@ function MapLocation({
   useEffect(() => {
     if (coordinates[0] && coordinates[1]) {
       let script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBAXOLs6pgumFSwvd3R3bqU4y2Cvm8Azj4';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}`;
       document.body.appendChild(script);
 
       function setMarker(lat, lng, map) {

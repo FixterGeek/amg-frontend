@@ -70,7 +70,7 @@ function LocationMap() {
     }
 
       let script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBAXOLs6pgumFSwvd3R3bqU4y2Cvm8Azj4&libraries=places';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_KEY}&libraries=places`;
       document.body.appendChild(script);
       script.onload = () =>{
         initAutocomplete();

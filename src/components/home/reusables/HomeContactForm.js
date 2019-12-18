@@ -15,7 +15,6 @@ class HomeContactForm extends Component {
 
   state = {
     error:"",
-    captchaIsChecked: false,
   }
 
   componentDidMount() {
