@@ -27,16 +27,11 @@ function SettingsMembership({
   useEffect(() => {
     getSelfUser()
     .then(selfUser => {
-      const { renewals: payments } = selfUser;
-      const onlyPaided = payments.filter(p => p.paid);
-      const orderByDate = onlyPaided.sort((a, b) => moment(a.createdAt).diff(moment(b.createdAt)));
-
-      if (orderByDate.length === 1) setDiscount(3250);
-
-      if (orderByDate.length === 16) setDiscount(1625);
-
-      if (orderByDate.length > 25) setDiscount(0);
-
+      const { socioStatus } = selfUser;
+      const assigned = Object.keys(socioStatus).filter(key => socioStatus[key].assigned).pop();
+      if (assigned) {
+        setDiscount(socioStatus[assigned].cost);
+      }
       setLoading(false);
     })
     .catch(error => {

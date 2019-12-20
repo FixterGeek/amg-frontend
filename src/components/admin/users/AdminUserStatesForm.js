@@ -98,9 +98,46 @@ function AdminUserStatesForm({
           <Radio value="Veterano">Emérito</Radio>
         </Radio.Group>
       </Form.Item>
+      {
+        workingOn.membershipStatus === 'Socio' ? (
+          <div>
+            <Form.Item label="Tipo de socio">
+              <Radio.Group
+                onChange={({ target }) => writeWorkingOn('socioStatus', target.value, workingOn.socioStatus)}
+                value={
+                  workingOn.socioStatus.activo.assigned ? 'activo'
+                  : workingOn.socioStatus.titular.assigned ? 'titular'
+                  : workingOn.socioStatus.emerito.assigned ? 'emerito'
+                  : null
+                }
+              >
+                <Radio value="activo">Activo</Radio>
+                <Radio value="titular">Titular</Radio>
+                <Radio value="emerito">Emérito</Radio>
+              </Radio.Group>
+            </Form.Item>
+          </div>
+        ) : null
+      }
+      {
+        workingOn.socioStatus.activo.assigned || workingOn.socioStatus.titular.assigned
+        || workingOn.socioStatus.emerito.assigned ? (
+          <Form.Item label="Costo para la vertirnte seleccionada">
+            <TextField
+              onChange={({ target }) => writeWorkingOn(
+                  'socioCost',
+                  Object.keys(workingOn.socioStatus).filter(key => workingOn.socioStatus[key].assigned)[0],
+                  workingOn.socioStatus,
+                  target.value,
+                )}
+              value={workingOn.socioStatus[Object.keys(workingOn.socioStatus).filter(key => workingOn.socioStatus[key].assigned)[0]].cost}
+            />
+          </Form.Item>
+        ) : null
+      }
       <Form.Item label="Estado de registro">
         <Radio.Group
-          onChange={({ target }) => writeWorkingOn('userStatus', target.value)}
+          onChange={({ target }) => writeWorkingOn('socioStatus', target.value)}
           value={workingOn.userStatus} >
           <Radio value="Registrado">Registrado</Radio>
           <Radio value="Pendiente">Pendiente</Radio>

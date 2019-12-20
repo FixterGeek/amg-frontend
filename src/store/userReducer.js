@@ -82,6 +82,20 @@ const userState = {
       state: '',
       coordinates: ['123312', '123123']
     }
+  },
+  socioStatus:{
+    activo: {
+      cost: 3250,
+      assigned: false,
+    },
+    titular:{
+      cost: 1625,
+      assigned: false,
+    },
+    emerito:{
+      cost: 0,
+      assigned: false,
+    }
   }
 };
 

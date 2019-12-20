@@ -34,7 +34,22 @@ const RESET_USER_STATUS = 'amg-frontend/users/RESET_USER_STATUS'
 
 const initialState = {
   array: [],
-  workingOn: {},
+  workingOn: {
+    socioStatus:{
+      activo: {
+        cost: 3250,
+        assigned: false,
+      },
+      titular:{
+        cost: 1625,
+        assigned: false,
+      },
+      emerito:{
+        cost: 0,
+        assigned: false,
+      }
+    }
+  },
   fetching: false,
   error: '',
   status: 'idle', // success || error || fetching
@@ -145,7 +160,21 @@ export function deleteUserError(error) {
   return { type: DELETE_USER_ERROR, payload: error };
 }
 
-export function writeWorkingOn(name, value) {
+export function writeWorkingOn(name, value, extra, cost) {
+  if (name === 'socioCost') return {
+    type: WRITE_WORKING_ON,
+    payload: {
+      name: 'socioStatus',
+      value: { ...extra, [value]: { ...extra[value], cost: Number(cost) } }
+    }
+  }
+  if (name === 'socioStatus') return {
+    type: WRITE_WORKING_ON,
+    payload: {
+      name,
+      value: { ...extra, [value]: { ...extra[value], assigned: true, cost: Number(cost) || extra[value].cost } }
+    }
+  }
   return { type: WRITE_WORKING_ON, payload: { name, value }};
 }
 
