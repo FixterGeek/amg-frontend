@@ -98,31 +98,28 @@ function AdminUserStatesForm({
           <Radio value="Veterano">Emérito</Radio>
         </Radio.Group>
       </Form.Item>
-      {
-        workingOn.membershipStatus === 'Socio' ? (
-          <div>
-            <Form.Item label="Tipo de socio">
-              <Radio.Group
-                onChange={({ target }) => writeWorkingOn('socioStatus', target.value, workingOn.socioStatus)}
-                value={
-                  workingOn.socioStatus.activo.assigned ? 'activo'
-                  : workingOn.socioStatus.titular.assigned ? 'titular'
-                  : workingOn.socioStatus.emerito.assigned ? 'emerito'
-                  : null
-                }
-              >
-                <Radio value="activo">Activo</Radio>
-                <Radio value="titular">Titular</Radio>
-                <Radio value="emerito">Emérito</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </div>
-        ) : null
-      }
+
+      <div>
+        <Form.Item label="Tipo de socio">
+          <Radio.Group
+            onChange={({ target }) => writeWorkingOn('socioStatus', target.value, workingOn.socioStatus)}
+            value={
+              workingOn.socioStatus.activo.assigned ? 'activo'
+              : workingOn.socioStatus.titular.assigned ? 'titular'
+              : workingOn.socioStatus.emerito.assigned ? 'emerito'
+              : null
+            }
+          >
+            <Radio value="activo">Activo</Radio>
+            <Radio value="titular">Titular</Radio>
+            <Radio value="emerito">Emérito</Radio>
+          </Radio.Group>
+        </Form.Item>
+      </div>
       {
         workingOn.socioStatus.activo.assigned || workingOn.socioStatus.titular.assigned
         || workingOn.socioStatus.emerito.assigned ? (
-          <Form.Item label="Costo para la vertirnte seleccionada">
+          <Form.Item label="Costo de la membresía">
             <TextField
               onChange={({ target }) => writeWorkingOn(
                   'socioCost',

@@ -172,7 +172,21 @@ export function writeWorkingOn(name, value, extra, cost) {
     type: WRITE_WORKING_ON,
     payload: {
       name,
-      value: { ...extra, [value]: { ...extra[value], assigned: true, cost: Number(cost) || extra[value].cost } }
+      value: {
+        ...extra,
+        activo: {
+          assigned: false,
+          cost: extra.activo.cost,
+        },
+        titular: {
+          assigned: false,
+          cost: extra.titular.cost,
+        },
+        emerito: {
+          assigned: false,
+          cost: extra.emerito.cost,
+        },
+        [value]: { ...extra[value], assigned: true, cost: Number(cost) || extra[value].cost } }
     }
   }
   return { type: WRITE_WORKING_ON, payload: { name, value }};
