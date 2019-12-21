@@ -25,7 +25,6 @@ function OxxoOrder({ oxxoOrder }) {
     });
     const w = doc.internal.pageSize.getWidth();
     const h = doc.internal.pageSize.getHeight();
-    console.log(w);
     doc.addImage(img, 'PNG', (w - 13.36145665)/2, (h - 13.30853999)/2);
     doc.setFontSize(18);
     doc.setFont('Helvetica');

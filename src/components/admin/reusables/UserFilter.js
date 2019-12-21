@@ -42,7 +42,7 @@ function UserFilter({ usersArray, onResults }) {
         onChange={value => handleFilter(value)}
         checksGroup={[
           { name: 'Especialidad', checks: ['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra'] },
-          { name: 'Membresia', checks: ['Free', 'Residente', 'Socio', { value: 'Veterano', label: 'Emérito' }] },
+          { name: 'Membresia', checks: ['Free', 'Residente', 'Socio'] },
           { name: 'Estado del usuario', checks: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado'] },
         ]}
         value={currentFilter}

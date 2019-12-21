@@ -137,7 +137,6 @@ export const createOrUpdateFilialPayment = (paymentData) => (dispatch) => {
 
   return patchPaymentForSubsidiary(paymentData._id, paymentData)
     .then(data => {
-      console.log(data);
       successAction(
         dispatch, updatePaymentForFilialSuccess, data, RESET_PAYMENT_STATUS, data.paid ? 'Pago aprobado' : 'Pago declinado',
       )}

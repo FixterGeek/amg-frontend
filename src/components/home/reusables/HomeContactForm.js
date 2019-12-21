@@ -37,8 +37,6 @@ class HomeContactForm extends Component {
     e.preventDefault()
     const captchaResponse = window.grecaptcha.getResponse();
 
-    console.log(captchaResponse);
-
     if (!captchaResponse) return message.error('Resulve el captcha');
 
     fetch(`${baseURL}/contact`, {

@@ -28,7 +28,6 @@ function SettingsMembership({
     getSelfUser()
     .then(selfUser => {
       const { socioStatus } = selfUser;
-      console.log(selfUser);
       const assigned = Object.keys(socioStatus).filter(key => socioStatus[key].assigned).pop();
       if (assigned) {
         setDiscount(socioStatus[assigned].cost);
@@ -36,7 +35,6 @@ function SettingsMembership({
       setLoading(false);
     })
     .catch(error => {
-      console.log(error);
       errorAlert({ text: 'Ocúrrio un problema con las membresias' })
       setLoading(false);
     });
