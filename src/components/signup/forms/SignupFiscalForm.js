@@ -37,11 +37,9 @@ function SignupFiscalForm({
   useEffect(() => {
     if (status === 'error') {
       errorAlert({});
-      resetStatus();
     }
 
     if (status === 'success') {
-      resetStatus();
       if (!noRedirect) history.push('/dashboard');
     }
   }, [status]);

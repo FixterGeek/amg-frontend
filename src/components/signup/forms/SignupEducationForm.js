@@ -22,7 +22,6 @@ function SignupEdicationForm({ user, education, loading, status, resetStatus }) 
   useEffect(() => {
     if (status === 'error') {
       errorAlert({});
-      resetStatus();
     }
   }, [status]);
 
