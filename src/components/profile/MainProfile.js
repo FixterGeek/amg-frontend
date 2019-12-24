@@ -10,7 +10,7 @@ import {
 import {
   populateFollows,
 } from '../../store/ducks/userDuck';
-import DashboardContainerItem from '../../atoms/DashboardContainerItem';
+import ContainerItem from '../reusables/ContainerItem';
 import Tabs from './reusables/Tabs';
 import PostItem from '../feed/reusables/PostItem';
 import BasicInformationUser from './reusables/BasicInformationUser';
@@ -33,33 +33,35 @@ function MainProfile({
   document.title = 'Perfil | Asociación Mexicana de Gastroenterología'
 
   return (
-    <div className="dashboard-container component-main-profile">
+    <div className="dashboard-container component-main-profile ">
       { fetching && <Spinner fullScrren /> }
-      <Title>Perfil</Title>
-      <BasicInformationUser user={user} editableLink />
+      <ContainerItem className="dash-item-center">
+        <Title>Perfil</Title>
+        <BasicInformationUser user={user} editableLink />
 
-      <Tabs
-        headers={['Mis Pagos', 'Mis constancias']}
-        componentContent={[<PaymentsTable/>, <ConstanciesTable />]}
-      />
+        <Tabs
+          headers={['Mis Pagos', 'Mis constancias']}
+          componentContent={[<PaymentsTable/>, <ConstanciesTable />]}
+        />
 
-      <DashboardContainerItem>
-        <div>
-          <Text strong>Mis publicaciones</Text>
-        </div>
-        <div>
-          {
-            selfPublications.map(post => (
-              <PostItem
-                key={post._id}
-                publication={post}
-                user={user._id}
-                deleteDispatch={deletePublication}
-              />
-            ))
-          }
-        </div>
-      </DashboardContainerItem>
+        <ContainerItem>
+          <div>
+            <Text strong>Mis publicaciones</Text>
+          </div>
+          <div>
+            {
+              selfPublications.map(post => (
+                <PostItem
+                  key={post._id}
+                  publication={post}
+                  user={user._id}
+                  deleteDispatch={deletePublication}
+                />
+              ))
+            }
+          </div>
+        </ContainerItem>
+      </ContainerItem>
     </div>
   );
 }
