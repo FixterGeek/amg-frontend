@@ -61,7 +61,7 @@ function PostItem({
         <div className="post-item-photo">
           <Link to={`/dashboard/perfil/publico/${user.slug || user.email}`}>
             <ImagePreview
-              url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2FAsset%20190.png?alt=media&token=1b14df1f-251f-4c41-a33e-db500a75fb79'}
+              url={basicData.photoURL || 'https://firebasestorage.googleapis.com/v0/b/amgweb.appspot.com/o/reusables%2Fprofile_9.png?alt=media&token=be192ce4-34cd-440d-a898-632d13acb44a'}
               containerStyle={{
                 maxWidth: '80px', maxHeight: '80px', borderStyle: 'none',
                 backgroundColor: '#f5f8f9'

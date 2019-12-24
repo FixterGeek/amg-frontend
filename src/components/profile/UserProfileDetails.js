@@ -62,22 +62,24 @@ function UserProfileDetails({
   return (
     <div className="dashboard-container  relative">
       { loading || userFetching ? <Spinner fullScrren /> : null }
-      { userData._id && (
-        <BasicInformationUser
-          user={userData}
-          nonOwn={user._id !== userData._id}
-          followDispatch={followUserAction}
-          showBio
-          follow={followingsId.includes(userData._id)}
-        />
-      )}
-      <ContainerItem style={{ position: 'relative' }}>
-        { loadingPosts && <Spinner /> }
-        {
-          posts.map(post => (
-            <PostItem publication={post} />
-          ))
-        }
+      <ContainerItem className="dash-item-center">
+        { userData._id && (
+          <BasicInformationUser
+            user={userData}
+            nonOwn={user._id !== userData._id}
+            followDispatch={followUserAction}
+            showBio
+            follow={followingsId.includes(userData._id)}
+          />
+        )}
+        <ContainerItem style={{ position: 'relative' }}>
+          { loadingPosts && <Spinner /> }
+          {
+            posts.map(post => (
+              <PostItem publication={post} />
+            ))
+          }
+        </ContainerItem>
       </ContainerItem>
     </div>
   );
