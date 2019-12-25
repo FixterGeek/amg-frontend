@@ -193,7 +193,7 @@ function AdminUsersList({
             <div>
                 <Table
                     locale={{ emptyText: "Sin usuarios" }}
-                    columns={columns} dataSource={filtered} />
+                    columns={columns} dataSource={filtered.reverse()} />
             </div>
 
         </section>

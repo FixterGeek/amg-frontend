@@ -133,7 +133,7 @@ function AdminUserStatesForm({
       }
       <Form.Item label="Estado de registro">
         <Radio.Group
-          onChange={({ target }) => writeWorkingOn('socioStatus', target.value)}
+          onChange={({ target }) => writeWorkingOn('userStatus', target.value)}
           value={workingOn.userStatus} >
           <Radio value="Registrado">Registrado</Radio>
           <Radio value="Pendiente">Pendiente</Radio>
