@@ -14,7 +14,6 @@ function CheckboxField({
   const [val, setVal] = useState([]);
 
   const handleChange = (valuesArray, nameOfGroup) => {
-    console.log(nameOfGroup);
     if (onChange) onChange(valuesArray, name || nameOfGroup);
     if (sameValue) {
       if (onlyOne) setVal(valuesArray[0]);
