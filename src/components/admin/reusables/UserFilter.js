@@ -25,11 +25,16 @@ function UserFilter({ usersArray, onResults }) {
     const filtered = usersToFilter.filter(
       user => {
         let incs = [false, false, false];
+        let ss = [false, false, false];
+
         if (value.includes(user.basicData.speciality)) incs[0] = true;
         if (value.includes(user.membershipStatus)) incs[1] = true;
         if (value.includes(user.userStatus)) incs[2] = true;
+        if (value.includes('activo') && user.socioStatus.activo.assigned) ss[0] = true;
+        if (value.includes('titular') && user.socioStatus.titular.assigned) ss[1] = true;
+        if (value.includes('emerito') && user.socioStatus.emerito.assigned) ss[2] = true;
 
-        return incs.includes(true);
+        return incs.includes(true) || ss.includes(true);
       });
 
     setFilteredUsers(filtered);
@@ -39,11 +44,12 @@ function UserFilter({ usersArray, onResults }) {
   return (
     <div className="admin-reusables-user-filter">
       <CheckboxField
-        onChange={value => handleFilter(value)}
+        onChange={(value, name) => handleFilter(value, name)}
         checksGroup={[
           { name: 'Especialidad', checks: ['Gastroenterología', 'Endoscopia', 'Motilidad', 'Medicina Interna', 'Cirujano', 'Otra'] },
           { name: 'Membresia', checks: ['Free', 'Residente', 'Socio'] },
           { name: 'Estado del usuario', checks: ['Registrado', 'Pendiente', 'Aprobado', 'No Aprobado'] },
+          { name: 'Tipo de socio', checks: [{ label: 'Activo', value: 'activo' }, { label: 'Titular', value: 'titular' }, { label: 'Emérito', value: 'emerito' }] },
         ]}
         value={currentFilter}
         groupClassName="admin-reusables-user-filter-group"
