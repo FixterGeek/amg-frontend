@@ -92,10 +92,6 @@ ModuleModal.propTypes = {
     onFinish: PropTypes.func,
 }
 
-let styles = {
-
-}
-
 
 ModuleModal.defaultProps = {
     preview: null,

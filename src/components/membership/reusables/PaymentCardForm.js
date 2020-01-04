@@ -59,7 +59,7 @@ function PaymentCardForm({ onChange, onSubmit, amount, concept, paid, phone }) {
   const [card, setCard] = useState({ ...initialMessages });
   const [loading, setLoading] = useState(false);
 
-  const allIsFill = card.name && card.number && card.expiration.month && card.expiration.year && card.ccv;
+  const allIsFill = card.name && card.number && card.expiration.month && card.expiration.year && card.ccv && card.phone;
 
   useEffect(() => {
     const script = document.createElement('script');

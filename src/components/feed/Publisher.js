@@ -15,7 +15,6 @@ import ContainerItem from '../reusables/ContainerItem';
 import FilePicker from '../reusables/FilePicker';
 import ImagePreview from '../reusables/ImagePreview';
 import MediaGallery from './reusables/MediaGallery';
-import FullMediaModal from '../reusables/FullMediaModal';
 import AttachFileItem from '../reusables/AttachFileItem';
 import ImagesLightbox from '../reusables/ImagesLightbox';
 
