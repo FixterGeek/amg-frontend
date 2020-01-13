@@ -72,7 +72,7 @@ function PaymentCourse({
         <Title>Pagar Curso</Title>
         <BuyDetail
           onAmount={handleBuy}
-          details={courses.filter(cf => cf._id).map(c => ({ concept: c.title, cost: c.cost[userCost]}))}
+          details={courses.filter(cf => cf._id).map(c => ({ concept: c.title, cost: c.cost ? c.cost[userCost] : 0}))}
         />
         <PaymentCardForm
           onSubmit={handleSubmit}
