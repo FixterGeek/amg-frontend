@@ -64,6 +64,16 @@ export const getSingleCourse = (courseId) => {
 }
 
 
+export const enrollCourse = (courseId) => {
+  const token = localStorage.authToken;
+  return axios.post(`${APIURL}/${courseId}/enroll`, null, {
+    headers: {
+      Authorization: token,
+    },
+  }).then(({ data }) => data);
+}
+
+
 /* For modules */
 export const postCourseModule = (moduleData) => {
   const token = localStorage.authToken;
