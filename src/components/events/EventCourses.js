@@ -7,6 +7,7 @@ import { Typography } from 'antd';
 
 import useSweet from '../../hooks/useSweetAlert';
 import { enrollCourse } from '../../services/coursesServices';
+import { getSelfUser } from '../../services/userServices';
 import { populateEventCoursesAction } from '../../store/ducks/coursesDuck';
 import ContainerItem from '../reusables/ContainerItem';
 import BoxItem from '../reusables/BoxItem';
@@ -16,7 +17,7 @@ import Spinner from '../reusables/Spinner';
 
 
 function EventCourses({
-  courses, noCourses, fetching, status,
+  courses, noCourses, userId,
   populateEventCoursesAction, match: { params = {}},
   userMembership,
 }) {
@@ -79,6 +80,7 @@ function EventCourses({
         <ContainerItem>
           {
             courses.map(course => {
+              if (course.students.map(s => s.user).includes(userId) && !preCheckeds._id) setPrechckeds(c => ({ ...c, ...course }))
               return course.courseType === 'Precongreso' ? (
                 <div className="events-event-courses-course" key={course._id}>
                   <BoxItem
@@ -108,6 +110,7 @@ function EventCourses({
         <ContainerItem>
           {
             courses.map(course => {
+              if (course.students.map(s => s.user).includes(userId) && !trasCheckeds._id) setTrasCheckeds(c => ({ ...c, ...course }))
               return course.courseType === 'Trascongreso' ? (
                 <div className="events-event-courses-course" key={course._id}>
                   <BoxItem
@@ -125,34 +128,37 @@ function EventCourses({
             })
           }
         </ContainerItem>
-        <div style={{ textAlign: 'center' }}>
-          {
-            preCheckeds.cost[userMembership] + trasCheckeds.cost[userMembership] === 0 && (preCheckeds._id || trasCheckeds._id) ?
-              <Button
-                width="100%"
-                onClick={() => enroll()}
-                disabled={!preCheckeds._id && !trasCheckeds._id}
-              >
-                Inscribirse
-              </Button>
-            : null
-          }
-          {
-            !(preCheckeds.cost[userMembership] + trasCheckeds.cost[userMembership] === 0 && (preCheckeds._id || trasCheckeds._id))
-            && (
-              <Link
-                to={{
-                  pathname: `/dashboard/pago/evento/${params.id}/cursos`,
-                  state: [preCheckeds, trasCheckeds],
-                }}
-              >
-                <Button width="100%" disabled={!preCheckeds._id && !trasCheckeds._id}>
-                  Siguiente
+        {
+          !courses.map(c => c.students.map(u => u.user)).join().split(',').includes(userId) &&
+          <div style={{ textAlign: 'center' }}>
+            {
+              preCheckeds.cost[userMembership] + trasCheckeds.cost[userMembership] === 0 && (preCheckeds._id || trasCheckeds._id) ?
+                <Button
+                  width="100%"
+                  onClick={() => enroll()}
+                  disabled={!preCheckeds._id && !trasCheckeds._id}
+                >
+                  Inscribirse
                 </Button>
-              </Link>
-            )
-          }          
-        </div>
+              : null
+            }
+            {
+              !(preCheckeds.cost[userMembership] + trasCheckeds.cost[userMembership] === 0 && (preCheckeds._id || trasCheckeds._id))
+              && (
+                <Link
+                  to={{
+                    pathname: `/dashboard/pago/evento/${params.id}/cursos`,
+                    state: [preCheckeds, trasCheckeds],
+                  }}
+                >
+                  <Button width="100%" disabled={!preCheckeds._id && !trasCheckeds._id}>
+                    Siguiente
+                  </Button>
+                </Link>
+              )
+            }
+          </div>
+        }
       </ContainerItem>
     </div>
   );
@@ -167,6 +173,7 @@ function mapSateToProps({ course, user }) {
     userMembership: user.membershipStatus === 'Free' ? 'freeCost'
       : user.membershipStatus === 'Residente' ? 'residentCost'
       : 'socioCost',
+    userId: user._id,
   };
 }
 
